@@ -1,0 +1,137 @@
+\documentclass[a4paper, english, 10pt, twoside]{memoir}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{color}
+
+\usepackage{float}
+
+\usepackage{graphicx}
+
+\usepackage{parskip}
+
+\usepackage[colorlinks=true, urlcolor=blue, citecolor=blue, linkcolor=black]{hyperref}
+
+% Bibliography
+
+\usepackage[backend=bibtex, backref=true, style=numeric, sorting=none, minnames=4, maxnames=4, minbibnames=4, maxbibnames=4, mincitenames=4, maxcitenames=4]{biblatex}
+\addbibresource{bibliography.bib}
+
+% Table of contents
+
+\setsecnumdepth{subsubsection}
+\maxtocdepth{subsubsection}
+
+% Fonts
+
+\usepackage{lmodern}
+\usepackage{calligra}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Background image
+
+\usepackage{eso-pic}
+
+% Caption
+
+\usepackage{caption}
+\captionsetup{font=footnotesize, labelfont=footnotesize}
+
+% Geometry
+
+\usepackage[top=1.3in, bottom=1.3in, left=1.in, right=1.in]{geometry}
+
+% Line height
+
+\linespread{1.1}
+
+% Header
+
+\let\footruleskip\undefined
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LO, RE]{\nouppercase{\leftmark}}
+\fancyhead[RO, LE]{\thepage}
+\fancyfoot{}
+
+% Arrays
+
+\renewcommand{\arraystretch}{1.5}
+
+% Sign operator
+
+\DeclareMathOperator{\sign}{sgn}
+
+% Commands
+
+\newcommand{\todo}[1]{\begin{center} \color{red} \textbf{TODO:} #1 \end{center}}
+
+\newcommand{\GeVc}{GeV c$ ^{-1} $}
+\newcommand{\um}{$ \mu $m}
+\newcommand{\us}{$ \mu $s}
+\newcommand{\pT}{$ p_T $}
+\newcommand{\pZ}{$ p_Z $}
+\newcommand{\axis}[1]{#1}
+
+%
+
+\title{Development of a Triple-GEM detector system for the upgrade of the forward region of the muon spectrometer of the CMS experiment at LHC}
+\author{Thomas LENZI}
+\date{}
+
+\begin{document}
+
+\frontmatter
+
+{ \pagestyle{empty}
+
+	\input{chapters/title}
+	\cleardoublepage
+
+	\input{chapters/dedication}
+	\cleardoublepage
+
+}
+
+\setcounter{page}{1}
+
+{ \pagestyle{plain}
+
+	\input{chapters/abstract}
+	\cleardoublepage
+
+	\tableofcontents
+	\cleardoublepage
+
+	\input{chapters/acknowledgment}
+	\cleardoublepage
+
+}
+
+\mainmatter
+
+	\input{chapters/introduction}
+	\cleardoublepage
+
+	\listoffigures
+	\cleardoublepage
+
+	\listoftables
+	\cleardoublepage
+
+	% \input{11_Annexes/abbreviations}
+	% \cleardoublepage
+
+	\printbibliography
+	\cleardoublepage
+
+\appendix
+
+	% \input{11_Annexes/unbias}
+	% \cleardoublepage
+
+\end{document}
