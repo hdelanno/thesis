@@ -1,4 +1,4 @@
-\documentclass[a4paper, english, 10pt, twoside]{memoir}
+\documentclass[a4paper, english, 11pt, twoside]{memoir}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -23,8 +23,10 @@
 
 % Table of contents
 
-\setsecnumdepth{subsubsection}
-\maxtocdepth{subsubsection}
+% \setsecnumdepth{subsubsection}
+% \maxtocdepth{subsubsection}
+\setsecnumdepth{subsection}
+\maxtocdepth{subsection}
 
 % Fonts
 
@@ -92,8 +94,8 @@
 	\input{chapters/title}
 	\cleardoublepage
 
-	\input{chapters/dedication}
-	\cleardoublepage
+	% \input{chapters/dedication}
+	% \cleardoublepage
 
 }
 
@@ -107,8 +109,8 @@
 	\tableofcontents
 	\cleardoublepage
 
-	\input{chapters/acknowledgment}
-	\cleardoublepage
+	% \input{chapters/acknowledgment}
+	% \cleardoublepage
 
 }
 
@@ -117,7 +119,25 @@
 	\input{chapters/introduction}
 	\cleardoublepage
 
-	\input{chapters/lhc_cms}
+	\input{chapters/lhc-cms}
+	\cleardoublepage
+
+	\input{chapters/upgrades}
+	\cleardoublepage
+
+	\input{chapters/gem-daq-testbeam}
+	\cleardoublepage
+
+	\input{chapters/gem-daq-slicetest}
+	\cleardoublepage
+
+	\input{chapters/gem-trigger}
+	\cleardoublepage
+
+	\input{chapters/tracker-reco}
+	\cleardoublepage
+
+	\input{chapters/web-daq}
 	\cleardoublepage
 
 	\listoffigures
