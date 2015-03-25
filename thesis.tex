@@ -11,6 +11,7 @@
 \usepackage{float}
 
 \usepackage{graphicx}
+\graphicspath{{images/}}
 
 \usepackage{parskip}
 
@@ -23,10 +24,8 @@
 
 % Table of contents
 
-% \setsecnumdepth{subsubsection}
-% \maxtocdepth{subsubsection}
-\setsecnumdepth{subsection}
-\maxtocdepth{subsection}
+\setsecnumdepth{subsubsection}
+\maxtocdepth{subsubsection}
 
 % Fonts
 
@@ -87,74 +86,74 @@
 
 \begin{document}
 
-\frontmatter
+% \frontmatter
 
-{ \pagestyle{empty}
+% { \pagestyle{empty}
 
-	\input{chapters/title}
-	\cleardoublepage
+% 	\input{chapters/title}
+% 	\cleardoublepage
 
-	% \input{chapters/dedication}
+% 	\input{chapters/dedication}
+% 	\cleardoublepage
+
+% }
+
+% \setcounter{page}{1}
+
+% { \pagestyle{plain}
+
+% 	\input{chapters/abstract}
+% 	\cleardoublepage
+
+% 	\tableofcontents
+% 	\cleardoublepage
+
+% 	\input{chapters/acknowledgment}
+% 	\cleardoublepage
+
+% }
+
+% \mainmatter
+
+	% \input{chapters/introduction}
 	% \cleardoublepage
-
-}
-
-\setcounter{page}{1}
-
-{ \pagestyle{plain}
-
-	\input{chapters/abstract}
-	\cleardoublepage
-
-	\tableofcontents
-	\cleardoublepage
-
-	% \input{chapters/acknowledgment}
-	% \cleardoublepage
-
-}
-
-\mainmatter
-
-	\input{chapters/introduction}
-	\cleardoublepage
 
 	\input{chapters/lhc-cms}
 	\cleardoublepage
 
-	\input{chapters/upgrades}
+	\input{chapters/gem}
 	\cleardoublepage
 
-	\input{chapters/gem-daq-testbeam}
-	\cleardoublepage
+% 	\input{chapters/test-beam}
+% 	\cleardoublepage
 
-	\input{chapters/gem-daq-slicetest}
-	\cleardoublepage
+% 	\input{chapters/slice-test}
+% 	\cleardoublepage
 
-	\input{chapters/gem-trigger}
-	\cleardoublepage
+% 	\input{chapters/phase2-daq}
+% 	\cleardoublepage
 
-	\input{chapters/tracker-reco}
-	\cleardoublepage
+% 	\input{chapters/trigger}
+% 	\cleardoublepage
 
-	\input{chapters/web-daq}
-	\cleardoublepage
+% 	\input{chapters/conclusion}
+% 	\cleardoublepage
 
-	\listoffigures
-	\cleardoublepage
+% 	\listoffigures
+% 	\cleardoublepage
 
-	\listoftables
-	\cleardoublepage
+% 	\listoftables
+% 	\cleardoublepage
 
-	% \input{11_Annexes/abbreviations}
-	% \cleardoublepage
+% 	\printbibliography
+% 	\cleardoublepage
 
-	\printbibliography
-	\cleardoublepage
+% \appendix
 
-\appendix
+% 	\input{chapters/tracker-reco}
+% 	\cleardoublepage
 
-	% \input{11_Annexes/unbias}
-	% \cleardoublepage
+% 	\input{chapters/web-daq}
+% 	\cleardoublepage
 
 \end{document}
