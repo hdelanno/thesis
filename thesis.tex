@@ -11,7 +11,9 @@
 \usepackage{float}
 
 \usepackage{graphicx}
-\graphicspath{{images/}}
+\graphicspath{{img/}}
+
+\usepackage{tikz}
 
 \usepackage{parskip}
 
@@ -90,10 +92,12 @@
 
 % { \pagestyle{empty}
 
-% 	\input{chapters/title}
+    \includegraphics[width=\textwidth]{plots/cEfficiency_HV_GEM0.pdf}
+
+	% \input{src/title}
 % 	\cleardoublepage
 
-% 	\input{chapters/dedication}
+% 	\input{src/dedication}
 % 	\cleardoublepage
 
 % }
@@ -102,41 +106,41 @@
 
 % { \pagestyle{plain}
 
-% 	\input{chapters/abstract}
+% 	\input{src/abstract}
 % 	\cleardoublepage
 
 % 	\tableofcontents
 % 	\cleardoublepage
 
-% 	\input{chapters/acknowledgment}
+% 	\input{src/acknowledgment}
 % 	\cleardoublepage
 
 % }
 
 % \mainmatter
 
-	% \input{chapters/introduction}
+	% \input{src/introduction}
 	% \cleardoublepage
 
-	\input{chapters/lhc-cms}
-	\cleardoublepage
+	% \input{src/lhc-cms}
+	% \cleardoublepage
 
-	\input{chapters/gem}
-	\cleardoublepage
+	% \input{src/gem}
+	% \cleardoublepage
 
-% 	\input{chapters/test-beam}
+% 	\input{src/test-beam}
 % 	\cleardoublepage
 
-% 	\input{chapters/slice-test}
+% 	\input{src/slice-test}
 % 	\cleardoublepage
 
-% 	\input{chapters/phase2-daq}
+% 	\input{src/phase2-daq}
 % 	\cleardoublepage
 
-% 	\input{chapters/trigger}
+% 	\input{src/trigger}
 % 	\cleardoublepage
 
-% 	\input{chapters/conclusion}
+% 	\input{src/conclusion}
 % 	\cleardoublepage
 
 % 	\listoffigures
@@ -150,10 +154,10 @@
 
 % \appendix
 
-% 	\input{chapters/tracker-reco}
+% 	\input{src/tracker-reco}
 % 	\cleardoublepage
 
-% 	\input{chapters/web-daq}
+% 	\input{src/web-daq}
 % 	\cleardoublepage
 
 \end{document}
