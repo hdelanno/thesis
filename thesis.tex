@@ -1,163 +1,119 @@
-\documentclass[a4paper, english, 11pt, twoside]{memoir}
+\documentclass[11pt, twoside, a4paper]{book}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Place packages here %%
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{amsmath, amssymb}
 
-\usepackage{color}
-
-\usepackage{float}
-
-\usepackage{graphicx}
-\graphicspath{{img/}}
-
-\usepackage{tikz}
-
-\usepackage{parskip}
-
-\usepackage[colorlinks=true, urlcolor=blue, citecolor=blue, linkcolor=black]{hyperref}
-
-% Bibliography
-
-\usepackage[backend=bibtex, backref=true, style=numeric, sorting=none, minnames=4, maxnames=4, minbibnames=4, maxbibnames=4, mincitenames=4, maxcitenames=4]{biblatex}
-\addbibresource{bibliography.bib}
-
-% Table of contents
-
-\setsecnumdepth{subsubsection}
-\maxtocdepth{subsubsection}
-
-% Fonts
-
-\usepackage{lmodern}
-\usepackage{calligra}
-\renewcommand{\familydefault}{\sfdefault}
-
-% Background image
-
-\usepackage{eso-pic}
-
-% Caption
-
-\usepackage{caption}
-\captionsetup{font=footnotesize, labelfont=footnotesize}
-
-% Geometry
-
-\usepackage[top=1.3in, bottom=1.3in, left=1.in, right=1.in]{geometry}
-
-% Line height
-
-\linespread{1.1}
-
-% Header
-
-\let\footruleskip\undefined
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead[LO, RE]{\nouppercase{\leftmark}}
-\fancyhead[RO, LE]{\thepage}
-\fancyfoot{}
-
-% Arrays
-
-\renewcommand{\arraystretch}{1.5}
-
-% Sign operator
-
-\DeclareMathOperator{\sign}{sgn}
-
-% Commands
-
-\newcommand{\todo}[1]{\begin{center} \color{red} \textbf{TODO:} #1 \end{center}}
-
-\newcommand{\GeVc}{GeV c$ ^{-1} $}
-\newcommand{\um}{$ \mu $m}
-\newcommand{\us}{$ \mu $s}
-\newcommand{\pT}{$ p_T $}
-\newcommand{\pZ}{$ p_Z $}
-\newcommand{\axis}[1]{#1}
-
-%
-
-\title{Development of a Triple-GEM detector system for the upgrade of the forward region of the muon spectrometer of the CMS experiment at LHC}
-\author{Thomas LENZI}
-\date{}
+%%%%%%%%%%%
+%% Begin %%
+%%%%%%%%%%%
 
 \begin{document}
 
-% \frontmatter
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% Front matter of the thesis %%
+  %% Title pages, abstract, ... %%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% { \pagestyle{empty}
+  \frontmatter
 
-    \includegraphics[width=\textwidth]{plots/cEfficiency_HV_GEM0.pdf}
+  % Title
+  \input{chapters/0-0-title}
 
-	% \input{src/title}
-% 	\cleardoublepage
+  % Abstract
+  \input{chapters/0-1-abstract}
 
-% 	\input{src/dedication}
-% 	\cleardoublepage
+  % Acknowledgment
+  \input{chapters/0-2-ackowledgments}
 
-% }
+  % Table of contents
+  \tableofcontents
+  \cleardoublepage
 
-% \setcounter{page}{1}
+  % Introduction
+  \input{chapters/0-3-introduction}
 
-% { \pagestyle{plain}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% Main matter of the thesis %%
+  %% Content chapters          %%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 	\input{src/abstract}
-% 	\cleardoublepage
+  \mainmatter
 
-% 	\tableofcontents
-% 	\cleardoublepage
+  \part{An Introduction to Particle Physics}
 
-% 	\input{src/acknowledgment}
-% 	\cleardoublepage
+    \input{chapters/I-0-introduction.tex}
+    \cleardoublepage
 
-% }
+    \input{chapters/I-1-standard-model.tex}
+    \cleardoublepage
 
-% \mainmatter
+    \input{chapters/I-2-lhc.tex}
+    \cleardoublepage
 
-	% \input{src/introduction}
-	% \cleardoublepage
+    \input{chapters/I-3-cms.tex}
+    \cleardoublepage
 
-	% \input{src/lhc-cms}
-	% \cleardoublepage
+    \input{chapters/I-4-upgrades.tex}
+    \cleardoublepage
 
-	% \input{src/gem}
-	% \cleardoublepage
+  \part{The CMS GEM Project}
 
-% 	\input{src/test-beam}
-% 	\cleardoublepage
+    \input{chapters/II-0-introduction.tex}
+    \cleardoublepage
 
-% 	\input{src/slice-test}
-% 	\cleardoublepage
+    \input{chapters/II-1-gem.tex}
+    \cleardoublepage
 
-% 	\input{src/phase2-daq}
-% 	\cleardoublepage
+    \input{chapters/II-2-daq.tex}
+    \cleardoublepage
 
-% 	\input{src/trigger}
-% 	\cleardoublepage
+    \input{chapters/II-3-test-beam.tex}
+    \cleardoublepage
 
-% 	\input{src/conclusion}
-% 	\cleardoublepage
+    \input{chapters/II-4-slice-test.tex}
+    \cleardoublepage
 
-% 	\listoffigures
-% 	\cleardoublepage
+    \input{chapters/II-5-qualification.tex}
+    \cleardoublepage
 
-% 	\listoftables
-% 	\cleardoublepage
+    \input{chapters/II-6-conclusion.tex}
+    \cleardoublepage
 
-% 	\printbibliography
-% 	\cleardoublepage
+  \part{Data Acquisition System Design}
 
-% \appendix
+    \input{chapters/III-0-introduction.tex}
+    \cleardoublepage
 
-% 	\input{src/tracker-reco}
-% 	\cleardoublepage
+    \input{chapters/III-1-arch.tex}
+    \cleardoublepage
 
-% 	\input{src/web-daq}
-% 	\cleardoublepage
+    \input{chapters/III-2-web-daq.tex}
+    \cleardoublepage
+
+    \input{chapters/III-3-conclusion.tex}
+    \cleardoublepage
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% Back matter of the thesis %%
+  %% Conclusion, figures, ...  %%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \backmatter
+
+  % Conclusion
+  \input{chapters/IV-0-conclusion.tex}
+  \cleardoublepage
+
+  % List of figures
+  \addcontentsline{toc}{chapter}{\listfigurename}
+  \listoffigures
+  \cleardoublepage
+
+  % List of tables
+  \addcontentsline{toc}{chapter}{\listtablename}
+  \listoftables
+  \cleardoublepage
 
 \end{document}
