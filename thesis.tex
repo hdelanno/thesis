@@ -4,6 +4,18 @@
 %% Place packages here %%
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{amsmath, amssymb}
+
+\usepackage{graphicx}
+
+\usepackage{lmodern}
+\usepackage{calligra}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[colorlinks=true, urlcolor=blue, citecolor=blue, linkcolor=black]{hyperref}
+
+\usepackage[backend=bibtex, backref=true, style=numeric, sorting=none, minnames=4, maxnames=4, minbibnames=4, maxbibnames=4, mincitenames=4, maxcitenames=4]{biblatex}
+\addbibresource{bibliography.bib}
 
 %%%%%%%%%%%
 %% Begin %%
@@ -16,104 +28,108 @@
   %% Title pages, abstract, ... %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \frontmatter
+  % \frontmatter
 
   % Title
-  \input{chapters/0-0-title}
+  % \input{chapters/0-0-title}
 
   % Abstract
-  \input{chapters/0-1-abstract}
+  % \input{chapters/0-1-abstract}
 
   % Acknowledgment
-  \input{chapters/0-2-ackowledgments}
+  % \input{chapters/0-2-ackowledgments}
 
   % Table of contents
-  \tableofcontents
-  \cleardoublepage
+  % \tableofcontents
+  % \cleardoublepage
 
   % Introduction
-  \input{chapters/0-3-introduction}
+  % \input{chapters/0-3-introduction}
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %% Main matter of the thesis %%
   %% Content chapters          %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \mainmatter
+  % \mainmatter
 
-  \part{An Introduction to Particle Physics}
+  % \part{An Introduction to Particle Physics}
 
     \input{chapters/I-0-introduction.tex}
     \cleardoublepage
 
-    \input{chapters/I-1-standard-model.tex}
-    \cleardoublepage
+    % \input{chapters/I-1-standard-model.tex}
+    % \cleardoublepage
 
-    \input{chapters/I-2-lhc.tex}
-    \cleardoublepage
+    % \input{chapters/I-2-lhc.tex}
+    % \cleardoublepage
 
-    \input{chapters/I-3-cms.tex}
-    \cleardoublepage
+    % \input{chapters/I-3-cms.tex}
+    % \cleardoublepage
 
-    \input{chapters/I-4-upgrades.tex}
-    \cleardoublepage
+    % \input{chapters/I-4-upgrades.tex}
+    % \cleardoublepage
 
-  \part{The CMS GEM Project}
+  % \part{The CMS GEM Project}
 
-    \input{chapters/II-0-introduction.tex}
-    \cleardoublepage
+    % \input{chapters/II-0-introduction.tex}
+    % \cleardoublepage
 
-    \input{chapters/II-1-gem.tex}
-    \cleardoublepage
+    % \input{chapters/II-1-gem.tex}
+    % \cleardoublepage
 
-    \input{chapters/II-2-daq.tex}
-    \cleardoublepage
+    % \input{chapters/II-2-daq.tex}
+    % \cleardoublepage
 
-    \input{chapters/II-3-test-beam.tex}
-    \cleardoublepage
+    % \input{chapters/II-3-test-beam.tex}
+    % \cleardoublepage
 
-    \input{chapters/II-4-slice-test.tex}
-    \cleardoublepage
+    % \input{chapters/II-4-slice-test.tex}
+    % \cleardoublepage
 
-    \input{chapters/II-5-qualification.tex}
-    \cleardoublepage
+    % \input{chapters/II-5-qualification.tex}
+    % \cleardoublepage
 
-    \input{chapters/II-6-conclusion.tex}
-    \cleardoublepage
+    % \input{chapters/II-6-conclusion.tex}
+    % \cleardoublepage
 
-  \part{Data Acquisition System Design}
+  % \part{Data Acquisition System Design}
 
-    \input{chapters/III-0-introduction.tex}
-    \cleardoublepage
+    % \input{chapters/III-0-introduction.tex}
+    % \cleardoublepage
 
-    \input{chapters/III-1-arch.tex}
-    \cleardoublepage
+    % \input{chapters/III-1-arch.tex}
+    % \cleardoublepage
 
-    \input{chapters/III-2-web-daq.tex}
-    \cleardoublepage
+    % \input{chapters/III-2-web-daq.tex}
+    % \cleardoublepage
 
-    \input{chapters/III-3-conclusion.tex}
-    \cleardoublepage
+    % \input{chapters/III-3-conclusion.tex}
+    % \cleardoublepage
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %% Back matter of the thesis %%
   %% Conclusion, figures, ...  %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \backmatter
+  % \backmatter
 
   % Conclusion
-  \input{chapters/IV-0-conclusion.tex}
-  \cleardoublepage
+  % \input{chapters/IV-0-conclusion.tex}
+  % \cleardoublepage
 
   % List of figures
-  \addcontentsline{toc}{chapter}{\listfigurename}
-  \listoffigures
-  \cleardoublepage
+  % \addcontentsline{toc}{chapter}{\listfigurename}
+  % \listoffigures
+  % \cleardoublepage
 
   % List of tables
-  \addcontentsline{toc}{chapter}{\listtablename}
-  \listoftables
-  \cleardoublepage
+  % \addcontentsline{toc}{chapter}{\listtablename}
+  % \listoftables
+  % \cleardoublepage
+
+  % Bibliography
+  % \printbibliography
+  % \cleardoublepage
 
 \end{document}
