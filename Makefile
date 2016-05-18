@@ -1,16 +1,22 @@
-all: _express clean
+all: fast clean
 
-bib: _complete clean
+full: bib clean
 
-_express:
+fast:
 	pdflatex thesis
 	pdflatex thesis
 
-_complete:
+bib:
 	pdflatex thesis
 	bibtex thesis
 	pdflatex thesis
 	pdflatex thesis
+
+save:
+	git add .
+	git commit -m "`date -u`"
+	git push origin
+	git push iihe-daq
 
 plots:
 	root -q -b -l tools/import_plots.cpp
