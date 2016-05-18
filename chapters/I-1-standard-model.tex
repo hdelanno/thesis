@@ -24,7 +24,7 @@
     \end{equation}
     the partial derivate $ \partial_\mu $ must be rewriten as a covariant derivate
     \begin{equation}
-      D_\mu = \partial_\mu - \frac{i}{2} g W^k_\mu T^k ,
+      D_\mu = \partial_\mu - \frac{i g}{2} W^k_\mu T^k ,
     \end{equation}
     where $ W^k_\mu $ are the emerging gauge fields associated to $ G $. The gauge invaratiant Lagrangian thus becomes
     \begin{equation}
@@ -44,7 +44,7 @@
     \end{equation}
     where $ g_W $, $ \Lambda^k(x) $, and $ T^k $ are respectivly the gauge coupling, local rotation parameters, and represenation of the $ SU(2)_L $ weak isospin algebra and $ g_W' $, $ \alpha(x) $, and $ Y $ are their $ U(1)_Y $ hypercharge algebra counterparts. The corresponding covariant derivate is
     \begin{equation}
-      D_\mu = \partial_\mu - i g_W W^k_\mu T^k - i g_W' B_\mu Y ,
+      D_\mu = \partial_\mu - \frac{i g_W}{2} W^k_\mu T^k - \frac{i g_W'}{2} B_\mu Y ,
     \end{equation}
     where $ W^k_\mu $ and $ B_\mu$ are the emerging gauge fields associated to $ SU(2)_L $ and $ U(1)_Y $. \\
 
@@ -72,13 +72,52 @@
 
   \section{Electroweak Symetry Breaking}
 
-    The physical fields of the photon $ A_\mu $ and the weak interaction bosons $ W^\pm_\mu $ and $ Z_\mu $ are linear combination of the $ B_\mu $ and $ W^i_\mu $ gauge fields. This is a consequence of the higgs mechanism that gives masses to the $ W^\pm $ and $ Z $ bosons but leaves the photon massless, thus breaking the symetry of EWK. \\
+    The physical fields of the photon $ A_\mu $ and the weak interaction bosons $ W^\pm_\mu $ and $ Z_\mu $ are linear combination of the $ B_\mu $ and $ W^i_\mu $ gauge fields. This is a consequence of the higgs mechanism that gives masses to the $ W^\pm $ and $ Z $ bosons but leaves the photon massless, thus breaking the gauge symetry of EWK under $ SU(2)_L \otimes U(1)_Y $ into a $ U(1)_{em} $ symetry group. \\
 
     To account for the masses of particles, R. Brout, F. Englert, and P. W. Higgs postulated the existance of a scalar doublet in $ SU(2)_L $ with hypercharge $ Y = \frac{1}{2} $
     \begin{equation}
-      $ \psi = \left( \begin{matrix} \phi^+ \\ \phi^0 \end{matrix} \right) $ 
+      \phi = \left( \begin{matrix} \phi^+ \\ \phi^0 \end{matrix} \right)
+    \end{equation}
+    for which the Lagrangian can be written as
+    \begin{equation}
+      \mathcal{L} = \left( D_\mu \phi \right)^\dagger \left( D^\mu \phi \right) - V(\phi^\dagger \phi)
+    \end{equation}
+    with $ D_\mu $ the covariant derivate of the $ SU(2)_L \otimes U(1)_Y $ gauge groupe, and $ V $ the potential of the so called Higgs field. The chosen form of $ V $,
+    \begin{equation}
+      V(\phi^\dagger \phi) = \lambda \left( \phi^\dagger \phi \right)^2 - \mu^2 \phi^\dagger \phi ,
+    \end{equation}
+    is where the symetry breaking occurs as the ground state of the system is reached when
+    \begin{equation}
+      \left| \phi \right| = \sqrt{\frac{\mu^2}{2 \lambda}} = \frac{v}{\sqrt{2}} .
+    \end{equation}
+    The spountaneous breakdown of the symetry accounts for the creation of three Nambu-Goldstone bosons which give their masses to the three weak interaction bosons, and one new field $ H $, the Higgs field. It can be shown that the masses of these particles are directly proportionnal to $ v $:
+    \begin{align}
+      m_H & = \sqrt{2 \lambda} v \\
+      m_Z & = \frac{1}{2} \sqrt{g_W^2 + g_W^2\text{'}} \\
+      m_W & = \frac{1}{2} v g .
+    \end{align}
+    Giving masses to fermionic fields occurs through coupling to the $ \phi $ doublet which respects the gauge invariance of $ SU(2)_L \otimes U(1)_Y $
+    \begin{equation}
+      \mathcal{L} = - \lambda \bar{\psi}_L \phi \psi_R + h.c.
+    \end{equation} \\
+
+    Requiring that the photon field $ A_\mu $ be massless, a linear combination of the $ B_\mu $ and $ W^i_\mu $ must be done
+    \begin{align}
+      A_\mu & = W^3_\mu \sin \theta_W + B_\mu \cos \theta_W , \\
+      Z_\mu & = W^3_\mu \cos \theta_W - B_\mu \sin \theta_W , \\
+      W^\pm_\mu & = \frac{1}{\sqrt{2}} \left( W^1_\mu \mp i W^2_\mu \right) \text{and}
+    \end{align}
+    where
+    \begin{equation}
+      \tan \theta_W = \frac{g_W'}{g_W}
+    \end{equation}
+    is the weak mixing angle. From this transformation, it is easy to compute the compling strengths of particles to the photon field and more particularly the coupling of the positron to the photon
+    \begin{equation}
+      e = g_w \sin \theta_W .
     \end{equation}
 
   \section{Quantum Chromodynamics}
+
+    QCD uses the $ SU(3)_C $ symetry group to describe the behaviour of quarks and gluons, and introduce the notion of colour charge. 
 
   \section{Beyond the Standard Model}
