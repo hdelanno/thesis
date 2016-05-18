@@ -6,49 +6,75 @@
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width = 0.8 \textwidth]{img/I-1/sm-particles.png}
-		\caption{Overview of the elementary particles as described by the standard model. Everyday matter is composed of the first generation of quarks and leptons to which two generations of heavier declinaisions are added. Gauge bosons or force particles are the carriers of the interactions between the other particles. The Higgs boson is the manifestation of the mechanism that gives mass to particles [CERN].}
+		\caption{Overview of the elementary particles as described by the standard model. Everyday matter is composed of the first generation of quarks and leptons to which two generations of heavier declinaisions are added. Gauge bosons or force particles are the carriers of the interactions between other particles. The Higgs boson is the manifestation of the mechanism that gives mass to particles [CERN].}
 		\label{fig:I-1-sm-particles}
 	\end{figure}
 
-  Besides classifying particles, the standard model also provide as strong mathematical model built on top of quantum field theory and gauge invariance. The gauge group of the theory is $ SU(3)_C \otimes SU(2)_L \otimes U(1)_Y $, where $ SU(3)_C $ and $ SU(2)_L \otimes U(1)_Y $ are respectivly the symetry groups of the QCD and EWK sectors. Quarks and leptons are represented as fermionic fields within the Lagrangian of the model while bosons arise from the invariance of the Lagrangian under local gauge transformations.
+  Besides classifying particles, the standard model also provide as strong mathematical model built on top of quantum field theory and gauge invariance. The gauge group of the theory is $ SU(3)_C \otimes SU(2)_L \otimes U(1)_Y $, where $ SU(3)_C $ and $ SU(2)_L \otimes U(1)_Y $ are respectivly the symetry groups of the QCD and EWK sectors. Quarks and leptons are represented as fermionic fields within the Lagrangian of the model while bosons arise from the invariance of the Lagrangian under local gauge transformations. \\
 
-  \section{Electroweak Theory}
+  \section{Gauge Invariance and Gauge Bosons}
 
-    A local transformation of a fermionic field $ \psi $ under the gauge group of the EWK sector of the standard model $ SU(2)_L \otimes U(1)_Y $ can be written as
+    A local transformation of a fermionic field $ \psi $ under a gauge group $ G $  can be written as
     \begin{equation}
-      \psi \rightarrow \psi' = \exp\left( \frac{i}{2} g_W \Lambda^k(x) T^k \right) \exp\left( \frac{i}{2} g_W' \alpha(x) Y \right) \psi ,
+      \psi \rightarrow \psi' = \exp\left(- \frac{i}{2} g \alpha^k(x) T^k \right) \psi ,
     \end{equation}
-    where $ g_W $, $ \Lambda^k(x) $, and $ T^k $ are respectivly the gauge coupling, local rotation parameters, and represenation of the $ SU(2)_L $ weak isospin algebra and $ g_W' $, $ \alpha(x) $, and $ Y $ are their $ U(1)_Y $ hypercharge algebra counterparts. To preserve the invariance of the Lagrangian of a free massless field $ \psi $,
+    where $ g $ is the gauge coupling constante, $ \alpha^k(x) $ are the local rotation paramters, and $ T^k $ are the generators of the representation of $ G $. To preserve the invariance of the Lagrangian of a free massless field $ \psi $,
     \begin{equation}
       \mathcal{L} = i \bar{\psi} \gamma^\mu \partial_\mu \psi ,
     \end{equation}
     the partial derivate $ \partial_\mu $ must be rewriten as a covariant derivate
     \begin{equation}
-      D_\mu = \partial_\mu + i g_W W^k_\mu T^k + i g_W' B_\mu Y ,
+      D_\mu = \partial_\mu - \frac{i}{2} g W^k_\mu T^k ,
     \end{equation}
-    where $ W^k_\mu $ and $ B_\mu$ are the emerging gauge fields associated to $ SU(2)_L $ and $ U(1)_Y $. The gauge invaratiant Lagrangian thus becomes
+    where $ W^k_\mu $ are the emerging gauge fields associated to $ G $. The gauge invaratiant Lagrangian thus becomes
     \begin{equation}
-      \mathcal{L} = i \bar{\psi} \gamma^\mu D_\mu \psi - \frac{1}{4} W^i_{\mu \nu} W^{i \mu \nu} - \frac{1}{4} B_{\mu \nu} B^{\mu \nu} ,
+      \mathcal{L} = i \bar{\psi} \gamma^\mu D_\mu \psi - \frac{1}{4} W^i_{\mu \nu} W^{i \mu \nu} ,
     \end{equation}
-    where $ W^i_{\mu \nu} $ and $ B_{\mu \nu} $ are the field strength tensors of the $ W^i_\mu $ and $ B_\mu $ gauge fields given by
-    \begin{align}
-      W^i_{\mu \nu} & = \partial_\mu W^i_\nu - \partial_\nu W^i_\mu - g_W \epsilon^{ijk} W^j_\nu W^k_\mu \ \text{and} \\
-      B_{\mu \nu} & = \partial_\mu B_\nu - \partial_\nu B_\mu ,
-    \end{align}
-    where $ \epsilon^{ijk} $ is the totaly antisymetrical tensor. Interaction terms between the fermionic field $ \psi $ and $ W^i_\mu $ and $ B_\mu $ as well as self-interacting gauge fields terms have emerged from the necessity of the invariance of the theory under local transformations. \\
+    where $ W^i_{\mu \nu} $ are the field strength tensors of the $ W^i_\mu $ gauge fields given by
+    \begin{equation}
+      W^i_{\mu \nu} = \partial_\mu W^i_\nu - \partial_\nu W^i_\mu - g \epsilon^{ijk} W^j_\nu W^k_\mu ,
+    \end{equation}
+    with $ \epsilon^{ijk} $ the totaly antisymetrical tensor. Interaction terms between the fermionic field $ \psi $ and the gauge fields $ W^i_\mu $ as well as self-interacting gauge field terms have emerged from the necessity of the invariance of the theory under local transformations. A new massless gauge boson is associated to each generator of the adjoint representation of the symetry group $ G $.
 
-    The physical fields of the photon $ A_\mu $ and the weak interaction bosons $ W^\pm_\mu $ and $ Z_\mu $ are linear combination of the $ B_\mu $ and $ W^i_\mu $ gauge fields. This is a consequence of the higgs mechanism that will be described in Section \ref{sec:I-1-higgs-mechanism}
+  \section{Electroweak Theory}
+
+    The gauge group of the EWK sector of the standard model is $ SU(2)_L \otimes U(1)_Y $ for which a transformation of a field $ \psi $ can be written as
+    \begin{equation}
+      \psi \rightarrow \psi' = \exp\left(- \frac{i}{2} g_W \Lambda^k(x) T^k \right) \exp\left(- \frac{i}{2} g_W' \alpha(x) Y \right) \psi ,
+    \end{equation}
+    where $ g_W $, $ \Lambda^k(x) $, and $ T^k $ are respectivly the gauge coupling, local rotation parameters, and represenation of the $ SU(2)_L $ weak isospin algebra and $ g_W' $, $ \alpha(x) $, and $ Y $ are their $ U(1)_Y $ hypercharge algebra counterparts. The corresponding covariant derivate is
+    \begin{equation}
+      D_\mu = \partial_\mu - i g_W W^k_\mu T^k - i g_W' B_\mu Y ,
+    \end{equation}
+    where $ W^k_\mu $ and $ B_\mu$ are the emerging gauge fields associated to $ SU(2)_L $ and $ U(1)_Y $. \\
 
     Each fermion can couple differently to the gauge fields according to the representation of the $ SU(2)_L $ group they are part of. To determine the coupling constants it is important to separate each fermionic field into its left-handed and right-handed components such that
     \begin{equation}
-      \psi = \psi_L + \psi_R \equiv \gamma_L \psi + \gamma_R \psi ,
+      \psi = \psi_L + \psi_R \equiv \gamma^L \psi + \gamma^R \psi ,
     \end{equation}
     with
     \begin{align}
-      \gamma_{L/R} & = \frac{1}{2} \left( 1 \mp \gamma_5 \right) \ \text{and} \\
-      \gamma_5 & = \frac{1}{24} \epsilon^{\mu \nu \rho \sigma} \gamma_\mu \gamma_\nu \gamma_\rho \gamma_\sigma ,
+      \gamma^{L/R} & = \frac{1}{2} \left( 1 \mp \gamma^5 \right) \ \text{and} \\
+      \gamma^5 & = i \gamma^0 \gamma^1 \gamma^2 \gamma^3 ,
     \end{align}
-    where $ \gamma_\mu $ are the Dirac matrices. It has been showed experimentatly that only left-handed particles interact with the $ SU(2)_L $ group, meaning that right-handed particles are part of the singlet representation of the group. Left-handed particles are part of the doublet representation in which they are grouped.
+    where $ \gamma^\mu $ are the Dirac matrices. It has been showed experimentatly that only left-handed particles interact with the $ SU(2)_L $ group, meaning that right-handed particles are part of the trivial representation of the group while left-handed particles are part of the fundamental representation which generators are given by Pauli's matrices. Particles are thus grouped as follows:
+    \begin{itemize}
+      \item leptons: $ e_R $, $ \mu_R $, $ \tau_R $, $ \left( \begin{matrix} \nu_e \\ e \end{matrix} \right)_L $, $ \left( \begin{matrix} \nu_\mu \\ \mu \end{matrix} \right)_L $, and $ \left( \begin{matrix} \nu_\tau \\ \tau \end{matrix} \right)_L $ ;
+      \item quarks: $ u_R $, $ d_R $, $ c_R $, $ s_R $, $ t_R $, $ b_R $, $ \left( \begin{matrix} u \\ d \end{matrix} \right)_L $, $ \left( \begin{matrix} c \\ s \end{matrix} \right)_L $, and $ \left( \begin{matrix} t \\ b \end{matrix} \right)_L $.
+    \end{itemize}
+    Note that the right-handed neutrinos are not present as they do not interact with particles and are thus sterile. \\
+
+    To each particle, a weak isospin $ T_3 $ can be associated, corresponding to the Casimir operator of $ SU(2)_L $. Right-handed particles have $ T_3 = 0 $, positive quarks and neutrinos have $ T_3 = \frac{1}{2} $, and negative quarks and charged leptons have $ T_3 = - \frac{1}{2} $. The same can be done for the $ U(1)_Y $ group for which an hypercharge $ Y $ is defined. It will later be showed that
+    \begin{equation}
+      Q = T_3 + Y ,
+    \end{equation}
+    where $ Q $ is the electric charge of the particle.
+
+  \section{Electroweak Symetry Breaking}
+
+    The physical fields of the photon $ A_\mu $ and the weak interaction bosons $ W^\pm_\mu $ and $ Z_\mu $ are linear combination of the $ B_\mu $ and $ W^i_\mu $ gauge fields. This is a consequence of the higgs mechanism that gives masses to the $ W^\pm $ and $ Z $ bosons but leaves the photon massless, thus breaking the symetry of EWK. \\
+
+
 
 
   \section{Quantum Chromodynamics}
