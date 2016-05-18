@@ -14,7 +14,7 @@ bib:
 
 save:
 	git add .
-	git commit -m "`date -u`"
+	git commit -m "Quick save at `date -u`"
 	git push origin
 	git push iihe-daq
 
