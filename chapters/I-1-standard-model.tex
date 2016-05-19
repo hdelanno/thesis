@@ -1,20 +1,20 @@
 \chapter{The Standard Model}
 \label{chap:I-1-standard-model}
 
-  The standard model provides a classification and description of the subatomic particles that compose our universe and their interactions. It describes both the particles of matter called fermions, which are subdivied among quarks and leptons, and the force carriers named bosons. Figure \ref{fig:I-1-sm-particles} gives a schematic view of the particle content of the standard model and the ways they are classified. Quarks and leptons are further divided into three generations, with identical properties but increasing mass, from which the first constitutes the everyday matter while the two others quickly decay towards lower generations. The interaction of fermions with each other is carried out through the exchange of bosons. Gluons are the carriers of the strong force and interract solely with themselves and quarks as described by QCD. The photon, responsable for electromagnetism couples to all charged particles while the $ W^\pm $ and $ Z $ bosons couple to all particles except gluons as described by EWK. Finally, the Higgs boson as previously stated is the manifestation of the Higgs mechanism at the origin of mass. \\
+  The standard model provides a classification and description of the subatomic particles that compose our universe and their interactions. It describes both the particles of matter called fermions, which are subdivied among quarks and leptons, and the force carriers named bosons. Figure \ref{fig:I-1-sm-particles} illustrates the particle content of the standard model and the ways they are classified. Quarks and leptons, and their antiparticles antiquarks and antileptons, are further divided into three generations, with identical properties but increasing mass, from which the first constitutes the everyday matter while the two others, unstable, quickly decay towards lower generations. The interaction of fermions with each other is carried out through the exchange of bosons. Gluons are the carriers of the strong force and interract solely with themselves and quarks as described by QCD. The photon, responsable for electromagnetism couples to all charged particles while the $ W^\pm $ and $ Z $ bosons couple to all particles except gluons as described by EWK. Finally, the Higgs boson as previously stated is the manifestation of the Higgs mechanism at the origin of mass. \\
 
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width = 0.8 \textwidth]{img/I-1/sm-particles.png}
-		\caption{Overview of the elementary particles as described by the standard model. Everyday matter is composed of the first generation of quarks and leptons to which two generations of heavier declinaisions are added. Gauge bosons or force particles are the carriers of the interactions between other particles. The Higgs boson is the manifestation of the mechanism that gives mass to particles [CERN].}
+		\includegraphics[width = \textwidth]{img/I-1/sm-particles.png}
+		\caption{Overview of the elementary particles as described by the standard model. Everyday matter is composed of the first generation of quarks and leptons to which two heavier generations are added. Gauge bosons or force particles are the carriers of the interactions between other particles. The Higgs boson is the manifestation of the mechanism that gives mass to particles [CERN].}
 		\label{fig:I-1-sm-particles}
 	\end{figure}
 
-  Besides classifying particles, the standard model also provide as strong mathematical model built on top of quantum field theory and gauge invariance. The gauge group of the theory is $ SU(3)_C \otimes SU(2)_L \otimes U(1)_Y $, where $ SU(3)_C $ and $ SU(2)_L \otimes U(1)_Y $ are respectivly the symetry groups of the QCD and EWK sectors. Quarks and leptons are represented as fermionic fields within the Lagrangian of the model while bosons arise from the invariance of the Lagrangian under local gauge transformations. \\
+  Besides classifying particles, the standard model also provides a strong mathematical model built on top of quantum field theory and gauge invariance that yields an accurate representation of the fundamental processes of the universe. The gauge group of the theory is $ SU(3)_C \otimes SU(2)_L \otimes U(1)_Y $, where $ SU(3)_C $ and $ SU(2)_L \otimes U(1)_Y $ are respectivly the symetry groups of the QCD and EWK sectors. In this paradigm, quarks and leptons are represented as fermionic fields within the Lagrangian of the model while bosons arise from the invariance of the Lagrangian under local gauge transformations. \\
 
   \section{Gauge Invariance and Gauge Bosons}
 
-    A local transformation of a fermionic field $ \psi $ under a gauge group $ G $  can be written as
+    In the standard model, bosons are mathematical and physical objects that arise from the requierment of gauge invariance of the Lagrangian. This constraint translates the fact that the physics of the system does not change under an arbitrary phase change of the coordinate system. A local transformation of a fermionic field $ \psi $ under a gauge group $ G $  can be written as
     \begin{equation}
       \psi \rightarrow \psi' = \exp\left(- \frac{i}{2} g \alpha^k(x) T^k \right) \psi ,
     \end{equation}
@@ -22,7 +22,7 @@
     \begin{equation}
       \mathcal{L} = i \bar{\psi} \gamma^\mu \partial_\mu \psi ,
     \end{equation}
-    the partial derivate $ \partial_\mu $ must be rewriten as a covariant derivate
+    the partial derivate $ \partial_\mu $ must be rewriten as a covariant derivate to absorb the change in coordinates
     \begin{equation}
       D_\mu = \partial_\mu - \frac{i g}{2} W^k_\mu T^k ,
     \end{equation}
@@ -34,7 +34,7 @@
     \begin{equation}
       W^i_{\mu \nu} = \partial_\mu W^i_\nu - \partial_\nu W^i_\mu - g \epsilon^{ijk} W^j_\nu W^k_\mu ,
     \end{equation}
-    with $ \epsilon^{ijk} $ the totaly antisymetrical tensor. Interaction terms between the fermionic field $ \psi $ and the gauge fields $ W^i_\mu $ as well as self-interacting gauge field terms have emerged from the necessity of the invariance of the theory under local transformations. A new massless gauge boson is associated to each generator of the adjoint representation of the symetry group $ G $.
+    with $ \epsilon^{ijk} $ the totaly antisymetrical tensor. From the necessity of the invariance of the theory under local transformations, a new massless gauge boson is associated to each generator of the adjoint representation of the symetry group $ G $. Moreover, interaction terms between the fermionic field $ \psi $ and the gauge fields $ W^i_\mu $ as well as self-interacting gauge field terms have emerged.
 
   \section{Electroweak Theory}
 
@@ -74,7 +74,7 @@
 
     The physical fields of the photon $ A_\mu $ and the weak interaction bosons $ W^\pm_\mu $ and $ Z_\mu $ are linear combination of the $ B_\mu $ and $ W^i_\mu $ gauge fields. This is a consequence of the higgs mechanism that gives masses to the $ W^\pm $ and $ Z $ bosons but leaves the photon massless, thus breaking the gauge symetry of EWK under $ SU(2)_L \otimes U(1)_Y $ into a $ U(1)_{em} $ symetry group. \\
 
-    To account for the masses of particles, R. Brout, F. Englert, and P. W. Higgs postulated the existance of a scalar doublet in $ SU(2)_L $ with hypercharge $ Y = \frac{1}{2} $
+    To account for the masses of particles, R. Brout, F. Englert, and P. W. Higgs postulated the existence of a scalar doublet in $ SU(2)_L $ with hypercharge $ Y = \frac{1}{2} $
     \begin{equation}
       \phi = \left( \begin{matrix} \phi^+ \\ \phi^0 \end{matrix} \right)
     \end{equation}
@@ -86,11 +86,11 @@
     \begin{equation}
       V(\phi^\dagger \phi) = \lambda \left( \phi^\dagger \phi \right)^2 - \mu^2 \phi^\dagger \phi ,
     \end{equation}
-    is where the symetry breaking occurs as the ground state of the system is reached when
+    is where the symetry breaking occurs as the ground state of the system, $ V(\phi^\dagger \phi) = 0 $, is reached when
     \begin{equation}
       \left| \phi \right| = \sqrt{\frac{\mu^2}{2 \lambda}} = \frac{v}{\sqrt{2}} .
     \end{equation}
-    The spountaneous breakdown of the symetry accounts for the creation of three Nambu-Goldstone bosons which give their masses to the three weak interaction bosons, and one new field $ H $, the Higgs field. It can be shown that the masses of these particles are directly proportionnal to $ v $:
+    The potential remains invariant under a transformation of 3 out of the 4 components of the Higgs field while a transformation along the last component breaks the $ SU(2)_L $ symetry. The spountaneous breakdown of the symetry thus accounts for the creation of 3 Nambu-Goldstone bosons which give their masses to the three weak interaction bosons, and one new field $ H $, the Higgs field. It can be shown that the masses of these particles are directly proportionnal to $ v $:
     \begin{align}
       m_H & = \sqrt{2 \lambda} v \\
       m_Z & = \frac{1}{2} \sqrt{g_W^2 + g_W^2\text{'}} \\
@@ -113,8 +113,9 @@
     \end{equation}
     where $ \theta_W $ is the weak mixing or Weinberg angle. From this transformation, it is easy to compute the coupling strengths of particles to the photon field and more particularly the coupling of the positron to the photon
     \begin{equation}
-      e = g_w \sin \theta_W .
+      e = g_w \sin \theta_W ,
     \end{equation}
+    which is the charge of the particle. As expected, the coupling to the $ A_\mu $ field is proportional to the electric charge and thus null for neutral particles. $ Z_\mu $ on the other hand has a non-zero coupling constant to all particles belonging to the doublet representation of $ SU(2)_L $ and is diagonal in matricial representation of the group, meaning it couples each particle to itself, while $ W_\mu $ is non-diagonal thus providing a coupling between particles of a same doublet.
 
   \section{Quantum Chromodynamics}
 
