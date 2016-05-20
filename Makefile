@@ -22,14 +22,14 @@ plots:
 	root -q -b -l tools/import_plots.cpp
 
 feynman:
-	cp tools/Feynman-draw.tex .
-	latex Feynman-draw.tex
+	cp tools/feynman-draw.tex .
+	latex feynman-draw.tex
 	mpost feyngraph.mp
-	latex Feynman-draw.tex
-	dvipdf Feynman-draw.dvi
-	pdfcrop Feynman-draw.pdf diagram.pdf
+	latex feynman-draw.tex
+	dvipdf feynman-draw.dvi
+	pdfcrop feynman-draw.pdf diagram.pdf
 	sips -s format png diagram.pdf --out diagram.png
-	rm Feynman-draw.* feyngraph.* diagram.pdf
+	rm feynman-draw.* feyngraph.* diagram.pdf
 
 clean:
-	rm thesis-blx.bib thesis.aux thesis.bbl thesis.blg thesis.log thesis.lof thesis.lot thesis.out thesis.run.xml thesis.toc
+	rm thesis-blx.bib thesis.aux thesis.bbl thesis.blg thesis.log thesis.lof thesis.lot thesis.out thesis.run.xml thesis.toc feynman-draw.* feyngraph.* diagram.pdf diagram.png

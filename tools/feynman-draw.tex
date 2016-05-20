@@ -1,5 +1,6 @@
 \documentclass[10pt]{article}
 \usepackage{feynmp}
+\usepackage{amsmath, amssymb}
 
 \begin{document}
 \thispagestyle{empty}
@@ -7,11 +8,9 @@
         \begin{fmfgraph*}(220,120)
             \fmfleft{i1}
             \fmfright{o1,o2}
-            \fmf{photon}{i1,v1,o1}
-            \fmf{photon}{v1,o2}
-            \fmflabel{$ \gamma/Z $}{i1}
-            \fmflabel{$ W^+ $}{o1}
-            \fmflabel{$ W^- $}{o2}
+            \fmf{fermion, label=$l^{0/-}_L/q^\pm_L$}{i1,v1}
+            \fmf{fermion, label=$l^{0/-}_L/q^\pm_L$}{v1,o1}
+            \fmf{photon, label=$Z$}{v1,o2}
         \end{fmfgraph*}
     \end{fmffile}
 \end{document}
