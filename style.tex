@@ -1,0 +1,90 @@
+\usepackage{fancyhdr}
+
+\usepackage[font={small}, labelfont={bf,sf,color=black}, labelsep=endash, singlelinecheck=false]{caption}
+
+\usepackage[paper=a4paper, nohead, includefoot, includemp, bindingoffset=0.5cm, top=2.25cm, left=3.75cm, right=0.75cm, bottom=1.5cm, marginparwidth=1.75cm, marginparsep=10pt, footskip=2cm]{geometry}
+
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault}
+
+\usepackage{setspace}
+\setstretch{1.2}
+\setlength{\parindent}{0em}
+\clubpenalty = 10000
+\widowpenalty = 10000
+% \displaywidowpenalty = 10000
+
+
+
+
+\renewcommand{\chaptermark}[1]{%
+	\markboth{%
+		\footnotesize%
+		{\color{black}\textbf{\chaptername\ \thechapter}}%
+		\quad%
+		{\color{black}#1}%
+	}{}%
+}
+\renewcommand{\sectionmark}[1]{%
+	\markright{%
+		\footnotesize%
+		{\color{black}\textbf{\thesection}}%
+		\quad%
+		{\color{black}#1}%
+	}%
+}
+%
+\fancypagestyle{plain}{%
+	\fancyhf{}
+	\fancyfootoffset[OR]{1.85cm}
+	\fancyfoot[OR]{%
+		{\ }\fontfamily{qhv}\selectfont%
+		{\color{black}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
+			\color{black}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+	}
+	\fancyfootoffset[EL]{1.85cm}
+	\fancyfoot[EL]{%
+		\fontfamily{qhv}\selectfont%
+		\begin{minipage}[b]{1.5cm}%
+			\raggedleft\color{black}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+		\hspace*{10pt}{\color{black}\rule[-90pt]{1.25pt}{100pt}}%
+	}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+%
+\fancypagestyle{maincontentstyle}{%
+	\pagestyle{plain}
+	\fancyhf{}
+	\fancyfootoffset[OR]{1.85cm}
+	\fancyfoot[OR]{%
+		{\ }\fontfamily{qhv}\selectfont\footnotesize%
+		\rightmark%
+		\hspace*{0.75cm}{\color{black}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
+			\color{black}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+	}
+	\fancyfootoffset[EL]{1.85cm}
+	\fancyfoot[EL]{%
+		\fontfamily{qhv}\selectfont\footnotesize%
+		\begin{minipage}[b]{1.5cm}%
+			\raggedleft\color{black}\normalsize\textbf{\thepage}%
+		\end{minipage}%
+		\footnotesize%
+		\hspace*{10pt}{\color{black}\rule[-90pt]{1.25pt}{100pt}}%
+		\hspace*{0.75cm}\leftmark%
+	}
+}
+
+\newcommand{\tgherosfont}{\fontfamily{qhv}\selectfont}
+\newcommand{\thesispartlabelfont}{\color{black}\book\fontsize{60}{60}\selectfont}
+\newcommand{\thesispartfont}{\color{black}\huge \tgherosfont\selectfont}
+\newcommand{\thesischapterfont}{\color{black}\huge \fontfamily{phv}\selectfont}
+%\newcommand{\thesissectionfont}{\color{ctcolormain}\LARGE\bfseries \tgherosfont}
+\newcommand{\thesissectionfont}{\color{black}\LARGE \tgherosfont}
+\newcommand{\thesissubsectionfont}{\color{black}\Large \tgherosfont}
+\newcommand{\thesisparagraphfont}{\color{black}\tgherosfont\small\bfseries}
