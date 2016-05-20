@@ -5,7 +5,7 @@
 
 	\begin{figure}[h!]
 		\centering
-		\includegraphics[width = \textwidth]{img/I-1/sm-particles.png}
+		\includegraphics[width=\textwidth]{img/I-1/sm-particles.png}
 		\caption{Overview of the elementary particles as described by the standard model. Everyday matter is composed of the first generation of quarks and leptons to which two heavier generations are added. Gauge bosons or force particles are the carriers of the interactions between other particles. The Higgs boson is the manifestation of the mechanism that gives mass to particles [CERN].}
 		\label{fig:I-1-sm-particles}
 	\end{figure}
@@ -18,7 +18,7 @@
     \begin{equation}
       \psi \rightarrow \psi' = \exp\left(- \frac{i}{2} g \alpha^k(x) T^k \right) \psi ,
     \end{equation}
-    where $ g $ is the gauge coupling constante, $ \alpha^k(x) $ are the local rotation paramters, and $ T^k $ are the generators of the representation of $ G $. To preserve the invariance of the Lagrangian of a free massless field $ \psi $,
+    where $ g $ is the gauge coupling constante, $ \alpha^k(x) $ are the local rotation parameters, and $ T^k $ are the generators of the representation of $ G $. To preserve the invariance of the Lagrangian of a free massless field $ \psi $,
     \begin{equation}
       \mathcal{L} = i \bar{\psi} \gamma^\mu \partial_\mu \psi ,
     \end{equation}
@@ -34,11 +34,19 @@
     \begin{equation}
       W^i_{\mu \nu} = \partial_\mu W^i_\nu - \partial_\nu W^i_\mu - g \epsilon^{ijk} W^j_\nu W^k_\mu ,
     \end{equation}
-    with $ \epsilon^{ijk} $ the totaly antisymetrical tensor. From the necessity of the invariance of the theory under local transformations, a new massless gauge boson is associated to each generator of the adjoint representation of the symetry group $ G $. Moreover, interaction terms between the fermionic field $ \psi $ and the gauge fields $ W^i_\mu $ as well as self-interacting gauge field terms have emerged.
+    with $ \epsilon^{ijk} $ the totaly antisymetrical tensor. From the necessity of the invariance of the theory under local transformations, a new massless gauge boson is associated to each generator of the adjoint representation of the symetry group $ G $. Moreover, interaction terms between the fermionic field $ \psi $ and the gauge fields $ W^i_\mu $ as well as self-interacting gauge field terms have emerged. These are represented in Figure \ref{fig:I-1-diagram} which provides a schematic view of the processes at play using Feynman diagrams.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.49\textwidth]{img/I-1/diagram-fermion-boson.png}
+      \includegraphics[width=0.49\textwidth]{img/I-1/diagram-boson-boson.png}
+      \caption{Feynman diagrams representing the interaction terms of the Lagrangian. Left: interaction between a fermion and a boson. Right: self-interaction of gauge bosons.}
+      \label{fig:I-1-diagram}
+    \end{figure}
 
   \section{Electroweak Theory}
 
-    The gauge group of the EWK sector of the standard model is $ SU(2)_L \otimes U(1)_Y $ for which a transformation of a field $ \psi $ can be written as
+    The gauge group of the EWK sector of the standard model is $ SU(2)_L \otimes U(1)_Y $ for which a transformation of a fermionic field $ \psi $ can be written as
     \begin{equation}
       \psi \rightarrow \psi' = \exp\left(- \frac{i}{2} g_W \Lambda^k(x) T^k \right) \exp\left(- \frac{i}{2} g_W' \alpha(x) Y \right) \psi ,
     \end{equation}
@@ -64,7 +72,7 @@
     \end{itemize}
     Note that the right-handed neutrinos are not present as they do not interact with particles and are thus sterile. \\
 
-    To each particle, a weak isospin $ T_3 $ can be associated, corresponding to the Casimir operator of $ SU(2)_L $. Right-handed particles have $ T_3 = 0 $, positive quarks and neutrinos have $ T_3 = \frac{1}{2} $, and negative quarks and charged leptons have $ T_3 = - \frac{1}{2} $. The same can be done for the $ U(1)_Y $ group for which an hypercharge $ Y $ is defined. Through breaking of the symetry as explained in the next section, a new relation can be obtained:
+    To each particle, a weak isospin $ T_3 $ can be associated, corresponding to the Casimir operator of $ SU(2)_L $. Right-handed particles have $ T_3 = 0 $, positive quarks and neutrinos have $ T_3 = \frac{1}{2} $, and negative quarks and charged leptons have $ T_3 = - \frac{1}{2} $. The same can be done for the $ U(1)_Y $ group for which an hypercharge $ Y $ is defined. Through breaking of the symetry of the EWK group, as explained in the next section, a new relation can be obtained:
     \begin{equation}
       Q = T_3 + Y ,
     \end{equation}
@@ -72,7 +80,7 @@
 
   \section{Electroweak Symetry Breaking}
 
-    The physical fields of the photon $ A_\mu $ and the weak interaction bosons $ W^\pm_\mu $ and $ Z_\mu $ are linear combination of the $ B_\mu $ and $ W^i_\mu $ gauge fields. This is a consequence of the higgs mechanism that gives masses to the $ W^\pm $ and $ Z $ bosons but leaves the photon massless, thus breaking the gauge symetry of EWK under $ SU(2)_L \otimes U(1)_Y $ into a $ U(1)_{em} $ symetry group. \\
+    The physical fields of the photon $ A_\mu $ and the weak interaction bosons $ W^\pm_\mu $ and $ Z_\mu $ are linear combination of the $ B_\mu $ and $ W^i_\mu $ gauge fields. This is a consequence of the higgs mechanism that gives masses to the $ W^\pm $ and $ Z $ bosons but leaves the photon $ \gamma $ massless, thus breaking the gauge symetry of EWK under $ SU(2)_L \otimes U(1)_Y $ into a $ U(1)_{em} $ symetry group. \\
 
     To account for the masses of particles, R. Brout, F. Englert, and P. W. Higgs postulated the existence of a scalar doublet in $ SU(2)_L $ with hypercharge $ Y = \frac{1}{2} $
     \begin{equation}
@@ -98,10 +106,10 @@
     \end{align}
     Giving masses to fermionic fields occurs through coupling to the $ \phi $ doublet which respects the gauge invariance of $ SU(2)_L \otimes U(1)_Y $
     \begin{equation}
-      \mathcal{L} = - \lambda \bar{\psi}_L \phi \psi_R + h.c.
+      \mathcal{L} = - \alpha \bar{\psi}_L \phi \psi_R + h.c.
     \end{equation} \\
 
-    Requiring that the photon field $ A_\mu $ be massless, a linear combination of the $ B_\mu $ and $ W^i_\mu $ must be done
+    Requiring that the photon field $ A_\mu $ be massless, a linear combination of $ B_\mu $ and $ W^i_\mu $ must be done
     \begin{align}
       A_\mu & = W^3_\mu \sin \theta_W + B_\mu \cos \theta_W , \\
       Z_\mu & = W^3_\mu \cos \theta_W - B_\mu \sin \theta_W , \\
@@ -115,7 +123,17 @@
     \begin{equation}
       e = g_w \sin \theta_W ,
     \end{equation}
-    which is the charge of the particle. As expected, the coupling to the $ A_\mu $ field is proportional to the electric charge and thus null for neutral particles. $ Z_\mu $ on the other hand has a non-zero coupling constant to all particles belonging to the doublet representation of $ SU(2)_L $ and is diagonal in matricial representation of the group, meaning it couples each particle to itself, while $ W_\mu $ is non-diagonal thus providing a coupling between particles of a same doublet.
+    which is the charge of the particle. As expected, the coupling to the $ A_\mu $ field is proportional to the electric charge and thus null for neutral particles. $ Z_\mu $ on the other hand has a non-zero coupling constant to all particles belonging to the doublet representation of $ SU(2)_L $ and is diagonal in matricial representation of the group, meaning it couples each particle to itself, while $ W_\mu $ is non-diagonal thus providing a coupling between particles of a same doublet. Figure \ref{fig:I-1-diagram-EWK} sumarises these interactions by showing the coupling of the photon $ \gamma $, $ Z $ boson, and $ W^\pm $ bosons to fermions in, respectivly, the top-left, top-right, bottom-left diagrams and the coupling of the $ \gamma $ and $ Z $ to the $ W^\pm $ in the bottom-right diagram.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.49\textwidth]{img/I-1/diagram-photon.png}
+      \includegraphics[width=0.49\textwidth]{img/I-1/diagram-Z.png}
+      \includegraphics[width=0.49\textwidth]{img/I-1/diagram-W.png}
+      \includegraphics[width=0.49\textwidth]{img/I-1/diagram-WZphoton.png}
+      \caption{Feynman diagrams representing the interaction terms of the Lagrangian. Left: interaction between a fermion and a boson. Right: self-interaction of gauge bosons.}
+      \label{fig:I-1-diagram-EWK}
+    \end{figure}
 
   \section{Quantum Chromodynamics}
 
