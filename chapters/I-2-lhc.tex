@@ -1,7 +1,7 @@
 \chapter{The Large Hadron Collider}
 \label{chap:I-2-lhc}
 
-	The Large Hadron Collider (LHC) \cite{Evans:2008zzb} is a hadron accelerator and collider that is installed in a 26.7 km long tunnel beneath the Franco-Swiwss border near Geneva at a depth varying from 170 m below the Jura mountains to 45 m below the Leman lake. The tunnel was built by the European Organisation for Nuclear Research (CERN) between 1984 to 1989 to host the former Large Electron Positron collider (LEP). As can be seen in Figure Figure \ref{fig:I-2-lhc-schematic} which provides a schematic representation of the LHC, it is composed of eight arc and eight straight section, and two transfer tunnels which connect the LHC to CERN's main injection complex. From the eight possible collision points of the LHC located in the straigth sections of the tunnel, only four are in use and equipped with detectors: ALICE \cite{1748-0221-3-08-S08002}, ATLAS \cite{1748-0221-3-08-S08003}, CMS \cite{1748-0221-3-08-S08004}, and LHCb \cite{1748-0221-3-08-S08005}. \\
+	The Large Hadron Collider (LHC) \cite{Evans:2008zzb} is a hadron accelerator and collider that is installed in a 26.7 km long tunnel beneath the Franco-Swiwss border near Geneva at a depth varying from 170 m below the Jura mountains to 45 m below the Leman lake. The tunnel was built by the European Organisation for Nuclear Research (CERN) between 1984 to 1989 to host the former Large Electron Positron collider (LEP). As represented in Figure \ref{fig:I-2-lhc-schematic} which provides a schematic illustration of the LHC, it is composed of eight arc and eight straight section, and two transfer tunnels which connect the LHC to CERN's main injection complex. From the eight possible collision points of the LHC located in the straigth sections of the tunnel, only four are in use and equipped with detectors: ALICE \cite{1748-0221-3-08-S08002}, ATLAS \cite{1748-0221-3-08-S08003}, CMS \cite{1748-0221-3-08-S08004}, and LHCb \cite{1748-0221-3-08-S08005}. \\
 
 	\begin{figure}[h!]
 		\centering
@@ -10,24 +10,28 @@
 		\label{fig:I-2-lhc-schematic}
 	\end{figure}
 
-  The LHC's construction was approved by the CERN Council in December 1994 and started in 1998 by the excavation of the caverns that would hold the experiment sites. In 2003, the first section of the accelerator was assembled inside the tunnel and assembly continued until 2008 when the last piece was mounted and the LHC was complete and ready to produce its first collisions. After a successful preliminary run in August of the same year, an incident occurred shutting down the machine for nearly a year. Between 2010 and 2012, the accelerator has been operated at an energy of 8 TeV before shutting down for a technical Long-Shutdown (LS), a maintainance periode that allows
+  The construction of the LHC, which concept dates back to 1984, was approved by the CERN Council in December 1994 and started in 1998 with the excavation of the caverns that would hold the experiment sites. In 2003, the first section of the accelerator was assembled inside the tunnel marking the start of the installation phase of the LHC and its detectors which would spawn until 2008. On September 10th 2008, the first beam of protons is circulated inside the LHC only to reveal a major technical issue with the superconducting magnets which will shutdown the machine for nearly a year. In November 2009, reparation works are finished just in time for the LHC to produce its first collisions at 2.36 TeV before its Year End Technical Stop (YETS), a yearly technical stop during which maintainance is performed on the machine. In February 2010, the LHC restarts with a physics program with collisions at 7 TeV that will last until February 2013. At that time, the LHC is stopped for two years during the Long Shutdown (LS) in order to perform upgrades to prepare it to run at 14 TeV. On June 3rd 2015, the LHC restart and sets a new record with an energy in the center of mass reference frame of 13 TeV.
 
-  Since then, the LHC has slowly been ramping up the energy of the collisions, reaching a record breaking 14 TeV in the center of mass reference frame.
+  \section{The Injection Complex}
 
-  \section{Injection Complex}
-
-		Before being accelerated and collided by the LHC, the protons and ions are produced and sped up by multiple accelerators. Figure \ref{fig:lhc_and_cms__lhc_injection_chain} depicts the injection chain of the LHC. The first element in this chain is the \emph{Linac2}, which produces protons by ionizing gaseous hydrogen. These protons are accelerated and regrouped into bunches by a set of magnets before being transferred to the \emph{Proton Synchrotron Booster} (Booster), \emph{Proton Synchrotron} (PS), and \emph{Super Proton Synchrotron} (SPS), which furthermore increase the bunches' energy. Finally, the particles enter the LHC through two different tubes traveling in opposite directions.
+    The beams that enter the LHC are first created and accelerated by the injection complexe of CERN depicted in Figure \ref{fig:I-2-injection-chain}. Protons are extracted from a gaseous hydrogen source by means of a duoplasmatron, a device that uses a heated filament cathode in conjunction with electric fields to produce electrons that will ionize and break gas. The resulting protons have an energy of 100 keV and are injected in the Linac2 linear accelerator. \\
 
 		\begin{figure}[h!]
 			\centering
-			% \includegraphics[width = 12cm]{2_LHC_CMS/img/lhc_injectors.jpg}
-			\caption{Schematic representation of the LHC's injection chain composed of multiple smaller accelerators \Cite{Fig_LHC_Chain}.}
-			\label{fig:lhc_and_cms__lhc_injection_chain}
+			\includegraphics[width = 12cm]{img/I-2-LHC/injectors.png}
+			\caption{Schematic representation of the LHC's injection chain composed of multiple smaller accelerators \Cite{TE-EPC-LPC}.}
+			\label{fig:I-2-injection-chain}
 		\end{figure}
+
+    Linac2 uses radiofrequency cavities that produce an electromagnetic field inside the accelerator in order to transfer energy to the charged particles. The oscillations of the field allow to form bunches of particles by regrouping them on the front of the radio wave. The succession of cavities that form Linac2 boosts the incoming protons to an energy of 50 MeV before they enter the Booster. \\
+
+    Following Linac2, three consecutive circular synchrotrons, namelly the Proton Synchrotron Booster (Booster), the Proton Synchrotron (PS), and the Super Proton Synchrotron (SPS), accelerate the beams to energies of respectivly 1.4 GeV, 25 GeV, and 450 GeV. Each accelerator is composed of electromagnets that bend the trajectory of the beam and boost it further. From the SPS, the beam is injected in the LHC through two transfer tunnels into two rings where they rotate in opposite directions to be further accellerated until they reach the desired energy. The SPS also provides beam to the North Area were various experiments take place and future technologies can be tested during test beam campaignes frequently organised by CERN.
 
 	\section{Preformance Goals}
 
-  	As previously mentioned, the particle beam is not a continuous flux of protons but rather a series of bunches that travel along the tube and are accelerated, regrouped, and focused by a set of magnets. Once they achieve the desired energy they are collided at a frequency of 40 MHz at the four crossing sites. \\
+  	The beams inside the LHC are composed of 2808 bunches, each made of approximatly 110 billion protons, roughtly 30 cm long and separated by 25 ns, time between two consecutive bunch crossing (BX).
+
+    Depending on various parameters, between 20 and 140 proton-proton interactions occur during each bunch crossing (BX).
 
   	The LHC also delivers a high instantaneous luminosity $ \mathcal{L} $ which is essential to detect rare processes as it yields the apparition's frequency of events in a given interaction process
   	\begin{equation}
