@@ -1,4 +1,4 @@
-\documentclass[11pt, twoside, a4paper]{book}
+\documentclass[11pt, twoside, a4paper]{scrreprt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %% Place packages here %%
@@ -12,13 +12,7 @@
 % Figure
 \usepackage{graphicx}
 
-% Links
-\usepackage[colorlinks=true, urlcolor=blue, citecolor=blue, linkcolor=black]{hyperref}
-
-% Bibliography
-\usepackage[backend=bibtex, backref=true, style=numeric, sorting=none, minnames=4, maxnames=4, minbibnames=4, maxbibnames=4, mincitenames=4, maxcitenames=4]{biblatex}
-\addbibresource{bibliography.bib}
-
+% Style options
 \input{style}
 
 %%%%%%%%%%%
@@ -31,8 +25,6 @@
   %% Front matter of the thesis %%
   %% Title pages, abstract, ... %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  \frontmatter
 
   \pagenumbering{roman}
   \pagestyle{empty}
@@ -69,18 +61,16 @@
   %% Content chapters          %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \mainmatter
-
   % \part{An Introduction to Particle Physics}
 
-    \input{chapters/I-0-introduction.tex}
-    \cleardoublepage
-
-    \input{chapters/I-1-standard-model.tex}
-    \cleardoublepage
-
-    % \input{chapters/I-2-lhc.tex}
+    % \input{chapters/I-0-introduction.tex}
     % \cleardoublepage
+
+    % \input{chapters/I-1-standard-model.tex}
+    % \cleardoublepage
+
+    \input{chapters/I-2-lhc.tex}
+    \cleardoublepage
 
     % \input{chapters/I-3-cms.tex}
     % \cleardoublepage
@@ -129,8 +119,6 @@
   %% Back matter of the thesis %%
   %% Conclusion, figures, ...  %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  % \backmatter
 
   % Conclusion
   % \input{chapters/IV-0-conclusion.tex}
