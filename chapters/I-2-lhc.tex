@@ -29,27 +29,21 @@
 
 	\section{Preformance Goals}
 
-  	The beams inside the LHC are composed of 2808 bunches, each made of approximatly 110 billion protons, roughtly 30 cm long and separated by 25 ns, time between two consecutive bunch crossing (BX).
-
-    Depending on various parameters, between 20 and 140 proton-proton interactions occur during each bunch crossing (BX).
-
-  	The LHC also delivers a high instantaneous luminosity $ \mathcal{L} $ which is essential to detect rare processes as it yields the apparition's frequency of events in a given interaction process
+  	The beams inside the LHC rings are composed of 2808 bunches each made of approximatly 110 billion protons. They are separated by 25 ns which is the time between two consecutive bunch crossing (BX), yielding a collision frequency of 40 MHz. During a collision, only a small fraction of the protons interract depending on various parameters such as the crossing angle of the beam, collimation of the bunches, etc. To quantify this, the notion of luminosity has to be introduced and is directly related to the apparition's frequency of events in a given interaction process
   	\begin{equation}
   		f_{process} = \mathcal{L} \sigma_{process} \ ,
   	\end{equation}
   	where $ f_{process} $ is the number of expected events per second, and $ \sigma_{process} $ is the interaction cross-section of the process. For a circular collider, the instantaneous luminosity is defined as
   	\begin{equation}
-  		\mathcal{L} = \frac{N^2_b n_b f_{rev} \gamma}{4 \pi \epsilon_n \beta^*} F \ ,
-  		\label{eq:lhc_and_cms__luminosity}
+  		\mathcal{L} = \frac{N^2_b n_b f_{rev} \gamma}{4 \pi \epsilon_n \beta^*} F ,
   	\end{equation}
-  	where $ N_b $ is the number of protons or ions per bunch, $ n_b $ is the number of bunches per beam, $ f_{rev} $ is the revolution frequency, $ \gamma $ is the Lorentz factor, $ \epsilon_n $ is the beam emittance, $ \beta^* $ is the beta function at the \emph{Interaction Point} (IP), and $ F $ is a function of the crossing angle between the beams at the IP. The $ \epsilon_n $ and $ F $ parameters are related to the bunches' structure and more specifically to their spatial spreading. These parameters change during the machine's operation as the number of protons per bunch decreases, and the bunches spread out. We can integrate $ \mathcal{L} $ over a long period of time in order to get the integrated luminosity
+  	where $ N_b $ is the number of protons or ions per bunch, $ n_b $ is the number of bunches per beam, $ f_{rev} $ is the revolution frequency, $ \gamma $ is the Lorentz factor, $ \epsilon_n $ is the beam emittance, $ \beta^* $ is the beta function at the Interaction Point (IP), and $ F $ is a function of the crossing angle between the beams at the IP. The $ \epsilon_n $ and $ F $ parameters are related to the structure of the bunches and more specifically to their spatial spreading. These parameters change during the operation of the machine as the number of protons per bunch decreases, and the bunches spread out. The instantenious luminosity can be integrated over a long period of time in order to get the integrated luminosity
   	\begin{equation}
-  		L = \int \mathcal{L} \ dt \ ,
+  		L = \int \mathcal{L} \ dt ,
   	\end{equation}
-  	which results in the number of events we can expect for a given interaction process
+  	which results in the number of events one can expect for a given interaction process
   	\begin{equation}
-  		N_{process} = L \sigma_{process} \ .
-  		\label{eq:lhc_and_cms__luminosity_to_N}
+  		N_{process} = L \sigma_{process} .
   	\end{equation}
 
 	\section{Operations and Schedule}
