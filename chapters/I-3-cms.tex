@@ -30,9 +30,9 @@
 
   \section{The Inner Tracking System}
 
-    The inner tracking system of CMS is designed to provide a precise and efficient hit information on the trajectories of charged particles.  The proximity of the detectors to the beam pipe yields a high particle density of up to 10$^8$ particles per cm$^2$ at a radius of 4 cm. This justifies the need for a high granularity and fast response time to unambigously assign particles to the correct collision. However, these features come with an elevated power comsumption which in turn requires efficient cooling infrastructure. In order to keep the material budget of the tracker as low as possible, a compromise was found to use two technologies: silicon pixels close to the beam pipe to provide a high granluratiy, and silicon strips further away to reduce the material budget. \\
+    The inner tracking system of CMS is designed to provide a precise and efficient hit information on the trajectories of charged particles.  The proximity of the detectors to the beam pipe yields a high particle density of up to 10$^8$ particles per cm$^2$ at a radius of 4 cm. This justifies the need for a high granularity and fast response time to unambigously assign particles to the correct collision. However, these features come with an elevated power comsumption which in turn requires efficient cooling infrastructure. In order to keep the material budget of the tracker as low as possible, a compromise was found to use two technologies: silicon pixels close to the beam pipe to provide a high granularatiy, and silicon strips further away to reduce the material budget. \\
 
-    The disposition of the detectors is shown in Figure \ref{fig:I-3-tracker}. The silicon pixels (PIXELS) are installed on three cylindrical layers in the barrel and two disks in each endcap. These detectors cover an area between radii of 4.4 cm and 10.2 cm and a pseudorapidity $ | \eta | \le 2.5 $. The silicon strips (TIB, TOB, TEC, and TID) occupy a radial region between 20 cm and 116 cm and are divided in different sectors with a total of 10 layers in the barrel and 12 disks in each endcap. The segmentation into sectors corresponds to the various strip geometries. \\
+    The layout of the detectors is shown in Figure \ref{fig:I-3-tracker}. The silicon pixels (PIXELS) are installed on three cylindrical layers in the barrel and two disks in each endcap. These detectors cover an area between radii of 4.4 cm and 10.2 cm and a pseudorapidity $|\eta|$ > 2.5. The silicon strips (TIB, TOB, TEC, and TID) occupy a radial region between 20 cm and 116 cm and are divided in different sectors with a total of 10 layers in the barrel and 12 disks in each endcap. The segmentation into sectors corresponds to the various strip geometries and arrangment. \\
 
     \begin{figure}[h!]
       \centering
@@ -40,6 +40,16 @@
       \caption{Schematic representation of the Compact Muon Solenoid detector installed at LHC \cite{1748-0221-3-08-S08004}.}
       \label{fig:I-3-tracker}
     \end{figure}
+
+    The barrel pixel tracker contains 768 modules for a total of 48 million pixels. The disks of the endcaps are divided into 24 segments each composed of 7 modules which yields a total number of 672 modules with 18 million pixels for the both endcaps. Each pixel is 150 $\mu$m $\times$ 100 $\mu$m in size with a thickness of 260 $\mu$m to 300 $\mu$m resulting in a single point hit resolution of 15 $\mu$m to 20 $\mu$m. \\
+
+    The silicon strip tracker is divided into three subsystems. The Tracker Inner Barrel and Disks (TIB/TID) covers are composed of 4 layers in the barrel and 3 disks in each endcap, covering a region up to 55 cm. The strips are 320 $\mu$m thick and run parallel to the beam pipe in the barrel and radially in the disks. The strip pitch is of 80 $\mu$m in the two first layers of the TIB and 120 $\mu$m in the two next ones, resulting in a spatial resolution of respectivly 23 $\mu$m and 35 $\mu$m. In the TID, the pitch varies between 100 $\mu$m and 141 $\mu$m. Surroungind the TIB and TID is the Tracker Outer Barrel (TOB) composed of 6 barrel layers of 500 $\mu$m thick strips. It provides a resolution of 53 $\mu$m for the first four layers and 35 $\mu$m for the two last ones. Closing the TOB on both sides are the Tracker EndCaps (TEC) which each hold 9 disks. In addition, given modules are equipped with a second strip detector mounted back-to-back with a stereo angle of 100 mrad to provide a measurment of the second coordinate. \\
+
+
+
+
+
+
 
 
 
@@ -51,32 +61,6 @@
   \newcommand{\axis}[1]{#1}
 
 
-
-  Semiconductor detectors are made out of two pieces of silicon, one negatively doped containing more unbounded electrons, and one positively doped containing more unbounded holes (absence of electrons), put together to form a n-p junction. At the interface, the electrons and the holes diffuse in the opposite region and recombine with the particles of opposite charge, creating an unbalance in charge: the n region and p region close to the junction become, respectively, positively and negatively charged. From this, an electric field is formed which slows the diffusion down until the system reaches equilibrium. When a charged particle passes through this region and losses energy, electrons switch from non-conductive to conductive bands creating electrons/holes pairs. Under the action of the electric field, they migrate towards the n or p regions and form the signal on the readout electronics. Unfortunately, the number of unbounded charges is still high compared to the formed signal and the active region is small. To increase the detection efficiency, a voltage difference is applied to the semiconductor further diffusing the electrons and holes through the junction. Typically, for a voltage difference of 100 V, the size of the active region is of the order of 300 \um{}.
-
-  \subsubsection{Silicon Pixel Detectors}
-  \label{sec:lhc_and_cms__silicon_pixel_detectors}
-
-    The silicon pixels detectors, represented in Figure \ref{fig:lhc_and_cms__cms_pixel_detector}, are composed of small 100 \um{} x 150 \um{} rectangles of readout material disposed on a block of detection medium formed by a n-p region. The electrons are formed in that region and migrate towards the silicon pixels. The challenge arising is that each pixel needs its own readout electronics which takes a significant amount of space and requires output cables. These cables prevent the placing of detectors which creates dead-zones. Physicists and engineers must find the right balance between the number of pixels (granularity), the size of the electronic, and the detectors' resolution. \\
-
-    \begin{figure}[h!]
-      \centering
-      % \includegraphics[width = 8cm]{2_LHC_CMS/img/cms_tracker_pixel.png}
-      \caption{Disposition of the readout pixels (orange and red) on the same detection block (gray) inside a silicon pixel detector \Cite{CMS_Tracker_Construction}.}
-      \label{fig:lhc_and_cms__cms_pixel_detector}
-    \end{figure}
-
-    Nevertheless, the pixel detectors are the most precise tracking technology in CMS with a spatial resolution of 15 to 20 \um{}. This value is smaller than the size of the pixels because of \emph{charge sharing}. All the pixels sharing the same detection block also share the energy deposited by a particle. By reading the total deposited charge on each of the pixels, we can find the \emph{Center of Gravity} (COG). The COG method is based on the assumption that there exists a linear relation between the induced pulse's height on a pixel and the distance between its center and the particle's hit, so that each pixel is assigned a weight proportional to the deposited charge. The reconstructed coordinate $ \mathbf{x}_{COG} $ of the cluster is then given by
-    \begin{equation}
-      \mathbf{x}_{COG} = \frac{\sum_i \mathbf{x}_i q_i}{\sum_i q_i} \ ,
-      \label{eq:lhc_and_cms__charge_sharing}
-    \end{equation}
-    where $ q_i $ is the individual pixel signal in the cluster, and $ \mathbf{x}_i $ is the positions of the pixel in the defined coordinate system. The same technique can be applied to other detectors as long as the charge is read out analogically and not digitally\footnote{One can consider using the same method with digital readouts but will not be able to achieve the same resolutions.}.
-
-  \subsubsection{Silicon Strip Detectors}
-  \label{sec:lhc_and_cms__silicon_strip_detectors}
-
-    The most outer layers of the tracker cannot have a granularity as high as the pixel detectors, for both financial and technical reasons. The amount of data that would have to be read out is considerable, and the technology to do so is not yet available. A way to reduce the granularity of the detectors is to measure only one coordinate by using silicon strips instead of pixels. The strips are separated by 80 to 122 \um{} which gives a resolution between 23 \um{} and 53 \um{} in the direction perpendicular to the strips. Unfortunately, as expected, there is a larger error on the other coordinate (along the strip) corresponding to the size of the detection cell. To improve global precision, some of the cells have two strip detectors placed with a small stereo angle, typically 100 mrad, allowing them to measure both coordinates. However, this set up generates \emph{ghosts} because of the ambiguity created when more than one particle hits the detector at the same time.
 
   \subsubsection{System Performances}
   \label{sec:lhc_and_cms__tracker_system_performances}
