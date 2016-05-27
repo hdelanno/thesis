@@ -1,7 +1,7 @@
 \chapter{The Compact Muon Solenoid Experiment}
 \label{chap:I-3-cms}
 
-	The Compact Muon Solenoid (CMS) \cite{1748-0221-3-08-S08004} is a multi-purpose particle detector recording the collisions provided by the LHC. It was, along with ATLAS, the first experiment officially approved for the LHC by the CERN research board in January 1997 after a long evalution process of the letter of intent published four years earlier by the two collaboration. The construction of the detector started in 2005, after the excavation works of the cavern finished, and spanned until 2008. Since then, CMS has been proficiently taking and analyzing data, and announced on July 4th 2012 the discovery of the Brout-Englert-Higgs boson, one of the most significant results of the collaboraton.
+	The Compact Muon Solenoid (CMS) \cite{1748-0221-3-08-S08004} is a multi-purpose particle detector recording the collisions provided by the LHC. It was, along with ATLAS, the first experiment officially approved for the LHC by the CERN research board in January 1997 after a long evalution process of the letter of intent published four years earlier by the collaboration. The construction of the detector started in 2005, after the excavation works of the cavern finished, and spanned until 2008. Since then, CMS has been proficiently taking and analyzing data, and announced on July 4th 2012 the discovery of the Brout-Englert-Higgs boson, one of the most significant results of the collaboraton.
 
   \section{Overview}
 
@@ -22,13 +22,24 @@
 
     These requirements are met through the subdivision of CMS in various detection systems each specialised in the reconstruction of a given type of particles. The overall layout of CMS, shown in Figure \ref{fig:I-3-cms-global-view}, is divided into the barrel and the two endcaps, regions where the detectors are respectivly placed in parrallel and perpendicularly to the beam pipe. At the center of the detector, closest to the interaction point, lies the inner tracking system. Composed of 3 layers of silicon pixels and 10 layers of silicon strips detectors, it is designed to detect the passage of any charged particle with high precision. Surrounding the tracking system are the electromagnetic and hadronic calorimeters which respectivly measure the energy of electrons and photons, and hadrons. These detectors are placed inside a superconducting solenoid magnet which produces a strong 3.8 T field that bends charged particles and allows for precise momentum measurments. Outside of the magnet, three different technologies of muon detectors are placed on large iron yokes. Furthest from the interaction point are the very-forward calorimeters which intercept particles with low flighing angle.
 
-    The coordinate system used in CMS has its origin at the nominal interaction point of the beams, the y-axis pointing upwards, the x-axis pointing toward the center of the LHC, and the z-axis directed along the beam direction. The polar coordinates (r, $ \phi $) are defined in the x-y transverse plane and the widly used pseudorapidity $ \eta $ is taken to be
+    The coordinate system used in CMS has its origin at the nominal interaction point of the beams, the y-axis pointing upwards, the x-axis pointing toward the center of the LHC, and the z-axis directed along the beam direction. The polar coordinates (r, $ \phi $) are defined in the x-y transverse plane and the widely used pseudorapidity $ \eta $ is taken to be
     \begin{equation}
       \eta = - \ln\left( \tan\left( \frac{\theta}{2} \right) \right) ,
     \end{equation}
     where $ \theta $ is the azimuthal angle between the z-axis and the transverse plane.
 
   \section{The Inner Tracking System}
+
+    The inner tracking system of CMS is designed to provide a precise and efficient hit information on the trajectories of charged particles.  The proximity of the detectors to the beam pipe yields a high particle density of up to 10$^8$ particles per cm$^2$ at a radius of 4 cm. This justifies the need for a high granularity and fast response time to unambigously assign particles to the correct collision. However, these features come with an elevated power comsumption which in turn requires efficient cooling infrastructure. In order to keep the material budget of the tracker as low as possible, a compromise was found to use two technologies: silicon pixels close to the beam pipe to provide a high granluratiy, and silicon strips further away to reduce the material budget. \\
+
+    The disposition of the detectors is shown in Figure \ref{fig:I-3-tracker}. The silicon pixels (PIXELS) are installed on three cylindrical layers in the barrel and two disks in each endcap. These detectors cover an area between radii of 4.4 cm and 10.2 cm and a pseudorapidity $ | \eta | \le 2.5 $. The silicon strips (TIB, TOB, TEC, and TID) occupy a radial region between 20 cm and 116 cm and are divided in different sectors with a total of 10 layers in the barrel and 12 disks in each endcap. The segmentation into sectors corresponds to the various strip geometries. \\
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/I-3-cms/tracker.png}
+      \caption{Schematic representation of the Compact Muon Solenoid detector installed at LHC \cite{1748-0221-3-08-S08004}.}
+      \label{fig:I-3-tracker}
+    \end{figure}
 
 
 
@@ -39,14 +50,7 @@
   \newcommand{\pZ}{$ p_Z $}
   \newcommand{\axis}[1]{#1}
 
-  The silicon tracker is the detector closest to the IP. It is composed of two different types of semiconductor detectors: \emph{silicon pixels} and \emph{silicon strips}. These detectors have an excellent spatial resolution (down to 25 \um{}) which yields excellent momentum reconstruction capabilities (resolution of the order of 1\% at low transverse momenta). The disposition of the different technologies is represented in Figure \ref{fig:lhc_and_cms__cms_tracker}. The silicon pixels are represented in blue, while TIB, TID, TOB, and TEC refer to different regions of the silicon strip detector. \\
 
-  \begin{figure}[h!]
-    \centering
-    % \includegraphics[width = 13cm]{2_LHC_CMS/img/cms_tracker_view.png}
-    \caption{Disposition of the different detectors in the silicon tracker. PIXEL (blue) refers to silicon pixel detectors while TIB, TID, TOB and TEC (red) all refer to silicon strip detectors \Cite{CMS_at_LHC}.}
-    \label{fig:lhc_and_cms__cms_tracker}
-  \end{figure}
 
   Semiconductor detectors are made out of two pieces of silicon, one negatively doped containing more unbounded electrons, and one positively doped containing more unbounded holes (absence of electrons), put together to form a n-p junction. At the interface, the electrons and the holes diffuse in the opposite region and recombine with the particles of opposite charge, creating an unbalance in charge: the n region and p region close to the junction become, respectively, positively and negatively charged. From this, an electric field is formed which slows the diffusion down until the system reaches equilibrium. When a charged particle passes through this region and losses energy, electrons switch from non-conductive to conductive bands creating electrons/holes pairs. Under the action of the electric field, they migrate towards the n or p regions and form the signal on the readout electronics. Unfortunately, the number of unbounded charges is still high compared to the formed signal and the active region is small. To increase the detection efficiency, a voltage difference is applied to the semiconductor further diffusing the electrons and holes through the junction. Typically, for a voltage difference of 100 V, the size of the active region is of the order of 300 \um{}.
 
