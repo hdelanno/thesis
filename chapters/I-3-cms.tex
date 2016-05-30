@@ -67,6 +67,31 @@
       \left( \frac{\sigma}{E} \right)^2 = \left( \frac{2.8\%}{\sqrt{E}} \right)^2 + \left( \frac{0.12}{E} \right)^2 + (0.30\%)^2
     \end{equation}
 
+  \section{The Hadron Calorimeter}
+
+    The Hadron Calorimeter (HCAL) is divided into a barrel region (HB), two endcaps regions (HE), and an outer calorimeter (HO) placed right outside the magnet as represented in Figure \ref{fig:I-3-hcal}. An additionnal forward calorimeter (HF) is place in the very forward region of CMS. The HB sits between the ECAL and the magnet at radii of 1.77 m and 2.95 m respectivly which limits the amout of material and thus absorption lengths that can be used, justifying the need for the HO to catch the trail of the cascades. \\
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/I-3-cms/hcal.png}
+      \caption{Layout of the HCAL and disposition of the crystals in modules and supermodules \cite{1748-0221-3-08-S08004}.}
+      \label{fig:I-3-hcal}
+    \end{figure}
+
+    The HB uses a sampling calorimeter design that consists of a succession of metal sheets positonned parallel to the beam that act as absorber and plastic scintillators to measure the energy deposition. The absorber is made of a 40 mm thick front steel panel, followed by eight 50.5 mm thick brass sheets, six 56.5 mm thick brass panels, and a 75 mm thick steel back plate for a total minimum of 5.82 interaction lengths. The scintillators are designed out of 3.7 mm thick Kuraray SCSN81 plastic and placed after each layer of metal. An additionnal layer of 9 mm thick Bicron BC408 is placed in front of the first steel panel in order to sample hadronic showers that might have formed in the ECAL. The HE uses 79 mm thick brass plates spaced by 9 mm gaps in which the plastic Bicron BC408 scintillators are inserted. The segmentation of the HE results in a granularity of $ \Delta \eta \times \Delta \phi $ = 0.087 $ \times $ 0.087 for $ | \eta | $ < 1.6 and 0.17 $ \times $ 0.17 for $ | \eta | $ $ \le $ 1.6. In the $ | \eta | $ < 1.3 region, hadron showers are not entierly contained in the HB and HE thus justifying the installation of the HO outside of the magnet to catch the trail of the cascades. This has a significant impact on high energy cascades and to measure the missing energy of an event, i.e. the energy carried by non-interracting particles. The HO has a minimum thickness of 1.4 interaction lengths and is segmented in 5 rings further divided into segments. Each segment has a granularity similar to the HB of 0.087 $ \times $ 0.087 in $ \Delta \eta \times \Delta \phi $. Limited by the muon system, the HO has been allocated 40 mm of space, from which 16 mm is used for the scintillators and the rest is filled with support material.
+
+  \section{The Superconducting Magnet}
+
+    The superconducting magnet of CMS measures 6 m of diameter for 12.5 m in length and has been design to generate a 4 T magnetic field. The return of the magnetic field lines is done through the steel yokes that support the muon chambres of CMS as represented in Figure  \ref{fig:I-3-cms-magnet} in which the amplitude of the magnetic field inside CMS has been measured using cosmic muons. The magnet is composed of four layers of winded NbTi conductor which offers very low resistance to the nominal 19.14 kA current that is required. To reach the superconducting state of the magnet, it needs to be cooled down to 1.8 K. \\
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/I-3-cms/magnet.png}
+      \caption{??? \cite{Chatrchyan:2009si}.}
+      \label{fig:I-3-cms-magnet}
+    \end{figure}
+
+
   \newcommand{\GeVc}{GeV c$ ^{-1} $}
   \newcommand{\um}{$ \mu $m}
   \newcommand{\us}{$ \mu $s}
@@ -75,40 +100,6 @@
   \newcommand{\axis}[1]{#1}
 
 
-
-
-  \section{The Hadronic Calorimeter}
-
-  Where the ECAL relies on radiative processes to detect particles, the HCAL uses strong interactions between the hadrons and the material to create hadronic cascades. These are much longer than electromagnetic showers, requiring longer detectors. The most created particles are pions as they are the lightest hadrons. This induces an electromagnetic component as the $ \pi^0 $ principal decay channel is $ \pi^0 \rightarrow \gamma \gamma $. This creates a problem, as the response of the material can be different for the hadronic and electromagnetic component. \\
-
-  Figures \ref{fig:lhc_and_cms__cms_hcal_view} are a picture of a section of the barrel HCAL representing the absorber (golden plates) with the scintillator in between and of the installation of the barrel HCAL in CMS. The HCAL is composed of an alternation of 16 layers of absorbers, made out of 40 to 70 mm thick steel plates and 50 to 56 mm thick 70\% Cu and 30\% Zn alloy plates, and 3.7 to 9 mm thick plastic scintillators. When particles hit the detectors perpendicularly, they have to travel through 79 cm of matter equivalent to 5.82 interaction lengths $ \lambda_I $. The barrel HCAL is divided into 72 segments in $ \phi $ and 16 $ \eta $ sectors while the endcap HCAL has 36 and 72 $ \phi $ segments for the inners and outers rings respectively, and 14 $ \eta $ sectors.
-
-  \begin{figure}[h!]
-    \centering
-    % \includegraphics[height = 5cm]{2_LHC_CMS/img/cms_hcal.png}
-    % \includegraphics[height = 5cm]{2_LHC_CMS/img/cms_hcal_install.jpg}
-    \caption{Picture of the barrel HCAL composed of several dense absorber (golden plates) and smaller scintillators placed in between (left) \Cite{CMS_at_LHC}, and installation in CMS of the barrel HCAL (right) \Cite{CMS_HCAL_Install}}
-    \label{fig:lhc_and_cms__cms_hcal_view}
-  \end{figure}
-
-  The CMS ECAL's energy resolution is \Cite{CMS_Performances}
-  \begin{equation}
-    \left( \frac{\sigma_E}{E} \right)^2 = \left( \frac{2.8\%}{\sqrt{E}} \right)^2 + \left( 0.30\% \right)^2 + \left( \frac{0.12}{E} \right)^2 \ ,
-  \end{equation}
-  where $ E $ is given in GeV. The CMS HCAL's energy resolution is
-  \begin{equation}
-    \left( \frac{\sigma_E}{E} \right)^2 = \left( \frac{120\%}{\sqrt{E}} \right)^2 + \left( 6.9\% \right)^2 \ .
-  \end{equation}
-
-
-  \section{The Superconducting Magnet}
-
-    \begin{figure}[h!]
-      \centering
-      \includegraphics[width=\textwidth]{img/I-3-cms/magnet.png}
-      \caption{??? \cite{Chatrchyan:2009si}.}
-      \label{fig:I-3-cms-magnet}
-    \end{figure}
 
   \section{The Muon System}
 
