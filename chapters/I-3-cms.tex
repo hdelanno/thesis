@@ -43,15 +43,29 @@
 
     The barrel pixel tracker contains 768 modules for a total of 48 million pixels. The disks of the endcaps are divided into 24 segments each composed of 7 modules which yields a total number of 672 modules with 18 million pixels for the both endcaps. Each pixel is 150 $\mu$m $\times$ 100 $\mu$m in size with a thickness of 260 $\mu$m to 300 $\mu$m resulting in a single point hit resolution of 15 $\mu$m to 20 $\mu$m. \\
 
-    The silicon strip tracker is divided into three subsystems. The Tracker Inner Barrel and Disks (TIB/TID) covers are composed of 4 layers in the barrel and 3 disks in each endcap, covering a region up to 55 cm. The strips are 320 $\mu$m thick and run parallel to the beam pipe in the barrel and radially in the disks. The strip pitch is of 80 $\mu$m in the two first layers of the TIB and 120 $\mu$m in the two next ones, resulting in a spatial resolution of respectivly 23 $\mu$m and 35 $\mu$m. In the TID, the pitch varies between 100 $\mu$m and 141 $\mu$m. Surroungind the TIB and TID is the Tracker Outer Barrel (TOB) composed of 6 barrel layers of 500 $\mu$m thick strips. It provides a resolution of 53 $\mu$m for the first four layers and 35 $\mu$m for the two last ones. Closing the TOB on both sides are the Tracker EndCaps (TEC) which each hold 9 disks. In addition, given modules are equipped with a second strip detector mounted back-to-back with a stereo angle of 100 mrad to provide a measurment of the second coordinate. \\
+    The silicon strip tracker is divided into three subsystems. The Tracker Inner Barrel and Disks (TIB/TID) are composed of 4 layers in the barrel and 3 disks in each endcap, covering a region up to 55 cm. The strips are 320 $\mu$m thick and run parallel to the beam pipe in the barrel and radially in the disks. The strip pitch is of 80 $\mu$m in the two first layers of the TIB and 120 $\mu$m in the two next ones, resulting in a spatial resolution of respectivly 23 $\mu$m and 35 $\mu$m. In the TID, the pitch varies between 100 $\mu$m and 141 $\mu$m. Surroungind the TIB and TID is the Tracker Outer Barrel (TOB) composed of 6 barrel layers of 500 $\mu$m thick strips. It provides a resolution of 53 $\mu$m for the first four layers and 35 $\mu$m for the two last ones. Closing the TOB on both sides are the Tracker EndCaps (TEC) which each hold 9 disks. In addition, given modules are equipped with a second strip detector mounted back-to-back with a stereo angle of 100 mrad to provide a measurment of the second coordinate.
 
+  \section{The Electromagnetic Calorimeter}
 
+    The Electromagnetic Calorimeter (ECAL) of CMS is composed of lead tungstene (PbWO$_4$) crystals that act as hermetic calorimeters: they initiate the particle cascades and providing the proportionnal response to the energy deposition. The barrel counts 61 200 crystals closed by 7 324 crystals in each endcap. In order to distinguish pion shower, a high granularity preshower is installed in front of the ECAL, providing detailed measurments of the impact points. \\
 
+    The structure of the ECAL is shown in Figure \ref{fig:I-3-ecal}. In the barrel, the ECAL covers a pseudorapidity range $ | \eta | $ < 1.479 and is divided in 360 sections in $ \phi $ and 170 in $ \eta $. The crystals cross-section varies between 22 mm $ \times $ 22 mm to 26 mm $ \times $ 26 mm for a length of 230 mm corresponding to 25.8 radiation lengths. In the endcaps, the modules cover a pseudorapidity 1.479 < $ | \eta | $ < 3.0. Each crystal has a front cross-section of 28.62 mm $ \times $ 28.62 mm and a length of 220 mm. They are grouped in units of 5 $ \times $ 5 crystals called supercrystals further inserted in one of the two \emph{Dees} that compose an endcap and maintains the ECAL in place. The preshower uses a lead radiators to initiate the avalanche that will be detected by silicon strips to measure the deposited energy and the avalanche profile. \\
 
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/I-3-cms/ecal.png}
+      \caption{Layout of the ECAL and disposition of the crystals in modules and supermodules \cite{1748-0221-3-08-S08004}.}
+      \label{fig:I-3-ecal}
+    \end{figure}
 
-
-
-
+    The energy resolution of the ECAL for particles with energy bellow 500 GeV is parametrized by the following equation:
+    \begin{equation}
+      \left( \frac{\sigma}{E} \right)^2 = \left( \frac{S}{\sqrt{E}} \right)^2 + \left( \frac{N}{E} \right)^2 + C^2
+    \end{equation}
+    where $ S $ is the stochastic term, $ N $ the noise terme, and $ C $ the constant term. The main contributions to the stochastic term are relatated to fluctuations in the lateral shower containment, photostatique contributions, and fluctuations in the energy deposition inside the preshower radiators compared to what is measured by the silicon detector. The noise term includes noise from the electronics, the digitisation, and pile-up. Finally, the constant term accounts for non-uniformities in the crystals, callibration errors, and leakage of energy from the back of the crystals. From test beams, the values of $ S $, $ N $, and $ E $, where found to be so that: \\
+    \begin{equation}
+      \left( \frac{\sigma}{E} \right)^2 = \left( \frac{2.8\%}{\sqrt{E}} \right)^2 + \left( \frac{0.12}{E} \right)^2 + (0.30\%)^2
+    \end{equation}
 
   \newcommand{\GeVc}{GeV c$ ^{-1} $}
   \newcommand{\um}{$ \mu $m}
@@ -62,60 +76,6 @@
 
 
 
-  \subsubsection{System Performances}
-  \label{sec:lhc_and_cms__tracker_system_performances}
-
-    Due to the magnetic field generated by the solenoid, the trajectories charged particles are bent inside the tracker. The relation between the bending radius of the track $ R $ , the transverse momentum $ p_T $, and the intensity of the magnetic field $ B $ is
-    \begin{equation}
-      R[\mbox{m}] = \frac{p_T[\mbox{GeV c}^{-1}]}{0.3 B[\mbox{T}]} \ .
-      \label{eq:lhc_and_cms__radius_to_momentum_relation}
-    \end{equation}
-    By measuring the bending radius of the track and inverting the previous relation, the transverse momentum of the particles can be obtained. Tracks created by high energy particles will be straighter than those left by low energy particles and therefore more difficult to reconstruct. \\
-
-    As previously stated, the tracker offers an excellent resolution on the position of the particles and therefore gives precise measurements of the particles' momentum. Figure \ref{fig:lhc_and_cms__cms_tracker_performances} shows the resolution on the transverse momentum \pT{} (left) and detection efficiency (right) of the tracker as a function of the pseudo-rapidity $ \eta $ for muons of transverse momenta \pT{} of 1, 10, and 100 \GeVc{}. The resolution is less than 1\% for muons of 1 and 10 \GeVc{} in the barrel ($ \eta $ < 1) and quickly rises in the most forward region. The same effect is observed for the detection efficiency which is close to 100\% in the barrel but significantly diminishes at higher pseudo-rapidities. Precision decreases in the most forward region where the strip pitch is greater and more material is present, causing more scatterings.
-
-    \begin{figure}[h!]
-      \centering
-      % \includegraphics[width = 6.3cm]{2_LHC_CMS/img/cms_tracker_resolution.png}
-      % \includegraphics[width = 6.3cm]{2_LHC_CMS/img/cms_tracker_efficiency.png}
-      \caption{Resolution on the transverse momentum \pT{} (left) and detection efficiency (right) of the tracker as a function of the pseudo-rapidity $ \eta $ for muons of transverse momenta \pT{} of 1, 10, and 100 \GeVc{} \Cite{CMS_at_LHC}.}
-      \label{fig:lhc_and_cms__cms_tracker_performances}
-    \end{figure}
-
-
-
-  \section{The Electromagnetic Calorimeter}
-
-  Calorimeters are devices that absorb the full kinetic energy of a particle by creating particle cascades, and provide a signal that is proportional to that deposited energy. \\
-
-  Two types of calorimeters are present in CMS: the electromagnetic to detect electrons and photons, and the hadronic to detect hadrons. Each of them corresponding to two of the elementary interactions through which particles can interact with the medium: electromagnetic interaction and strong interaction. \\
-
-  The parameters characterizing particles showers are the radiation length $ \lambda_R $, and the Molière radius $ R_M $ for the electromagnetic calorimeter, and the absorption length $ \lambda_a $ and the interaction length $ \lambda_I $ for the hadronic calorimeter, all depending upon the atomic properties of the material.
-  \begin{enumerate}
-    \item[] $ \lambda_R $ is the distance that an electron or photon has to travel inside the calorimeter to, respectively, emit a photon or create an electron/positron pair.
-    \item[] $ R_M $ gives the radius of the cylinder in which 90\% of the electromagnetic shower is contained.
-    \item[] $ \lambda_a $ is the average distance that a hadron has to travel before undergoing an inelastic interaction with the medium.
-    \item[] $ \lambda_I $ yields the distance after which a hadron will have scattered inelastically and also gives the radius of the cylinder in which 95\% of the hadronic shower is contained.
-  \end{enumerate}
-  Those parameters result in the spatial extension of the cascades giving an idea of the granularity needed to correctly distinguish showers. Because the interaction length $ \lambda_I $ of hadrons is much larger than the radiation length $ \lambda_R $ of electrons and photons, the ECAL is placed first. This also implies that hadrons can pass through the ECAL without interacting, or at least not significantly, even if it is multiple $ \lambda_R $ long. \\
-
-  The energy resolution of calorimeters depends upon the number of particles in the cascade hence the energy of the particle
-  \begin{equation}
-    \left( \frac{\sigma_E}{E} \right)^2 = \left( \frac{a}{\sqrt{E}} \right)^2 + \left( b \right)^2 + \left( \frac{c}{E} \right)^2 \ ,
-  \end{equation}
-  where $ a $ is the stochastic term depending upon the development of the shower and the detector's response, $ b $ is the constant term determined by the calibration and the uniformity of the crystal, and $ c $ is the noise term from the electronics. Unlike the tracker, the calorimeters' resolution increases with the energy, offering the best resolution at high energies.
-
-  The two main processes allowing the detection of electrons and photons are respectively Brëmsstrahlung and pair creation. These occur as long as the resulting particles (electrons and photons) have enough energy to repeat the process, creating an electromagnetic cascade inside the material. The size of the cascade hence the number of photons emitted by the scintillator is proportional to the energy of the incident particle. Muons do not significantly interact with the ECAL because the radiative processes are greatly suppressed. Indeed, Brëmsstrahlung is proportional to m$ ^{-2} $ (inverse-squared mass) and is therefore only significant for electrons. \\
-
-  \begin{figure}[h!]
-    \centering
-    % \includegraphics[height = 4cm]{2_LHC_CMS/img/cms_ecal_crystal.png}
-    % \includegraphics[height = 4cm]{2_LHC_CMS/img/cms_ecal_endcap.png}
-    \caption{Picture of a PbWO$ _4 $ crystal (left) used in the ECAL with its photomultiplier, and of the endcap ECAL (right) showing the crates in which the crystals are placed \Cite{CMS_at_LHC}.}
-    \label{fig:lhc_and_cms__cms_ecal_view}
-  \end{figure}
-
-  In CMS, the ECAL is composed of PbWO$ _4 $ crystals, acting both as interaction media and as scintillators, attached to photomultipliers to amplify the relatively small amount of photons they emit. The crystals measure 2.2 cm x 2.2 cm, which is equivalent to one Molière radius $ R_M $, by 23 cm, which corresponds to several radiation lengths $ X_0 $. Figure \ref{fig:lhc_and_cms__cms_ecal_view} shows one of these crystals (left), the crates that hold them, and their disposition in the endcap (right). The number of photons collected is proportional to the energy deposited in the calorimeter modulo a correction factor due to the aging of the material. The ambient radiation causes the crystals to become opaque and release less photons which in turn implies a constant need for recalibration of the detectors.
 
   \section{The Hadronic Calorimeter}
 
