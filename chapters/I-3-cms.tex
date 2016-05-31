@@ -99,12 +99,6 @@
 
     Muons are a recognizable signature from the high background noise produced by the high number of p-p interactions. Moreover, they are present in many processes that characterize interesting processes from the standard model and beyond. Therefore, providing good triggering, identification, and reconstruction capabilities is essential. CMS is equipped with three different muon detectors that together form the muon spectrometer: Drift Tubes (DTs), Cathode Strip Chambers (CSCs), and Resistive Plate Chambers (RPCs). DTs and CSCs are respectivly placed in the barrel and the endcaps while RPCs are installed in both regions, adding redunduncy to the system by providing additionnal measurment points. Figure \ref{fig:I-3-muons} represent a quadrant of CMS highlighting the placement of the various technologies inside the detector. \\
 
-    In the barrel, four cylindrical layers of DTs, numbered MB1 to MB4, are spread over a pseudorapidity range of $ | \eta | $ < 1.2. The first three layers each contain modules of eight chambers: four to measure the r-$\phi$ bending angle and four to measure the z direction. The fourth station solely tracks the r-$\phi$ parameter using four chambers. \\
-
-    In the endcaps, the CSCs cover a region of 0.9 < $ | \eta | $ < 2.4 and are spread over four disks where detectors are placed perpendicularly to the beam pipe. Each disk is further divided into two or three rings number MEx/y, where x is the disk number and y is the ring number. CSCs measure both the r-$\phi$ and the $ \eta $ parameter using respectivly cathode strips that run radially and anode wires that run perpendicular to the strips. Each module is composed of 6 layers of CSCs which provide precise background noise rejection and tracking. \\
-
-    In order to provide fast triggering and improve the time resolution, RPCs, which provide a fast timing response, are installed in front of the DTs and CSCs label RBx and REx/y. In the barrel, two stations of RPCs are installed in RB1 and RB2 while only one station is instrumented in RB3 and RB4. In the endcaps, one module of RPCs equips each of the stations except for the first ring of each disk which has been left empty. This is due to the high rate of particles in the region close to the beam pipe which is not supported by the RPCs.
-
     \begin{figure}[h!]
       \centering
       \includegraphics[width=\textwidth]{img/I-3-cms/muons.pdf}
@@ -112,8 +106,31 @@
       \label{fig:I-3-muons}
     \end{figure}
 
+    In the barrel, four cylindrical layers of DTs, numbered MB1 to MB4, are spread over a pseudorapidity range of $ | \eta | $ < 1.2. The first three layers each contain eight chambers: four to measure the r-$\phi$ bending angle and four to measure the z direction. The fourth station solely tracks the r-$\phi$ parameter using four chambers. \\
+
+    In the endcaps, the CSCs cover a region of 0.9 < $ | \eta | $ < 2.4 and are spread over four disks where detectors are placed perpendicularly to the beam pipe. Each disk is further divided into two or three rings number MEx/y, where x is the disk number and y is the ring number. CSCs measure both the r-$\phi$ and the $ \eta $ parameter using respectivly cathode strips that run radially and anode wires that run perpendicular to the strips. Each module is composed of 6 layers of CSCs which provide precise background noise rejection and tracking. \\
+
+    In order to provide fast triggering and improve the time resolution, RPCs, which provide a fast timing response, are installed in front of the DTs and CSCs label RBx and REx/y. In the barrel, two stations of RPCs are installed in RB1 and RB2 while only one station is instrumented in RB3 and RB4. In the endcaps, one module of RPCs equips each of the stations except for the first ring of each disk which has been left empty. This is due to the high rate of particles in the region close to the beam pipe which is not supported by the RPCs.
+
     \subsection{Drift Tubes}
+
+      The DT technology is suitable for the barrel region where particle rates stay low and occupancy in the chambers is limited. The building block of DTs are drift cells in which a 2.4 m wire is stretched inside a 21 mm wide cell filled with ArCO$_2$. Four staggered layers of drift cells are assembled together in order to form a Super Layer (SL) which, by design, reduces eliminate deadspace between the cells and improves the timing resolution. SLs vary in size between 1.9 m in MB1 and 4.1 m in MB4. Each chamber contains two SLs that measure the r-$\phi$ bending angle and one SL that provides a measurment in the z direction. MB4, the fourth station, however does not include the SLs in the z direction.
 
   	\subsection{Cathode Strip Chambers}
 
   	\subsection{Resistive Plate Chambers}
+
+  \section{The Trigger System}
+
+    Every 25 ns approximatly 20 p-p interactions resulting from the LHC bunches collision occur, yielding in more than 1000 particles in the final state. The amount of information generated by CMS is considerable and impossible to process and store as is. Therefore, two trigger stages have been implemented to reduce the 40 MHz rate of collisions to 100 kHz at first and 100 Hz afterwards. The Level-1 Trigger (L1 Trigger) consists of custom electronics designed to quickly discriminate between the events. In less than 3.2 $\mu$s the system has to take the decission to forware the event to the next stage or drop it and lose the data. Accepted events are passed to the High Level Trigger (HLT) which runs on a farm of commercial computers. Unlike the L1 Trigger which due to the small allocated computation time has restricted access to hit information from the detectors, the HLT can use the full granularity of the detector to reconstruct events.
+
+    \subsection{Calorimeter Trigger}
+    \subsection{Muon Trigger}
+    \subsection{Global Trigger}
+    \subsection{Trigger Control System}
+
+  \section{The Data Acquisition System}
+    \subsection{The Event Builder}
+    \subsection{The Event Filter}
+    \subsection{DAQ Software, Control, and Monitoring}
+    \subsection{Detector Control System}
