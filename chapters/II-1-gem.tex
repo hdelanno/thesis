@@ -7,17 +7,39 @@
 
   The relative success of the MSGCs led to the development of Micro-Pattern Gas Detectors (MPGDs) less suseptible to discharges and offering comparable performances. They make use of micro pattern structures to amplify the signal and reduce the probability of sparks inside the chamber. Two technologies have proven to be operationnal: the micro-mesh gaseous structure (MICROMEGAS) and the Gas Electron Multiplier (GEM) \cite{SAULI1997531}. \\
 
-  Already in use in the COMPASS and TOTEM experiments at CERN, GEM detectors have proven to meet the requirements of high-luminosity environments. In 2009, a dedicated R\&D program was launched to study the feasability of the installation of GEMs in the muon spectrometer of CMS to instrument the positions left vacant by RPCs. In 2016, the so called GE1/1 muon detector upgrade project was approved by CMS to be installed during LS2.
+  Already in use in the COMPASS and TOTEM experiments at CERN, GEM detectors have proven to meet the requirements of high-luminosity environments. In 2009, a dedicated R\&D program was launched to study the feasability of the installation of GEMs in the muon spectrometer of CMS to instrument the positions left vacant by RPCs. Seven years later, the so called GE1/1 muon detector upgrade project has been approved by CMS to be installed during LS2.
 
   \section{Motivations for the GE1/1 Muon Detector Upgrade}
 
-    During LS2 in 2018-2019, the CMS GEM collaboration \cite{Colaleo:2021453} will install an additional set of muon detectors in CMS in the 1.6 < |$\eta$| < 2.2 region. The so-called GE1/1 detector will be installed near the ME1/1 CSCs station as shown in Figure \ref{fig:II-1-gem-ge11} which highlights the location of the chamber within the muon spectrometer. The naming convention is identical to the one of the CSCs, namelly GEx/y where x denotates the disk number and y the ring number. \\
+    During LS2 that will take place in 2018-2019, the CMS GEM collaboration \cite{Colaleo:2021453} will install an additional set of muon detectors in CMS in the 1.6 < |$\eta$| < 2.2 region. The so-called GE1/1 detector will be installed near the ME1/1 CSCs station as shown in Figure \ref{fig:II-1-gem-ge11} which highlights the location of the chamber within the muon spectrometer. \\
 
     \begin{figure}[h!]
       \centering
       \includegraphics[width=\textwidth]{img/II-1-gem/ge11-quadrant.pdf}
       \caption{Schematic representation of a quadrant of CMS highlighting the location of the GE1/1 detector in red within the muon spectrometer \cite{Colaleo:2021453}.}
       \label{fig:II-1-gem-ge11}
+    \end{figure}
+
+    The main motivation for the installation of GE1/1 is the significant impact it has on the triggering system of CMS. Left as is, the performance of the current system would degrade in the coming years with the increase in instantenuous luminosity due to the rate limitations of the ME1/1 station exposed to an intense flux of particles. Muon triggering will in turn suffer a degradation in transverse momentum, p$_T$, resolution. As muon triggers are limited in bandwidth to a fraction of the total allocated bandwidth of the trigger, typically a few kHz, they must set a cut on the p$_T$ of the muons. In the scenario where the muon spectrometer remains unmodified, the threshold would have to be raised to p$_T$ $ \approx $ 30 GeV c$^{-1}$ which would be a considerable drawback in terms of physics analysis. \\
+
+    To prevent the degradation of the trigger system, the GEM collaboration investigated the possibility to use the bending angle between GE1/1 and ME1/1 to estimate the p$_T$ of muons, which trajectory is curvated by the magnetic field. Figure \ref{fig:II-1-gem-csc-bending} shows on the left the lever arm given by the 20 cm to 46 cm distance between the two detectors. The variation in distance corresponds to "close" and "far" chambers which are staggered in order to allow for some overlap and avoid deadspace. From this, the picture on the right displays the discrimination power between 5 GeV c$^{-1}$ and a 20 GeV c$^{-1}$ muons. \\
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.45\textwidth]{img/II-1-gem/gem-csc-bending-1.png}
+      \includegraphics[width=0.53\textwidth]{img/II-1-gem/gem-csc-bending-2.png}
+      \caption{??? \cite{Colaleo:2021453}.}
+      \label{fig:II-1-gem-csc-bending}
+    \end{figure}
+
+    Using these results, a common effort from the GEM and CSC collaboration ensued to integrate the GEM measurments in the CSC trigger system to provide an additionnal layer of information. 
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.49\textwidth]{img/II-1-gem/gem-csc-efficiency.pdf}
+      \includegraphics[width=0.49\textwidth]{img/II-1-gem/trigger-rate.png}
+      \caption{??? \cite{Colaleo:2021453}.}
+      \label{fig:II-1-gem-trigger}
     \end{figure}
 
   \section{Technology Overview}
@@ -27,5 +49,37 @@
   \section{GE1/1 Prototyping Results}
 
   \section{Detector Design Evolution}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   \section{GEM Upgrade Schedule}
