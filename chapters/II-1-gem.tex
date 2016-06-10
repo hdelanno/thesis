@@ -60,7 +60,7 @@
 
     A GEM foil is a 50-$\mu$m-thick polymer foil covered with 5-$\mu$m-thin copper sheets on both sides chemically perforated by a high density of microscopic holes. The polymer used is either Kapton or Apical, both with a dielectric constant of 3.5. The holes are truncated double cones with an outer diameter of 70 $\mu$m and a inner diameter of 50 $\mu$m and are spaced by 140 $\mu$m on an hexagonal grid. The structure of the GEM foil as shown on the left in Figure \ref{fig:II-1-gem-holes}, is obtained using photolitography techniques that require precise aligment of the top and bottom masks. \\
 
-    The diagram on the right in Figure \ref{fig:II-1-gem-holes} represents the electric field lines that appear when a high voltage difference is applied between the two layers of copper, typically on the order of 300 V, resulting in field densities inside the holes reaching approximatly 80 kV cm$^{-1}$. The structure of the electric field is used to amplify the signal of particles passing through the detector. Electrons resulting from the ionisation of the gas by charged particles are directed towards the holes of the foil. When reaching high kinetic energy inside the holes, they themselves ionize the medium, producing secondary avalanches of electrons. \\
+    The diagram on the right in Figure \ref{fig:II-1-gem-holes} represents the electric field lines that appear when a high voltage difference is applied between the two layers of copper, typically on the order of 300 V, resulting in field densities inside the holes reaching approximatly 80 kV cm$^{-1}$. The structure of the electric field is used to amplify the signal of particles passing through the detector. Electrons resulting from the ionisation of the gas by charged particles are directed towards the holes of the foil. When reaching high kinetic energy inside the holes, they themselves ionize the medium, producing secondary avalanches of electrons. Each hole acts as a proportional counter with gains  \\
 
     \begin{figure}[h!]
       \centering
@@ -69,7 +69,7 @@
       \label{fig:II-1-gem-holes}
     \end{figure}
 
-    To achive high gains in the detectors, two solutions can be implemented: increase the high voltage on the foils, or use multiple foils. The first option gives rise to discharges when operating at too high electric fields thus damaging the detector. Therefore, the choice to use three GEM foils has been made, hence the name of Triple-GEM detectors. The foils are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. A drift cathode is placed on the top of the chamber which creates an electric field between itself and the top copper layer of the first GEM foil in the so-called drift gap measuring 3 mm. Electrons originating from the ionisation of the ArCO$_2$ gas mixture (70\% Argon, 30\% CO$_2$) by a charged particle drift towards the holes of the foil, while ions are collected by the cathode. Following, the electron shower is amplified by GEM 1, GEM 2, and GEM 3, respectivly tranfering the signal to the transfer 1, transfer 2, and induction gaps measuring 1 mm, 2 mm, and 1 mm each. In the induction gap, the drift of the electrons towards the anodes induces a signal on the latter which can be detected by electronics.
+    To achive high gains in the detectors, two solutions can be implemented: increase the high voltage on the foils, or use multiple foils. The first option gives rise to discharges when operating at too high electric fields thus damaging the detector. Therefore, the choice to use three GEM foils has been made, hence the name of Triple-GEM detectors. The foils are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. A drift cathode is placed on the top of the chamber which creates an electric field between itself and the top copper layer of the first GEM foil in the so-called drift gap measuring 3 mm. Electrons originating from the ionisation of the ArCO$_2$ gas mixture (70\% Argon, 30\% CO$_2$) by a charged particle drift towards the holes of the foil, while ions are collected by the cathode. Following, the electron shower is amplified by GEM 1, GEM 2, and GEM 3, respectivly tranfering the signal to the transfer 1, transfer 2, and induction gaps measuring 1 mm, 2 mm, and 1 mm each. In the induction gap, the drift of the electrons towards the anodes induces a signal on the latter which can be detected by electronics. \\
 
     \begin{figure}[h!]
       \centering
@@ -80,33 +80,35 @@
 
   \section{Technical Design of GE1/1 chambers for CMS}
 
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=\textwidth]{img/II-1-gem/gem-exploded.pdf}
-        \caption{??? \cite{Colaleo:2021453}.}
-        \label{fig:II-1-gem-exploded}
-      \end{figure}
+    The GE1/1 chambers are arranged in pairs to form superchambers, each covering 10$^o$ in $ \phi $ for a total of 72 chambers per endcap. The geometry of the superchambers is represented in Figure \ref{fig:II-1-gem-superchamber}. Due to mechanical constraint, the trapezoidal chambers are declined in two alternating dimensions: a short one and a long one. The short chambers cover 1.61 < |η| < 2.18 and have a large base of 445 mm, a small base of 220 mm, and a height of 990 mm. The long chamers cover 1.55 < |η| < 2.18 and have a large base of 510 mm, a small base of 279 mm, and a height of 1283 mm. \\
 
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=\textwidth]{img/II-1-gem/superchamber.pdf}
-        \caption{??? \cite{Colaleo:2021453}.}
-        \label{fig:II-1-gem-superchamber}
-      \end{figure}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-1-gem/superchamber.pdf}
+      \caption{??? \cite{Colaleo:2021453}.}
+      \label{fig:II-1-gem-superchamber}
+    \end{figure}
 
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=\textwidth]{img/II-1-gem/wheel.png}
-        \caption{??? \cite{Colaleo:2021453}.}
-        \label{fig:II-1-gem-wheel}
-      \end{figure}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-1-gem/gem-exploded.pdf}
+      \caption{??? \cite{Colaleo:2021453}.}
+      \label{fig:II-1-gem-exploded}
+    \end{figure}
 
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=\textwidth]{img/II-1-gem/field-map.pdf}
-        \caption{??? \cite{Colaleo:2021453}.}
-        \label{fig:II-1-gem-field-map}
-      \end{figure}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-1-gem/wheel.png}
+      \caption{??? \cite{Colaleo:2021453}.}
+      \label{fig:II-1-gem-wheel}
+    \end{figure}
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-1-gem/field-map.pdf}
+      \caption{??? \cite{Colaleo:2021453}.}
+      \label{fig:II-1-gem-field-map}
+    \end{figure}
 
   \section{Detector Design Evolution}
 
