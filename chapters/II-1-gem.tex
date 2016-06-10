@@ -20,7 +20,7 @@
       \label{fig:II-1-gem-ge11}
     \end{figure}
 
-    The main motivation for the installation of GE1/1 is the significant impact it has on the triggering system of CMS. Left as is, the performance of the current system would degrade in the coming years with the increase in instantenuous luminosity due to the rate limitations of the ME1/1 station exposed to an intense flux of particles. Muon triggering will in turn suffer a degradation in transverse momentum, p$_T$, resolution. As muon triggers are limited in bandwidth to a fraction of the total allocated bandwidth of the trigger, typically a few kHz, they must set a cut on the p$_T$ of the muons. In the scenario where the muon spectrometer remains unmodified, the threshold would have to be raised to p$_T$ $ \approx $ 30 GeV c$^{-1}$ which would be a considerable drawback in terms of physics analysis. \\
+    The main motivation for the installation of GE1/1 is the significant impact it has on the triggering system of CMS. Left as is, the performance of the current system would degrade in the coming years with the increase in instantenuous luminosity due to the rate limitations of the ME1/1 station exposed to an intense flux of particles. Muon triggering will in turn suffer a degradation in transverse momentum, p$_T$, resolution. As muon triggers are limited in bandwidth to a fraction of the total allocated bandwidth of the trigger, typically a few kHz, they must set a cut on the minimum p$_T$ of the muons. In the scenario where the muon spectrometer remains unmodified, the threshold would have to be raised to p$_T$ $ \approx $ 30 GeV c$^{-1}$ which would be a considerable drawback in terms of physics analysis. \\
 
     To prevent the degradation of the trigger system, the GEM collaboration investigated the possibility to use the bending angle of tracks between GE1/1 and ME1/1 to estimate the p$_T$ of muons, which trajectory is curvated by the magnetic field. Figure \ref{fig:II-1-gem-csc-bending} shows on the left the lever arm given by the 20 cm to 46 cm distance between the two detectors. The variation in distance corresponds to "close" and "far" chambers which are staggered in order to allow for some overlap and avoid deadspace. From this, the picture on the right displays the discrimination power between 5 GeV c$^{-1}$ and a 20 GeV c$^{-1}$ muons. \\
 
@@ -32,7 +32,7 @@
       \label{fig:II-1-gem-csc-bending}
     \end{figure}
 
-    Using these results, a common effort from the GEM and CSC collaboration ensued to integrate the GEM measurments in the CSC trigger system to provide an additionnal layer of information. Using simulations, it has been shown that the efficiency of system increases thus yeilding a lower rate of triggers. These results are shown in Figure \ref{fig:II-1-gem-trigger}. In the left plot, it can be seen that the efficiency of the GEM and CSC combined trigger in blue is superior to the CSC only results in red, recovering the losses occuring at higher rates. In the right plot, it is depicted how the trigger rate of the combined system in blue diminishes by one order of magnitude compared to the current system in red. For a given trigger rate, a smaller muon p$_T$ threshold can be applied which improves the physics performance of the detectors. \\
+    Using these results, a common effort from the GEM and CSC collaboration ensued to integrate the GEM measurments in the CSC trigger system to provide an additionnal layer of information. Using simulations, it has been shown that the efficiency of system increases thus yeilding a lower rate of triggers. These results are shown in Figure \ref{fig:II-1-gem-trigger}. In the left plot, it can be seen that the efficiency of the GEM and CSC combined trigger in blue is superior to the CSC only results in red, recovering the losses occuring at higher rates. In the right plot, it is depicted how the trigger rate of the combined system in blue diminishes by one order of magnitude compared to the current system in red. For a given trigger rate, a smaller muon p$_T$ threshold can be applied due to lower rate of misreconstructed particles, which improves the physics performance of the detectors. \\
 
     \begin{figure}[h!]
       \centering
@@ -41,13 +41,26 @@
       \label{fig:II-1-gem-trigger}
     \end{figure}
 
-    Preserving a low p$_T$ threshold is essential for the physics analysis to preserve good reconstruction efficiency of soft muons. These particles are important for a wide range of processes from beyond the standard model searches to measurments in the Higgs sector. Simulation studies have shown that in the case of $ H \rightarrow \tau^+ \tau^- $ where one $ \tau $ decays into a muon, a decrease of 5 GeV c$^{-1}$ in the p$_T$ threshold results in an increase of 35\% in the acceptance of the channel. In addition, the impact is not limited to the single muon trigger but affects all other triggers involving muons analysing for example $\mu+jet$ or $e/\gamma+\mu$ signals.
+    Preserving a low p$_T$ threshold is essential for the physics analysis to preserve good reconstruction efficiency of soft muons. These particles are important for a wide range of processes from beyond the standard model searches to measurments in the Higgs sector. Simulation studies have shown that in the case of $ H \rightarrow \tau^+ \tau^- $ where one $ \tau $ decays into a muon, a decrease of 5 GeV c$^{-1}$ in the p$_T$ threshold results in an increase of 35\% in the acceptance of the channel. In addition, the impact is not limited to the single muon trigger but affects all other triggers involving muons analysing for example $\mu+jet$ or $e/\gamma+\mu$ signals. \\
 
-  \section{Technology Overview of Triple-GEMs}
+    To further improve the trigger efficiency of CMS, it is planned to add a new track trigger, a trigger system for the tracker, which would benefit from the high resolution of the subdetector. Forseen to be integrated during LS2, the system yields excellent results in the identification, reconstruction, and triggering of muons. However, due to the high occupancy of hits and the limited amount of computanional time alocated to the trigger, given approximations need to be done, degrading the results for certain physics channels. One of the assumptions made by the algorithms is that every particle originates from the interaction point. This has a significant impact on new physics processes involving hidden sectors of low interacting particles such as the decay of a Higgs into two neutralinos $ n $, which in turn create a so-called dark photon $ \gamma_d $
+    \begin{equation}
+      h \rightarrow 2 n_1 \rightarrow 2 n_d \gamma_d .
+    \end{equation}
+    The dark photon in turn decays into two muons which originate from a displaced vertex. Figure \ref{fig:II-1-gem-dark-photon} illustrates the limitations of the track trigger (red) to reconstruct muons in function of the distance between the vertex and the interaction point. Efficiency quickly drops to reach 0\% around 50 cm. The muon standalone trigger (blue) on the other hand is capable of reconstructing the track with high efficiency underlining the necessity of a preserving excellent trigger performances in the muon spectrometer.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.6\textwidth]{img/II-1-gem/dark-photon.pdf}
+      \caption{??? \cite{Colaleo:2021453}.}
+      \label{fig:II-1-gem-dark-photon}
+    \end{figure}
+
+  \section{Technology Overview of Triple-GEM detectors}
 
     A GEM foil is a 50-$\mu$m-thick polymer foil covered with 5-$\mu$m-thin copper sheets on both sides chemically perforated by a high density of microscopic holes. The polymer used is either Kapton or Apical, both with a dielectric constant of 3.5. The holes are truncated double cones with an outer diameter of 70 $\mu$m and a inner diameter of 50 $\mu$m and are spaced by 140 $\mu$m on an hexagonal grid. The structure of the GEM foil as shown on the left in Figure \ref{fig:II-1-gem-holes}, is obtained using photolitography techniques that require precise aligment of the top and bottom masks. \\
 
-    The diagram on the right in Figure \ref{fig:II-1-gem-holes} represents the electric field lines that appear when a high voltage difference is applied between the two layers of copper, typically on the order of 300 V, resulting in field densities inside the holes reaching approximatly 80 kV cm$^{-1}$. The structure of the electric field is used to amplify the signal of particles passing through the detector. Electrons resulting from the ionisation of the gas by charged particles are directed towards the holes of the foil. When reaching high kinetic energy inside the holes, they themselves ionize the medium, producing secondary avalanches of electrons. The typical gain of a foil is on the order of 20. \\
+    The diagram on the right in Figure \ref{fig:II-1-gem-holes} represents the electric field lines that appear when a high voltage difference is applied between the two layers of copper, typically on the order of 300 V, resulting in field densities inside the holes reaching approximatly 80 kV cm$^{-1}$. The structure of the electric field is used to amplify the signal of particles passing through the detector. Electrons resulting from the ionisation of the gas by charged particles are directed towards the holes of the foil. When reaching high kinetic energy inside the holes, they themselves ionize the medium, producing secondary avalanches of electrons. \\
 
     \begin{figure}[h!]
       \centering
@@ -56,7 +69,7 @@
       \label{fig:II-1-gem-holes}
     \end{figure}
 
-    In order to achieve high enough gains for the signal to become significant, three GEM foils are used, hence the name of Triple-GEM detectors. The fois are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. 
+    To achive high gains in the detectors, two solutions can be implemented: increase the high voltage on the foils, or use multiple foils. The first option gives rise to discharges when operating at too high electric fields thus damaging the detector. Therefore, the choice to use three GEM foils has been made, hence the name of Triple-GEM detectors. The foils are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. A drift cathode is placed on the top of the chamber which creates an electric field between itself and the top copper layer of the first GEM foil in the so-called drift gap measuring 3 mm. Electrons originating from the ionisation of the ArCO$_2$ gas mixture (70\% Argon, 30\% CO$_2$) by a charged particle drift towards the holes of the foil, while ions are collected by the cathode. Following, the electron shower is amplified by GEM 1, GEM 2, and GEM 3, respectivly tranfering the signal to the transfer 1, transfer 2, and induction gaps measuring 1 mm, 2 mm, and 1 mm each. In the induction gap, the drift of the electrons towards the anodes induces a signal on the latter which can be detected by electronics.
 
     \begin{figure}[h!]
       \centering
