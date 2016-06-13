@@ -69,7 +69,7 @@
       \label{fig:II-1-gem-holes}
     \end{figure}
 
-    To achive high gains in the detectors, two solutions can be implemented: increase the high voltage on the foils, or use multiple foils. The first option gives rise to discharges when operating at too high electric fields thus damaging the detector. Therefore, the choice to use three GEM foils has been made, hence the name of Triple-GEM detectors. The foils are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. A drift cathode is placed on the top of the chamber which creates an electric field between itself and the top copper layer of the first GEM foil in the so-called drift gap measuring 3 mm. Electrons originating from the ionisation of the ArCO$_2$ gas mixture (70\% Argon, 30\% CO$_2$) by a charged particle drift towards the holes of the foil, while ions are collected by the cathode. Following, the electron shower is amplified by GEM 1, GEM 2, and GEM 3, respectivly tranfering the signal to the transfer 1, transfer 2, and induction gaps measuring 1 mm, 2 mm, and 1 mm each. In the induction gap, the drift of the electrons towards the anodes induces a signal on the latter which can be detected by electronics. \\
+    To achive high gains in the detectors, two solutions can be implemented: increase the high voltage on the foils, or use multiple foils. The first option gives rise to discharges when operating at too high electric fields thus damaging the detector. Therefore, the choice to use three GEM foils has been made, hence the name of Triple-GEM detectors. The foils are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. A drift cathode is placed on the top of the chamber which creates an electric field between itself and the top copper layer of the first GEM foil in the so-called drift gap measuring 3 mm. Electrons originating from the ionisation of the ArCO$_2$ gas mixture (70\% Argon, 30\% CO$_2$) by a charged particle drift towards the holes of the foil, while ions are collected by the cathode. Following, the electron shower is amplified by GEM 1, GEM 2, and GEM 3, respectivly tranfering the signal to the transfer 1, transfer 2, and induction gaps measuring 1 mm, 2 mm, and 1 mm each. The size of each gap is of importance in the detector performance and has been optimized over time to increase the speed of the signal and the detector efficiency. The current configuration is called 3/1/2/1 mm in reference to the gap size. In the induction gap, the drift of the electrons towards the anodes induces a signal on the latter which can be detected by electronics. \\
 
     \begin{figure}[h!]
       \centering
@@ -109,6 +109,8 @@
 
   \section{Detector Design Evolution}
 
+    The design and fabrication method of the GE1/1 chambers has evolved over the past 5 years of R\&D. The five generations of detectors are shown in Figure \ref{fig:II-1-gem-generations}. GE1/1-I was the first 1-m-long prototype. It was equipped with only eight readout sectors, components were glued together and GEM foils were separated using spacers. The number of sectors was increased to 24 in GE1/1-II with the full granularity of the current design (384 strips per 10$^o$). The gap configuration was changed from 3/2/2/2 mm to 3/1/2/1 mm to increase the signal speed. From GE1/1-III and onwards, GEM foils were streched mechanically using an outer frame glued on the drift board. This design also introduced the use of a miniature ceramic high voltage divider to apply voltage on the foils. However, the assembly of the chamber induced mechanical tension on the readout board, deforming the detector and resulting in a non-uniform response. This problem was resolved in GE1/1-IV by pre-bending the boards in the opposite direction to compensate before being bolted to the frames. This geneation was the first assembled without glue, reducing production time to a few hours. However, the pre-beding technic did not yield viable results. Therefore, GE1/1-V uses pull-out pieces to tension the foils to the outer frame, on which the drift and readout board are bolted. The outer frame serves as a wall for the chamber and seales it using O-rings. Finally, the version of the design of the chambers that will be installed in CMS is GE1/1-VI which has optimized dimension to maximize the geometrical acceptance.
+
     \begin{figure}[h!]
       \centering
       \includegraphics[width=\textwidth]{img/II-1-gem/generations.pdf}
@@ -118,6 +120,17 @@
 
   \section{GE1/1 Prototyping Results}
 
+    In order to provide the desired trigger and physics performance, the GE1/1 chambers must meet the following list of requirements:
+    \begin{itemize}
+      \item Maximum geometric acceptance within the given CMS envelope;
+      \item Rate capability of 10 kHz cm$^{-2}$ or better to cope with the HL-LHC hit rate;
+      \item Single-chamber efficiency of 97\% or better for detecting minimum ionizing particles resulting in 99.9\% efficiency for a superchamber when signals are combined with a logical OR;
+      \item Angular resolution of 300 $\mu$rad or better on $ \Delta \phi = \phi_{GE1/1} - \phi_{ME1/1} $ to discriminate high-p$_T$ from low-p$_T$ muons;
+      \item Timing resolution of 10 ns or better for a single chamber, which can be improved when combining the superchamber measurments, to allow matching with the CSC hits;
+      \item Gain uniformity of 15\% or better across a chamber and between chambers to ensure that no geometrical or trigger biases are present. \\
+    \end{itemize}
+
+    These features have been tested during test beam campaigns on the GE1/1 prototypes using the APV25 front-end chips to provide an analog readout of the detector.
 
 
 
