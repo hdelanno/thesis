@@ -69,7 +69,7 @@
       \label{fig:II-1-gem-holes}
     \end{figure}
 
-    To achive high gains in the detectors, two solutions can be implemented: increase the high voltage on the foils, or use multiple foils. The first option gives rise to discharges when operating at too high electric fields thus damaging the detector. Therefore, the choice to use three GEM foils has been made, hence the name of Triple-GEM detectors. The foils are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. A drift cathode is placed on the top of the chamber which creates an electric field between itself and the top copper layer of the first GEM foil in the so-called drift gap measuring 3 mm. Electrons originating from the ionisation of the ArCO$_2$ gas mixture (70\% Argon, 30\% CO$_2$) by a charged particle drift towards the holes of the foil, while ions are collected by the cathode. Following, the electron shower is amplified by GEM 1, GEM 2, and GEM 3, respectivly tranfering the signal to the transfer 1, transfer 2, and induction gaps measuring 1 mm, 2 mm, and 1 mm each. The size of each gap is of importance in the detector performance and has been optimized over time to increase the speed of the signal and the detector efficiency. The current configuration is called 3/1/2/1 mm in reference to the gap size. In the induction gap, the drift of the electrons towards the anodes induces a signal on the latter which can be detected by electronics. \\
+    To achive high gains in the detectors, two solutions can be implemented: increase the high voltage on the foils, or use multiple foils. The first option gives rise to discharges when operating at too high electric fields thus damaging the detector. Therefore, the choice to use three GEM foils has been made, hence the name of Triple-GEM detectors. The foils are arrangend as shown in Figure \ref{fig:II-1-gem-triple}. A drift cathode is placed on the top of the chamber which creates an electric field between itself and the top copper layer of the first GEM foil in the so-called drift gap measuring 3 mm. Electrons originating from the ionisation of the Ar/CO$_2$ gas mixture (70\% Argon, 30\% CO$_2$) by a charged particle drift towards the holes of the foil, while ions are collected by the cathode. Following, the electron shower is amplified by GEM 1, GEM 2, and GEM 3, respectivly tranfering the signal to the transfer 1, transfer 2, and induction gaps measuring 1 mm, 2 mm, and 1 mm each. The size of each gap is of importance in the detector performance and has been optimized over time to increase the speed of the signal and the detector efficiency. The current configuration is called 3/1/2/1 mm in reference to the gap size. In the induction gap, the drift of the electrons towards the anodes induces a signal on the latter which can be detected by electronics. \\
 
     \begin{figure}[h!]
       \centering
@@ -130,7 +130,19 @@
       \item Gain uniformity of 15\% or better across a chamber and between chambers to ensure that no geometrical or trigger biases are present. \\
     \end{itemize}
 
-    These features have been tested during test beam campaigns on the GE1/1 prototypes using the APV25 front-end chips to provide an analog readout of the detector.
+    Rate capability has been measured by monitoring the gain of a chamber when subject to a 22 keV Ag X-ray source and a high-intensity 8 keV Cu source. With Ar/CO$_2$, gain uniformity is maintained up to 100 MHz cm$^{-2}$, at which point the gain begins to drop. This confirms that the GE1/1 chambers are able to sustain rates up to 10 000 times higher than what they will experience in the 1.6 < |$\eta$| < 2.2 region of CMS. \\
+
+    The detection efficiency is measured using a multi-layer tracking system placed in front of the detector in a beam of particles. Tracks are reconstructed in the former and extrapolated to the latter to match with reconstructed hits. When using the analog readout electronics, an offline cut is applied on the charge of the strips to cancel noise. In the digital readout system, an online threshold is applied. Both results indicate an efficiency plateau at 97\%. \\
+
+    Using the above mentionned tracking system, the angular resolution of the GE1/1 chambers has also been measured during test beams. The resolution is taken to be the difference between the projected track position and the measured position in the detector. A resolution of 137$\pm$1 $\mu$rad has been obtained setting an upper limit on the angular resolution which is close to the theoretical value computed for a binary readout of
+    \begin{equation}
+      \frac{\text{angular strip pitch}}{\sqrt{12}} = \frac{455\  \mu\text{rad}}{\sqrt{12}} = 131\ \mu\text{rad} .
+    \end{equation}
+    Similar results were obtained using analog readout systems. \\
+
+    The timing measurments are done by fitting the spread of the distribution plotting the time difference between a trigger seen by scintillators and the detection of the particle by the GEM detector. Time resolution studies have been performed using Ar/CO$_2$/CF$_4$ as well as Ar/CO$_2$ gas mixtures. The former yields as resolution of 4 ns due to the fast electron transport speed in CF$_4$ while the latter provides 8 ns. However, CMS has banned the use of CF$_4$ due to its toxicity effectivly selecting Ar/CO$_2$ at a ration of 70\% and 30\% respectivly to be the mixture used in the detectors. \\
+
+    The response uniformity of the GEMs is measured for each detector as part of the quality control process. An X-ray generator is used to scan the entire chamber and the peak amplitude of the pulse charge distribution is taken as measurment of the uniformity. The latter does not vary more than 15\% accros the detector.
 
 
 
