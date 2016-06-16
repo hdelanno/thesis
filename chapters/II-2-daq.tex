@@ -41,7 +41,14 @@
 
     \subsection{The GEM Electronics Board}
 
-      The limited space in which the GEM detectors will be installed constrains the design of the system by making it impossible to run flat cables for the 24 VFAT3s. Therefore, the GEB, a Printed Circuit Board (PCB) of the same dimension as the GEM detector, was designed to route the signals of the front-end chips to the OH located on the large side of the detector, furthest away from the beam pipe. The functions of the GEBs are to host the VFAT3 ASICs connected to the 24 sectors of the GEM readout board, route their signals to the OH, distribute power to the chips, and provide electric shielding to the detector. \\
+      The limited space in which the GEM detectors will be installed constrains the design of the system by making it impossible to run flat cables for the 24 VFAT3s. Therefore, the GEB, a Printed Circuit Board (PCB) of the same dimension as the GEM detector, was designed to route the signals of the front-end chips to the OH located on the large side of the detector, furthest away from the beam pipe. A picture of a prototype of the GEB is shown on the right in Figure \ref{fig:II-2-daq-geb}. The functions of the GEBs are to host the VFAT3 ASICs connected to the 24 sectors of the GEM readout board, route their signals to the OH, distribute power to the chips, and provide electric shielding to the detector. The GEB is divided into three columns of eight VFAT3s, further divided into two sectors each as represented in the left picture in Figure \ref{fig:II-2-daq-geb}. The clock, slow control, and fast control are commonn for each column. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/II-2-daq/geb.pdf}
+        \caption{??? \cite{Colaleo:2021453}.}
+        \label{fig:II-2-daq-geb}
+      \end{figure}
 
       The VFAT3s are soldered on the GEB and connected to the GEM readout board on which it rests through a flexible PCB. The control and data signals from the chips are routed on the PCB towards four connectors located on the large side of the detector which connect to the OH. The power for the VFAT3s and the OH is distributed by the GEB using radition hard DC/DC converters developped by CERN which convert the incoming low voltage to the required voltages. In addition, the bottom layer of the GEB is grouded proving shielding to the detector from external ElectroMagnetic Interference (EMI).
 
@@ -71,14 +78,16 @@
 
       The header is used to syncrhonize the link by requiering the detection of a series of valid header fields. It is therefore protected by the FEC in order to ensure efficient frame-locking. From the slow control bits, both running at 80 Mb/s, the IC is reserved for the control and monitoring of the GBTX while the EC on the other hand can be freely assigned by the user. The data field is used to transfer DAQ, TTC, and slow control requests to the various subsystems connected to the GBT and can implement any user defined protocol. The FEC uses two Reed-Salomon codes interleaved with 4-bit symbols each capable of correcting double errors. This means that the total frame can recover up to 16 corrupted bits. Additionnaly, the GBT frame is scrambled in order to maintain DC balance on the transmission lines. \\
 
-      On the FPGA side, the communication protocol is seen by the user as a 84-bits-wide vector that is sampled at a frequency of 40 MHz an then formatted by the GBT-FPGA core. The GBTX ASIC on the other hand uses 42 Electric serial Links (E-Links) to handle the data. The structure of the GBTX is shown in Figure \ref{fig:II-2-daq-gbt-asic}. Each E-Link is composed of three differential pairs: one to transmit and one to receive the data, and one to carry the clock synchronuous to the data. From the 42 E-links, one is dedicated to the IC and one to the EC, each transfering data at 80 Mb/s by serializing the two IC or EC bits of the GBT frame on a single link. The use of the remaining 40 E-Links is defined according to the speed at which they operate. The 80-bit-long user data can be configured to either be serialised by a factor two, four, or eight resuling in the use of 40, 20, or 10 E-Links to accomodate the data rate. For the GEM project, a serialisation factor of eight is used, meaning that from the 40 E-Links, only 10 are in used, each of them tranfering 8 bits per BX. 
+      On the FPGA side, the communication protocol is seen by the user as a 84-bits-wide vector that is sampled at a frequency of 40 MHz an then formatted by the GBT-FPGA core. The GBTX ASIC on the other hand uses 42 Electric serial Links (E-Links) to handle the data. The structure of the GBTX is shown in Figure \ref{fig:II-2-daq-gbt-asic}. Each E-Link is composed of three differential pairs: one to transmit and one to receive the data, and one to carry the clock synchronuous to the data. From the 42 E-links, one is dedicated to the IC and one to the EC, each transfering data at 80 Mb/s by serializing the two IC or EC bits of the GBT frame on a single link. The use of the remaining 40 E-Links is defined according to the speed at which they operate. The 80-bit-long user data can be configured to either be serialised by a factor two, four, or eight resuling in the use of 40, 20, or 10 E-Links respectivly running at 80 MHz, 160 MHz, or 320 MHz to accomodate the data rate. For the GEM project, a serialisation factor of eight is used, meaning that from the 40 E-Links, only 10 are in used, each of them tranfering 8 bits per BX. \\
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-2-daq/gbt-asic.png}
+        \includegraphics[width=0.8\textwidth]{img/II-2-daq/gbt-asic.png}
         \caption{??? \cite{Moreira:1235836}.}
         \label{fig:II-2-daq-gbt-asic}
       \end{figure}
+
+      To convert the GBTX signals into optical communication, the Versatil Link project provides two laser diode modules: a transceiver module called VTRx and a dual transmitter module called VTTx. The modules have been designed to wistand high magnetic field and radiation doses as encountered in the LHC experiments. The maximal bit rate is of 4.8 Gb/s with a bit error rate inferior to 10$^{-12}$.
 
     \subsection{The microTCA Standard}
 
