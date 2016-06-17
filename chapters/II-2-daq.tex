@@ -37,7 +37,7 @@
 
       \paragraph{The slow control} module handles the configuration of the internal registers of the VFAT3. These registers define quantities such as the threshold of the analog front-end, the latency, the readout data format, etc. Coupled with the Calibration, Bias \& Monitoring (CBM) unit, it allows to perform calibration routines on the chip. \\
 
-      \paragraph{The fast control} defines all the time sensitive commands that the VFAT3 receives. These are the Event Counter 0 (EC0), Bunch Counter 0 (BC0), Calibration Pulse (CalPulse), Resynchronisation (Resync), and L1A. The EC0 and BC0 commands respectivly reset the EC and BC; the CalPulse is used to send a calibration pulse on given strips in order to callibrate the analog front-end; the ReSync command resets the EC counter; and the L1A informs the VFAT3 that an event needs to be transfered to the DAQ.
+      \paragraph{The fast control} defines all the time sensitive commands that the VFAT3 receives. These are the Event Counter 0 (EC0), Bunch Counter 0 (BC0), Calibration Pulse (CalPulse), Resynchronisation (Resync), and L1A. The EC0 and BC0 commands respectivly reset the EC and BC; the CalPulse is used to send a calibration pulse on given strips in order to callibrate the analog front-end; the ReSync command resets the internal pointers; and the L1A informs the VFAT3 that an event needs to be transfered to the DAQ.
 
     \subsection{The GEM Electronics Board}
 
@@ -90,6 +90,17 @@
       To convert the GBTX signals into optical communication, the Versatil Link project provides two laser diode modules: a transceiver module called VTRx and a dual transmitter module called VTTx. The modules have been designed to wistand high magnetic field and radiation doses as encountered in the LHC experiments. The maximal bit rate is of 4.8 Gb/s with a bit error rate inferior to 10$^{-12}$.
 
     \subsection{The microTCA Standard}
+
+      The off-detector electronics is implemented using the microTCA crate standard to manage the back-end system. The microTCA standard was developped for the telecommunication industry as a successor for the Advanced Telecommunications Computing Architecture (ATCA) technology. It uses a smaller form factor for the AMCs declines into a single width (73.8 mm $ \times $ 181.5 mm) or double width (148.8 mm $ \times $ 181.5 mm) version. The key feature of the crate is the topology of the backplane connecting the AMCs. The latter is not defined in the specifications but often implements a dual-star network which provides reduduncy and thus avoid critical failures of the system upon malfunction of a component. \\
+
+      The structure of the crate is shown in Figure \ref{fig:II-2-daq-utca-crate}. Managment and control of the subsystems of the crate are performed by the MicroTCA Carrier Hub (MCH), which in failure critical systems can be accompagnied by a second MCH for redunduncy. These two MCHs are the central points of the network in dual-star topology. They communicate with the Cooling Units (CUs), Power Modules (PMs) and AMCs through the Intelligent Platform Management Interface (IPMI). Upon power-on of the crate or hot-swap of an AMC, the MCHs provide minimal power to the components to establish communication with the Enhanced Module Managment Controller (EMMC) or Module Managnment Controller (MMC) embedded in each module. The initial IPMI transactions are used to define the power requirements of each system and provide a boot-up sequence. 
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-2-daq/utca-crate.png}
+        \caption{??? \cite{VADATECH}.}
+        \label{fig:II-2-daq-utca-crate}
+      \end{figure}
 
     \subsection{The MP7 Advanced Mezzanine Card}
 
