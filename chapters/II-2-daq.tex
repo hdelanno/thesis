@@ -112,12 +112,44 @@
       \end{itemize}
       Next to signal busses, the microTCA standard defines three clocks busses that can originate from the MCHs or the AMCs.
 
-
     \subsection{The MP7 Advanced Mezzanine Card}
+
+      The AMC board used as back-end electronics is the MP7 \cite{MP7} developped by Imperial College and shown in Figure \ref{fig:II-2-daq-mp7}. It is equipped with a large Virtex-7 FPGA providing extensive computanionnal power. The optical interface with the on-detector electronics is done through six Avago MiniPOD transmitters and six Avago MiniPOD receivers for a total of 72 bidirectionnal links. Using one MP7, 9 superchambers can be readout thus requiering a total of 8 MP7s for the GE1/1 project. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/II-2-daq/mp7.png}
+        \caption{??? \cite{MP7}.}
+        \label{fig:II-2-daq-mp7}
+      \end{figure}
+
+      The function of the MP7 is tripe: handle slow control requests for the subsystems, interpret TTC signals, and readout the trigger and tracking data from the OHs. The MP7 is the interface between the control and monitoring software and the detector electronics. It uses the fabric A lines of the MCH1 to connect to a Gigabit Ethernet network and handle TCP/IP requests. It interprets the requests and forwards them to the appropriate subsystem: either itself or over the optical link to the OHs and VFAT3s. The MP7 also receives the TTC commands on the fabric B from MCH2 and must forward them to the subsystems along with the LHC clock received on the CLK1 line. Finally, when the VFAT3s or the OHs push data upwards to the MP7, the latter must format the data before sending it on the backplane to a dedicated DAQ AMC.
 
     \subsection{The AMC13}
 
+      The module which delivers the TTC signals and the LHC clock to the MP7s and retreaves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 is the microTCA crate. Its functionnal diagram is shown in Figure \ref{fig:II-2-daq-amc13}. It is equipped with two FPGAs: a powerfull Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwared on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retreive tracking and trigger data over the fabric A ports running at 5 Gb/s. For development purposses, the AMC13 integrates internal TTC commands and LHC clock generators. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-2-daq/amc13.png}
+        \caption{??? \cite{AMC13}.}
+        \label{fig:II-2-daq-amc13}
+      \end{figure}
+
+      The Virtex-6 FPGA of the AMC13 is connected to the central DAQ of CMS through the two SFP+ optical links running at 6 Gb/s which implement the S-Link Express protocol defined by CMS. An additionnal SFP+ can be used as spare if the bandwidth is required. Next to the data, the AMC13 also send TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate for the system to be able to cope.
+
     \subsection{The IPBus Protocol}
+
+      To communicate between the control and monitoring applications and the subsystems, a new protocol called IPBus has been developped for the CMS subdetectors. It is uses the Internet Protocol (IP) and can be sent over User Data Protocal (UDP) or Transmission Control Protocol (TCP). IPBus transactions are simple read/write operations using a A32/D32 implementation (Address of 32 bits, Data of 32 bits). A sequence of transactions is called a packet which starts with a packet header of 32 bits which format is shown in Figure \ref{fig:II-2-daq-ipbus}. Each packet and transaction are respectivly tagged with a packet ID and transaction ID as well as the protocol version of IPBus. \\
+
+      A transaction is always performed in two stages, a request from the applications to which the systems provide a response. The header of the request specifies the request type and request size. Additionnaly, 32 bits words are added in function of the type of operation to perform. For a read operation, the base address of the read must be specified. The response will contain N 32 bits words corresponding to the data at the base address and the incremental N addresses where N is the size of the request defined in the header. For a write operation, the request will contain the base address followed by N 32 bits words that should be written at the base address and the N following addresses where N is the size of the request defined in the header. The response will be a single header containing a status code.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-2-daq/ipbus.png}
+        \caption{??? \cite{AMC13}.}
+        \label{fig:II-2-daq-ipbus}
+      \end{figure}
 
     \subsection{The XDAQ Application}
 
