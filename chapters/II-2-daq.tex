@@ -93,7 +93,7 @@
 
       The off-detector electronics is implemented using the microTCA crate standard to manage the back-end system. The microTCA standard was developped for the telecommunication industry as a successor for the Advanced Telecommunications Computing Architecture (ATCA) technology. It uses a smaller form factor for the AMCs declines into a single width (73.8 mm $ \times $ 181.5 mm) or double width (148.8 mm $ \times $ 181.5 mm) version. The key feature of the crate is the topology of the backplane connecting the AMCs. The latter is not defined in the specifications but often implements a dual-star network which provides reduduncy and thus avoid critical failures of the system upon malfunction of a component. \\
 
-      The structure of the crate is shown in Figure \ref{fig:II-2-daq-utca-crate}. Managment and control of the subsystems of the crate are performed by the MicroTCA Carrier Hub (MCH), which in failure critical systems can be accompagnied by a second MCH for redunduncy. These two MCHs are the central points of the network in dual-star topology. They communicate with the Cooling Units (CUs), Power Modules (PMs), and AMCs through the Intelligent Platform Management Interface (IPMI). The CUs and PMs are equipped with a Enhanced Module Managment Controller (EMMC) and the AMCs with a Module Managnment Controller (MMC) which are used to communicate with the MicroTCA Carrier Management Controller (MCMC) of the MHCs. These controllers implement the IPMI protocol and provide system managment functions to the crate. Upon power-on of the crate or hot-swap of an AMC, the MCHs provide minimal power to the EMMCs and MMCs through dedicated lines in order to start the initial transaction sequence. During this exchange, the power requirements of the modules are defined and a boot-up sequence takes place. Once the transaction is closed, power is provided to the rest of the module and normal operation begins. A power-off sequence takes place when the crate is shutdown or an AMC is removed. 
+      The structure of the crate is shown in Figure \ref{fig:II-2-daq-utca-crate}. Managment and control of the subsystems of the crate are performed by the MicroTCA Carrier Hub (MCH), which in failure critical systems can be accompagnied by a second MCH for redunduncy. These two MCHs are the central points of the network in dual-star topology. They communicate with the Cooling Units (CUs), Power Modules (PMs), and AMCs through the Intelligent Platform Management Interface (IPMI). The CUs and PMs are equipped with a Enhanced Module Managment Controller (EMMC) and the AMCs with a Module Managnment Controller (MMC) which are used to communicate with the MicroTCA Carrier Management Controller (MCMC) of the MHCs. These controllers implement the IPMI protocol and provide system managment functions to the crate. Upon power-on of the crate or hot-swap of an AMC, the MCHs provide minimal power to the EMMCs and MMCs through dedicated lines in order to start the initial transaction sequence. During this exchange, the power requirements of the modules are defined and a boot-up sequence takes place. Once the transaction is closed, power is provided to the rest of the module and normal operation begins. A power-off sequence takes place when the crate is shutdown or an AMC is removed. \\
 
       \begin{figure}[h!]
         \centering
@@ -101,6 +101,17 @@
         \caption{??? \cite{VADATECH}.}
         \label{fig:II-2-daq-utca-crate}
       \end{figure}
+
+      The backbone of the microTCA crate is its backplane. It provides point to point connections between the AMCs and MCH to AMC connections. The interconnects between elements are called fabrics and are what defines the topology of the crate. On the AMCs, the connections to the backplane are called ports. In the dual-star topology, each fabric is duplicated and connected to a separate MCH. As the backplane topology is not described in the specifications of the standard, a common topology is described.
+      \begin{itemize}
+        \item Fabric A is used for Gigabit Ethernet communication between the AMCs and MCH1 on port 0 and the MCH2 on port 1.
+        \item Fabric B is allocated for technologies such as Seriel-ATA through port 2 and 3 for the MCH1 and MCH2 respectrivly.
+        \item Fabric C is only used in single MCH mode and uses port 3 to connect the AMCs to MCH1.
+        \item Fabric D to G are fat pipes which use multiple protocol agnostic links to connect the AMCs to the MCH1 on ports 4 to 7 and to the MCH2 on ports 8 to 11.
+        \item Some backplanes implement point to point communication between ACMs on ports 12 to 20 following a custom interconnect.
+      \end{itemize}
+      Next to signal busses, the microTCA standard defines three clocks busses that can originate from the MCHs or the AMCs.
+
 
     \subsection{The MP7 Advanced Mezzanine Card}
 
