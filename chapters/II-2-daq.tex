@@ -1,4 +1,4 @@
-\chapter{The GEM and CSC Data Acquisition Systems}
+\chapter{The GEM Data Acquisition System}
 \label{chap:II-2-daq}
 
   The installation of GEM detectors in CMS and the integration with the CSCs require the development of a new DAQ system for the GE1/1 project. The understanding of the structure of both the GEM readout chain as well as the common CMS DAQ is of importance in the scope of this thesis. To this end, these systems are presented in details in the sections that follow. \\
@@ -153,10 +153,6 @@
 
       On the electronics side, the IPBus protocol is handled by a master which decodes the requests and forwards it to slaves which each respond to a given address range. Requests involving multiple reads are writes are decomposed by the master in single operations. Slaves receive the request type, address, and data as input parameters and can then treat it as they like. In return, they provide an acknownledgment and optionnally data in the case of a read operation. Eventhough the software treats the address space of 32 bits as a set of read/write registers of 32 bits (A32/D32), the physical implementation on the electronics can be different. Requests can be connected to registers of be used to activate functions on the PCBs. The implementation is up to the developpers.
 
-    \subsection{The XDAQ Application}
-
-      ???
-
   \section{The First Prototype of the Data Acquisition System}
 
     Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasability of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developped in 2014 with slightly different components. The differences with the final system are shown in Figure \ref{fig:II-2-daq-gem-system-v1} where elements in red are not yet implemented and those in blue are prototypes or variations of the final electronics. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OH optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
@@ -211,7 +207,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-2-daq/glib.jpg}
+        \includegraphics[width=0.8\textwidth]{img/II-2-daq/glib.jpg}
         \caption{\cite{Vichoudis:1359270}.}
         \label{fig:II-2-daq-glib}
       \end{figure}
@@ -268,6 +264,29 @@
 
     \subsection{The CTP7 AMC}
 
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/II-2-daq/ctp7.png}
+        \caption{OH V2b.}
+        \label{fig:II-2-daq-ctp7}
+      \end{figure}
+
+  \section{Summary}
+
+    To summarize the evolution of the DAQ system and the various components used
+
+    \begin{table}
+      \begin{tabularx}{\textwidth}{C{1}C{1}C{1}C{1}}
+        \textbf{First prototype} & \textbf{Test beam}   & \textbf{Slice test}  & \textbf{Final system} \\ \hline
+        6x VFAT2        & 24x VFAT2   & 24x VFAT2   & 24x VFAT3 \\
+        GEB v1          & GEB v2      & GEB v2      & GEB v3 \\
+        OH v1           & OH v2a      & OH v2b      & OH v3 \\
+        -               & -           & 1x GBT      & 3x GBT \\
+        GLIB            & GLIB        & CTP7        & MP7 \\
+        -               & -           & AMC13       & AMC13 \\
+      \end{tabularx}
+      \caption{??}
+    \end{table}
 
 
 
