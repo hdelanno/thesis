@@ -1,11 +1,11 @@
 \chapter{The GEM and CSC Data Acquisition Systems}
 \label{chap:II-2-daq}
 
-  The installation of GEM detectors in CMS and the integration with the CSCs require the development of a new DAQ system for the GE1/1 project. The understanding of the structure of both the GEM and CSC readout chains as well as the common CMS central DAQ is of importance in the scope of this thesis. To this end, all three systems are presented in details in the sections that follow. \\
+  The installation of GEM detectors in CMS and the integration with the CSCs require the development of a new DAQ system for the GE1/1 project. The understanding of the structure of both the GEM readout chain as well as the common CMS DAQ is of importance in the scope of this thesis. To this end, these systems are presented in details in the sections that follow. \\
 
   \section{The GE1/1 Data Acquisition System}
 
-    The architecture of the GE1/1 DAQ system is represented in Figure \ref{fig:II-2-daq-gem-system}. It is divided into two sectors: the on-detector electronics on the left in charge of the managment of the detector, and the off-detector electronics on the right responsable for the data handling and the connection to the central DAQ. The two sectors are separated by a few douzen meters and connected through optical fibres. \\
+    The architecture of the GE1/1 DAQ system is represented in Figure \ref{fig:II-2-daq-gem-system}. It is divided into two sectors: the on-detector electronics on the left in charge of the managment of the detector, and the off-detector electronics on the right responsable for the data handling and the connection to the central DAQ. The two sectors are separated by a few dozen meters and connected through optical fibres. \\
 
     \begin{figure}[h!]
       \centering
@@ -14,7 +14,7 @@
       \label{fig:II-2-daq-gem-system}
     \end{figure}
 
-    The on-detector electronics focuses on the control and readout of the VFAT3 Application Specific Integrated Circuit (ASIC) which connects to the strips of the chamber and digitizes the data. The GEM Electronics Board (GEB), on which the VFAT3s are plugged in, then routes the signals to the OptoHybrid (OH) which acts as concentrator board and communication relay for the 24 VFAT3s. The communication with the off-detector system is performed through the GigaBit Tranciever (GBT) chipset and the Versatil Link installed on the OH. Both projects are led by CERN and provide radiation hard tools for LHC experiments. \\
+    The on-detector electronics focuses on the control and readout of the VFAT3 Application Specific Integrated Circuit (ASIC) which connects to the strips of the chamber and digitizes the data. The GEM Electronic Board (GEB), on which the VFAT3s are plugged in, then routes the signals to the OptoHybrid (OH) which acts as concentrator board and communication relay for the 24 VFAT3s. The communication with the off-detector system is performed through the GigaBit Tranciever (GBT) chipset and the Versatil Link installed on the OH. Both projects are led by CERN and provide radiation hard tools for LHC experiments. \\
 
     On the off-detector side, the Micro Telecommunications Computing Architecture (microTCA, MTCA, or $\mu$TCA) \cite{PICMG} crate standard is used to power and monitor the Advanced Mezzanine Cards (AMCs) which provide the ressources to communicate with the on-detector electronics. Links from multiple OHs are concentrated on one MP7 AMC which formats the data and transfers it to the CMS AMC13 mezzanine. The AMC13 is the link between the microTCA crate and the central DAQ of CMS which provides the clocking, trigger, and control over the system. The control of the DAQ chain is performed from a XDAQ application using the IPBus protocol over ethernet.
 
@@ -39,7 +39,7 @@
 
       \paragraph{The fast control} defines all the time sensitive commands that the VFAT3 receives. These are the Event Counter 0 (EC0), Bunch Counter 0 (BC0), Calibration Pulse (CalPulse), Resynchronisation (Resync), and L1A. The EC0 and BC0 commands respectivly reset the EC and BC; the CalPulse is used to send a calibration pulse on given strips in order to callibrate the analog front-end; the ReSync command resets the internal pointers; and the L1A informs the VFAT3 that an event needs to be transfered to the DAQ.
 
-    \subsection{The GEM Electronics Board}
+    \subsection{The GEM Electronic Board}
 
       The limited space in which the GEM detectors will be installed constrains the design of the system by making it impossible to run flat cables for the 24 VFAT3s. Therefore, the GEB, a Printed Circuit Board (PCB) of the same dimension as the GEM detector, was designed to route the signals of the front-end chips to the OH located on the large side of the detector, furthest away from the beam pipe. A picture of a prototype of the GEB is shown on the right in Figure \ref{fig:II-2-daq-geb}. The functions of the GEBs are to host the VFAT3 ASICs connected to the 24 sectors of the GEM readout board, route their signals to the OH, distribute power to the chips, and provide electric shielding to the detector. The GEB is divided into three columns of eight VFAT3s, further divided into two sectors each as represented in the left picture in Figure \ref{fig:II-2-daq-geb}. The clock, slow control, and fast control are commonn for each column. \\
 
@@ -155,7 +155,99 @@
 
     \subsection{The XDAQ Application}
 
-  \section{The CSC Data Acquisition System}
+      ???
+
+  \section{The First Prototype of the Data Acquisition System}
+
+    Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasability of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developped in 2014 with slightly different components. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OH optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
+
+    \subsection{The VFAT2 ASIC}
+
+      Similarly to the VFAT3 ASIC, which architecture has been presented before, the VFAT2 is a binary front-end chip used to digitize signals generated by gaseous detectors. A schematic representation of the chip is depicted in Figure \ref{fig:II-2-daq-vfat2}. The 128 analog signals are preamplified, shaped, and discriminated against a settable threshold in the analog front-end which is asyncrhonous from the LHC clock. Synchronicity is achieved through monostables connected to each channel which allow to generate a binary pulse each time the threshold is reached in a given BX. Moreover, the duration of the output signal of the monostable can be stretched to cover multiple clock cycles. This function is only used in the tracking data stored in the SRAM1 and not the 8 trigger bits, called SBits, formatted by the Trigger unit. Upon reception of a L1A, data is transfered from the SRAM1 to the SRAM2 and serially transmitted over the DataOut and DataValid lines. The DataValid line caries the 192 bits that form an event while the DataOut line signals the validity of the data by going to a logic 1 during transmission. The four fast commands (L1A, Resync, CalPulse, and BC0) are received over a single differential pair and are encoded on three bits meaning that no two consecutive L1As can be received within three BXs. Finally, the configuration of the ASIC is done using the I2C protocol. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-2-daq/vfat2.png}
+        \caption{??? \cite{Aspell:1069906}.}
+        \label{fig:II-2-daq-vfat2}
+      \end{figure}
+
+      The main differences between VFAT2 and VFAT3 are the communication protocols and the reduced bandwidth allocated to trigger data over the fixed latency path. While VFAT3 can be directly connect to the GBT chipset, the VFAT2 has to be controlled and readout by the FPGA located on the FPGA. Furthermore, VFAT3 has a trigger granularity of 64 bits per BX while VFAT2 is limited to 8 bits per BX. Altought the configuration of the bits can be chosen through programmable registers, it is common to divide the 128 strips in 8 groups of 16 neighbouring strips and transmit one bit for each group. \\
+
+      As the VFAT2 ASIC does not come within a package like standard ICs, it is bounded to a small PCB called the VFAT2 Hybrid depicted in Figure \ref{fig:II-2-daq-vfat2-hybrid}. The Hybrids are equipped with two connectors: one for the 128 analog input channels and one for the digital signals and the power. They are respectivly connected to the GEM readout plane on one side and the GEB on the other side.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/empty.png}
+        \caption{VFAT2-HYBRID.}
+        \label{fig:II-2-daq-vfat2-hybrid}
+      \end{figure}
+
+    \subsection{The GEM Electronic Board v1}
+
+      Due to the manufacturing challenge that is the production of a 1-m-long PCB, a first version of the GEB has been produced with minimal features. The first prototype was equipped with only six functionning positions in the middle row closest to the small side of the board. The positions shared a common clock and trigger line and were divided into two slow control sectors. As fewer connections were needed between the GEB and the OH, a smaller connector was also used.
+
+    \subsection{The OptoHybrid v1}
+
+      Mounted on the GEB v1 is the OH v1, a first prototype designed to demonstrate the concept of an FPGA-based concentrator board to make the communication with the back-end electronics. The OH v1, shown in Figure \ref{fig:II-2-daq-ohv1}, is equipped with a Xilinx Spartan-6 FPGA that concentrates the data from the six VFAT2 Hybrids and transmits it over four optical links to the off-detector electronics. It is further equipped with a MSP430 EZ430-RF2500 \cite{MSP430} microcontroller which is used as Analog-to-Digital Converter (ADC) to digitize the analog outputs of the calibration units of the VFAT2s, and some General Purpose Input/Output pins (GPIOs) for debugging.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/empty.png}
+        \caption{OH V1.}
+        \label{fig:II-2-daq-ohv1}
+      \end{figure}
+
+    \subsection{The GLIB Advanced Mezzanine Card}
+
+      Designed by CERN, the Gigabit Link Interface Board (GLIB) \cite{Vichoudis:1359270} has been developped as an evaluation platform for the GBT-FPGA project. As shown in Figure \ref{fig:II-2-daq-glib}, it is a general purpose microTCA AMC equipped with a Xilinx Virtex-6 FPGA, four SFP optical cages, and two extension header that can accomodate custom electronics. The GLIB can be used within the microTCA crate in so called crate-mode, or as standalone board in bench-top mode. To this end, it is equipped with an Ethernet connector to replace the fabric A line coming from the MCHs while still providing access using IPBus. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-2-daq/glib.jpg}
+        \caption{\cite{Vichoudis:1359270}.}
+        \label{fig:II-2-daq-glib}
+      \end{figure}
+
+       In this prototype version, the board has been used as concentrator for the data pushed by the OH which is stored locally and then pulled by the monitoring application over IPBus. The slow control requests were also handles directly by the GLIB over IPBus and forwarded to the OH.
+
+  \section{The GE1/1 Data Acquisition System for the Test Beam}
+
+    Incrementing on the first prototype developped in 2014, a second version of the system has been developped in 2015 and tested during test beams in November of the same year and which results are exposed in Chapter \ref{chap:II-3-test-beam}. This system has many similarities with the first prototype, only increasing the number of supported VFAT2 Hybrids to 24 which, however, required a complete redesign of the GEB and the OH. The back-end system is still handled by the GLIB board which is controlled and readout through IPBus.
+
+    \subsection{The GEM Electronic Board v2}
+
+      The GEB v2 handles 24 VFAT2 Hybrids divided in three columns for the clock and fast control distribution, and six sectors for the slow control I2C protocol. The connection to the OH is done through four connector that transmit the trigger, tracking, and command signals from the VFAT2s to the FPGA.
+
+    \subsection{The OptoHybrid v2a}
+
+      The second version of the OH is still a prototyping board which offers various configuration schemes to select the best operating mode. Represented in Figure \ref{fig:II-2-daq-ohv2a}, the OHv2a uses a Xilinx Virtex-6 FPGA similar to the GLIB. It can either use 12 SFP optical cages or a QSFP+ transceiver which offers four optical connections in a single module. The LHC clock can be recovered by the Texas Instrument CDCE62005 which is a programmable clock generator or by the radiation hard QPLL module developped by CERN specifficaly to this end.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/empty.png}
+        \caption{OH V2a.}
+        \label{fig:II-2-daq-ohv2a}
+      \end{figure}
+
+  \section{The GE1/1 Data Acquisition System for the Slice Test}
+
+    The last prototype of the architecture before developments for the final system start is the DAQ system for the slice test which is to be installed in January 2017. Altough this small scale test will be performed using the VFAT2 ASIC as the VFAT3 is still in developments, other components are more similar to the final version. The GBT chipset, which production has started, is used along with a more powerful microTCA AMC very similar to the MP7. Readout is performed using the AMC13 connected to the central DAQ of CMS.
+
+    \subsection{The OptoHybrid v2b}
+
+      The second iteration on the OHv2 has a U shape to accomodate the constraints of the detector geometry, cooling system, and front-pannel as shown in Figure \ref{fig:II-2-daq-ohv2b}. It is equipped with four optical links using the SFP cages and the VTRx and VTTx modules. Three of the links are controlled by the FPGA itsel while the last one is connected to a GBT chipset in turn controlled by the FPGA. The QPLL has been chosen over the CDCE62005 for its simplicity of use and its tolerance to radiation. The connection to the GEB and the GEB itsel remain unchanged.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/empty.png}
+        \caption{OH V2b.}
+        \label{fig:II-2-daq-ohv2b}
+      \end{figure}
+
+    \subsection{The CTP7 AMC}
+
+      
 
 
 
