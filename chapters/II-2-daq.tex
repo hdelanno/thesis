@@ -9,7 +9,7 @@
 
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=0.7\textwidth]{img/II-2-daq/gem-system.pdf}
+      \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system.pdf}
       \caption{??? \cite{Colaleo:2021453}.}
       \label{fig:II-2-daq-gem-system}
     \end{figure}
@@ -159,7 +159,14 @@
 
   \section{The First Prototype of the Data Acquisition System}
 
-    Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasability of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developped in 2014 with slightly different components. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OH optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
+    Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasability of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developped in 2014 with slightly different components. The differences with the final system are shown in Figure \ref{fig:II-2-daq-gem-system-v1} where elements in red are not yet implemented and those in blue are prototypes or variations of the final electronics. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OH optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v1.pdf}
+      \caption{???.}
+      \label{fig:II-2-daq-gem-system-v1}
+    \end{figure}
 
     \subsection{The VFAT2 ASIC}
 
@@ -213,7 +220,14 @@
 
   \section{The GE1/1 Data Acquisition System for the Test Beam}
 
-    Incrementing on the first prototype developped in 2014, a second version of the system has been developped in 2015 and tested during test beams in November of the same year and which results are exposed in Chapter \ref{chap:II-3-test-beam}. This system has many similarities with the first prototype, only increasing the number of supported VFAT2 Hybrids to 24 which, however, required a complete redesign of the GEB and the OH. The back-end system is still handled by the GLIB board which is controlled and readout through IPBus.
+    Incrementing on the first prototype developped in 2014, a second version of the system has been developped in 2015 and tested during test beams in November of the same year and which results are exposed in Chapter \ref{chap:II-3-test-beam}. This system, shown in Figure \ref{fig:II-2-daq-gem-system-v2a}, has many similarities with the first prototype, only increasing the number of supported VFAT2 Hybrids to 24 which, however, required a complete redesign of the GEB and the OH. The back-end system is still handled by the GLIB board which is controlled and readout through IPBus.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v2a.pdf}
+      \caption{???.}
+      \label{fig:II-2-daq-gem-system-v2a}
+    \end{figure}
 
     \subsection{The GEM Electronic Board v2}
 
@@ -232,7 +246,14 @@
 
   \section{The GE1/1 Data Acquisition System for the Slice Test}
 
-    The last prototype of the architecture before developments for the final system start is the DAQ system for the slice test which is to be installed in January 2017. Altough this small scale test will be performed using the VFAT2 ASIC as the VFAT3 is still in developments, other components are more similar to the final version. The GBT chipset, which production has started, is used along with a more powerful microTCA AMC very similar to the MP7. Readout is performed using the AMC13 connected to the central DAQ of CMS.
+    The last prototype of the architecture before developments for the final system start is the DAQ system for the slice test which is to be installed in January 2017. The architecture of the system is depicted in Figure \ref{fig:II-2-daq-gem-system-v2b}. Altough this small scale test will be performed using the VFAT2 ASIC as the VFAT3 is still in developments, other components are more similar to the final version. The GBT chipset, which production has started, is used along with a more powerful microTCA AMC very similar to the MP7. Readout is performed using the AMC13 connected to the central DAQ of CMS.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v2b.pdf}
+      \caption{???.}
+      \label{fig:II-2-daq-gem-system-v2b}
+    \end{figure}
 
     \subsection{The OptoHybrid v2b}
 
@@ -247,7 +268,7 @@
 
     \subsection{The CTP7 AMC}
 
-      
+
 
 
 
