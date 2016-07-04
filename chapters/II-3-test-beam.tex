@@ -1,4 +1,4 @@
-\chapter{A Data Acquisition for the Test Beam}
+\chapter{A Data Acquisition System for the Test Beam}
 \label{chap:II-3-test-beam}
 
   During the ongoing process of the development of the DAQ system, the electronics has been tested in two test beams organised in Fall 2014 and Fall 2015. The first test beam, ran with the first prototype of the DAQ, aimed at proving the feasability of the architecture of the system, not focusing on data taking from the provided pion and muon beam but rather on usability. As the results were encouraging, the second version of the electronics was developped involving a complete redesign of the hardware, firmware, and software. Therefore, we will mainly focus on the second test beam, which electronics is described in the previous chapter, during which abundant data was recorded showing both excellent results for the detectors and the DAQ system. \\
@@ -9,7 +9,7 @@
 
     The most important function of the OptoHybrid is to transfer data between the VFAT2s and the GLIB. Downwards, from the off-detector to the on-detector electronics, it transfers slow control requests and fast commands while upwards it sends the trigger and tracking data back to the back-end system. Next to the handling of the basic VFAT2 functionnalities, it must also handle the optical links and a couple of programmable registers which control the system. Furthermore, procedures that were previously implemented in software and required extensive computanionnal time have been moved to firmware in order to speed up the system. \\
 
-    Although rather complex, the firmware of the OptoHybrid can be decomposed in five blocks: the slow control, the fast commands, the trigger data, the tracking data, and the optical links. Eventough we will present these blocks separatly, they are tighlty interconnected using a wishbone-like architecture for intercommunication.
+    Although rather complex, the firmware of the OptoHybrid can be decomposed in five blocks: the fast commands, the trigger data, the tracking data, the slow control, and the optical links. Eventough we will present these blocks separatly, they are tighlty interconnected using a wishbone-like architecture for intercommunication.
 
     \subsection{Internal Communication Through a Wishbone-Like Architecture}
 
@@ -18,6 +18,12 @@
       A request form a master is composed of four signals: a flag signaling the presence of a request, a write-enable bit to indicate the nature of the request (read or write), a 32-bit-long address to which the request will be redirected, and an optionnal 32-bit-long data field in case the request is a write operation. The response from a slave consists of: an ackownledgment signal, a 4-bit-long error status in case the operation failed, and an optionnal 32-bit-long data field holding the response to read requests. A programmable timeout has also been implemented to avoir blocking operation. Some components implement both a master and a slave module in order to be able to receive requests and propagate them to various other modules. \\
 
       Communication done through the wishbone-like protocol is used mainly for slow control or non-time-critical operations as the latency of a transaction is not fixed. Indeed, the switching hub implements a waiting list functionnality which allows two masters to address the same slave at the same time by storing one of the requests in memory and awaiting for the slave to finish the other transaction.
+
+    \subsection{Encoding Fast Commands}
+
+      Fast commands such as L1As, Resyncs, BC0s, etc can originate from various sources. In normal data taking runs, the AMC13 receives the TTC signals, forwards them to the microTCA AMC which in turn transmits them to the OptoHybrid. When data taking is stopped and calibration runs are performed, the routines implemented in the OptoHybrid are ran and require fast commands. To this end, the TTC signals can also be generated locally using the T1 generator block. This entity can generate L1As, Resyncs, BC0s, and CalPulses in three different ways: send a single command a given number of times at fixed interval, send a CalPulse followed by a L1A with a fixed delay, or send a programmable pattern involving all the commands. Finally, the two remaining sources of TTC commands, and more precisly L1As, are either a loopback from a given VFAT2 trigger bits directly to all the VFAT2s (self-triggering) or the signals coming from an external component through a debugging header on the OptoHybrid. \\
+
+      The switching between the various sources is done by setting a register through slow control operations. Once the source has been selected, the commands are forwarded to the VFAT2s and encoded on the T1 signals. Each command is composed of three bits clocked at 40 MHz. An additionnal feature has been added to the L1A line to throttle the trigger signals when working in high rate environments. Through registers, the operator can select to send only a fraction of the received commands to not overload the VFAT2 buffers and allow for correct readout of the chip.
 
   \section{Architecture of the GLIB Firmware}
 
