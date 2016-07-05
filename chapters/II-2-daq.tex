@@ -14,9 +14,9 @@
       \label{fig:II-2-daq-gem-system}
     \end{figure}
 
-    The on-detector electronics focuses on the control and readout of the VFAT3 Application Specific Integrated Circuit (ASIC) which connects to the strips of the chamber and digitizes the data. The GEM Electronic Board (GEB), on which the VFAT3s are plugged in, then routes the signals to the OptoHybrid (OH) which acts as concentrator board and communication relay for the 24 VFAT3s. The communication with the off-detector system is performed through the GigaBit Tranciever (GBT) chipset and the Versatil Link installed on the OH. Both projects are led by CERN and provide radiation hard tools for LHC experiments. \\
+    The on-detector electronics focuses on the control and readout of the VFAT3 Application Specific Integrated Circuit (ASIC) which connects to the strips of the chamber and digitizes the data. The GEM Electronic Board (GEB), on which the VFAT3s are plugged in, then routes the signals to the OptoHybrid which acts as concentrator board and communication relay for the 24 VFAT3s. The communication with the off-detector system is performed through the GigaBit Tranciever (GBT) chipset and the Versatil Link installed on the OptoHybrid. Both projects are led by CERN and provide radiation hard tools for LHC experiments. \\
 
-    On the off-detector side, the Micro Telecommunications Computing Architecture (microTCA, MTCA, or $\mu$TCA) \cite{PICMG} crate standard is used to power and monitor the Advanced Mezzanine Cards (AMCs) which provide the ressources to communicate with the on-detector electronics. Links from multiple OHs are concentrated on one MP7 AMC which formats the data and transfers it to the CMS AMC13 mezzanine. The AMC13 is the link between the microTCA crate and the central DAQ of CMS which provides the clocking, trigger, and control over the system. The control of the DAQ chain is performed from a XDAQ application using the IPBus protocol over ethernet.
+    On the off-detector side, the Micro Telecommunications Computing Architecture (microTCA, MTCA, or $\mu$TCA) \cite{PICMG} crate standard is used to power and monitor the Advanced Mezzanine Cards (AMCs) which provide the ressources to communicate with the on-detector electronics. Links from multiple OptoHybrids are concentrated on one MP7 AMC which formats the data and transfers it to the CMS AMC13 mezzanine. The AMC13 is the link between the microTCA crate and the central DAQ of CMS which provides the clocking, trigger, and control over the system. The control of the DAQ chain is performed from a XDAQ application using the IPBus protocol over ethernet.
 
     \subsection{The VFAT3 ASIC}
 
@@ -41,7 +41,7 @@
 
     \subsection{The GEM Electronic Board}
 
-      The limited space in which the GEM detectors will be installed constrains the design of the system by making it impossible to run flat cables for the 24 VFAT3s. Therefore, the GEB, a Printed Circuit Board (PCB) of the same dimension as the GEM detector, was designed to route the signals of the front-end chips to the OH located on the large side of the detector, furthest away from the beam pipe. A picture of a prototype of the GEB is shown on the right in Figure \ref{fig:II-2-daq-geb}. The functions of the GEBs are to host the VFAT3 ASICs connected to the 24 sectors of the GEM readout board, route their signals to the OH, distribute power to the chips, and provide electric shielding to the detector. The GEB is divided into three columns of eight VFAT3s, further divided into two sectors each as represented in the left picture in Figure \ref{fig:II-2-daq-geb}. The clock, slow control, and fast control are commonn for each column. \\
+      The limited space in which the GEM detectors will be installed constrains the design of the system by making it impossible to run flat cables for the 24 VFAT3s. Therefore, the GEB, a Printed Circuit Board (PCB) of the same dimension as the GEM detector, was designed to route the signals of the front-end chips to the OptoHybrid located on the large side of the detector, furthest away from the beam pipe. A picture of a prototype of the GEB is shown on the right in Figure \ref{fig:II-2-daq-geb}. The functions of the GEBs are to host the VFAT3 ASICs connected to the 24 sectors of the GEM readout board, route their signals to the OptoHybrid, distribute power to the chips, and provide electric shielding to the detector. The GEB is divided into three columns of eight VFAT3s, further divided into two sectors each as represented in the left picture in Figure \ref{fig:II-2-daq-geb}. The clock, slow control, and fast control are commonn for each column. \\
 
       \begin{figure}[h!]
         \centering
@@ -50,11 +50,11 @@
         \label{fig:II-2-daq-geb}
       \end{figure}
 
-      The VFAT3s are soldered on the GEB and connected to the GEM readout board on which it rests through a flexible PCB. The control and data signals from the chips are routed on the PCB towards four connectors located on the large side of the detector which connect to the OH. The power for the VFAT3s and the OH is distributed by the GEB using radition hard DC/DC converters developped by CERN which convert the incoming low voltage to the required voltages. In addition, the bottom layer of the GEB is grouded proving shielding to the detector from external ElectroMagnetic Interference (EMI).
+      The VFAT3s are soldered on the GEB and connected to the GEM readout board on which it rests through a flexible PCB. The control and data signals from the chips are routed on the PCB towards four connectors located on the large side of the detector which connect to the OptoHybrid. The power for the VFAT3s and the OptoHybrid is distributed by the GEB using radition hard DC/DC converters developped by CERN which convert the incoming low voltage to the required voltages. In addition, the bottom layer of the GEB is grouded proving shielding to the detector from external ElectroMagnetic Interference (EMI).
 
     \subsection{The OptoHybrid}
 
-      The OH is the interface between the VFAT3 ASICs and the off-detector system. It is a 10 cm $ \times $ 20 cm board mounted on the GEB equipped with a Field Programmable Gate Array (FPGA) and Integrated Circuits (ICs) dedicated to the operation of the optical links. The FPGA solely handles the trigger data by applying zero suppression algorithms, formatting the data, and sending it to the CSC and the GEM trigger system separatly over two optical links using the SFP+ connectors. The other functions of the VFAT3s are directly connected to the three GBT chipsets installed on the OH. Each GBT chipset is capable of handling a column of eight VFAT3s.
+      The OptoHybrid is the interface between the VFAT3 ASICs and the off-detector system. It is a 10 cm $ \times $ 20 cm board mounted on the GEB equipped with a Field Programmable Gate Array (FPGA) and Integrated Circuits (ICs) dedicated to the operation of the optical links. The FPGA solely handles the trigger data by applying zero suppression algorithms, formatting the data, and sending it to the CSC and the GEM trigger system separatly over two optical links using the SFP+ connectors. The other functions of the VFAT3s are directly connected to the three GBT chipsets installed on the OptoHybrid. Each GBT chipset is capable of handling a column of eight VFAT3s.
 
     \subsection{The GBT and Versatil Link}
 
@@ -123,7 +123,7 @@
         \label{fig:II-2-daq-mp7}
       \end{figure}
 
-      The function of the MP7 is tripe: handle slow control requests for the subsystems, interpret TTC signals, and readout the trigger and tracking data from the OHs. The MP7 is the interface between the control and monitoring software and the detector electronics. It uses the fabric A lines of the MCH1 to connect to a Gigabit Ethernet network and handle TCP/IP requests. It interprets the requests and forwards them to the appropriate subsystem: either itself or over the optical link to the OHs and VFAT3s. The MP7 also receives the TTC commands on the fabric B from MCH2 and must forward them to the subsystems along with the LHC clock received on the CLK1 line. Finally, when the VFAT3s or the OHs push data upwards to the MP7, the latter must format the data before sending it on the backplane to a dedicated DAQ AMC.
+      The function of the MP7 is tripe: handle slow control requests for the subsystems, interpret TTC signals, and readout the trigger and tracking data from the OptoHybrids. The MP7 is the interface between the control and monitoring software and the detector electronics. It uses the fabric A lines of the MCH1 to connect to a Gigabit Ethernet network and handle TCP/IP requests. It interprets the requests and forwards them to the appropriate subsystem: either itself or over the optical link to the OptoHybrids and VFAT3s. The MP7 also receives the TTC commands on the fabric B from MCH2 and must forward them to the subsystems along with the LHC clock received on the CLK1 line. Finally, when the VFAT3s or the OptoHybrids push data upwards to the MP7, the latter must format the data before sending it on the backplane to a dedicated DAQ AMC.
 
     \subsection{The AMC13}
 
@@ -155,7 +155,7 @@
 
   \section{The First Prototype of the Data Acquisition System}
 
-    Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasability of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developped in 2014 with slightly different components. The differences with the final system are shown in Figure \ref{fig:II-2-daq-gem-system-v1} where elements in red are not yet implemented and those in blue are prototypes or variations of the final electronics. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OH optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
+    Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasability of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developped in 2014 with slightly different components. The differences with the final system are shown in Figure \ref{fig:II-2-daq-gem-system-v1} where elements in red are not yet implemented and those in blue are prototypes or variations of the final electronics. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OptoHybrid optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
 
     \begin{figure}[h!]
       \centering
@@ -188,16 +188,16 @@
 
     \subsection{The GEM Electronic Board v1}
 
-      Due to the manufacturing challenge that is the production of a 1-m-long PCB, a first version of the GEB has been produced with minimal features. The first prototype was equipped with only six functionning positions in the middle row closest to the small side of the board. The positions shared a common clock and trigger line and were divided into two slow control sectors. As fewer connections were needed between the GEB and the OH, a smaller connector was also used.
+      Due to the manufacturing challenge that is the production of a 1-m-long PCB, a first version of the GEB has been produced with minimal features. The first prototype was equipped with only six functionning positions in the middle row closest to the small side of the board. The positions shared a common clock and trigger line and were divided into two slow control sectors. As fewer connections were needed between the GEB and the OptoHybrid, a smaller connector was also used.
 
     \subsection{The OptoHybrid v1}
 
-      Mounted on the GEB v1 is the OH v1, a first prototype designed to demonstrate the concept of an FPGA-based concentrator board to make the communication with the back-end electronics. The OH v1, shown in Figure \ref{fig:II-2-daq-ohv1}, is equipped with a Xilinx Spartan-6 FPGA that concentrates the data from the six VFAT2 Hybrids and transmits it over four optical links to the off-detector electronics. It is further equipped with a MSP430 EZ430-RF2500 \cite{MSP430} microcontroller which is used as Analog-to-Digital Converter (ADC) to digitize the analog outputs of the calibration units of the VFAT2s, and some General Purpose Input/Output pins (GPIOs) for debugging.
+      Mounted on the GEB v1 is the OptoHybrid v1, a first prototype designed to demonstrate the concept of an FPGA-based concentrator board to make the communication with the back-end electronics. The OptoHybrid v1, shown in Figure \ref{fig:II-2-daq-ohv1}, is equipped with a Xilinx Spartan-6 FPGA that concentrates the data from the six VFAT2 Hybrids and transmits it over four optical links to the off-detector electronics. It is further equipped with a MSP430 EZ430-RF2500 \cite{MSP430} microcontroller which is used as Analog-to-Digital Converter (ADC) to digitize the analog outputs of the calibration units of the VFAT2s, and some General Purpose Input/Output pins (GPIOs) for debugging.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/empty.png}
-        \caption{OH V1.}
+        \caption{OptoHybrid V1.}
         \label{fig:II-2-daq-ohv1}
       \end{figure}
 
@@ -212,11 +212,11 @@
         \label{fig:II-2-daq-glib}
       \end{figure}
 
-       In this prototype version, the board has been used as concentrator for the data pushed by the OH which is stored locally and then pulled by the monitoring application over IPBus. The slow control requests were also handles directly by the GLIB over IPBus and forwarded to the OH.
+       In this prototype version, the board has been used as concentrator for the data pushed by the OptoHybrid which is stored locally and then pulled by the monitoring application over IPBus. The slow control requests were also handles directly by the GLIB over IPBus and forwarded to the OptoHybrid.
 
   \section{The GE1/1 Data Acquisition System for the Test Beam}
 
-    Incrementing on the first prototype developped in 2014, a second version of the system has been developped in 2015 and tested during test beams in November of the same year and which results are exposed in Chapter \ref{chap:II-3-test-beam}. This system, shown in Figure \ref{fig:II-2-daq-gem-system-v2a}, has many similarities with the first prototype, only increasing the number of supported VFAT2 Hybrids to 24 which, however, required a complete redesign of the GEB and the OH. The back-end system is still handled by the GLIB board which is controlled and readout through IPBus.
+    Incrementing on the first prototype developped in 2014, a second version of the system has been developped in 2015 and tested during test beams in November of the same year and which results are exposed in Chapter \ref{chap:II-3-test-beam}. This system, shown in Figure \ref{fig:II-2-daq-gem-system-v2a}, has many similarities with the first prototype, only increasing the number of supported VFAT2 Hybrids to 24 which, however, required a complete redesign of the GEB and the OptoHybrid. The back-end system is still handled by the GLIB board which is controlled and readout through IPBus.
 
     \begin{figure}[h!]
       \centering
@@ -227,16 +227,16 @@
 
     \subsection{The GEM Electronic Board v2}
 
-      The GEB v2 handles 24 VFAT2 Hybrids divided in three columns for the clock and fast control distribution, and six sectors for the slow control I2C protocol. The connection to the OH is done through four connector that transmit the trigger, tracking, and command signals from the VFAT2s to the FPGA.
+      The GEB v2 handles 24 VFAT2 Hybrids divided in three columns for the clock and fast control distribution, and six sectors for the slow control I2C protocol. The connection to the OptoHybrid is done through four connector that transmit the trigger, tracking, and command signals from the VFAT2s to the FPGA.
 
     \subsection{The OptoHybrid v2a}
 
-      The second version of the OH is still a prototyping board which offers various configuration schemes to select the best operating mode. Represented in Figure \ref{fig:II-2-daq-ohv2a}, the OHv2a uses a Xilinx Virtex-6 FPGA similar to the GLIB. It can either use 12 SFP optical cages or a QSFP+ transceiver which offers four optical connections in a single module. The LHC clock can be recovered by the Texas Instrument CDCE62005 which is a programmable clock generator or by the radiation hard QPLL module developped by CERN specifficaly to this end.
+      The second version of the OptoHybrid is still a prototyping board which offers various configuration schemes to select the best operating mode. Represented in Figure \ref{fig:II-2-daq-ohv2a}, the OptoHybridv2a uses a Xilinx Virtex-6 FPGA similar to the GLIB. It can either use 12 SFP optical cages or a QSFP+ transceiver which offers four optical connections in a single module. The LHC clock can be recovered by the Texas Instrument CDCE62005 which is a programmable clock generator or by the radiation hard QPLL module developped by CERN specifficaly to this end.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/empty.png}
-        \caption{OH V2a.}
+        \caption{OptoHybrid V2a.}
         \label{fig:II-2-daq-ohv2a}
       \end{figure}
 
@@ -253,12 +253,12 @@
 
     \subsection{The OptoHybrid v2b}
 
-      The second iteration on the OHv2 has a U shape to accomodate the constraints of the detector geometry, cooling system, and front-pannel as shown in Figure \ref{fig:II-2-daq-ohv2b}. It is equipped with four optical links using the SFP cages and the VTRx and VTTx modules. Three of the links are controlled by the FPGA itsel while the last one is connected to a GBT chipset in turn controlled by the FPGA. The QPLL has been chosen over the CDCE62005 for its simplicity of use and its tolerance to radiation. The connection to the GEB and the GEB itsel remain unchanged.
+      The second iteration on the OptoHybridv2 has a U shape to accomodate the constraints of the detector geometry, cooling system, and front-pannel as shown in Figure \ref{fig:II-2-daq-ohv2b}. It is equipped with four optical links using the SFP cages and the VTRx and VTTx modules. Three of the links are controlled by the FPGA itsel while the last one is connected to a GBT chipset in turn controlled by the FPGA. The QPLL has been chosen over the CDCE62005 for its simplicity of use and its tolerance to radiation. The connection to the GEB and the GEB itsel remain unchanged.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/empty.png}
-        \caption{OH V2b.}
+        \caption{OptoHybrid V2b.}
         \label{fig:II-2-daq-ohv2b}
       \end{figure}
 
@@ -267,7 +267,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/ctp7.png}
-        \caption{OH V2b.}
+        \caption{OptoHybrid V2b.}
         \label{fig:II-2-daq-ctp7}
       \end{figure}
 
@@ -280,7 +280,7 @@
         \textbf{First prototype} & \textbf{Test beam}   & \textbf{Slice test}  & \textbf{Final system} \\ \hline
         6x VFAT2        & 24x VFAT2   & 24x VFAT2   & 24x VFAT3 \\
         GEB v1          & GEB v2      & GEB v2      & GEB v3 \\
-        OH v1           & OH v2a      & OH v2b      & OH v3 \\
+        OptoHybrid v1           & OptoHybrid v2a      & OptoHybrid v2b      & OptoHybrid v3 \\
         -               & -           & 1x GBT      & 3x GBT \\
         GLIB            & GLIB        & CTP7        & MP7 \\
         -               & -           & AMC13       & AMC13 \\

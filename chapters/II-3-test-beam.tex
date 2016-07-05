@@ -31,14 +31,25 @@
 
     \subsection{Acquiring Tracking Data}
 
-      Upon reception of a L1A, the VFAT2 transfers the selected event from its SRAM1 to SRAM2 and then to an encoder which serialises the data. Each event is 192 bits long followed by two idle bits and clocked at 40 MHz. This means that it takes 194 BXs to read out one event and that the VFAT2 cannot handle trigger rates higher than $\approx$ 200 kHz without experiencing an overflow of the buffers. The data is pushed out of the VFAT2 automatically and formatted according to the pattern shown in Figure \ref{fig:II-3-test-beam-vfat2-tk-format}. The top left bits are Most Significant Bits (MSBs) which are pushed out first and the bottom right bits or the Least Significant Bits (LSBs) which come in last. The first four bits of the first three 16-bit-long words are constant values. These are completed by the BC which increments at each clock cycle, the EC which counts the number of received L1As, four flags which hold information on the status of the buffers, and a chip ID unique to each VFAT2. Following are the 128 bits reflecting the hit information on each channel. Finally, the VFAT2 uses a Cyclic Redundancy Check (CRC) on 16 bits to detect errors. The CRC uses all other 176 bits to encode its data but does not provide a way to correct errors. \\
+      Upon reception of a L1A, the VFAT2 transfers the selected event from its SRAM1 to SRAM2 and then to an encoder which serialises the data. Each event is 192 bits long followed by two idle bits and clocked at 40 MHz. This means that it takes 194 BXs to read out one event and that the VFAT2 cannot handle trigger rates higher than $\approx$ 200 kHz without experiencing an overflow of the buffers. The data is pushed out of the VFAT2 automatically and formatted according to the pattern shown in Table \ref{tab:II-3-test-beam-vfat2-tk-format}. The top left bits are Most Significant Bits (MSBs) which are pushed out first and the bottom right bits or the Least Significant Bits (LSBs) which come in last. The first four bits of the first three 16-bit-long words are constant values. These are completed by the BC which increments at each clock cycle, the EC which counts the number of received L1As, four flags which hold information on the status of the buffers, and a chip ID unique to each VFAT2. Following are the 128 bits reflecting the hit information on each channel. Finally, the VFAT2 uses a Cyclic Redundancy Check (CRC) on 16 bits to detect errors. The CRC uses all other 176 bits to encode its data but does not provide a way to correct errors. \\
 
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{img/II-3-test-beam/vfat2-tk-format.png}
-        \caption{??? \cite{Aspell:1069906}.}
-        \label{fig:II-3-test-beam-vfat2-tk-format}
-      \end{figure}
+      \begin{table}
+        \begin{tabularx}{\textwidth}{C{1}}
+          \textbf{VFAT2 tracking data} \\
+          {
+          \begin{tabularx}{0.5\textwidth}{|C{1}|C{1}|C{1}|}
+            \hline
+            \multicolumn{3}{|c|}{15 \hfill 0} \\ \hline
+            1010 & \multicolumn{2}{|c|}{BC[11:0]} \\ \hline
+            1100 & EC[7:0] & Flags[3:0] \\ \hline
+            1110 & \multicolumn{2}{|c|}{Chip ID[11:0]} \\ \hline
+            \multicolumn{3}{|c|}{Channel data x8} \\ \hline
+            \multicolumn{3}{|c|}{CRC} \\ \hline
+          \end{tabularx} }
+        \end{tabularx}
+        \caption{??}
+        \label{tab:II-3-test-beam-vfat2-tk-format}
+      \end{table}
 
       Next to the data line, each VFAT2 provides a DataValid line which is pulled high when the bits coming out of the VFAT2 are valid. However, due to the limited number of pins connecting the GEB and the OptoHybrid, this signal has been left unconnected for all but six VFAT2s. Therefore, data is constantly shifted in a 194 bits (192 bits of data and 2 idle bits) serial-to-parrallel converter and analyzed. When the fixed pattern of 12 bits is seen, a flag is raised signaling the presence of potential data. The data packet is split up in its various elements and the CRC is recomputed and compared against the received CRC. Two additionnal flags respectivly hold the results of the comparation of both CRCs indicating if the data is valid or not, and a logic OR of all 128 channel to indicate if the packet contains a hit or not. In theory, only packets with valid CRCs could be transmitted to the back-end electronics. However, sending all packets offer the possibility to identify recurring errors in the CRCs computation and offers the possibility to correct them offline. \\
 
@@ -75,7 +86,51 @@
 
     \subsection{Optical Communication with the Off-Detector Electronics}
 
-      The link between the OptoHybrid and the off-detector electronics are the optical links from which two are used: one for the trigger data and fast commands, and one for the tracking data and slow control. Each link can transfer 64 bits per BX in both directions.
+      The link between the OptoHybrid and the off-detector electronics are the optical links from which two are used: one for the trigger data and fast commands, and one for the tracking data and slow control. Each optical fibre is connected to an SFP+ transceiver which contains the Light Emitting Diode (LED) that drives the link. The SFP+ module is in turn connected to a Gigabit Transceiver X (GTX) block inside the FPGA which is a dedicated component that can handle high-speed serial communications.
+
+      \paragraph{The GTX module} is in charge of the serialization/deserialization of high-speed data. A schematic diagram of the functions it provides ir shown in Figure \ref{fig:II-3-test-beam-gtx}. The GTX handles both the transmission and reception of data. From the FPGA logic, it receives a parallel vector of bits containing the raw data. The raw data enters the Transmit FIFO which acts as a buffer before the Line Encoding module. The latter uses an eight-bit/ten-bit (8b/10b) encoding scheming which is a standard in high-speed communications. 8b/10b encodes every eight bit word on ten bits according to a predefined table. It has the particularity that whatever combination of words might be sent, no more than five successive '0's or '1's will arise in the serial stream. This ensures line balancing: the fact that the electric lines between the GTX and the SFP+ module will remain at an average voltage and not drift to a logic '1' or '0' over time, thus requiring a longer fall or rise time of the signals. 8b/10b also offers a set of K-characters which are unique patterns of bit that can never arise randomly in the stream. Those characters are used to detect the beginning of a frame and allow the receiver to align correctly. Finally, after the encoding of the data frame is done, it is serialized and transmitted to the SFP+ module over differential pairs. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/gtx.png}
+        \caption{??? \cite{GTX}.}
+        \label{fig:II-3-test-beam-gtx}
+      \end{figure}
+
+      The receiver essentially follows the opposite path as the transmitter except for the Clock Managment block. The 8b/10b encoding offers one more advantage which is the possibility to recover a clock from the data stream itself, technique called Clock Data Recovery (CDR). In high-speed signal design, small variations in the clock frequency between the transmitter and the receiver can lead to discrepancy in the read out data. To avoid this, the receiver can tune the frequency of the clock of its deserializer using the transitions of the bits in the incoming stream to align its phase to the data. The GTX block further provides the obtained recovered clock to the FPGA to use in the logic. Correct alignment of the data is checked using the K-characters in the stream.
+
+      \paragraph{The fixed latency link} is used to transmit trigger data from the OptoHybrid to the GLIB and receive the fast commands. Of the 64 bits that the downlink transmits, 16 are used to align the serial bit stream on the receiving side and four others are used to encode the four fast commands that the VFAT2 understands. The other 44 bits are not used and left to constant zeros. The uplink uses a 16 bit header to align the stream to which it appends the 24 triggers bits coming from the logic-OR of the VFAT2s. These patterns repeat at 40 MHz as data changes every BX.
+
+      \paragraph{The variable latency link} is used to transmit and receive slow control commands and to transmit the tracking data of one VFAT2 at the time to the GLIB. As only one VFAT2 was exposed to the beam at any given time during the test beam, reconstructing and sending the full event was not a necessity for the DAQ system. In both directions, a given frame format is constantly sent using two bits in the header to indicate the presence of a valid slow control request and valid VFAT2 tracking data in case of the uplink. The two data formats are shown in Table \ref{tab:II-3-test-beam-data-format}. Both send a 16 bit header to align the link followed by the frame data. As can be seen in the table on the left, the OptoHybrid receives requests from the optical link which are then converted to wishbone-like requests by the logic. The optical link module is one of the wishbone masters that controls the system and which responses are forwarded back to the GLIB.
+
+      \begin{table}
+        \begin{tabularx}{\textwidth}{C{1}C{1}}
+          \textbf{GLIB to OptoHybrid frame} & \textbf{OptoHybrid to GLIB frame} \\
+          {
+          \begin{tabularx}{0.4\textwidth}{|C{1}|}
+            \hline
+            15 \hfill 0 \\ \hline
+            Header \\ \hline
+            Request address (MSB) \\ \hline
+            Request address (LSB) \\ \hline
+            Request data (MSB) \\ \hline
+            Request data (LSB) \\ \hline
+            CRC \\ \hline
+          \end{tabularx} }
+          &
+          { \begin{tabularx}{0.4\textwidth}{|C{1}|}
+            \hline
+            15 \hfill 0 \\ \hline
+            Header \\ \hline
+            VFAT2 data x14 \\ \hline
+            Response data (MSB) \\ \hline
+            Response data (LSB) \\ \hline
+            CRC \\ \hline
+          \end{tabularx} }
+        \end{tabularx}
+        \caption{??}
+        \label{tab:II-3-test-beam-data-format}
+      \end{table}
 
   \section{Architecture of the GLIB Firmware}
 
