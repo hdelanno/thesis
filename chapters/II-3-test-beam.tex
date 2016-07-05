@@ -138,6 +138,16 @@
 
   \section{Architecture of the GLIB Firmware}
 
+    The GLIB development group at CERN provides a system firmware which controls the onboard components, handles the communication with the MCH, and implements the logic to decode IPBus requests. This code is similar to the operating system in which the users runs their applications by adding custom firmware. The latter is system specific and up to the user to develop. In our application, the firmware we developped for the GLIB is in charge of the buffering of the tracking data until it is read out by the application, and the forwarding of the IPBus requests over the optical link to the OptoHybrid. Other than that, the GLIB holds a couple of counters which monitor the status of the optical links and the number of requests performed. However, the firmware of the GLIB has been designed to be able to handle two OptoHybrids in parallel, seemlessly allowing the user to switch from one to another at any time.
+
+    \subsection{The Tracking Data Readout}
+
+      The GLIB acts as buffer for the tracking data it reads out from the OptoHybrids and decodes from the optical links. It stores the VFAT2 events until the control and monitoring application reads them out through IPBus. In case the buffers reach their full occupancy, new events are discarded and flags are raised. The buffers can hold up to 16,383 VFAT2 events per OptoHybrid connected and the system has been tested and proven to work without overflows up until L1A rates of 200 kHz, the maximum rate the VFAT2s can handle.
+
+    \subsection{The IPBus Controller and Slaves}
+
+      The IPBus decoding procedure is much similar to the wishbone system implemented on the OptoHybrid. According to the address contained in the request, the GLIB selects the slave it needs to address. Each request is made of a flag signaling the presence of a request, a read/write bit reporting the type of operation, a 32-bit-long address field, and an optionnal 32-bit-long data field populated with data in case of a write operation. The IPBus response is composed of an acknoledgment and error flag to signal the validity of a response, and an optionnal 32-bit-long data field containing the read data. By design, each IPBus request is decomposed in single read or write operations. Therefore, even if the software performs a read request of multiple addresses at once, IPBus slaves will still see this as multiple sequential read operations on single addresses. This in term propagates to the OptoHybrid wishbone requests which originate from IPBus requests meaning that no more than one wishbone request coming from the GLIB is present at any time in the system. As a majority of the requests have to be forwarded to the OptoHybrid, an entire address space of the GLIB is mapped to the former. These are handled by an IPBus slave connected to the GTX blocks of the GLIB. This module encodes the request according to the data format on the left in Table \ref{tab:II-3-test-beam-data-format} and awaits for a response before signaling the IPBus controller.
+
   \section{The Control and Monitoring Application}
 
   \section{The Test Beam Setup}
