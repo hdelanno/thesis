@@ -164,10 +164,6 @@
 
       The control over the GLIB, OptoHybrids, and VFAT2s is done through four pages which screenshots are shown in Figure \ref{fig:II-3-app-monitoring}. The top-left picture displays the home page of the application which provides an overview of the status of each system. The left panel displays the firmware version of the GLIB and OptoHybrids; the middle panel gives the occupancy of the GLIB readout buffers, which are here signaled as full through the use of a red flag, and the status of the various modules of the OptoHybrid; finally, the right panel lists the VFAT2s that are turned on in green, turned off in red, and missing in gray. By clicking on any of the elements, the user is redirected to the corresponding system control page. \\
 
-      The control page of the GLIB is shown in the top-right corner. The information it contains is mainly related to counters which allow to see, for example, the number of requests sent to the OptoHybrid and the number of responds received. It also counts the number of errors detected on the optical link providing a quantitative value of the health of the link. \\
-
-      The OptoHybrid page, shown in the bottom-left corner, provides more information and control options to the user. The top-left part of the page is used to modify system register controlling the trigger source, clock source, trigger information sent over the debugging header, etc. This is where the user can change the type of ongoing run by going from a data taking run using external triggers to a calibration run using internally generated triggers. The panel directly on the right provides status information on the various clocking ressources in the FPGA. By default, the OptoHybrid uses the onboard oscillator to power the system and the optical links. As communication is established with the GLIB, the GTXs provide the recovered clock from the link which is the system clock. When the latter is stable, the OptoHybrid can decide to switch from its onboard clock to the system clock in order to be synchronuous with the whole DAQ system. This operation can be prohibited, forced, or allowed by the user, which can also chose to use an external clock provided through the debugging header. These clocking options are usefull for the test beam setup where the clock can be provided externally to synchronize with other electonics equipment. Finally, the bottom part of the page display counter values for the wishbone request, fast commands, link errors, etc. Note that when a discrepancy is observed between two correlated counters, a warning flag is raised as can be seen in the bottom-left of the picture. \\
-
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/app-home.png}
@@ -178,6 +174,36 @@
         \caption{???}
         \label{fig:II-3-app-monitoring}
       \end{figure}
+
+      The control page of the GLIB is shown in the top-right corner. The information it contains is mainly related to counters which allow to see, for example, the number of requests sent to the OptoHybrid and the number of responds received. It also counts the number of errors detected on the optical link providing a quantitative value of the health of the link. \\
+
+      The OptoHybrid page, shown in the bottom-left corner, provides more information and control options to the user. The top-left part of the page is used to modify system register controlling the trigger source, clock source, trigger information sent over the debugging header, etc. This is where the user can change the type of ongoing run by going from a data taking run using external triggers to a calibration run using internally generated triggers. The panel directly on the right provides status information on the various clocking ressources in the FPGA. By default, the OptoHybrid uses the onboard oscillator to power the system and the optical links. As communication is established with the GLIB, the GTXs provide the recovered clock from the link which is the system clock. When the latter is stable, the OptoHybrid can decide to switch from its onboard clock to the system clock in order to be synchronuous with the whole DAQ system. This operation can be prohibited, forced, or allowed by the user, which can also chose to use an external clock provided through the debugging header. These clocking options are usefull for the test beam setup where the clock can be provided externally to synchronize with other electonics equipment. Finally, the bottom part of the page display counter values for the wishbone request, fast commands, link errors, etc. Note that when a discrepancy is observed between two correlated counters, a warning flag is raised as can be seen in the bottom-left of the picture. \\
+
+      Finally, the control page of the VFAT2s, shown in the bottom-right of the figure, gives access to the most significant registers of the front-end chips. It provides a sumarry of the on/off/absent status of each VFAT2 on the GEB and, by clicking on an individual slot, the value of each register as shown in the panel on the right. Default settings for the registers are saved in memory and compared to the current values, raising warnings when they differ and allowing the user to correct them. The user can also control all the VFAT2s at once by applying the default settings or turning them on or off at the same time. In the bottom panel, control buttons allow to mask individual VFAT2s in case they generate noise or send corrupted tracking data. Two counters monitor the number of valid (with a correct CRC) and invalid packets each position has sent.
+
+    \subsection{Fast and Slow Control of the VFAT2s}
+
+      The fast control or T1 generator is controlled by a dedicated page, displayed in the left of Figure \ref{fig:II-3-app-control}, which allows to select the type of commands to generate, the pattern to send, and the delay between two pulse. The slow control of the VFAT2s handled by the I2C modules and the extended I2C controller is managed by another page shown in the right. The slow control commands can either target a single VFAT2 as shown in the left panel or an entire set of chips as can be seen in the right panel. In case of a single command, the response is shown inline. For multiple operations, a table of results is shown indicating the value and the corresponding VFAT2. To help the user, the accessible registers are named rather than listed using their address.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/app-t1.png}
+        \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/app-i2c.png}
+        \caption{???}
+        \label{fig:II-3-app-control}
+      \end{figure}
+
+    \subsection{Calibrating the VFAT2s}
+
+      The calibration of the VFAT2s is done through a dedicated page which regroups the various operations that can be performed on the chip. Figure \ref{fig:II-3-app-calibration} is a screenshot of the application runing a threshold scan on one of the VFAT2s. The left panel allows the user to select all the required parameters such as the type of scan, the range of the scan, the number of events per point, etc. Once the parameters are entered, the user starts the scan and waits for it to finish in firmware. When done, a graph displays the results in the right panel. The user can than dynamically change VFAT2 settings by clicking on a point of the graph to, for example, select the most appropriate threshold or latency value. Furthermore, the user can save the data points to disk for offline analysis.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-scan.png}
+        \caption{???}
+        \label{fig:II-3-app-calibration}
+      \end{figure}
+
 
   \section{The Test Beam Setup}
 
