@@ -204,6 +204,16 @@
         \label{fig:II-3-app-calibration}
       \end{figure}
 
+    \subsection{Data Quality Monitoring}
+
+      Data Quality Monitoring (DQM) is used online to check the consistancy of data recorded. This is the last component of the application shown in Figure \ref{fig:II-3-app-tk}. This page monitors the status of the readout buffers of the GLIB and allows the user to acquire data. Once acquisition has started, plots begin to fill with the various parameters extracted from the VFAT2 data format. The user can visualise the number of data packets, the BC, EC, flags, and chip ID distribution, the occupancy of the strips, etc. The user can monitor the validity of the data and if required change the parameters of the run. Although this application has the ability to readout data and store it to disk, it was not used to this intend during the test beam. A XDAQ based program developped by the software development team of the GEM collaboration was used to acquire raw data from the GLIB and store it on disk in text files for later analysis.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-tk.png}
+        \caption{???}
+        \label{fig:II-3-app-tk}
+      \end{figure}
 
   \section{The Test Beam Setup}
 
