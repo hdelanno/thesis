@@ -217,47 +217,55 @@
 
   \section{The Test Beam Setup}
 
-    During the November 2015 test beam campaign, a superchamber of GE1/1-V detectors has been used to collect data. Each detector was equipped with 12 VFAT2 Hybrids mounted in the central four rows. The remaining slots, not exposed to the beam, have been covered with grounding equipement to reduce noise. Each GEM was mounted with a GEB v2 and a OptoHybrid v2a. A picture of the setup is represented in Figure \ref{fig:II-3-test-geb}. Both OptoHybrids were connected to the same GLIB placed in a microTCA crate along with an AMC13 to deliver the triggers. The GEM detectors were connected to a gas system providing a mixture of Ar/CO$_2$ at 70\% and 30\% respectivly. The high-voltage was delivered for one GEM through a ceramic high-voltage divider and for the other by separate channels connected directly to the GEM foils and planes. The high-voltages are expressed in terms of current flowing through the divider which by suming up the individual resistors yields a value in volts. Table \ref{tab:II-3-test-hv} enumarates the different values of the voltages according to the current flowing through the divider.
+    \subsection{The GEM Detectors Setup}
 
-    \begin{figure}[p!]
-      \centering
-      \includegraphics[width=\textwidth]{img/II-3-test-beam/test-geb.jpg}
-      \caption{???}
-      \label{fig:II-3-test-geb}
-    \end{figure}
+      During the November 2015 test beam campaign, a superchamber of GE1/1-V detectors has been used to collect data. Each detector was equipped with 12 VFAT2 Hybrids mounted in the central four rows. The remaining slots, too far away from the beam spot, were been covered with grounding equipement to reduce noise. Each GEM was mounted with a GEB v2 and a OptoHybrid v2a. A picture of the setup is represented in Figure \ref{fig:II-3-test-geb}. Both OptoHybrids were connected to the same GLIB placed in a microTCA crate along with an AMC13 to deliver the triggers. \\
 
-    \begin{table}
-      \begin{tabularx}{\textwidth}{C{1}}
-        \textbf{VFAT2 tracking data} \\
-        {
-        \begin{tabularx}{0.5\textwidth}{|C{1}|C{1}|C{1}|}
-          \hline
-          \multicolumn{3}{|c|}{15 \hfill 0} \\ \hline
-          1010 & \multicolumn{2}{|c|}{BC[11:0]} \\ \hline
-          1100 & EC[7:0] & Flags[3:0] \\ \hline
-          1110 & \multicolumn{2}{|c|}{Chip ID[11:0]} \\ \hline
-          \multicolumn{3}{|c|}{Channel data x8} \\ \hline
-          \multicolumn{3}{|c|}{CRC} \\ \hline
-        \end{tabularx} }
-      \end{tabularx}
-      \caption{??}
-      \label{tab:II-3-test-hv}
-    \end{table}
+      \begin{figure}[p!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/test-geb.jpg}
+        \caption{???}
+        \label{fig:II-3-test-geb}
+      \end{figure}
 
-    \begin{figure}[h!]
-      \centering
-      \includegraphics[width=\textwidth]{img/II-3-test-beam/test-tools.jpg}
-      \caption{???}
-      \label{fig:II-3-test-tools}
-    \end{figure}
-    \section{Analysis of the Collected Data}
+      The GEM detectors were connected to a gas system providing a mixture of Ar/CO$_2$ at 70\% and 30\% respectivly. The high-voltage was delivered through a ceramic high-voltage divider for one chamber and by separate channels connected directly to the GEM foils and planes for the other. The high-voltage applied is expressed in terms of current flowing through the divider which, by suming up the individual resistors that it is made of, yields a value in volts. Table \ref{tab:II-3-test-hv} enumarates the different values of the voltages according to the current flowing through the divider. The difference between the divider and drift plane values is due to an input filter placed before the latter which smoothes out fluctuations in the voltage. The low voltages for the OptoHybrids (1.8 V and 4 V) and for the GEBs (2.5 V) were delivered by two power boards equipped on top of the detector stand as shown in Figure \ref{fig:II-3-test-tools}. The necessary tools to reprogram the FPGA in case of failure and the debugging header were placed next to the power boards.
 
-    \begin{sidewaysfigure}[p!]
-      \centering
-      \includegraphics[width=0.9\textwidth]{img/II-3-test-beam/test-setup.jpg}
-      \caption{???}
-      \label{fig:II-3-test-setup}
-    \end{sidewaysfigure}
+      \begin{table}[h!]
+        \begin{tabularx}{\textwidth}{|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|}
+          \hline \textbf{Current ($\mu$A)} & \textbf{Divider (V)} & \textbf{Drift plane (V)} & \textbf{GEM1 top (V)} & \textbf{GEM1 bottom (V)} & \textbf{GEM2 top (V)} & \textbf{GEM2 bottom (V)} & \textbf{GEM3 top (V)} & \textbf{GEM3 bottom (V)} \\ \hline
+          700 & 3921 & 3290 & 2503 & 2107 & 1801 & 1416 & 805 & 437 \\
+          710 & 3977 & 3337 & 2538 & 2137 & 1827 & 1437 & 816 & 443 \\
+          720 & 4033 & 3384 & 2574 & 2167 & 1853 & 1457 & 828 & 450 \\
+          730 & 4089 & 3431 & 2610 & 2198 & 1879 & 1477 & 839 & 456 \\
+          740 & 4145 & 3478 & 2646 & 2228 & 1904 & 1497 & 851 & 462 \\
+          750 & 4201 & 3525 & 2682 & 2258 & 1930 & 1518 & 862 & 468  \\
+          760 & 4257 & 3572 & 2717 & 2288 & 1956 & 1538 & 874 & 475 \\
+          770 & 4313 & 3619 & 2753 & 2318 & 1981 & 1558 & 885 & 481 \\
+          780 & 4369 & 3666 & 2789 & 2348 & 2007 & 1578 & 897 & 487 \\
+          790 & 4425 & 3713 & 2825 & 2378 & 2033 & 1598 & 908 & 493 \\
+          800 & 4481 & 3760 & 2860 & 2408 & 2059 & 1619 & 820 & 500 \\
+          810 & 4537 & 3807 & 2896 & 2438 & 2084 & 1639 & 931 & 506 \\ \hline
+        \end{tabularx}
+        \caption{??}
+        \label{tab:II-3-test-hv}
+      \end{table}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/test-tools.jpg}
+        \caption{???}
+        \label{fig:II-3-test-tools}
+      \end{figure}
+      \section{Analysis of the Collected Data}
+
+    \subsection{The Beam Area Setup}
+
+      \begin{sidewaysfigure}[p!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/II-3-test-beam/test-setup.jpg}
+        \caption{???}
+        \label{fig:II-3-test-setup}
+      \end{sidewaysfigure}
 
 
 
