@@ -217,7 +217,47 @@
 
   \section{The Test Beam Setup}
 
-  \section{Analysis of the Collected Data}
+    During the November 2015 test beam campaign, a superchamber of GE1/1-V detectors has been used to collect data. Each detector was equipped with 12 VFAT2 Hybrids mounted in the central four rows. The remaining slots, not exposed to the beam, have been covered with grounding equipement to reduce noise. Each GEM was mounted with a GEB v2 and a OptoHybrid v2a. A picture of the setup is represented in Figure \ref{fig:II-3-test-geb}. Both OptoHybrids were connected to the same GLIB placed in a microTCA crate along with an AMC13 to deliver the triggers. The GEM detectors were connected to a gas system providing a mixture of Ar/CO$_2$ at 70\% and 30\% respectivly. The high-voltage was delivered for one GEM through a ceramic high-voltage divider and for the other by separate channels connected directly to the GEM foils and planes. The high-voltages are expressed in terms of current flowing through the divider which by suming up the individual resistors yields a value in volts. Table \ref{tab:II-3-test-hv} enumarates the different values of the voltages according to the current flowing through the divider.
+
+    \begin{figure}[p!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-3-test-beam/test-geb.jpg}
+      \caption{???}
+      \label{fig:II-3-test-geb}
+    \end{figure}
+
+    \begin{table}
+      \begin{tabularx}{\textwidth}{C{1}}
+        \textbf{VFAT2 tracking data} \\
+        {
+        \begin{tabularx}{0.5\textwidth}{|C{1}|C{1}|C{1}|}
+          \hline
+          \multicolumn{3}{|c|}{15 \hfill 0} \\ \hline
+          1010 & \multicolumn{2}{|c|}{BC[11:0]} \\ \hline
+          1100 & EC[7:0] & Flags[3:0] \\ \hline
+          1110 & \multicolumn{2}{|c|}{Chip ID[11:0]} \\ \hline
+          \multicolumn{3}{|c|}{Channel data x8} \\ \hline
+          \multicolumn{3}{|c|}{CRC} \\ \hline
+        \end{tabularx} }
+      \end{tabularx}
+      \caption{??}
+      \label{tab:II-3-test-hv}
+    \end{table}
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-3-test-beam/test-tools.jpg}
+      \caption{???}
+      \label{fig:II-3-test-tools}
+    \end{figure}
+    \section{Analysis of the Collected Data}
+
+    \begin{sidewaysfigure}[p!]
+      \centering
+      \includegraphics[width=0.9\textwidth]{img/II-3-test-beam/test-setup.jpg}
+      \caption{???}
+      \label{fig:II-3-test-setup}
+    \end{sidewaysfigure}
 
 
 
