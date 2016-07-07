@@ -298,7 +298,7 @@
 
     \subsection{VFAT2 Latency Scans}
 
-      Once the threshold on the VFAT2s has been set and the beam has been turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ration of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} shows the ratio of hit events as a function of the VFAT2 latency for a VFAT2 monostable pulse length of four clock cycles. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct windows, it rises to a value close to 0.98. This plot illustrates the usefullness of the settable monostable pulse length. Indeed, the two points at approximatly 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting half the events. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. 
+      Once the threshold on the VFAT2s has been set and the beam has been turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ration of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} shows the ratio of hit events as a function of the VFAT2 latency for a threshold of 25 and a monostable pulse length of four clock cycles. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct windows, it rises to a value close to 0.98. This plot illustrates the usefullness of the settable monostable pulse length. Indeed, the two points at approximatly 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting half the events. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. \\
 
       \begin{figure}[h!]
         \centering
@@ -306,6 +306,8 @@
         \caption{???}
         \label{fig:II-3-data-latency}
       \end{figure}
+
+      Latency scan are also used to measure the noise and the efficiency of the detector. When looking at out of time events, the only contribution to the hits is noise. On the other hand, when considering the window in which the latency is well adjusted, both the noise and the particle hits play a role in the measurment. Taking this value to be the measured efficiency, it corresponds to the ratio between the number of events detected by the GEM detector and those detected by the scintillator system. However, the measured efficiency is the superposition of two poisson processes: the noise and the real detector efficiency. In order to obtain the computed or real efficieny, simulations were developped to compute upper and lower limits on the real efficiency according to the noise levels. With a noise level of 100\%, the real efficiency could be anything between 0\% and 100\%. However, with a noise level of 1\%, the computed efficiency will be close to the measured efficiency.
 
 
 
