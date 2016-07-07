@@ -230,7 +230,7 @@
 
     \subsection{The GEM Detectors Setup}
 
-      During the November 2015 test beam campaign, a superchamber of GE1/1-V detectors has been used to collect data. Each detector was equipped with 12 VFAT2 Hybrids mounted in the central four rows. The remaining slots, too far away from the beam spot, were been covered with grounding equipement to reduce noise. Each GEM was mounted with a GEB v2 and a OptoHybrid v2a. A picture of the setup is represented in Figure \ref{fig:II-3-test-geb}. Both OptoHybrids were connected to the same GLIB placed in a microTCA crate along with an AMC13 to deliver the triggers. \\
+      During the November 2015 test beam campaign, a superchamber of GE1/1-V detectors has been used to collect data. Each detector was equipped with 12 VFAT2 Hybrids mounted in the central four rows. The remaining slots, too far away from the beam spot, were been covered with grounding equipement to reduce noise. Each GEM was mounted with a GEB v2 and a OptoHybrid v2a. A picture of the setup is represented in Figure \ref{fig:II-3-test-geb}. Both OptoHybrids were connected to the same GLIB placed in a microTCA crate. \\
 
       \begin{figure}[p!]
         \centering
@@ -242,6 +242,7 @@
       The GEM detectors were connected to a gas system providing a mixture of Ar/CO$_2$ at 70\% and 30\% respectivly. The high-voltage was delivered through a ceramic high-voltage divider for one chamber and by separate channels connected directly to the GEM foils and planes for the other. The high-voltage applied is expressed in terms of current flowing through the divider which, by suming up the individual resistors that it is made of, yields a value in volts. Table \ref{tab:II-3-test-hv} enumarates the different values of the voltages according to the current flowing through the divider. The difference between the divider and drift plane values is due to an input filter placed before the latter which smoothes out fluctuations in the voltage. The low voltages for the OptoHybrids (1.8 V and 4 V) and for the GEBs (2.5 V) were delivered by two power boards mounted on top of the detector stand along with the necessary tools to reprogram the FPGA in case of failure and the debugging headers.
 
       \begin{table}[h!]
+        { \footnotesize
         \begin{tabularx}{\textwidth}{|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|}
           \hline \textbf{Current ($\mu$A)} & \textbf{Divider (V)} & \textbf{Drift plane (V)} & \textbf{GEM1 top (V)} & \textbf{GEM1 bottom (V)} & \textbf{GEM2 top (V)} & \textbf{GEM2 bottom (V)} & \textbf{GEM3 top (V)} & \textbf{GEM3 bottom (V)} \\ \hline
           700 & 3921 & 3290 & 2503 & 2107 & 1801 & 1416 & 805 & 437 \\
@@ -257,11 +258,14 @@
           800 & 4481 & 3760 & 2860 & 2408 & 2059 & 1619 & 820 & 500 \\
           810 & 4537 & 3807 & 2896 & 2438 & 2084 & 1639 & 931 & 506 \\ \hline
         \end{tabularx}
+        }
         \caption{??}
         \label{tab:II-3-test-hv}
       \end{table}
 
     \subsection{The Beam Area Setup}
+
+      The GE1/1 superchamber has been inserted in the beam path and adjusted so that solely one VFAT2 in the middle column would be exposed to the beam spot. Figure \ref{fig:II-3-test-setup} shows the setup on the left placed in front of the beam transfer tunnel on the right side. Four scintillators, three placed in front of the detector and visible in the picture, and one placed in the back of the detector were used to provide triggers to the system. The output of the four scintillators was converted to Nuclear Instrumentation Module (NIM) logic and their coincidance used as the trigger source of the system. NIM uses current driven logic levels which produce -0.8 V over 50 $\Omega$ for a logic '1' and 0 V for a logic '0'. As the OptoHybrids use TTL voltage driven levels, namelly 2.5 V for a logic '1' and 0 V for a logic '0', a converter had to be used. It was observed that the output levels of the NIM to TTL module were close to the switching voltage and might affect the number of triggers seen by the OptoHybrids. It was computed that this situation occured in less than 1/10 000 events and could be solved by the offline analysis. Checks were performed to ensure the source of the problem did not originate from the DAQ system itself, which was proven not to be the case.
 
       \begin{sidewaysfigure}[p!]
         \centering
@@ -296,4 +300,15 @@
 
 
 
-  -
+
+
+
+
+
+
+
+
+
+
+
+  \section{The END}
