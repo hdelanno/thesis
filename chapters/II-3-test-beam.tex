@@ -386,7 +386,7 @@
 
     \subsection{Beam Profile}
 
-      Finally, to illustrate the structure of the beam, one can create a beam profile obtained by superimposing the collected data and counting the number of hits for each strip. Figure \ref{fig:II-3-data-beam-profile} plots the beam profile for muons (green) and pions (blue) for GEM0 on the left and GEM1 on the right. The pion beam is well defined and centered on the VFAT2 strips as it is guided and collimated by the magnets of the transfer tunnels from the SPS to the experimental area. The muon beam on the other side displays a large spread due to the decay process of the pions and the collimators installed to stop them. The sharp cut-off on the left side of the profile is due to the geometrical acceptance of the PM placed in the back of the detector. These plots show that the chips do not have any dead channels.
+      Finally, to illustrate the structure of the beam, one can create a beam profile obtained by superimposing the collected data and counting the number of hits for each strip. Figure \ref{fig:II-3-data-beam-profile} plots the beam profile for muons (green) and pions (blue) for GEM0 on the left and GEM1 on the right. The pion beam is well defined and centered on the VFAT2 strips as it is guided and collimated by the magnets of the transfer tunnels from the SPS to the experimental area. The muon beam on the other side displays a large spread due to the decay process of the pions and the collimators installed to stop them. The sharp cut-off on the left side of the profile is due to the geometrical acceptance of the PM placed in the back of the detector. These plots show that the chips do not have any dead channels and that the accumulation follows the expected gaussian shape.
 
       \begin{figure}[h!]
         \centering
@@ -397,3 +397,13 @@
       \end{figure}
 
   \section{Conclusion}
+
+    The November 2015 test beam campaign has shown that the DAQ system composed of the VFAT2 ASIC, GEB v2, OptoHybrid v2a, and GLIB runs flawlessly providing quality data which has been used to compute the noise and efficiency on the system as a function of various parameters. The system is able to hanlde a superchamber of GE1/1 detectors with ease. \\
+
+    The flexible firmware architecture we developped for the OptoHybrid which provides the user with numerous monitoring and control options ran for the duration of the test beam and carried out all required tasks. The wishbone-like communication protocol implemented in the FPGA allows future developments to be easily integrated and modules to communicate with one another. \\
+
+    The firmware of the GLIB and the communication through the optical links have ran smoothly showing no errors on the transmitted data. The readout rate was high enough to prevent buffer overflow and well integrated with the software. \\
+
+    The web application has been used extensivly and is still in use for gain and uniformity studies at CERN. It has proven to be a complete solution to control and monitor the DAQ system allowing users to run all the necessary scans. \\
+
+    The recorded data has been analyzed. Threshold scans have shown an elevated noise level which has since then been understood and solved. Using the latency scans and the tracking data, various studies of the various of noise and efficiency levels have been performed against high-voltage, threshold, and particle rates. Results have been compared to previous test beams and are consistant. An efficiency of 97\% have been obtained and rate capability has been tested up until 120 kHz with a resulting efficiency of 96\%.
