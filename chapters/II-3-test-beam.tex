@@ -265,7 +265,7 @@
 
     \subsection{The Beam Area Setup}
 
-      The GE1/1 superchamber has been inserted in the beam path and adjusted so that solely one VFAT2 in the middle column would be exposed to the beam spot. Figure \ref{fig:II-3-test-setup} shows the setup on the left placed in front of the beam transfer tunnel on the right side. Four scintillators, three placed in front of the detector and visible in the picture, and one placed in the back of the detector were used to provide triggers to the system. The output of the four scintillators was converted to Nuclear Instrumentation Module (NIM) logic and their coincidance used as the trigger source of the system. NIM uses current driven logic levels which produce -0.8 V over 50 $\Omega$ for a logic '1' and 0 V for a logic '0'. As the OptoHybrids use TTL voltage driven levels, namelly 2.5 V for a logic '1' and 0 V for a logic '0', a converter had to be used. It was observed that the output levels of the NIM to TTL module were close to the switching voltage and might affect the number of triggers seen by the OptoHybrids. It was computed that this situation occured in less than 1/10 000 events and could be solved by the offline analysis. Checks were performed to ensure the source of the problem did not originate from the DAQ system itself, which was proven not to be the case.
+      The GE1/1 superchamber has been inserted in the beam path and adjusted so that solely one VFAT2 in the middle column would be exposed to the beam spot. Figure \ref{fig:II-3-test-setup} shows the setup on the left placed in front of the beam transfer tunnel on the right side. Four scintillators, three placed in front of the detector and visible in the picture, and one placed in the back of the detector were used to provide triggers to the system. The output of the four scintillators was converted to Nuclear Instrumentation Module (NIM) logic and their coincidance used as the trigger source of the system. \\
 
       \begin{sidewaysfigure}[p!]
         \centering
@@ -273,6 +273,40 @@
         \caption{???}
         \label{fig:II-3-test-setup}
       \end{sidewaysfigure}
+
+      NIM uses current driven logic levels which produce -0.8 V over 50 $\Omega$ for a logic '1' and 0 V for a logic '0'. As the OptoHybrids use TTL voltage driven levels, namelly 2.5 V for a logic '1' and 0 V for a logic '0', a converter had to be used. It was observed that the output levels of the NIM to TTL module were close to the switching voltage and might affect the number of triggers seen by the OptoHybrids. It was computed that this situation occured in less than 1/10 000 events and could be solved by the offline analysis. Checks were performed to ensure the source of the problem did not originate from the DAQ system itself, which was proven not to be the case.
+
+  \section{Data Analysis}
+
+    The data collected during the test beam was analysied to study the detector performance according to various parameters. Data was taken at multiple high-voltage values, VFAT2 threshold settings, and particle rates. An analysis framework has been developped in order to combine the readout data from the two GE1/1 chambers. Aligment of the events was non-trivial and based on the difference between two consecutive BC values of the events. Indeed, due to the problem exposed hereabove with the trigger logic and the fact that the two VFAT2s are not garanteed to have the same value of the BC counter at the same time, matching of the events based on the absolute value of the BC could not be done. Therefore, the difference between the BCs of two consecutive events in the data stream was computed and matched between the two datasets. When a discrepancy arose, one of the datasets had to be realigned. Once realigment was performed, analysis tools had access to both chambers for each event.
+
+    \subsection{VFAT2 Threshold Scans}
+
+      The first parameter to study is the noise on the VFAT2s induced by the system and by the antena effect of the strips. To this end, threshold scans have been produced using the web application. These scans are ran when the beam is not present. They use the trigger bits of the VFAT2s which do not need a L1A source to be produced. They are sampled at 40 MHz and for each threshold value the ratio of events containing hits against the total amount of collected events is defined to be the noise. Figure \ref{fig:II-3-data-threshold} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units, the decimal value written in the 8 bit register afterwards converted to a voltage level, for GEM0 on the left and GEM1 on the right. Although the noise level quickly diminishes, it never reaches the expected value of 0 even at very high threshold. Typically, previous test beams have shown that a value of 15 kills the noise. Furthermore, it can be seen that noise level is higher in GEM1, which reaches 20\% at a threshold value of 10 against 15\% for GEM0. From the threshold scans, it was decided to run both chambers at a VFAT2 threshold level of 25 for data taking runs. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM1}
+        \caption{???}
+        \label{fig:II-3-data-threshold}
+      \end{figure}
+
+      After the end of the test beam, the noise issue has been investigated toroughlty and two sources have been isolated: the I2C clock used for the slow communication and the LEMO cables used for the trigger input. In the version of the firmware used during the test beam, the I2C clock runs continuously which induces noise on the trigger bits of the VFAT2s at a frequency of 100 kHz, the same as the clock itself. This problem has been solved by activating the I2C clock solely when a slow control operation takes place, limiting the number of corrupted trigger bits. The second issue originated from current loops formed between the low power cables of the OptoHybrids and the LEMO cable connecting the system to the NIM crate. The ground of the latter was connected to the OptoHybrid ground through the shielding of the LEMO cables. Once the two ground systems were isolated, noise level comparable to previous observations were obtained. \\
+
+      It was also observed that GEM1 experienced a leakage current through the GEM foils of about 10 $\mu$A. This had as consequence to reduce the voltage on the GEM foils and thus decrease the gain and efficiency of the detector. The detector also suffered from water condensation inside the gas pipes which caused some problems during the first days of run. These issues can explain the difference in noise observed between the two chambers.
+
+    \subsection{VFAT2 Latency Scans}
+
+      Once the threshold on the VFAT2s has been set and the beam has been turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ration of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} shows the ratio of hit events as a function of the VFAT2 latency for a VFAT2 monostable pulse length of four clock cycles. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct windows, it rises to a value close to 0.98. This plot illustrates the usefullness of the settable monostable pulse length. Indeed, the two points at approximatly 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting half the events. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. 
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/plots/cLatency}
+        \caption{???}
+        \label{fig:II-3-data-latency}
+      \end{figure}
+
 
 
 
