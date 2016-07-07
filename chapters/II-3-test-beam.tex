@@ -362,13 +362,17 @@
 
     \subsection{Cluster Multiplicity and Size}
 
-      Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of strips per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectivly plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right.
+      Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of strips per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectivly plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. \\
+
+      The cluster multiplicity reflects the number of clusters present in the event, some of which are due to noise other to signal. Its evolution is tithgly linked to the evolution of the efficiency as a function of the VFAT2 threshold. It was observed that for threshold values of 25 and 30, the noise and efficiency of the two levels were of the same order, while they started to decrease slowy afterward. This explain the proximity of the points at 25 and 30 for both pions and muons in GEM0 and GEM1. When the threshold is further increased, the effects start to appear, cutting both the noise and the signal. \\
+
+      \todo{Why more clusters with pions}
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM0}
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM1}
-        \caption{???}
+        \caption{Plots of the cluster multiplicity for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right.}
         \label{fig:II-3-data-clu-mult}
       \end{figure}
 
@@ -376,17 +380,19 @@
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM0}
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM1}
-        \caption{???}
+        \caption{Plots of the cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right.}
         \label{fig:II-3-data-clu-size}
       \end{figure}
 
     \subsection{Beam Profile}
 
+      Finally, to illustrate the structure of the beam, one can create a beam profile obtained by superimposing the collected data and counting the number of hits for each strip. Figure \ref{fig:II-3-data-beam-profile} plots the beam profile for muons (green) and pions (blue) for GEM0 on the left and GEM1 on the right. The pion beam is well defined and centered on the VFAT2 strips as it is guided and collimated by the magnets of the transfer tunnels from the SPS to the experimental area. The muon beam on the other side displays a large spread due to the decay process of the pions and the collimators installed to stop them. The sharp cut-off on the left side of the profile is due to the geometrical acceptance of the PM placed in the back of the detector. These plots show that the chips do not have any dead channels.
+
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM0}
         \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM1}
-        \caption{???}
+        \caption{Plots of the beam profile for muons (green) and pions (blue) for GEM0 on the left and GEM1 on the right.}
         \label{fig:II-3-data-beam-profile}
       \end{figure}
 
