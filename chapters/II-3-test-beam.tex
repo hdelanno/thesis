@@ -282,7 +282,7 @@
 
     \subsection{VFAT2 Threshold Scans}
 
-      The first parameter to study is the noise on the VFAT2s induced by the system and by the antena effect of the strips. To this end, threshold scans have been produced using the web application. These scans are ran when the beam is not present. They use the trigger bits of the VFAT2s which do not need a L1A source to be produced. They are sampled at 40 MHz and for each threshold value the ratio of events containing hits against the total amount of collected events is defined to be the noise. Figure \ref{fig:II-3-data-threshold} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units, the decimal value written in the 8 bit register afterwards converted to a voltage level, for GEM0 on the left and GEM1 on the right. Although the noise level quickly diminishes, it never reaches the expected value of 0 even at very high threshold. Typically, previous test beams have shown that a value of 15 kills the noise. Furthermore, it can be seen that noise level is higher in GEM1, which reaches 20\% at a threshold value of 10 against 15\% for GEM0. From the threshold scans, it was decided to run both chambers at a VFAT2 threshold level of 25 for data taking runs. \\
+      The first parameter to study is the noise on the VFAT2s induced by the system and by the antena effect of the strips. To this end, threshold scans have been produced using the web application. These scans are ran when the beam is not present. They use the trigger bits of the VFAT2s which do not need a L1A source to be produced. They are sampled at 40 MHz and for each threshold value the ratio of events containing hits against the total amount of collected events is defined to be the noise. Figure \ref{fig:II-3-data-threshold} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units, the decimal value written in the 8 bit register afterwards converted to a voltage level, for GEM0 on the left and GEM1 on the right. Although the noise level quickly diminishes, it never reaches the expected value of 0 even at very high threshold. Typically, previous test beams have shown that a value of 15 kills the noise. Furthermore, it can be seen that noise level is higher in GEM1, which reaches 20\% at a threshold value of 10 against 15\% for GEM0. From the threshold scans, it was decided to run both chambers at a VFAT2 threshold level of 25 for data taking runs. This value is considered to be the default threshold except if otherwise specified. \\
 
       \begin{figure}[h!]
         \centering
@@ -298,17 +298,87 @@
 
     \subsection{VFAT2 Latency Scans}
 
-      Once the threshold on the VFAT2s has been set and the beam has been turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ration of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} shows the ratio of hit events as a function of the VFAT2 latency for a threshold of 25 and a monostable pulse length of four clock cycles. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct windows, it rises to a value close to 0.98. This plot illustrates the usefullness of the settable monostable pulse length. Indeed, the two points at approximatly 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting half the events. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. \\
+      Once the threshold on the VFAT2s has been set and the beam has been turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ration of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} shows the ratio of hit events as a function of the VFAT2 latency in terms of BXs for a monostable pulse length of four clock cycles. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct windows, it rises to a value close to 0.98. This plot illustrates the usefullness of the settable monostable pulse length. Indeed, the two points at approximatly 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting half the events. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. From these results, a VFAT2 latency value of 11 has been used for data taking runs. This value is considered to be the default latency except if otherwise specified. \\
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=\textwidth]{img/plots/cLatency}
+        \includegraphics[width=0.49\textwidth]{img/plots/cLatency_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/empty.png}
         \caption{???}
         \label{fig:II-3-data-latency}
       \end{figure}
 
       Latency scan are also used to measure the noise and the efficiency of the detector. When looking at out of time events, the only contribution to the hits is noise. On the other hand, when considering the window in which the latency is well adjusted, both the noise and the particle hits play a role in the measurment. Taking this value to be the measured efficiency, it corresponds to the ratio between the number of events detected by the GEM detector and those detected by the scintillator system. However, the measured efficiency is the superposition of two poisson processes: the noise and the real detector efficiency. In order to obtain the computed or real efficieny, simulations were developped to compute upper and lower limits on the real efficiency according to the noise levels. With a noise level of 100\%, the real efficiency could be anything between 0\% and 100\%. However, with a noise level of 1\%, the computed efficiency will be close to the measured efficiency.
 
+    \subsection{Efficiency against High-Voltage}
+
+      Using the latency scan to compute noise and efficiency values, the evolution of these parameters has been studied according to the high-voltage applied on the detector. Figure \ref{fig:II-3-data-eff-hv} plots the measured noise (green), measured efficiency (blue), and computed efficiency (orange) as a function of the high-voltage expressed in $\mu$A for GEM0 on the left and GEM1 on the right. Both results show an increase in efficiency with the high-voltage, reaching a plateau around 98\%. This is caused by the higher gain at which the GEM foils start to operate which in turn amplifies the signals and allows for it to be detected by the VFAT2 ASIC. It can be noted that a shift exists between the results for GEM0 and GEM1. Values for the latter are shift to the left by approximatly 10 $\mu$A. While GEM0 reaches a plateau at 800 $\mu$A, GEM1 requires 810 $\mu$A to reach an efficiency around 98\%. This is due to the leakage current observed during installation which decreases the voltage applied to the GEM foils and in turn performance. It can also be noted that the noise is constant with the high-voltage. From these results, it was decided to operate both chambers at 800 $\mu$A as sparks were sometimes observed at 810 $\mu$A. This value is considered to be the default high-voltage except if otherwise specified.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_HV_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_HV_GEM1}
+        \caption{???}
+        \label{fig:II-3-data-eff-hv}
+      \end{figure}
+
+    \subsection{Efficiency against Threshold}
+
+      Although it had been decided to run the system with a VFAT2 threshold of 25, a study of the evolution of the noise and efficiency according to the threshold was performed. It aimed at quantifiying the amount of noise and signal that was cut when increasing its value allowing to select the configuration yielding the best signal over noise ratio. Figure \ref{fig:II-3-data-eff-threshold} plots the measured noise (green), measured efficiency (blue), and computed efficiency (orange) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. Additionnal points in purple have been extracted from the tracking data. Using the two GEM detectors, it is possible to measure the efficiency of one using the other as reference. For each event, the following cuts were applied on the first GEM in order to reduce the dataset:
+      \begin{itemize}
+        \item only one cluster, group of adjacent strips that have been hit, is present in the event;
+        \item the sole cluster must contain exactly two active strips;
+        \item the center of the cluster must be at least ten strips away from the sides of the chip.
+      \end{itemize}
+      The first condition eliminates events where a hit is accompagnied by noise, creating an ambiguity on the cluster associated with the particles. The second condition helps to remove noise related events as they have a cluster size distribution peaked at one strip. Therefore, combining these two criteria creates a stringent condition for the selection of particle generated signals. The final condition ensures that the hit in the second GEM detector will be located inside the VFAT2 thus eliminate acceptance problems. Using the reduced dataset, the algorithm computed the efficiency by looking for hits in the second GEM detector in a window of five strips around the center of the cluster of the first GEM. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Threshold_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Threshold_GEM1}
+        \caption{???}
+        \label{fig:II-3-data-eff-threshold}
+      \end{figure}
+
+      Blabla
+
+    \subsection{Efficiency against Particle Rate}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM1}
+        \caption{???}
+        \label{fig:II-3-data-eff-rate}
+      \end{figure}
+
+    \subsection{Cluster Multiplicity and Size}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM1}
+        \caption{???}
+        \label{fig:II-3-data-clu-mult}
+      \end{figure}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM1}
+        \caption{???}
+        \label{fig:II-3-data-clu-size}
+      \end{figure}
+
+    \subsection{Beam Profile}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM0}
+        \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM1}
+        \caption{???}
+        \label{fig:II-3-data-beam-profile}
+      \end{figure}
 
 
 
@@ -346,5 +416,4 @@
 
 
 
-
-  \section{The END}
+  \section{Conclusion}
