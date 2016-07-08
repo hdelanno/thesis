@@ -298,7 +298,7 @@
 
     \subsection{VFAT2 Latency Scans}
 
-      Once the threshold on the VFAT2s has been set and the beam has been turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ration of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} plots the ratio of hit events as a function of the VFAT2 latency in terms of BXs for a monostable pulse length of four clock cycles for GEM0 on the left and GEM1 on the right with muons. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct windows, it rises to a value close to 0.98. This plot illustrates the usefullness of the settable monostable pulse length. Indeed, the two points at approximatly 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting half the events. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. From these results, a VFAT2 latency value of 11 has been used for data taking runs. This value is considered to be the default latency except if otherwise specified. \\
+      Once the threshold on the VFAT2s has been set and the beam has been turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ration of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} plots the ratio of hit events as a function of the VFAT2 latency in terms of BXs for a monostable pulse length of four clock cycles for GEM0 on the left and GEM1 on the right with muons. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct windows, it rises to a value close to 0.98. These plots illustrate the usefullness of the settable monostable pulse length. Indeed, the two points at approximatly 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting half the events. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. From these results, a VFAT2 latency value of 11 has been used for data taking runs. This value is considered to be the default latency except if otherwise specified. \\
 
       \begin{figure}[h!]
         \centering
@@ -364,10 +364,6 @@
 
       Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of strips per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectivly plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. \\
 
-      The cluster multiplicity reflects the number of clusters present in the event, some of which are due to noise other to signal. Its evolution is tithgly linked to the evolution of the efficiency as a function of the VFAT2 threshold. It was observed that for threshold values of 25 and 30, the noise and efficiency of the two levels were of the same order, while they started to decrease slowy afterward. This explain the proximity of the points at 25 and 30 for both pions and muons in GEM0 and GEM1. When the threshold is further increased, the effects start to appear, cutting both the noise and the signal. \\
-
-      \todo{Why more clusters with pions}
-
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM0-crop}
@@ -376,6 +372,10 @@
         \label{fig:II-3-data-clu-mult}
       \end{figure}
 
+      The cluster multiplicity reflects the number of clusters present in the event, some of which are due to noise other to signal. Its evolution is tithgly linked to the evolution of the efficiency as a function of the VFAT2 threshold. It was observed that for threshold values of 25 and 30, the noise and efficiency were only slightly decreasing, while doing so at a faster rate at higher thresholds. This explain the proximity of the points at 25 and 30 for both pions and muons in GEM0 and GEM1. When the threshold is further increased, the effects start to appear, cutting both the noise and the signal. Furthermore, the counting of cluster is not directly affected by the cluster size when the latter is rather small. This means that two clusters of size two are equivalent to two clusters of size one. Even if by increasing the threshold, some strips are being deactivated, other strips in the cluster might still remain active thus leaving the cluster statistic unchanged. When cluster sizes increase too much, clusters start to overlap and the previous assumption becomes invalid. \\
+
+      \todo{Why more clusters with pions}
+
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM0-crop}
@@ -383,6 +383,8 @@
         \caption{Plots of the cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right.}
         \label{fig:II-3-data-clu-size}
       \end{figure}
+
+      The previous explaination is supported by the plots of the cluster size as a function of the threshold. It is clear that the cluster size decreases as the threshold increases, meaning that less and less strips are being fired. At low threshold, clusters contain roughtly 1.5 strips and an average of 1.6 clusters are present per event. When increasing the threshold, the average number of strips fired decreases slightly which does not immediatly affect the cluster multiplicity: clusters are reduced in size but not in numbers.
 
     \subsection{Beam Profile}
 
