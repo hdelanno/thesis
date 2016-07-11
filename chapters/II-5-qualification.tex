@@ -20,7 +20,7 @@
 
     \subsection{Front-end Currents and Voltages}
 
-      Following the threshold scan, the procedure reads out the current and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an analog-to-digital (ADC) converted to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-5-qualification-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register.
+      Following the threshold scan, the procedure reads out the current and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an analog-to-digital (ADC) converted to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-5-qualification-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register. \\
 
       \begin{figure}[h!]
         \centering
@@ -29,6 +29,10 @@
         \caption{Plots of the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register.}
         \label{fig:II-5-qualification-adc}
       \end{figure}
+
+      All but one of the current based registers are related to the amplification and shaping of the analog signal. They power the front-end and are used to define the length of the tail of the signal shape, the rise time of the distribution, etc. The remaining register, IComp, defines the amount of current delivered to the comparator which in turn influences the response time of the later. These parameters are set to default values provided by the reference manual of the VFAT2. \\
+
+      The voltage base registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels.  
 
     \subsection{S-Curve Scans}
 
