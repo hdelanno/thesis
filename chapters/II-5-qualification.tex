@@ -7,24 +7,26 @@
 
     The qualification process of the VFAT2s has been automatized using Python scripts to run the various procedures using the dedicated firmware modules of the OptoHybrid. The aim of this tools is to reject faulty chips and record the parameters of the analog front-end which slightly vary from component to component.
 
-    \subsection{Threshold Scans}
+    \subsection{Identification of Faulty Channels}
 
-      The first step of the procedure is to run a threshold scan for each channel to reveal those that are not responding or that are noisy. To do so, the tools use the threshold scan module of the firmware that relies on tracking data to perform a scan of each channel. 
+      The first step of the procedure is to run a threshold scan for each channel to reveal those that are not responding or that are noisy. To do so, the tools use the threshold scan module of the firmware that relies on tracking data to access the full granularity information. Figure \ref{fig:II-5-qualification-threshold} is a two-dimensional graph plotting the evolution of the noise level for each channel as a function of the VFAT2 threshold in VFAT2 units. As can be seen, one of the channels appears to be damaged as it does not display any change during the whole scan and remains empty. From this result, the VFAT2 would be disqualified and not used for data taking. If performing these scan on instrumented VFAT2s, the results can be used to mask faulty channels and regain acceptable operational conditions.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.5\textwidth]{img/plots/cThreshold_Channel-crop}
-        \caption{}
+        \caption{Two-dimensional graph plotting the evolution of the noise level for each channel as a function of the VFAT2 threshold in VFAT2 units.}
         \label{fig:II-5-qualification-threshold}
       \end{figure}
 
     \subsection{Front-end Currents and Voltages}
 
+      Following the threshold scan, the procedure reads out the current and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an analog-to-digital (ADC) converted to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-5-qualification-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register.
+
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cADC_Current-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cADC_Voltage-crop}
-        \caption{}
+        \caption{Plots of the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register.}
         \label{fig:II-5-qualification-adc}
       \end{figure}
 
