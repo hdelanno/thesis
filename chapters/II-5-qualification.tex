@@ -9,72 +9,91 @@
 
     \subsection{Identification of Faulty Channels}
 
-      The first step of the procedure is to run a threshold scan for each channel to reveal those that are not responding or that are noisy. To do so, the tools use the threshold scan module of the firmware that relies on tracking data to access the full granularity information. Figure \ref{fig:II-5-qualification-threshold} is a two-dimensional graph plotting the evolution of the noise level for each channel as a function of the VFAT2 threshold in VFAT2 units. As can be seen, one of the channels appears to be damaged as it does not display any change during the whole scan and remains empty. From this result, the VFAT2 would be disqualified and not used for data taking. If performing these scan on instrumented VFAT2s, the results can be used to mask faulty channels and regain acceptable operational conditions.
+      The first step of the procedure is to run a threshold scan for each channel to reveal those that are not responding or that are noisy. To do so, the tools use the threshold scan module of the firmware that relies on tracking data to access the full granularity information. Figure \ref{fig:II-5-threshold} is a two-dimensional graph plotting the evolution of the noise level for each channel as a function of the VFAT2 threshold in VFAT2 units. As can be seen, one of the channels appears to be damaged as it does not display any change during the whole scan and remains empty. From this result, the VFAT2 would be disqualified and not used for data taking. If performing these scan on instrumented VFAT2s, the results can be used to mask faulty channels and regain acceptable operational conditions.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.5\textwidth]{img/plots/cThreshold_Channel-crop}
         \caption{Two-dimensional graph plotting the evolution of the noise level for each channel as a function of the VFAT2 threshold in VFAT2 units.}
-        \label{fig:II-5-qualification-threshold}
+        \label{fig:II-5-threshold}
       \end{figure}
 
     \subsection{Front-end Currents and Voltages}
 
-      Following the threshold scan, the procedure reads out the current and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an analog-to-digital (ADC) converted to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-5-qualification-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register. \\
+      Following the threshold scan, the procedure reads out the current and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an analog-to-digital (ADC) converted to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-5-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cADC_Current-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cADC_Voltage-crop}
         \caption{Plots of the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register.}
-        \label{fig:II-5-qualification-adc}
+        \label{fig:II-5-adc}
       \end{figure}
 
       All but one of the current based registers are related to the amplification and shaping of the analog signal. They power the front-end and are used to define the length of the tail of the signal shape, the rise time of the distribution, etc. The remaining register, IComp, defines the amount of current delivered to the comparator which in turn influences the response time of the later. These parameters are set to default values provided by the reference manual of the VFAT2. \\
 
-      The voltage base registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels.  
+      The voltage base registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels. Figure \ref{fig:II-5-injection} shows a diagram of the injection and calibration circuit of the VFAT2. The amplitude of the calibration pulse is equal to the difference between VBaseline which has a fixed value and VLow which is programmable. The output pulse is sent to one channel over a capacitor of 100 fF resulting in a pulse amplitude in term of charge of
+      \begin{equation}
+        Q = 100 \ \text{fF} \times \left(\text{VBaseline} - \text{VLow} \right) .
+      \end{equation}
 
-    \subsection{S-Curve Scans}
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/II-5-qualification/injection.png}
+        \caption{Diagram of the injection and calibration circuit of the VFAT2 highlighting the path of the calibration pulse towards a given channel \cite{Aspell:1267947}.}
+        \label{fig:II-5-injection}
+      \end{figure}
+
+    \subsection{Front-end Calibration}
+
+      Using the results from the ADC, the script can determine what amount of charge is injected during the calibration phase of the VFAT2 upon reception of a CalPulse fast command. With this, it is possible to produce s-curves which for a given threshold indicate at which amplitude of the calibration pulse a signal becomes visible. Figure \ref{fig:II-5-scurve} plots the hit-to-event ratio as a function of the calibration pulse height in VFAT2 units for a threshold of 25. The graph shows that below a value of 40 no signal is detected due to the threshold level. The turn-on of the curve is defined as the value for which 50\% of hit-to-event ratio is reached and is in this case equal to 44. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.5\textwidth]{img/plots/cSCurve_T25-crop}
-        \caption{}
-        \label{fig:II-5-qualification-scurve}
+        \caption{Plot of the hit-to-event ratio as a function of the calibration pulse height in VFAT2 units for a threshold of 25.}
+        \label{fig:II-5-scurve}
       \end{figure}
+
+      The operation is then repeated for various threshold values and the turn-on value is extracted automatically using a logistic function to fit the curve. The equation of the function is as follows
+      \begin{equation}
+        f(x) = \frac{1}{1 + e^{-k \left( x - x_0 \right)}}
+      \end{equation}
+      where $ x_0 $ is the value of the midpoint or turn-on, and $ k $ is the steepness of the slope. Figure \ref{fig:II-5-scurves} is a collection of s-curve scans for various thresholds on the left which can be translated to a plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ThresholdVCal-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_TurnOn-crop}
-        \caption{}
-        \label{fig:II-5-qualification-scurves}
+        \caption{Left: collection of s-curve scans for various thresholds with corresponding curent values. Right: plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units.}
+        \label{fig:II-5-scurves}
       \end{figure}
 
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.5\textwidth]{img/plots/cCal_Charge-crop}
-        \caption{}
-        \label{fig:II-5-qualification-calcharge}
-      \end{figure}
+      Using these results, the threshold value applied on the strips can be converted to a charge, which is of important to compute the equivalent noise charge of the system. This is the amplitude of the noise in terms of electrons, which can easily be compared to the signal induced by the particles which is often expressed in fentocoulombs. The results presented here above are in excellent agreement with those obtained during the initial qualification of the VFAT2 \cite{Aspell:1267947} with a charge range of -2 fC to 18 fC.
+
+    \subsection{Front-end equalization}
+
+      The results obtained in the previous procedures were values averaged on all the strips. However, channels display a dispersion around the central value which induces a bias as the effective threshold is not the constant across the chip. To eliminate this effect, it is possible to equalize the response of the front-end by using channel by channel programmable registers. Each of them is equipped with a programmable register which adjusts the threshold value slightly. The equalization procedure ran to align the front-ends starts by applying a given value to the common threshold register and sets all channel registers to zero. It then performs s-curve scans for each channel. The operation is repeated but with the channel registers set to their maximum value. Figure \ref{fig:II-5-trim} plots the s-curve scans for each channel with the minimum value of the channel registers on the left and the maximum value on the right. The two plots obtained this way are very similar with only the turn-on value changing. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trim0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trim1-crop}
-        \caption{}
-        \label{fig:II-5-qualification-trim}
+        \caption{Plots of the s-curve scans for each channel with the minimum value of the channel registers on the left and the maximum value on the right.}
+        \label{fig:II-5-trim}
       \end{figure}
+
+      To align the channels, the average value of turn-on for both minimal and maximal value configuration is taken and set to be the aim of the equalization routine. For each channel, the script then sets its individual register value to the mean value and performs an s-curve scan. According to the turn-on value, the register is incremented or decremented and the procedure is repeated until the channel is aligned. The results of the alignment are shown in Figure \ref{fig:II-5-trimed} which plots the s-curve scan for each channel with the aligned values for the register on the left and the dispersion of the turn-on value for the non-aligned and aligned configurations. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trimed-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Disp-crop}
-        \caption{}
-        \label{fig:II-5-qualification-trimed}
+        \caption{Left: plot of the s-curve scan for each channel with the aligned values for the channel register. Right: dispersion of the turn-on value for the non-aligned (orange and blue) and aligned configurations (green, scaled by a factor of 0.35).}
+        \label{fig:II-5-trimed}
       \end{figure}
 
-
+      At the end of the script, the VFAT2 channels have all been tested against noise issues and have been adjusted so that they all display the same response to calibration pulses. This is the first time the full range of possibilities offered by the VFAT2 is used in a DAQ system and demonstrates that these features are within working specification.
 
   \section{Qualification of the GEB}
 
@@ -90,7 +109,7 @@
         \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-3d-2.png}
         \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-pcb.png}
         \caption{}
-        \label{fig:II-5-qualification-geb-pcb}
+        \label{fig:II-5-geb-pcb}
       \end{figure}
 
   \section{Qualification of the System}
