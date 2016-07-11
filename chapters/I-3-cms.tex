@@ -124,7 +124,7 @@
 
     \subsection{Drift Tubes}
 
-      The barrel muon spectrometer consists in 4 cylindrical layers of DT modules: the inner three contain 60 chambers and the outer has 70 for a total of 172 000 sensitive wires. The smallest unit composing the DTs is the drift cell: a 2.4 m long by 42 mm wide tube in which a wire is streched over the whole length as depicted in Figure \ref{fig:I-3-dt}. Filled with a gas mixture of ArCO$_2$, they provide a measurment of the point of impact of the particle in the direction perpendicular to the wire using the ionisation of the gas amplified through the applied high voltage. The small flux of particles in the barrel region of CMS enables the use of these long chambers which limits the number of active channels and thus cost while still providing excellent resolution. Multiple drift cells are combined into layers and four layers are further staggered by half a cell width in order to eliminate deadspace and form a Super Layer (SL). SLs vary in size between 1.9 m in MB1 and 4.1 m in MB4. Each chamber contains two SLs that measure the r-$\phi$ bending angle and one SL that provides a measurment in the z direction. MB4, the fourth station, however does not include the SLs in the z direction. The resolution of a station is on the order of 100 $\mu$m on the position and 1 mrad on the direction of the particle. \\
+      The barrel muon spectrometer consists in 4 cylindrical layers of DT modules: the inner three contain 60 chambers and the outer has 70 for a total of 172 000 sensitive wires. The smallest unit composing the DTs is the drift cell: a 2.4 m long by 42 mm wide tube in which a wire is streched over the whole length as depicted in Figure \ref{fig:I-3-dt}. Filled with a gas mixture of ArCO$_2$, they provide a measurment of the point of impact of the particle in the direction perpendicular to the wire using the ionisation of the gas amplified through the applied high voltage. The small flux of particles in the barrel region of CMS enables the use of these long chambers which limits the number of active channels and thus cost while still providing excellent resolution. Multiple drift cells are combined into layers and four layers are further staggered by half a cell width in order to eliminate deadspace and form a super layer (SL). SLs vary in size between 1.9 m in MB1 and 4.1 m in MB4. Each chamber contains two SLs that measure the r-$\phi$ bending angle and one SL that provides a measurment in the z direction. MB4, the fourth station, however does not include the SLs in the z direction. The resolution of a station is on the order of 100 $\mu$m on the position and 1 mrad on the direction of the particle. \\
 
       \begin{figure}[h!]
         \centering
@@ -174,7 +174,7 @@
 
     The muon trigger is divided into three section: the barrel, the endcaps, and the overlap region where tracks cross both CSCs and DTs. Hits from the different chambers are combined in the Muon Track-Finder layer which uses track extrapolation and pattern recognition algorithms to create tracks. The reconstructed tracks are sent to the Sorting/Merging layer which selects the best candidates according to track quality parameters. The best tracks are sent to the Global Muon Trigger (GMT) which uses information from the calorimeters to compute isolation values for each muon. This combined information is sent to the Global Trigger (GT) along with the calorimeter data. \\
 
-    The GT implements a menu of triggers that perform selections on the reconstructed objects such as electrons, photons, or muons and take the decision to accept or reject the events. If an event is accepted, a Level-1 Accept (L1A) is issued and sent to the Trigger Control and Distribution System (TCDS). The latter forwards the L1A to all the subsystems according to the readiness of the subdetectors and the Data Acquistion (DAQ) system. Upon reception of a L1A, the front-end electronics provides the full granularity data to the read-out DAQ which includes the HLT.
+    The GT implements a menu of triggers that perform selections on the reconstructed objects such as electrons, photons, or muons and take the decision to accept or reject the events. If an event is accepted, a Level-1 Accept (L1A) is issued and sent to the Trigger Control and Distribution System (TCDS). The latter forwards the L1A to all the subsystems according to the readiness of the subdetectors and the data acquistion (DAQ) system. Upon reception of a L1A, the front-end electronics provides the full granularity data to the read-out DAQ which includes the HLT.
 
   \section{The Data Acquisition System}
 
@@ -187,24 +187,34 @@
         \label{fig:I-3-daq}
       \end{figure}
 
-    For each collision, the front-end electronic modules of the detectors store the full granularity data in buffers and forward reduced information to the trigger system based on which the latter will issue a L1A or not. Upon reception of an L1A from the GT, the Front End Drivers (FEDs) will push the full data uplink to the central DAQ system of CMS. To prevent overflow of the buffers during readout, the TCDS system provide back pressure to the FEDs. The event builder then assembles the data of the same L1A of all submodules and provides it to a single filter unit. The latter runs the HLT algorithms on the event and if accepted forwards it for storage.
+    For each collision, the front-end electronic modules of the detectors store the full granularity data in buffers and forward reduced information to the trigger system based on which the latter will issue a L1A or not. Upon reception of an L1A from the GT, the Front-end drivers (FEDs) will push the full data uplink to the central DAQ system of CMS. To prevent overflow of the buffers during readout, the TCDS system provide back pressure to the FEDs. The event builder then assembles the data of the same L1A of all submodules and provides it to a single filter unit. The latter runs the HLT algorithms on the event and if accepted forwards it for storage.
 
     \subsection{The Event Builder}
 
-      The event builder is composed of the FED builders and the Read-out Units (RU) builders. The FED builders are in charge of collecting an average size of 2 kBytes of data from the FEDs and transporting them from the underground cavern to the surface building where 72 super-fragments of roughtly 16 kBytes are created. The super-fragments are distributed to the RU-builders on an event by event base, meaning that one unit will handle one event. The fragments are stored in the buffers of the RUs where the RU-builder transfers the event to the event filter.
+      The event builder is composed of the FED builders and the read-out units (RU) builders. The FED builders are in charge of collecting an average size of 2 kBytes of data from the FEDs and transporting them from the underground cavern to the surface building where 72 super-fragments of roughtly 16 kBytes are created. The super-fragments are distributed to the RU-builders on an event by event base, meaning that one unit will handle one event. The fragments are stored in the buffers of the RUs where the RU-builder transfers the event to the event filter.
+
+      \todo{MORE}
 
     \subsection{The Event Filter}
 
       The event filter role is to distribute the events to worker nodes in the processing farm which run offline reconstruction algorithms to process and select events for storange. It also
 
+      \todo{MORE}
+
     \subsection{DAQ Software, Control, and Monitoring}
 
       All DAQ subsystems have adopted a common software standard called Coss-Platform DAQ Framework (XDAQ).
+
+      \todo{MORE}
 
     \subsection{Detector Control System}
 
       The Detector Control System (DCS) monitors the subdetectors of CMS and ensures correct operation of the experiment. Each system report the status of individual detector electronics such as high voltage, low voltage, etc to the central DCS system where data is logged into a database. DCS provides bookkeeping and safety-related functions for all detectors via a software interface.
 
+      \todo{MORE}
+
   \section{The Upgrades}
 
     Talk about Upgrades of CMS
+
+    \todo{MORE}

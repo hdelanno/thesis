@@ -13,6 +13,7 @@ save:
 	git push iihe-daq
 
 plots:
+	rm img/plots/*.pdf
 	root -q -b -l tools/import_plots.cpp
 	$(eval FILES := `ls img/plots/*.pdf`)
 	for f in $(FILES) ; do \

@@ -1,16 +1,180 @@
 \chapter{Qualification of the Electronics}
 \label{chap:II-5-qualification}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu enim enim. Mauris ultrices velit vel dictum porta. Maecenas nec consectetur felis. Nullam ac turpis aliquet, placerat lorem ac, ornare purus. Proin risus dolor, ultrices id lectus vel, imperdiet tincidunt justo. Quisque viverra, magna nec laoreet posuere, augue arcu ornare odio, eu vestibulum justo diam vitae lectus. Phasellus tristique, nulla eget dapibus dignissim, purus nisi posuere dolor, sit amet lobortis quam est in lacus. Aliquam eu augue et eros iaculis convallis. Nullam pulvinar erat tristique volutpat feugiat. Curabitur neque purus, scelerisque non tincidunt non, cursus non velit. Nunc ac vehicula risus. In dignissim ante ac dui mattis, vel dapibus massa volutpat. \\
+  To prepare the DAQ system for the slice test, the electronic components need to be tested and qualified. For the VFAT2s, qualification procedures have to be developed to characterize the analog front-end of each chip, record their response to calibration pulses, and optimize the parameters to achieve uniformity over the entire detector. For the GEB, qualification means ensuring that no shorts are present and that the integrity of the signals is kept over the full length of the board. Finally, the system as a whole needs to be tested against communication errors or readout problems.
 
-Proin sit amet urna lobortis, feugiat ante ultricies, tincidunt enim. Sed lacus lorem, sodales eu pharetra at, semper ut leo. Aliquam ex diam, pellentesque eu est sed, tempus ultrices ligula. Nullam efficitur ante nec diam faucibus viverra. Nam diam nisl, laoreet vitae purus quis, consequat convallis nisl. Donec ac malesuada tellus. Cras finibus ex eget tellus consectetur luctus. Vestibulum lobortis metus felis, sed auctor sem tincidunt vel. Donec venenatis purus non ante bibendum efficitur. Ut dictum diam vitae orci eleifend scelerisque. \\
+  \section{Qualification of the VFAT2s}
 
-Donec finibus vulputate sodales. Mauris vitae risus vestibulum, suscipit arcu eget, mattis sapien. Nam molestie massa sed sem scelerisque laoreet. Nullam vitae pellentesque urna. Integer dignissim mauris sed consectetur lobortis. Aenean sed odio blandit, feugiat justo sit amet, feugiat dolor. Vestibulum dictum, urna at porta consectetur, mauris velit volutpat ante, nec fringilla risus mauris eu leo. Pellentesque auctor auctor pulvinar. Pellentesque vestibulum feugiat nisl sed malesuada. \\
+    The qualification process of the VFAT2s has been automatized using Python scripts to run the various procedures using the dedicated firmware modules of the OptoHybrid. The aim of this tools is to reject faulty chips and record the parameters of the analog front-end which slightly vary from component to component.
 
-Morbi in felis id arcu tempus vulputate eget vitae lorem. Etiam ultrices rutrum imperdiet. Curabitur euismod metus in tortor tempor, congue tincidunt tortor rhoncus. Donec blandit hendrerit dignissim. Aliquam congue accumsan imperdiet. Donec lobortis odio nec convallis interdum. Donec tristique finibus augue vitae rhoncus. Integer eget commodo est, sed viverra est. Integer interdum lacus ultricies imperdiet consequat. Nam eget tincidunt velit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fringilla vel lectus nec scelerisque. Maecenas auctor sagittis urna quis dictum. Ut aliquam augue ullamcorper quam commodo faucibus. Nam at pretium est. Nulla sed elit euismod, gravida ex sed, varius risus. \\
+    \subsection{Threshold Scans}
 
-Integer ligula ante, ornare ac sollicitudin a, imperdiet eu mauris. Nulla facilisi. Duis ac massa gravida, dignissim augue id, pretium justo. Donec volutpat ipsum justo, non gravida justo egestas ac. Aliquam auctor sed dolor sed aliquet. Vivamus blandit lacus nisl, eget dictum dui suscipit eu. Aliquam in libero et nunc pretium molestie at in ex. Proin sem purus, imperdiet vitae efficitur id, malesuada eu ante. Phasellus scelerisque ipsum sed tincidunt sollicitudin. Vivamus in blandit metus, non convallis neque. In egestas condimentum eros a posuere. Morbi quis iaculis ligula. Suspendisse potenti. Integer tempus ante nec lorem dictum varius. Fusce libero augue, placerat id orci id, blandit finibus nisi. Duis blandit sem dui, non semper arcu hendrerit eget. \\
+      The first step of the procedure is to run a threshold scan for each channel to reveal those that are not responding or that are noisy. To do so, the tools use the threshold scan module of the firmware that relies on tracking data to perform a scan of each channel. 
 
-Aliquam placerat ipsum in dui malesuada tempus. Aliquam urna felis, pretium a vestibulum at, hendrerit vel tellus. Fusce lacus ante, aliquam sed urna tempus, euismod luctus sem. Aenean iaculis sed urna vitae aliquet. Maecenas scelerisque elit a porttitor sagittis. Etiam porta pharetra pharetra. Aliquam malesuada mauris quis massa pulvinar efficitur. Phasellus tempor turpis eget neque dapibus rutrum. Nunc pellentesque a velit ut efficitur. Curabitur tincidunt urna vel quam faucibus, ac scelerisque enim lobortis. Suspendisse quis sem elit. Suspendisse nisi ligula, egestas pretium euismod vitae, porttitor quis nulla. In sed felis at sapien posuere mollis sit amet et neque. In erat odio, bibendum vehicula sagittis ac, tristique at massa. \\
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/plots/cThreshold_Channel-crop}
+        \caption{}
+        \label{fig:II-5-qualification-threshold}
+      \end{figure}
 
-Nullam quis malesuada lacus. Cras sit amet augue ligula. Nunc lacinia orci non purus molestie, ac laoreet nisi semper. Fusce quis dictum nibh. Nullam molestie scelerisque risus, ut ornare enim porttitor eget. In sit amet dolor nunc. Nulla facilisi. Vestibulum condimentum nisl ligula, a congue metus vulputate finibus. Pellentesque quis lacinia lacus. Donec congue quam ac libero elementum, quis consequat enim ornare. Integer vitae urna id libero fringilla placerat. Nam ut nisl at lacus ultricies pellentesque efficitur at nisi.
+    \subsection{Front-end Currents and Voltages}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cADC_Current-crop}
+        \includegraphics[width=0.49\textwidth]{img/plots/cADC_Voltage-crop}
+        \caption{}
+        \label{fig:II-5-qualification-adc}
+      \end{figure}
+
+    \subsection{S-Curve Scans}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/plots/cSCurve_T25-crop}
+        \caption{}
+        \label{fig:II-5-qualification-scurve}
+      \end{figure}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ThresholdVCal-crop}
+        \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_TurnOn-crop}
+        \caption{}
+        \label{fig:II-5-qualification-scurves}
+      \end{figure}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/plots/cCal_Charge-crop}
+        \caption{}
+        \label{fig:II-5-qualification-calcharge}
+      \end{figure}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trim0-crop}
+        \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trim1-crop}
+        \caption{}
+        \label{fig:II-5-qualification-trim}
+      \end{figure}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trimed-crop}
+        \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Disp-crop}
+        \caption{}
+        \label{fig:II-5-qualification-trimed}
+      \end{figure}
+
+
+
+  \section{Qualification of the GEB}
+
+    In order to test the GEB, a small PCB equipped with the same connector as the VFAT2 Hybrids was developed. Using signals originating from the OptoHybrid, the board can check the integrity of the data and use on-board LEDs to signals the results of the tests for the current position.
+
+    \subsection{The GEB Testing Board}
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-3d-0.png}
+        \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-3d-1.png}
+        \vspace*{0.3cm}
+        \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-3d-2.png}
+        \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-pcb.png}
+        \caption{}
+        \label{fig:II-5-qualification-geb-pcb}
+      \end{figure}
+
+  \section{Qualification of the System}
+
+\begin{lstlisting}
+A. Testing the GLIB's presence
+   Trying to read the GLIB board ID... If this test fails, the script will stop.
+   > Passed...
+
+B. Testing the OH's presence
+   Trying to set the OptoHybrid registers... If this test fails, the script will stop.
+   > Passed...
+
+C. Testing the GLIB registers
+   Performing single and FIFO reads on the GLIB counters and ensuring they increment.
+   > Passed...
+
+D. Testing the OH registers
+   Performing single and FIFO reads on the OptoHybrid counters and ensuring they increment.
+   > Passed...
+
+E. Detecting the VFAT2s over I2C
+   Detecting VFAT2s on the GEM by reading out their chip ID.
+   Detected 18 VFAT2s: [1, 3, 4, 5, 6, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23]
+
+F. Testing the I2C communication with the VFAT2s
+   Performing random read/write operation on each connect VFAT2.
+   > Passed...  #1
+   > Passed...  #3
+   > Passed...  #4
+   > Passed...  #5
+   > Passed...  #6
+   > Passed...  #9
+   > Passed...  #10
+   > Passed...  #12
+   > Passed...  #13
+   > Passed...  #14
+   > Passed...  #15
+   > Passed...  #16
+   > Passed...  #17
+   > Passed...  #19
+   > Passed...  #20
+   > Passed...  #21
+   > Passed...  #22
+   > Passed...  #23
+
+G. Reading out tracking data
+   Sending triggers and testing if the Event Counter adds up.
+   > Passed...  #1
+   > Passed...  #3
+   > Passed...  #4
+   > Passed...  #5
+   > Passed...  #6
+   > Passed...  #9
+   > Passed...  #10
+   > Passed...  #12
+   > Passed...  #13
+   > Passed...  #14
+   > Passed...  #15
+   > Passed...  #16
+   > Passed...  #17
+   > Passed...  #19
+   > Passed...  #20
+   > Passed...  #21
+   > Passed...  #22
+   > Passed...  #23
+
+H. Reading out tracking data
+   Turning on all VFAT2s and looking that all the Event Counters add up.
+   > Passed...
+
+I. Testing the tracking data readout rate
+   Sending triggers at a given rate and looking at the maximum readout rate that can be achieved.
+   Maximum readout rate 175000 Hz
+
+J. Testing the optical link error rate
+   GLIB tracking link error rate is of          0 Hz
+   GLIB trigger link error rate is of           0 Hz
+   OptoHybrid tracking link error rate is of    0 Hz
+   OptoHybrid trigger link error rate is of     0 Hz
+
+K. Results
+   A.    > Passed...
+   B.    > Passed...
+   C.    > Passed...
+   D.    > Passed...
+   E.    > Passed...
+   F.    > Passed...
+   G.    > Passed...
+   H.    > Passed...
+   I.    > Passed...
+   J.    > Passed...
+\end{lstlisting}
