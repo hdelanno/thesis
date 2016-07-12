@@ -97,11 +97,11 @@
 
   \section{Qualification of the GEB}
 
-    In order to test the GEB, a small PCB equipped with the same connector as the VFAT2 Hybrids was developed. Using signals originating from the OptoHybrid, the board can check the integrity of the data and use on-board LEDs to signal the results of the tests for the current position.
+    In order to test the GEB, a small PCB equipped with the same connector as the VFAT2 Hybrids was developed. Using signals originating from the OptoHybrid, the board can check the integrity of the data and use on-board LEDs to indicate the results of the tests for the current position.
 
     \subsection{The GEB Testing Board}
 
-      The PCB is a four layer board equipped with an FPGA and microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-5-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a digital-to-analog converter (DAC), a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA, and powering options.
+      The PCB is a four layer board equipped with an FPGA and microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-5-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a digital-to-analog converter (DAC), a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA through serial peripheral interface bus (SPI), and powering options.
 
       \begin{figure}[h!]
         \centering
@@ -114,7 +114,29 @@
         \label{fig:II-5-geb-pcb}
       \end{figure}
 
-      \paragraph{The processing units}, the FPGA and MCU 
+      \paragraph{Powering of the board} is done either through the GEB connector which provides 2.5 V to the system or through the USB port. In case USB is used, the GEB power source is automatically disabled and 3.3 V is given to the system to increase processing speed. The 2.5 V or 3.3 V are further used to generate the 1.2 V required for the internal logic of the FPGA.
+
+      \paragraph{The processing units} of the board, namely the Xilinx Spartan-6 FPGA (XC6SLX9-2TQG144C) and the ATMEL MCU (ATmega164PA), are what control the various components. The FPGA is the main element of the board and is connected to all other chips. It can either control them directly or act as a router for the signals originating from the MCU. The communication between the two processing units is done four serial buses: two universal asynchronous receiver/transmitter (UART), one SPI, and one bus composed of four GPIOs. Next to the links to the FPGA, the remaining 16 IOs of the MCU are broken out on header connectors for debugging purposes. The same is done for 22 IOs of the FPGA which are connected to headers.
+
+      \paragraph{The GEB connector} holds 30 digital signals, 2 analog signals, and power and ground lines. The digital signals are all connected to the FPGA while the two analog signals are connected to the DAC.
+
+      \paragraph{The USB port} is used to communicate with a computer using an FTDI chip (FT220XS) which converts the USB protocol to SPI.
+
+      \paragraph{The analog part} of the board is controlled by the ADC (ADS1015) and the DAC (DAC8532). The two outputs of the DAC are connected to the GEB connector to drive the two analog signals digitized by the OptoHybrid. The ADC signals on the other hand are purely used for debugging purposes and connected to headers.
+
+      \paragraph{Programming} the system is done through the Joint Test Action Group (JTAG) protocol which connects to the FPGA and the MCU. JTAG allows multiple devices to be connected in series and programs them both by shifting the configuration from one to another. The configuration scheme of the system can be modified to only affect the FPGA by removing a 0 $\Omega$ resistor which bypasses the MCU.
+
+    \subsection{Testing the GEB}
+
+      To test the GEB positions, the OptoHybrid is used to generate a pseudorandom binary sequence (PRBS) and transmit it over the data lines along with a reference clock. PRBS is often used to detect errors on communication lines including optical fibers. It relies on a sequence of bits to compute the next bit in the stream. A vector of bits is loaded in shift registers and is moved by one position every clock cycle. The overflowing position in transmitted on the line while the entering position is computed by summing the data stored in given positions. PRBS-7, for example, uses 7-bit-long vectors and computes the new element with
+      \begin{equation}
+        x_0 = x_6 XOR x_5 AND 1
+      \end{equation}
+      which yields a repetition period of pattern of 127 clock cycles. \\
+
+      For each differential pair or single ended signal, a different seed is used for the PRBS-7 generator. By receiving the clock along with the data, the GEB tester board can decode the bit streams and ensure that the encoding is correct. In case one of the lines is faulty, the LEDs connected to the FPGA are used to display an error code. \\
+
+      The analog lines are tested by generating a given voltage using the DAC. The OptoHybrid is then used to readout the value on the line and check the results are matching.
 
   \section{Qualification of the System}
 
@@ -186,3 +208,11 @@ K. Results
     \end{figure}
 
   \section{Conclusion}
+
+    For the first time, a method was developed to use the VFAT2 capabilities to their full extend by taking advantage of the channel by channel optimization. The procedure is used to detect faulty units and perform qualification tests which results are stored in database for future reference. With this script, the analog front-end of each VFAT2 is entirely characterized which provides information on the effective threshold applied in terms of electrons and thus induced charge. \\
+
+    Furthermore, a GEB testing board has been design to test each position on the GEB and detect broken lines. The board relies on an FPGA coupled with an MCU to communicate with the OptoHybrid and test the integrity of the transmitted signals. The results of each test are displayed using on-board LEDs. \\
+
+    Finally, the system as a whole is tested using a script which targets specific components of the architectures. Random read/write operations to the GLIB, OptoHybrid, and VFAT2s are performed, tracking data is read out, and stress tests are done to push the system to the limit. \\
+
+    These tools are used for the preparation of the slice test to select appropriate components and install testing facilities at CERN and in other associated research laboratories. 
