@@ -1,9 +1,23 @@
 \chapter{Irradiation Tests}
 \label{chap:II-6-irradiation}
 
+  The OptoHybrid will be located in a region of CMS exposed to high fluxes of particles, some of which might interact with the FPGA and generate errors in the logic. Those could in turn influence the functioning of the system and degrade its performance. To solve this issue, irradiation tests have been performed to measure the interaction cross-section of the particles with the various components of the FPGA. Two OptoHybrids have been placed in a high intensity proton beam with a dedicated firmware designed to detect errors. The two boards were each controlled by an additional OptoHybrid placed outside the test area which recorded the events and statistics. \\
+
+  In this chapter, we provide the user with an overview of the internal architecture of an FPGA to better understand the potential source of errors. We then describe the firmware of the irradiated and control FPGAs which has been used during the test. The setup and beam parameters of the irradiation test are described before presenting the results that were obtained after analysis.
+
   \section{Firmware Design for the Irradiated FPGA}
 
+    The firmware of the irradiated FPGA is design to use a maximum of the available resources and transmit any error detected during run time.
+
     \subsection{Architecture of an FPGA}
+
+      To optimize the occupancy of the resources of the FPGA, a deep comprehension of the intrinsic architecture of the chip is required. To this end, a description of the building blocks of the FPGA is given.
+
+      \paragraph{Configurable Logic Blocks} (CLBs) are the base elements of the FPGA. They are used to implement sequential and combinatorial logic. They are composed of two important objects: look-up tables (LUTs) and registers. LUTs are components which outputs are a function of the inputs as defined in a programmable table. They implement a truth table for every possible combination of the inputs which defines the value of the outputs. The response of a LUT to a change in the inputs is almost instantaneous. The outputs of the LUTs can, if so required by the design, be connect to registers which sample the signals at the rising edge of a given clock. Register are used for their sample-and-hold functionality which makes designs synchronous to clocks. With these two components, CLBs can implement complex functions and describe intricate systems. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
+
+      \paragraph{The switching matrix} is what connects CLBs with each other. It is a vast network of switches which are used to route signals between components. The open/closed status of each switch is programmable and defines the routes signals take inside the vast network of connections.
+
+      \paragraph{Block RAM} 
 
     \subsection{Block RAM}
 
