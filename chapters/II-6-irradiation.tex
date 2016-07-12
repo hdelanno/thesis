@@ -17,15 +17,19 @@
 
       \paragraph{The switching matrix} is what connects CLBs with each other. It is a vast network of switches which are used to route signals between components. The open/closed status of each switch is programmable and defines the routes signals take inside the vast network of connections.
 
-      \paragraph{Block RAM} 
+      \paragraph{Block RAM} are dedicated storage elements present inside the FPGA which are not programmable in advance but are used to store data during run. Block RAMs can store up to 36 kb of data which can be configured in different ways: 32K x 1 bit, 16K x 2 bits, etc. They can also be used as first in first out (FIFO) modules which are similar to data queues.
 
-    \subsection{Block RAM}
+      \paragraph{Digital Signal Processing} units or DSPs are modules which perform additions, subtractions, and multiplications using dedicated hardware elements. They are used to quickly solve mathematical problems without relying on CLBs which can consume large amount of resources to perform an equivalent task.
 
-    \subsection{Soft Error Mitigation}
+      \paragraph{The configuration memory} is what makes an FPGA flexible: it holds the configuration of every single LUT, switching matrix element, etc. It defines the truth table of LUT, parametrizes the DSP, defines the connection between elements, etc. It is what implements the design in the FPGA. By nature, the configuration memory is volatile and will lose its configuration upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank state if it fails to do so.
 
     \subsection{Configurable Logic Block}
 
+    \subsection{Block RAM}
+
     \subsection{Digital Signal Processing}
+
+    \subsection{Soft Error Mitigation}
 
   \section{Firmware Design for the Control FPGA}
 
