@@ -97,9 +97,11 @@
 
   \section{Qualification of the GEB}
 
-    In order to test the GEB, a small PCB equipped with the same connector as the VFAT2 Hybrids was developed. Using signals originating from the OptoHybrid, the board can check the integrity of the data and use on-board LEDs to signals the results of the tests for the current position.
+    In order to test the GEB, a small PCB equipped with the same connector as the VFAT2 Hybrids was developed. Using signals originating from the OptoHybrid, the board can check the integrity of the data and use on-board LEDs to signal the results of the tests for the current position.
 
     \subsection{The GEB Testing Board}
+
+      The PCB is a four layer board equipped with an FPGA and microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-5-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a digital-to-analog converter (DAC), a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA, and powering options.
 
       \begin{figure}[h!]
         \centering
@@ -108,9 +110,11 @@
         \vspace*{0.3cm}
         \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-3d-2.png}
         \includegraphics[width=0.49\textwidth]{img/II-5-qualification/geb-pcb.png}
-        \caption{}
+        \caption{3D models and PCB layout of the GEB testing board.}
         \label{fig:II-5-geb-pcb}
       \end{figure}
+
+      \paragraph{The processing units}, the FPGA and MCU 
 
   \section{Qualification of the System}
 
@@ -180,3 +184,5 @@ K. Results
       \caption{Output of the qualification procedure developed to test the DAQ system in its entirety.}
       \label{fig:II-5-script}
     \end{figure}
+
+  \section{Conclusion}
