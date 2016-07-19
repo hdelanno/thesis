@@ -56,13 +56,32 @@
 
     \subsection{The High Voltage and Gas Controller}
 
-      The communication between the database and the high voltage and gas systems is done through a computer placed in a rack near the experimental setup. Custom software was developped by the ULB DAQ team to communicate with the VME crate and the mass flow controllers. CAEN provides an integrated library to perform read/write operations on the crate which is used to apply the parameters stored in the database. Communication with the flow meters is done through UART in the same application. 
+      The communication between the database and the high voltage and gas systems is done through a computer placed in a rack near the experimental setup. Custom software was developped by the ULB DAQ team to communicate with the VME crate and the mass flow controllers. CAEN provides an integrated library to perform read/write operations on the crate which is used to apply the parameters stored in the database. Communication with the flow meters is done through UART in the same application.
 
   \section{A First Prototype using the Xilinx SP601 Development Board}
 
-    \section{The MicroBlaze Softcore Processor}
+    The first prototype of the DAQ system was developed using a Xilinx SP601 development board which is equipped with a Xilinx Spartan-6 FPGA (XC6SLX16-2CSG324) similar to the one used on the first version of the OptoHybrid, 1 Gb of DDR2 SDRAM, an Ethernet PHY, a USB-to-UART bridge, and a VITA 57.1 FMC-LPC extension header. The SP601 was linked to a VFAT2 Hybrid mounted on the Triple-GEM detector through a specially designed board which plugged onto the FMC connector. On the other side, the SP601 was connected to the computer present in the rack.
 
-    \section{IPBus over UART}
+    \subsection{The VFAT2 FMC}
+
+      The VFAT2 FMC is a small board which makes the connection between the SP601 and two VFAT2s, provides power to the boards, and is able to receive or send triggers through two LEMO connectors. It connects to the FMC header of the SP601 and forwards the signals of the VFAT2s to the FPGA.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/empty.png}
+        \caption{FMC.}
+        \label{fig:III-1-fmc}
+      \end{figure}
+
+    \subsection{The Trigger and Tracking Paths}
+
+      The trigger, defined as the coincidence of the top and bottom photomultipliers, is injected in the system through the LEMO connectors of the FMC board and redirected to the FPGA. It is then encrypted and forwarded to the VFAT2s as a T1 signal. The trigger data received from the VFAT2s is put on one bit using a logic-OR and transmitted over the second LEMO connector of the FMC board and used to measure timing delays. \\
+
+      The tracking data of the VFAT2s is decoded and stored in a local buffer to be later read out by the MicroBlaze softcore processor implemented on the FPGA.
+
+    \subsection{The MicroBlaze Softcore Processor}
+
+    \subsection{IPBus over UART}
 
   \section{Upgrade of the System using the GLIB}
 
