@@ -16,7 +16,7 @@
       \label{fig:III-1-gem}
     \end{figure}
 
-    The high voltage provided to the GEM and the photomultipliers attached to the scintillators is originating from a CAEN V6533N VME module. VME is a crate standard that defines a high speed communication protocol and an infrastructure for the interconnect of the boards. A CAEN V1718 VME-USB bridge board is used to control the communication of the VME crate from a computer. This modules allows the latter to talk to any board in the crate by initiating requests. The gas flow is regulated by four HORIBA STEC SEC-N112MGRW mass flow controllers: three for the Ar, CO$_2$, and CF$_4$ gas bottles and one to monitor the mixture. Figure \ref{fig:III-1-gas-hv} shows photographs of the VME high-voltage module on the left and the mass flow meters on the right.
+    The high voltage provided to the GEM and the photomultipliers attached to the scintillators is originating from a CAEN V6533N VME module. VME is a crate standard that defines a high speed communication protocol and an infrastructure for the interconnect of the boards. A CAEN V1718 VME-USB bridge board is used to control the communication of the VME crate from a computer. This modules allows the latter to talk to any board in the crate by initiating requests. The gas flow is regulated by four HORIBA STEC SEC-N112MGRW mass flow controllers: three for the Ar, CO$_2$, and CF$_4$ gas bottles and one to monitor the mixture. These are controlled through a serial link communication by a computer. Figure \ref{fig:III-1-gas-hv} shows photographs of the VME high-voltage module on the left and the mass flow meters on the right.
 
     \begin{figure}[h!]
       \centering
@@ -77,11 +77,28 @@
 
       The trigger, defined as the coincidence of the top and bottom photomultipliers, is injected in the system through the LEMO connectors of the FMC board and redirected to the FPGA. It is then encrypted and forwarded to the VFAT2s as a T1 signal. The trigger data received from the VFAT2s is put on one bit using a logic-OR and transmitted over the second LEMO connector of the FMC board and used to measure timing delays. \\
 
-      The tracking data of the VFAT2s is decoded and stored in a local buffer to be later read out by the MicroBlaze softcore processor implemented on the FPGA.
+      The tracking data of the VFAT2s is decoded and stored in a local buffer to be later read out by the MicroBlaze soft core processor implemented on the FPGA.
 
-    \subsection{The MicroBlaze Softcore Processor}
+    \subsection{The MicroBlaze Soft Core Processor}
+
+      MicroBlaze is an embedded 32-bit processor developed by Xilinx which can be implemented on the fabric of the FPGA. As it is not hard-coded in the silicon of the FPGA, it is said to be a soft core. Figure \ref{fig:III-1-microblaze} is a functional diagram of the architecture of the processor. The instruction buffer holds the instructions to be executed by the processor. They are decoded by the instruction decoder which forwards the operation the registers or to the various logic units: the Arithmetic Logic Unit (ALU) which performs integer operations, the Floating Point Unit (FPU) which performs floating point operations, etc. The result of the operation is either stored in the registers or forwarded on the data bus. Finally, new instructions are fetched on the instruction bus to be stored in the instruction buffer according to the program counter value which points to the next address to execute. The data and instruction buses use a 32-bit addressing scheme to retrieve data from the elements they are connected to and communicate with the components that attach to the processor. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/III-1-arch/microblaze.png}
+        \caption{microblaze.}
+        \label{fig:III-1-microblaze}
+      \end{figure}
+
+      To extend the computing power offered by the MicroBlaze processor, the data bus and instruction bus can be connected to other entities that are also implemented on the fabric of the FPGA. For example, a given address range of the instruction bus can be mapped to a memory controller which will interface with the onboard SDRAM to store the instructions of the program to run. The data bus on the other hand can be connected to Ethernet controllers, UART modules, etc to extended the IO capability of the processor. The way the instruction and data bus are mapped generated an address map file which describes the components attached to the processor. \\
+
+      To control the processor and its components, a toolkit is provided by Xilinx to compile C or C++ code for the MicroBlaze. Each module also comes with a driver which is used in conjunction with the address map file to access the dedicated functions. Additional modules can be developed and connected to the MicroBlaze interface, which has been done to control the buffer holding the tracking data of the VFAT2s. The module is composed of VHDL code to control the buffer on the fabric of the FPGA and of a driver written in C to provide high-level functions to access the data. \\
+
+      In the end, the MicroBlaze processor is composed of an external memory controller to store the program, an I2C controller to communicate with the slow control of the VFAT2, a dedicated module designed to read out the tracking data, and a UART module to communicate with the computer located near the experimental setup.  
 
     \subsection{IPBus over UART}
+
+
 
   \section{Upgrade of the System using the GLIB}
 
