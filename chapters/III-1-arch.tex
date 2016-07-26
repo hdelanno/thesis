@@ -60,7 +60,14 @@
 
   \section{A First Prototype using the Xilinx SP601 Development Board}
 
-    The first prototype of the DAQ system was developed using a Xilinx SP601 development board which is equipped with a Xilinx Spartan-6 FPGA (XC6SLX16-2CSG324) similar to the one used on the first version of the OptoHybrid, 1 Gb of DDR2 SDRAM, an Ethernet PHY, a USB-to-UART bridge, and a VITA 57.1 FMC-LPC extension header. The SP601 was linked to a VFAT2 Hybrid mounted on the Triple-GEM detector through a specially designed board which plugged onto the FMC connector. On the other side, the SP601 was connected to the computer present in the rack.
+    The first prototype of the DAQ system was developed using a Xilinx SP601 development board which is equipped with a Xilinx Spartan-6 FPGA (XC6SLX16-2CSG324) similar to the one used on the first version of the OptoHybrid, 1 Gb of DDR2 SDRAM, an Ethernet PHY, a USB-to-UART bridge, and a VITA 57.1 FMC-LPC extension header. The SP601 was linked to a VFAT2 Hybrid mounted on the Triple-GEM detector through a specially designed board which plugged onto the FMC connector. On the other side, the SP601 was connected to the computer present in the rack. Figure \label{fig:III-1-sys-1} provides a schematic overview of the system and its components.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_1.png}
+      \caption{SYS 1.}
+      \label{fig:III-1-sys-1}
+    \end{figure}
 
     \subsection{The VFAT2 FMC}
 
@@ -111,7 +118,7 @@
 
       To control the systems, it was chosen to use an implementation of IPBus over UART to be as close as possible to later developments. To this end, dedicated software has been design for both the computer and the MicroBlaze. The software is flexible enough to either user a UART or an Ethernet interface, abstracting the transportation layer from the data. In the case of the UART implementation that was used, the 32-bit structure of the IPBus frame is decomposed in 8-bit packets. Each instruction is then recomposed by the MicroBlaze and forwarded to the corresponding module. The response is then sent back to the computer. \\
 
-      The software in charge of the communication with the SP601 that is running on the computer is constantly polling the database for new requests to transmit. It also pulls data out of the tracking data buffers that it stores in the same database. The user can then visualize the events from the web interface or issue commands.
+      The software in charge of the communication with the SP601 that is running on the computer is constantly polling the database for new requests to transmit. It also pulls data out of the tracking data buffers that it stores in the same database. The user can then visualize the events from the web interface or issue commands. Figure \ref{fig:III-1-app-cmd} is a screenshot of the interface that allows the user to send commands and read the response from the system.
 
       \begin{figure}[h!]
         \centering
@@ -122,9 +129,23 @@
 
   \section{Upgrade of the System using the GLIB}
 
+    When the GLIB became available, developments focused on the backend electronics and software moved from an IPBus UART to an IPBus Ethernet implementation. As the GLIB is also equipped with an FMC connector, it was decided to use it as frontend module coupled with the VFAT2 FMC already used in the first prototype. The link between the two GLIBs is done through optical fibers. Figure \ref{fig:III-1-sys-2} displays the configuration of the system using two GLIBs as readout boards. 
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_2.png}
+      \caption{SYS 2.}
+      \label{fig:III-1-sys-2}
+    \end{figure}
+
   \section{Final System using the First Prototype of the OptoHybrid}
 
-
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_3.png}
+      \caption{SYS 3.}
+      \label{fig:III-1-sys-3}
+    \end{figure}
 
 
 
