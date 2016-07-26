@@ -94,11 +94,31 @@
 
       To control the processor and its components, a toolkit is provided by Xilinx to compile C or C++ code for the MicroBlaze. Each module also comes with a driver which is used in conjunction with the address map file to access the dedicated functions. Additional modules can be developed and connected to the MicroBlaze interface, which has been done to control the buffer holding the tracking data of the VFAT2s. The module is composed of VHDL code to control the buffer on the fabric of the FPGA and of a driver written in C to provide high-level functions to access the data. \\
 
-      In the end, the MicroBlaze processor is composed of an external memory controller to store the program, an I2C controller to communicate with the slow control of the VFAT2, a dedicated module designed to read out the tracking data, and a UART module to communicate with the computer located near the experimental setup.  
+      The final design of the MicroBlaze processor is composed of an external memory controller to store the program, an I2C controller to communicate with the slow control of the VFAT2, a dedicated module created to read out the tracking data, and a UART module to communicate with the computer located near the experimental setup.
 
     \subsection{IPBus over UART}
 
+      The connection between the computer and the SP601 is done through UART over USB. The conversion between protocols is done through either drivers on the computer or a dedicated chip on the development board. The output of the chip is further connected to the MicroBlaze which receives interrupts whenever data is transmitted. \\
 
+      UART is a full-duplex two-wires protocol: RX which receives data and TX which transmits data. The communicating parties are set on equal ground (no master or slave) and do not exchange a clock which means they have to agree on a sampling frequency before hand. The latter is the limiting factor as uncorrelated clocks will have slightly different frequencies and thus induce errors when sampling at high speeds. Therefore, UART is limited to speeds of 1 kHz which means data is transmitted at 100 bits per second. When the lines are idle, they are pulled up in order to indicate the presence of the other party. To initiate a communication, a start bit corresponding to a logic '0' is sent. Then follows the 8 bits of data with the LSB sent first. Finally, a stop bit equal to a logic '1' is sent, ensuring that during each communication a transition from '0' to '1' ensues. Figure \ref{fig:III-1-uart} shows the communication protocol with the relevant bit order. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/III-1-arch/uart.png}
+        \caption{uart.}
+        \label{fig:III-1-uart}
+      \end{figure}
+
+      To control the systems, it was chosen to use an implementation of IPBus over UART to be as close as possible to later developments. To this end, dedicated software has been design for both the computer and the MicroBlaze. The software is flexible enough to either user a UART or an Ethernet interface, abstracting the transportation layer from the data. In the case of the UART implementation that was used, the 32-bit structure of the IPBus frame is decomposed in 8-bit packets. Each instruction is then recomposed by the MicroBlaze and forwarded to the corresponding module. The response is then sent back to the computer. \\
+
+      The software in charge of the communication with the SP601 that is running on the computer is constantly polling the database for new requests to transmit. It also pulls data out of the tracking data buffers that it stores in the same database. The user can then visualize the events from the web interface or issue commands.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth]{img/III-1-arch/app-cmd.png}
+        \caption{App cmd.}
+        \label{fig:III-1-app-cmd}
+      \end{figure}
 
   \section{Upgrade of the System using the GLIB}
 
