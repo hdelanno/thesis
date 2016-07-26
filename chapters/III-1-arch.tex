@@ -129,7 +129,7 @@
 
   \section{Upgrade of the System using the GLIB}
 
-    When the GLIB became available, developments focused on the backend electronics and software moved from an IPBus UART to an IPBus Ethernet implementation. As the GLIB is also equipped with an FMC connector, it was decided to use it as frontend module coupled with the VFAT2 FMC already used in the first prototype. The choice to separate the system instead of implementing the full design on one GLIB was made to develop knowledge with respect to the use of optical links. Figure \ref{fig:III-1-sys-2} displays the configuration of the system using two GLIBs as readout boards. \\
+    When the GLIB became available, developments focused on the backend electronics and software moved from an IPBus UART to an IPBus Ethernet implementation. As the GLIB is also equipped with an FMC connector, it was decided to use it as frontend module coupled with the VFAT2 FMC already used in the first prototype. The choice to separate the system instead of implementing the full design on a single GLIB was made to develop knowledge with respect to the use of optical links. Figure \ref{fig:III-1-sys-2} displays the configuration of the system using two GLIBs as readout boards. \\
 
     \begin{figure}[h!]
       \centering
@@ -138,9 +138,11 @@
       \label{fig:III-1-sys-2}
     \end{figure}
 
-    
+    IPBus requests issued by the computer installed in the rack are sent over a switch to the first GLIB. The latter forwards the data to the second GLIB which further sends the commands to the VFAT2 over the FMC connector. The second GLIB also receives a trigger bit over the LEMO connector of the FMC board which is transmitted to the VFAT2. The tracking data is readout and pushed along with any slow control response to the first GLIB. The main difference in the communication between elements is the increase in speed: Ethernet and the optical fibers have transfer rates of 1 Gbps and 3.2 Gbps respectively. This reduces the bottleneck in the system. The tracking data is stored in buffers in the first GLIB and read out at regular interval by the computer which saves it in database. In this version, the MicroBlaze is replaced by custom firmware developed from scratch to be more efficient and reduce delays.
 
   \section{Final System using the First Prototype of the OptoHybrid}
+
+    The final system was developed when the first version of the GEB and OptoHybrid became available. The former is equipped with special connector which allow to plug in flexible cables to connect to remote VFAT2s Hybrids. This was used to test the GEB and ensure that signals were transfered correctly from the VFAT2 connected to the small GEM prototype to the OptoHybrid. The trigger is delivered directly to the latter through a debugging connector which could also receive a clock in order to synchronize with the GLIB. The design of this system laid the foundations of the architecture used during the two test beams and allowed for testing with detectors. Figure \ref{fig:III-1-sys-3} represents the system using the GLIB, OptoHybrid, and GEB to which a VFAT2 Hybrid is attached via a cable. This version can handle up to six VFAT2s unlike the previous ones which could only communicate with two VFAT2s through the VFAT2 FMC board.
 
     \begin{figure}[h!]
       \centering
@@ -149,26 +151,8 @@
       \label{fig:III-1-sys-3}
     \end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   \section{Conclusion}
+
+    The evolution of the readout system of the 10 cm $ \times $ 10 cm GEM prototype followed the readiness of the hardware components. We first started with a custom development board on which we implemented a MicroBlaze soft core processor as main control unit. Although very functional, this system lacked in transfer speed as it used UART to transfer data. \\
+
+    The following generations relied on the GLIB at first, which was then backed up by the GEB and OptoHybrid. Dedicated firmware was design for all components in order to increase the speed of the system. 
