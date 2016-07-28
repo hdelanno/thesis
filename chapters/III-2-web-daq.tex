@@ -40,7 +40,7 @@ Date: Thu, 28 July 2016 10:36:02 GMT \newline
 Content-Type: text/plain; charset=UTF-8 \newline
 Content-Encoding: UTF-8 \newline
 Content-Length: 29 \newline
-This is the web application !
+\textbf{This is the web application !}
 \end{alltt} }
         \end{tabularx}
         \caption{Output of the qualification procedure developed to test the DAQ system in its entirety.}
@@ -51,13 +51,23 @@ This is the web application !
 
       To each request, a single response is provided by the server. Moreover, the server does not initiate requests, meaning the communication has to be started by the client. The server can not push data to the client, but only provided data when probed (pulled).
 
-    \subsection{The WebSocket Standard}
+    \subsection{The WebSocket Protocol}
 
-      To allow the server to push data and enable real-time communication, the WebSocket standard was developed. WebSockets are sockets that can be used inside the internet browser to communicate with a server following a given data format. When a connection is established, it remains open on both sides reducing the overhead on each data packet and decreasing the latency.  
+      To allow the server to push data and enable real-time communication, the WebSocket standard was developed. WebSockets are sockets that can be used inside the internet browser to communicate with a server following a given data format. When a connection is established, it remains open on both sides reducing the overhead on each data packet and decreasing the latency. \\
+
+      Upon connection from a client to the server, a dedicated HTTP request is sent informing the latter that the WebSocket protocol is being used. The server stores the information of the client in a list of active users until the latter disconnects or the connection times out. After this handshaking procedure, data can be sent between parties without restriction.
 
     \subsection{Handling Client Requests}
 
-  \section{The MicroBlaze Controller}
+      The server on the MicroBlaze processor handles both HTTP and WebSocket requests, differentiating them using the HTTP header as selection criteria. It them forwards them to two dedicated functions according to the type of request. \\
+
+      For HTTP requests, the headers are extracted along with the type and path. Only GET requests need to be handled in this application, corresponding to the download of resources: web page, image, etc. In case the path is valid, the file is retrieved from memory and sent back to the user. Otherwise, an error 404 is generated to inform the user that the resource is not available. In normal operation mode, the client connects once to the server over HTTP to download the application and then switches over to WebSocket communication. \\
+
+      Once the application is downloaded, the connection with the server over WebSockets is established automatically. The server registers the client and real-time communication between parties can begin. Additionally, the server can establish a connection with a storage element to forward all events and log them in a database.
+
+  \section{The MicroBlaze Processor}
+
+    
 
     \subsection{Memory File System}
 
