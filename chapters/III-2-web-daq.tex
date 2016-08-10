@@ -7,7 +7,7 @@
 
   \section{The Experimental Setup and System Architecture}
 
-    The system is composed of the Xilinx SP601 development board to which the VFAT2 FMC is attached and connected to a VFAT2 Hybrid. Figure \ref{fig:III-2-sp601} is a photograph of the board showing the various components: the FPGA in the middle, the SDRAM on its right, the Ethernet connector and MAC controller in the bottom left corner, and the FMC connector on the left. The SP601 communicates with any computer on the network through an Ethernet connection. \\
+    The system is composed of the Xilinx SP601 development board to which the VFAT2 FMC is attached and connected to a VFAT2 Hybrid. Figure \ref{fig:III-2-sp601} is a photograph of the board showing the various components: the FPGA in the middle, the SDRAM on its right, the Ethernet connector and MAC controller in the bottom left corner, and the FMC connector on the left. The SP601 communicates with any computer on the network through an Ethernet connection. Additionally, one of the two USB ports is used as debugging module and implements a USB-to-UART interface to stream information from the MicroBlaze to the exterior. \\
 
     \begin{figure}[h!]
       \centering
@@ -24,22 +24,22 @@
 
     \subsection{The HTTP Standard}
 
-      When an internet browser pulls a web page from a server, it sends an Hypertext Transfer Protocol (HTTP) request containing the type of request and the path of the page. The type of request defines what the action of the client is. It can be GET, PUT, DELETE, etc which will respectively ask for a specific page, transfer content, delete content, etc. The path on the other hand can be a reference to a file to download, to a script to handle the new data, etc. The request is encoded in ASCII characters and is thus human-readable. Figure \ref{fig:III-2-http} displays an example of HTTP request and response in which the client requests a specific page and the server returns the content of that page. \\
+      When an Internet browser pulls a web page from a server, it sends an Hypertext Transfer Protocol (HTTP) request containing the type of request and the path of the page. The type of request defines what the action of the client is. It can be GET, PUT, DELETE, etc which will respectively ask for a specific page, transfer content, delete content, etc. The path on the other hand can be a reference to a file to download or to a script to handle the new data. The request is encoded in ASCII characters and is thus human-readable. Figure \ref{fig:III-2-http} displays an example of HTTP request and response in which the client requests a specific page and the server returns the content of that page. \\
 
       \begin{figure}[h!]
         \begin{tabularx}{\textwidth}{C{1}C{1}}
           \textbf{HTTP request} & \textbf{HTTP response} \\
         { \footnotesize
 \begin{alltt}
-\textcolor{blue}{GET} \textcolor{MidnightBlue}{/index.html} \textcolor{Plum}{HTTP/1.1} \newline
-Host: www.web-daq.com
+\textcolor{Red}{GET} \textcolor{MidnightBlue}{/index.html} \textcolor{Plum}{HTTP/1.1} \newline
+\textcolor{BurntOrange}{Host:} www.web-daq.com
 \end{alltt} } & { \footnotesize
 \begin{alltt}
 \textcolor{Plum}{HTTP/1.1} \textcolor{LimeGreen}{200 OK} \newline
-Date: Thu, 28 July 2016 10:36:02 GMT \newline
-Content-Type: text/plain; charset=UTF-8 \newline
-Content-Encoding: UTF-8 \newline
-Content-Length: 29 \newline
+\textcolor{BurntOrange}{Date:} Thu, 28 July 2016 10:36:02 GMT \newline
+\textcolor{BurntOrange}{Content-Type:} text/plain; charset=UTF-8 \newline
+\textcolor{BurntOrange}{Content-Encoding:} UTF-8 \newline
+\textcolor{BurntOrange}{Content-Length:} 29 \newline
 \textbf{This is the web application !}
 \end{alltt} }
         \end{tabularx}
@@ -53,26 +53,111 @@ Content-Length: 29 \newline
 
     \subsection{The WebSocket Protocol}
 
-      To allow the server to push data and enable real-time communication, the WebSocket standard was developed. WebSockets are sockets that can be used inside the internet browser to communicate with a server following a given data format. When a connection is established, it remains open on both sides reducing the overhead on each data packet and decreasing the latency. \\
+      To allow the server to push data and enable real-time communication, the WebSocket standard was developed. WebSockets are sockets that can be used inside the Internet browser to communicate with a server following a given data format. When a connection is established, it remains open on both sides reducing the overhead on each data packet and decreasing the latency. \\
 
-      Upon connection from a client to the server, a dedicated HTTP request is sent informing the latter that the WebSocket protocol is being used. The server stores the information of the client in a list of active users until the latter disconnects or the connection times out. After this handshaking procedure, data can be sent between parties without restriction.
+      Upon connection from a client to the server, a dedicated HTTP request is sent informing the latter that the WebSocket protocol is being used. Figure \ref{fig:III-2-websocket} shows the request and response that are sent during the handshaking procedure between the client and the server. The request contains an upgrade header which informs the server of the change of communication protocol, along with a random key. The response from the server informs the client that the switch was made and returns a hash which prevents multiple connections from a same client. The server stores the information of the client in a list of active users until the latter disconnects or the connection times out. After this handshaking procedure, data can be sent between parties without restriction.
+
+      \begin{figure}[h!]
+        \begin{tabularx}{\textwidth}{C{1}C{1}}
+          \textbf{Handshake  request} & \textbf{Handshake response} \\
+        { \footnotesize
+\begin{alltt}
+\textcolor{Red}{GET} \textcolor{MidnightBlue}{/websocket} \textcolor{Plum}{HTTP/1.1} \newline
+\textcolor{BurntOrange}{Host:} www.web-daq.com \newline
+\textcolor{BurntOrange}{Upgrade:} websocket \newline
+\textcolor{BurntOrange}{Connection:} Upgrade \newline
+\textcolor{BurntOrange}{Sec-WebSocket-Key:} x3JJHMbDL1EzLkh9GBhXDw== \newline
+\textcolor{BurntOrange}{Sec-WebSocket-Protocol:} chat \newline
+\textcolor{BurntOrange}{Sec-WebSocket-Version:} 13 \newline
+\textcolor{BurntOrange}{Origin:} www.web-daq.com
+\end{alltt} } & { \footnotesize
+\begin{alltt}
+\textcolor{Plum}{HTTP/1.1} \textcolor{LimeGreen}{101 Switching Protocols} \newline
+\textcolor{BurntOrange}{Upgrade:} websocket \newline
+\textcolor{BurntOrange}{Connection:} Upgrade \newline
+\textcolor{BurntOrange}{Sec-WebSocket-Accept:} HSmrc0sMlYUkAGmm5OPpG2HaGWk= \newline
+\textcolor{BurntOrange}{Sec-WebSocket-Protocol:} chat
+\end{alltt} }
+        \end{tabularx}
+        \caption{}
+        \label{fig:III-2-websocket}
+      \end{figure}
 
     \subsection{Handling Client Requests}
 
       The server on the MicroBlaze processor handles both HTTP and WebSocket requests, differentiating them using the HTTP header as selection criteria. It them forwards them to two dedicated functions according to the type of request. \\
 
-      For HTTP requests, the headers are extracted along with the type and path. Only GET requests need to be handled in this application, corresponding to the download of resources: web page, image, etc. In case the path is valid, the file is retrieved from memory and sent back to the user. Otherwise, an error 404 is generated to inform the user that the resource is not available. In normal operation mode, the client connects once to the server over HTTP to download the application and then switches over to WebSocket communication. \\
+      For HTTP requests, the headers are extracted along with the type and path. Only GET requests need to be handled in this application, corresponding to the download of resources: web page, image, etc. In case the requested path is valid, the file is retrieved from memory and sent back to the user. Otherwise, an error 404 is generated to inform the user that the resource is not available. In normal operation mode, the client connects once to the server over HTTP to download the application and then switches over to WebSocket communication. The switching is done through code present in the application that is executed by the client in JavaScript. \\
 
-      Once the application is downloaded, the connection with the server over WebSockets is established automatically. The server registers the client and real-time communication between parties can begin. Additionally, the server can establish a connection with a storage element to forward all events and log them in a database.
+      Once the application is downloaded, the connection with the server over WebSockets is established automatically. The server registers the client and real-time communication between parties can begin.
 
   \section{The MicroBlaze Processor}
 
+    To implement the server on the processor and handle data, various components are used within the MicroBlaze. Three of them are of importance: a Lightweight TCP/IP stack (lwIP), Memory File System (MFS), and Mailboxes.
 
+    \begin{figure}[h!]
+\begin{alltt}
+--------------------------------------------------
+--                                              --
+--            Microblaze Web Server             --
+--                                              --
+--    Developer:                                --
+--    Thomas Lenzi - thomas.lenzi@ulb.ac.be     --
+--------------------------------------------------
+\textcolor{MidnightBlue}{Initializing the system...}
+> Enabling the caches...                     [\textcolor{Green}{OK}]
+> Initializing the interrupt controller...   [\textcolor{Green}{OK}]
+> Initializing the timer...                  [\textcolor{Green}{OK}]
+> Initializing MFS...                        [\textcolor{Green}{OK}]
+\textcolor{MidnightBlue}{Setting up the network interface...}
+> Board IP: 192.168.1.10
+> Netmask : 255.255.255.0
+> Gateway : 192.168.1.1
+> Initializing lwip...
+> Adding network interface...                [\textcolor{Green}{OK}]
+> Starting network interface...              [\textcolor{Green}{OK}]
+\textcolor{MidnightBlue}{Setting up the TCP protocol...}
+> Creating the TCP PCB...                    [\textcolor{Green}{OK}]
+> Binding to port...                         [\textcolor{Green}{OK}]
+> Starting the TCP server...                 [\textcolor{Green}{OK}]
+
+>> Request: HTTP                             [\textcolor{Green}{200}]
+>> Request: HTTP                             [\textcolor{Red}{404}]
+>> Request: HTTP                             [\textcolor{Red}{500}]
+>> Request: HTTP                             [\textcolor{Red}{Unknown}]
+
+>> Request: WebSockets Handshake             [\textcolor{Green}{Hi}]
+>> Request: WebSocket Data                   [\textcolor{Green}{Text}]
+>> Request: WebSocket Data                   [\textcolor{Green}{Binary}]
+>> Request: WebSocket Data                   [\textcolor{Red}{Unknown}]
+>> Request: WebSocket Disconnect             [\textcolor{Green}{Bye}]
+\end{alltt}
+      \caption{}
+      \label{fig:III-2-microblaze}
+    \end{figure}
+
+    \subsection{lwIP}
+
+      lwIP is a light weighted implementation of the TCP/IP stack designed specifically for embedded systems with limited ressources.
 
     \subsection{Memory File System}
 
-    \subsection{LWIP}
+    \subsection{Mailboxes for Dual Processor Architecture}
 
-    \subsection{Dual Processor Architecture}
+  \section{Innovation of the Infrastructure}
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/new-sys.png}
+      \caption{System}
+      \label{fig:III-2-system-new}
+    \end{figure}
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/old-sys.png}
+      \caption{System}
+      \label{fig:III-2-system-old}
+    \end{figure}
 
   \section{Conclusion}
