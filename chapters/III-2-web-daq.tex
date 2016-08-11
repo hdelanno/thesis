@@ -136,7 +136,7 @@
       \label{fig:III-2-Microblaze}
     \end{figure}
 
-    \subsection{lwIP}
+    \subsection{Lightweight TCP/IP stack}
 
       lwIP is a light weighted implementation of the TCP/IP stack designed specifically for embedded systems with limited resources. The notion of stack is a reference to the Open Systems Interconnection (OSI) model which characterizes the communication functions of a system by subdividing it in layers, each performing a given task. The model contains seven layers: physical, data link, network, transport, session, presentation, and application. lwIP handles the data link, network, transport, and session layers, providing the user with an API to implement the presentation, and application layers.
 
@@ -156,9 +156,13 @@
 
     \subsection{Memory File System}
 
-      When the client requests the download of a file from the Microblaze, MFS is used to retrieve the content from the SDRAM. MFS allows the operating system to maintain a virtual file system in the dynamic memory. This is required as the SP601 development board is not equipped with storage memory to host a fully fledge file system. Part of the SDRAM is allocated to MFS which initializes it using a precompiled image loaded upon startup. The image contains a tree of directories and documents which can be directly accessed from the software. MFS provides a range of functions to manipulate these files as if they where stored on a hard-drive. 
+      When the client requests the download of a file from the Microblaze, MFS is used to retrieve the content from the SDRAM. MFS allows the operating system to maintain a virtual file system in the dynamic memory. This is required as the SP601 development board is not equipped with storage memory to host a fully fledge file system. Part of the SDRAM is allocated to MFS which initializes it using a precompiled image loaded upon startup. The image contains a tree of directories and documents which can be directly accessed from the software. MFS provides a range of functions to manipulate these files as if they where stored on a hard-drive.
 
     \subsection{Mailboxes for Dual Processor Architecture}
+
+      To enable communication between the two processors which run different software, a mailbox system is implemented. Mailboxes are buffers which can be filled by either processors and are used to transmit small amount of data. Whenever a buffer is filled, an interrupt is sent to the processor in order to perform a read operation. The mailboxes are used to send instructions from the processor running the server to the one communicating with the VFAT2 and transferring back the response. \\
+
+      From the web application, the client can send requests to the server through WebSockets, which are transfered between processors and forwarded to the VFAT2. The returned data then follows the opposite path back to the client. Data can be broadcasted to multiple clients in order to update the information on each instance of the application at once.
 
   \section{Innovation of the Infrastructure}
 
