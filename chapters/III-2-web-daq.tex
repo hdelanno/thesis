@@ -93,7 +93,7 @@
 
   \section{The MicroBlaze Processor}
 
-    To implement the server on the processor and handle data, various components are used within the MicroBlaze. Three of them are of importance: a Lightweight TCP/IP stack (lwIP), Memory File System (MFS), and Mailboxes.
+    Upon startup of the MicroBlaze processor, the operating system is loaded into the SDRAM memory and executed. To implement the server and handle data, various components require initialization. Figure \ref{fig:III-2-microblaze} shows the boot-up sequence of the system highlighting the configuration of the various subsystems. First, the caches are enabled allowing for an increased interaction speed between the processor and memory. Then, the interrupt controller is initialized and interrupts from the multiple modules are registered. One of them is the timer which triggers at given interval in order to execute control routines periodically. Finally, three complex modules are initialized: a Lightweight TCP/IP stack (lwIP) which handles the networking protocol, Memory File System (MFS) which creates a virtual file system, and Mailboxes which handle the communication between processors.
 
     \begin{figure}[p!]
 \begin{alltt}
@@ -113,7 +113,7 @@
 > Board IP: 192.168.1.10
 > Netmask : 255.255.255.0
 > Gateway : 192.168.1.1
-> Initializing lwip...
+> Initializing lwIP...
 > Adding network interface...                [\textcolor{Green}{OK}]
 > Starting network interface...              [\textcolor{Green}{OK}]
 \textcolor{MidnightBlue}{Setting up the TCP protocol...}
@@ -138,7 +138,21 @@
 
     \subsection{lwIP}
 
-      lwIP is a light weighted implementation of the TCP/IP stack designed specifically for embedded systems with limited ressources.
+      lwIP is a light weighted implementation of the TCP/IP stack designed specifically for embedded systems with limited resources. The notion of stack is a reference to the Open Systems Interconnection (OSI) model which characterizes the communication functions of a system by subdividing it in layers, each performing a given task. The model contains seven layers: physical, data link, network, transport, session, presentation, and application. lwIP handles the data link, network, transport, and session layers, providing the user with an API to implement the presentation, and application layers.
+
+      \paragraph{The physical layer} defines the electrical specifications of the communication medium and the way bits are encoded on the signal line. In this application, an Ethernet connection is used as interface between the SP601 development board and the network.
+
+      \paragraph{The data layer} formats the raw data stream into packets and enables communication between two directly connected nodes on the network. It communicates directly with the hardware that composes the physical layer to transfer bits through a given network interface. It controls the latter and handles the flow of data. In the TCP/IP stack, the data layer is handled by the Media Access Control (MAC) and setup during the initialization of the network interface.
+
+      \paragraph{The network layer} provides arbitration over a set of systems connected to a complex network where nodes are not directly connected to each other. It provides an address to each node in order for data to be transfered or routed. The prominent protocol used by networking systems is the Internet Protocol (IP) which provides a unique IP address to each node.
+
+      \paragraph{The transport and session layers} are built on top of the network layer to add functions like error recovery, flow control, timeout, etc. A lightweight protocol implemented at this level is the User Datagram Protocol (UDP) which provides connectionless communication between nodes. Nodes communicate by sending simple data packets without prior communication or acknowledgment system. This yields in a fast yet unreliable protocol. The Transmission Control Protocol (TCP) on the other hand implements a full handshaking procedure which allows for features like congestion and flow control or data recovery. This however results in a heavyweight structure that can limit the range of target systems.
+
+      \paragraph{The presentation layer} handles the encoding of the data which might vary between the transport and application layer. It is responsible for the encryption of the stream.
+
+      \paragraph{The application layer} is the layer with which the software interact. In this application, the software handles either HTTP or WebSockets packets. \\
+
+      Using lwIP, a TCP server is started on the MicroBlaze and is set to listen to any incoming connection on port 80, the default port used by Internet browsers. Upon reception of data, lwIP transfers the packet from its internal functions (transport and session layers) to user functions (presentation and application layers) which handle the HTTP and WebSockets requests. 
 
     \subsection{Memory File System}
 
