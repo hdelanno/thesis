@@ -18,7 +18,7 @@
 
     On the FPGA of the SP601, a dual-core Microblaze processor is implemented: one core handles the Ethernet connection and the other the communication with the VFAT2. The former runs a web server on top of the TCP/IP protocol in order to deliver the content of the web application used by the client to control and monitor the system ; the latter receives commands from the client and transfers them to the VFAT2. The whole system is contained in one board which can connect to various clients at the same time or to an external storage unit.
 
-  \section{Web Server and WebSockets}
+  \section{Web Server, WebSockets, and TCPSockets}
 
     A Microblaze processor is embedded on the FPGA of the SP601 and acts as web server to deliver web applications to clients which connect to the IP address of the board. Once the web application has been downloaded by the client, real-time communication is established over WebSockets to transmit requests between parties.
 
@@ -51,11 +51,11 @@
 
       To each request, a single response is provided by the server. Moreover, the server does not initiate requests, meaning the communication has to be started by the client. The server can not push data to the client, but only provided data when probed (pulled).
 
-    \subsection{The WebSocket Protocol}
+    \subsection{The WebSockets Protocol}
 
-      To allow the server to push data and enable real-time communication, the WebSocket standard was developed. WebSockets are sockets that can be used inside the Internet browser to communicate with a server following a given data format. When a connection is established, it remains open on both sides reducing the overhead on each data packet and decreasing the latency. \\
+      To allow the server to push data and enable real-time communication, the WebSockets standard was developed. WebSockets are sockets that can be used inside the Internet browser to communicate with a server following a given data format. When a connection is established, it remains open on both sides reducing the overhead on each data packet and decreasing the latency. \\
 
-      Upon connection from a client to the server, a dedicated HTTP request is sent informing the latter that the WebSocket protocol is being used. Figure \ref{fig:III-2-websocket} shows the request and response that are sent during the handshaking procedure between the client and the server. The request contains an upgrade header which informs the server of the change of communication protocol, along with a random key. The response from the server informs the client that the switch was made and returns a hash which prevents multiple connections from a same client. The server stores the information of the client in a list of active users until the latter disconnects or the connection times out. After this handshaking procedure, data can be sent between parties without restriction.
+      Upon connection from a client to the server, a dedicated HTTP request is sent informing the latter that the WebSockets protocol is being used. Figure \ref{fig:III-2-websocket} shows the request and response that are sent during the handshaking procedure between the client and the server. The request contains an upgrade header which informs the server of the change of communication protocol, along with a random key. The response from the server informs the client that the switch was made and returns a hash which prevents multiple connections from a same client. The server stores the information of the client in a list of active users until the latter disconnects or the connection times out. After this handshaking procedure, data can be sent between parties without restriction.
 
       \begin{figure}[h!]
         \begin{tabularx}{\textwidth}{C{1}C{1}}
@@ -90,6 +90,10 @@
       For HTTP requests, the headers are extracted along with the type and path. Only GET requests need to be handled in this application, corresponding to the download of resources: web page, image, etc. In case the requested path is valid, the file is retrieved from memory and sent back to the user. Otherwise, an error 404 is generated to inform the user that the resource is not available. In normal operation mode, the client connects once to the server over HTTP to download the application and then switches over to WebSocket communication. The switching is done through code present in the application that is executed by the client in JavaScript. \\
 
       Once the application is downloaded, the connection with the server over WebSockets is established automatically. The server registers the client and real-time communication between parties can begin.
+
+    \subsection{The TCPSockets Implementation}
+
+      Although WebSockets provide an implementation of sockets in the web browser, they also define a format for the data that is being transmitted. This limits the field of application to the connection between a WebSockets client and server. A more generic approach uses the TCPSockets, a raw implementation of sockets in the web browser which is still in experimental phase. This technology enables the connection between any systems that support TCP sockets, including databases. A direct communication between the client and the database can thus be establishes in order to retrieve stored data, effectively by passing the need for an intermediary server.
 
   \section{The Microblaze Processor}
 
@@ -164,20 +168,26 @@
 
       From the web application, the client can send requests to the server through WebSockets, which are transfered between processors and forwarded to the VFAT2. The returned data then follows the opposite path back to the client. Data can be broadcasted to multiple clients in order to update the information on each instance of the application at once.
 
-  \section{Innovation of the Infrastructure}
+  \section{Innovation of the Architecture}
 
-    \begin{figure}[h!]
-      \centering
-      \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/new-sys.png}
-      \caption{System}
-      \label{fig:III-2-system-new}
-    \end{figure}
+    The architecture used in most systems such as the one described in Chapter \ref{chap:III-1-arch} is shown in Figure \ref{fig:III-2-system-old}. The whole system relies on the presence of the server which acts as the central node connecting the clients, the database, and the electronics. All transactions are required to transit through it, slowing down the performance of the whole infrastructure when scaling up. Furthermore, the client needs to constantly pull data from the server and the database to keep informed of the changes happing in the system or those submitted by other clients. \\
 
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/old-sys.png}
       \caption{System}
       \label{fig:III-2-system-old}
+    \end{figure}
+
+    The system described in this chapter moves away from a star network in which the server is the central piece and tries to form a mesh network where every component can directly access all other nodes. By taking advantage of the increase in computational power of microelectronics, it is possible to merge the functionalities of the server and the electronics in a single embedded system. Furthermore, developments in web technologies have enabled easy and reliable two-way communication between the client and the server and between the client and the database. The WebSockets technology provides response times up to ten times faster than classical solutions used to pull the server. The obtained system, which topology is shown in Figure \ref{fig:III-2-system-new}, thus allows for faster inter-node communication which releases the traffic on given data paths and allows for more bandwidth and activity. Furthermore, the distribution of the application is centralized by the server which transfer the most up-to-date version of the web pages to every client, ensuring compatibility across time and platforms. \\
+
+    Through the two-way mesh network topology, each node can inform the systems of changes in real-time, effectively by-passing the need for a pull system running on each node which requests updated data at constant interval and generates unwanted traffic on the network. The system becomes truly real-time and event driven with minimum delays. 
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/new-sys.png}
+      \caption{System}
+      \label{fig:III-2-system-new}
     \end{figure}
 
   \section{Conclusion}
