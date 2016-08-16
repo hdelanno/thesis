@@ -129,12 +129,12 @@
 
   \section{Upgrade of the System using the GLIB}
 
-    When the GLIB became available, developments focused on the backend electronics and software moved from an IPBus UART to an IPBus Ethernet implementation. As the GLIB is also equipped with an FMC connector, it was decided to use it as frontend module coupled with the VFAT2 FMC already used in the first prototype. The choice to separate the system instead of implementing the full design on a single GLIB was made to develop knowledge with respect to the use of optical links. Figure \ref{fig:III-1-sys-2} displays the configuration of the system using two GLIBs as readout boards. \\
+    When the GLIB became available, developments focused on the back-end electronics and software moved from an IPBus UART to an IPBus Ethernet implementation. As the GLIB is also equipped with an FMC connector, it was decided to use it as front-end module coupled with the VFAT2 FMC already used in the first prototype. The choice to separate the system instead of implementing the full design on a single GLIB was made to develop knowledge with respect to the use of optical links. Figure \ref{fig:III-1-sys-2} displays the configuration of the system using two GLIBs as readout boards. \\
 
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_2.png}
-      \caption{SYS 2.}
+      \caption{Schematic view of the second prototype of the DAQ system of the 10 cm $ \times $ 10 cm Triple-GEM prototype. The VFAT2 Hybrid is connected through an FMC module to a first GLIB, in turn connected to a second GLIB through optical fibers. A NIM crate is used to perform the coincidence between the photomultipliers and send a trigger to the VFAT2 Hybrid through the FMC.}
       \label{fig:III-1-sys-2}
     \end{figure}
 
@@ -147,7 +147,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_3.png}
-      \caption{SYS 3.}
+      \caption{Schematic view of the thrid prototype of the DAQ system of the 10 cm $ \times $ 10 cm Triple-GEM prototype. The VFAT2 Hybrid is connected through the GEB to the OptoHybrid, in turn connected to the GLIB through optical fibers. A NIM crate is used to perform the coincidence between the photomultipliers and send a trigger to the VFAT2 Hybrid through the OptoHybrid.}
       \label{fig:III-1-sys-3}
     \end{figure}
 
