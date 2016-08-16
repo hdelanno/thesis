@@ -153,6 +153,8 @@
 
   \section{Conclusion}
 
-    The evolution of the readout system of the 10 cm $ \times $ 10 cm GEM prototype followed the readiness of the hardware components. We first started with a custom development board on which we implemented a Microblaze soft core processor as main control unit. Although very functional, this system lacked in transfer speed as it used UART to transfer data. \\
+    The evolution of the readout system of the 10 cm $ \times $ 10 cm GEM prototype followed the readiness of the hardware components. We first started with a Xilinx development board on which we implemented a Microblaze soft core processor as main control unit. Running custom software, the core interacted with a central computing node to propagate user requests to the front-end electronics. Additionally, a small mezzanine board was created in order to connect to the VFAT2 Hybrids. Although very functional, this system lacked in transfer speed as it used UART to transfer data at a maximum of 1 kHz. \\
 
-    The following generations relied on the GLIB at first, which was then backed up by the GEB and OptoHybrid. Dedicated firmware was design for all components in order to increase the speed of the system.
+    The following generations relied on the GLIB at first, which was then backed up by the GEB and OptoHybrid. Dedicated firmware was design for all components in order to increase the speed of the system up to 1 GHz, the maximum speed of the Ethernet connection between the central node and the system. Furthermore, these setups allowed us to gain experience using the newly created hardware, later on used during test beam campaigns. \\
+
+    All systems described in this chapter follow a classical approach to DAQ system design: the implementation of a star topology using a central node to control the traffic on the network. These systems allow for easy maintenance as all requests transit through a given path. However, this might cause bottlenecks in the architecture and generate system failures.
