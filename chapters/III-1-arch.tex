@@ -107,23 +107,23 @@
 
       The connection between the computer and the SP601 is done through UART over USB. The conversion between protocols is done through either drivers on the computer or a dedicated chip on the development board. The output of the chip is further connected to the Microblaze which receives interrupts whenever data is transmitted. \\
 
-      UART is a full-duplex two-wires protocol: RX which receives data and TX which transmits data. The communicating parties are set on equal ground (no master or slave) and do not exchange a clock which means they have to agree on a sampling frequency before hand. The latter is the limiting factor as uncorrelated clocks will have slightly different frequencies and thus induce errors when sampling at high speeds. Therefore, UART is limited to speeds of 1 kHz which means data is transmitted at 100 bits per second. When the lines are idle, they are pulled up in order to indicate the presence of the other party. To initiate a communication, a start bit corresponding to a logic '0' is sent. Then follows the 8 bits of data with the LSB sent first. Finally, a stop bit equal to a logic '1' is sent, ensuring that during each communication a transition from '0' to '1' ensues. Figure \ref{fig:III-1-uart} shows the communication protocol with the relevant bit order. \\
+      UART is a full-duplex two-wires protocol: RX which receives data and TX which transmits data. The communicating parties are set on equal ground (no master or slave) and do not exchange a clock which means they have to agree on a sampling frequency before hand. The latter is the limiting factor as uncorrelated clocks will have slightly different frequencies and thus induce errors when sampling at high speeds. Therefore, UART is limited to speeds of 1 kHz which means data is transmitted at 100 bytes per second. When the lines are idle, they are pulled up in order to indicate the presence of the other party. To initiate a communication, a start bit corresponding to a logic '0' is sent. Then follows the 8 bits of data with the LSB sent first. Finally, a stop bit equal to a logic '1' is sent, ensuring that during each communication a transition from '0' to '1' ensues. Figure \ref{fig:III-1-uart} shows the communication protocol with the relevant bit order. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/III-1-arch/uart.png}
-        \caption{uart.}
+        \caption{Illustration of the sequence of bits in the UART communication protocol.}
         \label{fig:III-1-uart}
       \end{figure}
 
       To control the systems, it was chosen to use an implementation of IPBus over UART to be as close as possible to later developments. To this end, dedicated software has been design for both the computer and the Microblaze. The software is flexible enough to either user a UART or an Ethernet interface, abstracting the transportation layer from the data. In the case of the UART implementation that was used, the 32-bit structure of the IPBus frame is decomposed in 8-bit packets. Each instruction is then recomposed by the Microblaze and forwarded to the corresponding module. The response is then sent back to the computer. \\
 
-      The software in charge of the communication with the SP601 that is running on the computer is constantly polling the database for new requests to transmit. It also pulls data out of the tracking data buffers that it stores in the same database. The user can then visualize the events from the web interface or issue commands. Figure \ref{fig:III-1-app-cmd} is a screenshot of the interface that allows the user to send commands and read the response from the system.
+      The software in charge of the communication with the SP601 that is running on the computer is constantly polling the database for new requests to transmit. It also pulls data out of the tracking data buffers that is then stored in the same database. The user can then visualize the events from the web interface or issue commands by polling the server. Figure \ref{fig:III-1-app-cmd} is a screenshot of the interface that allows the user to send commands and read the response from the system.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.7\textwidth]{img/III-1-arch/app-cmd.png}
-        \caption{App cmd.}
+        \caption{Screenshot of the web interface used by the user to control the VFAT2 Hybrid through the Microblaze.}
         \label{fig:III-1-app-cmd}
       \end{figure}
 
