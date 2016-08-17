@@ -9,15 +9,14 @@
 
     To optimize the occupancy of the resources of the FPGA, a deep comprehension of the intrinsic architecture of the chip is required. To this end, a description of the building blocks of the FPGA is given.
 
-    \subsection{Look-up Tables}
+    \subsection{Configurable Logic Blocks} (CLBs) \cite{VIRTEX-CLB} are the base elements of the FPGA used to implement sequential and combinatorial logic. They are composed of two important objects: look-up tables (LUTs) and registers. LUTs are components which outputs are a function of the inputs as defined in a programmable table. They implement a truth table for every possible combination of the inputs which defines the value of the outputs. The response of a LUT to a change in the inputs is almost instantaneous. The outputs of the LUTs can, if so required by the design, be connect to registers which sample the signals at the rising edge of a given clock. Register are used for their sample-and-hold functionality which makes designs synchronous to clocks. With these two components, CLBs can implement complex functions and describe intricate systems. Each CLB is composed of two slices each composed of four LUTs and eight register which layout is shown in Figure \ref{fig:II-6-clb}. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
 
-      Look-Up Tables (LUTs) are the function generators of the logic of the FPGA. They are used to implement any Boolean function using a programmable truth table which reflects the implemented design. They take a given number of signals as input and using those return a set of output values according to preset configurations. LUTs in the Xilinx Virtex-6 FPGAs can either implement functions with six inputs and a single output or functions with five inputs and two outputs. The response time of a LUT to a change in its inputs is equal to the propagation delay of the signals in the silicon which is around 480 ps. This means that the LUTs provide an almost immediate response which is unbuffered.
-
-    \subsection{Storage Elements}
-
-      The Xilinx Virtex-6 FPGAs uses storage elements to buffer the outputs of the LUTs. These elements can either be used as edge-triggered flip-flops or as level-sensitive latches. Flip-flop, which are also called registers, sample their input signals at every rising edge of the clock they are synchronous to.  
-
-    \subsection{Configurable Logic Blocks} (CLBs) are the base elements of the FPGA. They are used to implement sequential and combinatorial logic. They are composed of two important objects: look-up tables (LUTs) and registers. LUTs are components which outputs are a function of the inputs as defined in a programmable table. They implement a truth table for every possible combination of the inputs which defines the value of the outputs. The response of a LUT to a change in the inputs is almost instantaneous. The outputs of the LUTs can, if so required by the design, be connect to registers which sample the signals at the rising edge of a given clock. Register are used for their sample-and-hold functionality which makes designs synchronous to clocks. With these two components, CLBs can implement complex functions and describe intricate systems. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
+    \begin{figure}[p!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-6-irradiation/clb.png}
+      \caption{Simplified view of a slice composed of four LUTs on the left and eight registers on the right \cite{VIRTEX-CLB}.}
+      \label{fig:II-6-clb}
+    \end{figure}
 
     \subsection{The switching matrix} is what connects CLBs with each other. It is a vast network of switches which are used to route signals between components. The open/closed status of each switch is programmable and defines the routes signals take inside the vast network of connections.
 
