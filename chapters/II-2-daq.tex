@@ -10,7 +10,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system.pdf}
-      \caption{??? \cite{Colaleo:2021453}.}
+      \caption{Architecture of the GE1/1 DAQ system divided into two sectors: the on-detector electronics composed of the VFAT3 ASICs, GEB, and OptoHybrid, and the off-detector electronics with CTP7 and AMC13 mezzanines located in a microTCA crate \cite{Colaleo:2021453}.}
       \label{fig:II-2-gem-system}
     \end{figure}
 
@@ -25,7 +25,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/vfat3.pdf}
-        \caption{??? \cite{Colaleo:2021453}.}
+        \caption{Schematic diagram of the VFAT3 showing the analog front-end on the left and the digital control and readout system on the right \cite{Colaleo:2021453}.}
         \label{fig:II-2-vfat3}
       \end{figure}
 
@@ -46,7 +46,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/geb.pdf}
-        \caption{??? \cite{Colaleo:2021453}.}
+        \caption{Pictures of a prototype of the GEB, a PCB of the same dimension as the GEM detector  designed to route the signals of the front-end chips to the OptoHybrid \cite{Colaleo:2021453}.}
         \label{fig:II-2-geb}
       \end{figure}
 
@@ -58,21 +58,21 @@
 
     \subsection{The GBT and Versatil Link}
 
-      The GBT \cite{Moreira:1235836} and Versatil Link \cite{Soos:1609037} are projects developed by CERN providing radiation hard tools for optical communication to the LHC experiments. The GBT is an optical data link technology providing bidirectional 4.8 Gb/s (Gigabits per second) serial communication designed to connect the on-detector and off-detector electronics. It is declined in two version: the GBTX which is a radiation hard ASIC, and the GBT-FPGA which is a core that can be implemented inside an FPGA. Complementary to the GBT which provides the data structure and communication protocol between components, the Versatil Link project develops radiation hard optical transceivers. The integration of the GBTX, Verstil Link, and GBT-FPGA projects is shown in Figure \ref{fig:II-2-gbt-versatile}. \\
+      The GBT \cite{Moreira:1235836} and Versatil Link \cite{Soos:1609037} are projects developed by CERN providing radiation hard tools for optical communication to the LHC experiments. The GBT is an optical data link technology providing bidirectional 4.8 Gb/s (Gigabits per second) serial communication designed to connect the on-detector and off-detector electronics. It is declined in two version: the GBTX which is a radiation hard ASIC, and the GBT-FPGA which is a core that can be implemented inside an FPGA. Complementary to the GBT which provides the data structure and communication protocol between components, the Versatil Link project develops radiation hard optical transceivers. The integration of the GBTX, Versatil Link, and GBT-FPGA projects is shown in Figure \ref{fig:II-2-gbt-versatile}. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/gbt-versatile.pdf}
-        \caption{??? \cite{Moreira:1235836}.}
+        \caption{Architecture of the radiation hard optical link setup integrating the GBT and Versatil Link projects \cite{Moreira:1235836}.}
         \label{fig:II-2-gbt-versatile}
       \end{figure}
 
-      The GBT defines a data format shown in Figure \ref{fig:II-2-gbt-frame}. The stream of data is divided into frames of 120 bits transmitted at 40 MHz, resulting in a data rate of 4.8 Gb/s from which 3.36 Gb/s are accessible by the user. The frame start with a four bits header (H) which defines the frame type and ends with 32 bits of Forward Error Correction (FEC). The error correction is done by encodeding the data using a Reed-Salomon code that can correct bit flips due to radiation. The 84 remaining bits are user accessible. The first two bits are used for internal slow control (IC) and the two following bits for external slow control (EC), leaving 80 bits of data (D) accessible to the user for DAQ, TTC, and slow control purposes. \\
+      The GBT defines a data format shown in Figure \ref{fig:II-2-gbt-frame}. The stream of data is divided into frames of 120 bits transmitted at 40 MHz, resulting in a data rate of 4.8 Gb/s from which 3.36 Gb/s are accessible by the user. The frame start with a four bits header (H) which defines the frame type and ends with 32 bits of Forward Error Correction (FEC). The error correction is done by encoding the data using a Reed-Salomon code that can correct bit flips due to radiation. The 84 remaining bits are user accessible. The first two bits are used for internal slow control (IC) and the two following bits for external slow control (EC), leaving 80 bits of data (D) accessible to the user for DAQ, TTC, and slow control purposes. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/gbt-frame.pdf}
-        \caption{??? \cite{Moreira:1235836}.}
+        \caption{Data format of a GBT frame \cite{Moreira:1235836}.}
         \label{fig:II-2-gbt-frame}
       \end{figure}
 
@@ -83,7 +83,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/gbt-asic.png}
-        \caption{??? \cite{Moreira:1235836}.}
+        \caption{Interaction between the GBTX ASIC and external front-end drivers through E-links \cite{Moreira:1235836}.}
         \label{fig:II-2-gbt-asic}
       \end{figure}
 
@@ -98,7 +98,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/utca-crate.png}
-        \caption{??? \cite{VADATECH}.}
+        \caption{Schematic representation of the architecture of a microTCA crate \cite{VADATECH}.}
         \label{fig:II-2-utca-crate}
       \end{figure}
 
@@ -119,7 +119,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/ctp7.png}
-        \caption{??? \cite{???}.}
+        \caption{Photograph of the CTP7 mezzanine developed by the University of Wisconsin used as back-end electronics \cite{???}.}
         \label{fig:II-2-ctp7}
       \end{figure}
 
@@ -127,68 +127,68 @@
 
     \subsection{The AMC13}
 
-      The module which delivers the TTC signals and the LHC clock to the CTP7s and retreaves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 is the microTCA crate. Its functionnal diagram is shown in Figure \ref{fig:II-2-amc13}. It is equipped with two FPGAs: a powerfull Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwared on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retreive tracking and trigger data over the fabric A ports running at 5 Gb/s. For development purposses, the AMC13 integrates internal TTC commands and LHC clock generators. \\
+      The module which delivers the TTC signals and the LHC clock to the CTP7s and retrieves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 is the microTCA crate. Its functional diagram is shown in Figure \ref{fig:II-2-amc13}. It is equipped with two FPGAs: a powerful Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwarded on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retrieve tracking and trigger data over the fabric A ports running at 5 Gb/s. For development purposes, the AMC13 integrates internal TTC commands and LHC clock generators. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/amc13.png}
-        \caption{??? \cite{AMC13}.}
+        \caption{Functional diagram of the AMC13 highlighting the external connections to the TTC system, backplane, and MCH of the microTCA crate \cite{AMC13}.}
         \label{fig:II-2-amc13}
       \end{figure}
 
-      The Virtex-6 FPGA of the AMC13 is connected to the central DAQ of CMS through the two SFP+ optical links running at 6 Gb/s which implement the S-Link Express protocol defined by CMS. An additionnal SFP+ can be used as spare if the bandwidth is required. Next to the data, the AMC13 also send TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate for the system to be able to cope.
+      The Virtex-6 FPGA of the AMC13 is connected to the central DAQ of CMS through the two SFP+ optical links running at 6 Gb/s which implement the S-Link Express protocol defined by CMS. An additional SFP+ can be used as spare if the bandwidth is required. Next to the data, the AMC13 also send TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate for the system to be able to cope.
 
     \subsection{The IPBus Protocol}
 
-      To communicate between the control and monitoring applications and the subsystems, a new protocol called IPBus has been developped for the CMS subdetectors. It uses the Internet Protocol (IP) and can be sent over User Data Protocal (UDP) or Transmission Control Protocol (TCP). IPBus transactions are simple read/write operations using a A32/D32 implementation (Address of 32 bits, Data of 32 bits). A sequence of transactions is called a packet which starts with a packet header of 32 bits which format is shown in Figure \ref{fig:II-2-ipbus}. \\
+      To communicate between the control and monitoring applications and the subsystems, a new protocol called IPBus has been developed for the CMS subdetectors. It uses the Internet Protocol (IP) and can be sent over User Data Protocol (UDP) or Transmission Control Protocol (TCP). IPBus transactions are simple read/write operations using a A32/D32 implementation (Address of 32 bits, Data of 32 bits). A sequence of transactions is called a packet which starts with a packet header of 32 bits which format is shown in Figure \ref{fig:II-2-ipbus}. \\
 
-      A transaction is always performed in two stages: a request from the applications is sent to which the system provides a response. The header of the request specifies the request type and request size. Additionnal 32 bits words are added in function of the type of operation to perform. For a read operation, the base address of the read must be specified. The response will contain N 32 bits words corresponding to the data at the base address and the incremental N addresses where N is the size of the request defined in the header. For a write operation, the request will contain the base address followed by N 32 bits words that should be written at the base address and the N following addresses where N is the size of the request defined in the header. The response will be a single header containing a status code. Variation of the read/write operations exist such as the FIFO-read and FIFO-write, which repeatevly read and write words at the same address. \\
+      A transaction is always performed in two stages: a request from the applications is sent to which the system provides a response. The header of the request specifies the request type and request size. Additional 32 bits words are added in function of the type of operation to perform. For a read operation, the base address of the read must be specified. The response will contain N 32 bits words corresponding to the data at the base address and the incremental N addresses where N is the size of the request defined in the header. For a write operation, the request will contain the base address followed by N 32 bits words that should be written at the base address and the N following addresses where N is the size of the request defined in the header. The response will be a single header containing a status code. Variation of the read/write operations exist such as the FIFO-read and FIFO-write, which repetitively read and write words at the same address. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/ipbus.png}
-        \caption{??? \cite{AMC13}.}
+        \caption{Data format of the data packets of IPBus for read and write transaction types \cite{AMC13}.}
         \label{fig:II-2-ipbus}
       \end{figure}
 
-      On the electronics side, the IPBus protocol is handled by a master which decodes the requests and forwards it to slaves which each respond to a given address range. Requests involving multiple reads are writes are decomposed by the master in single operations. Slaves receive the request type, address, and data as input parameters and can then treat it as they like. In return, they provide an acknownledgment and optionnally data in the case of a read operation. Eventhough the software treats the address space of 32 bits as a set of read/write registers of 32 bits (A32/D32), the physical implementation on the electronics can be different. Requests can be connected to registers of be used to activate functions on the PCBs. The implementation is up to the developpers.
+      On the electronics side, the IPBus protocol is handled by a master which decodes the requests and forwards it to slaves which each respond to a given address range. Requests involving multiple reads are writes are decomposed by the master in single operations. Slaves receive the request type, address, and data as input parameters and can then treat it as they like. In return, they provide an acknowledgement and optionally data in the case of a read operation. Even though the software treats the address space of 32 bits as a set of read/write registers of 32 bits (A32/D32), the physical implementation on the electronics can be different. Requests can be connected to registers of be used to activate functions on the PCBs. The implementation is up to the developers.
 
   \section{The First Prototype of the Data Acquisition System}
 
-    Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasability of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developped in 2014 with slightly different components. The differences with the final system are shown in Figure \ref{fig:II-2-gem-system-v1} where elements in red are not yet implemented and those in blue are prototypes or variations of the final electronics. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OptoHybrid optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
+    Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasibility of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developed in 2014 with slightly different components. The differences with the final system are shown in Figure \ref{fig:II-2-gem-system-v1} where elements in red are not yet implemented and those in blue are prototypes or variations of the final electronics. The system was composed of six VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OptoHybrid optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
 
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v1.pdf}
-      \caption{???.}
+      \caption{Architecture of the first prototype of the GE1/1 DAQ system with the VFAT2 ASIC, first version of the GEB, first version of the OptoHybrid, and GLIB AMC.}
       \label{fig:II-2-gem-system-v1}
     \end{figure}
 
     \subsection{The VFAT2 ASIC}
 
-      Similarly to the VFAT3 ASIC, which architecture has been presented before, the VFAT2 is a binary front-end chip used to digitize signals generated by gaseous detectors. A schematic representation of the chip is depicted in Figure \ref{fig:II-2-vfat2}. The 128 analog signals are preamplified, shaped, and discriminated against a settable threshold in the analog front-end which is asyncrhonous from the LHC clock. Synchronicity is achieved through monostables connected to each channel which allow to generate a binary pulse each time the threshold is reached in a given BX. Moreover, the duration of the output signal of the monostable can be stretched to cover multiple clock cycles. This function is only used in the tracking data stored in the SRAM1 and not the 8 trigger bits, called SBits, formatted by the Trigger unit. Upon reception of a L1A, data is transfered from the SRAM1 to the SRAM2 and serially transmitted over the DataOut and DataValid lines. The DataValid line caries the 192 bits that form an event while the DataOut line signals the validity of the data by going to a logic '1' during transmission. The four fast commands (L1A, Resync, CalPulse, and BC0), called the T1 in the VFAT2 context, are received over a single differential pair and are encoded on three bits meaning that no two consecutive L1As can be received within three BXs. Finally, the configuration of the ASIC is done using the I2C protocol. \\
+      Similarly to the VFAT3 ASIC, which architecture has been presented before, the VFAT2 is a binary front-end chip used to digitize signals generated by gaseous detectors. A schematic representation of the chip is depicted in Figure \ref{fig:II-2-vfat2}. The 128 analog signals are preamplified, shaped, and discriminated against a settable threshold in the analog front-end which is asynchronous from the LHC clock. Synchronicity is achieved through monostables connected to each channel which allow to generate a binary pulse each time the threshold is reached in a given BX. Moreover, the duration of the output signal of the monostable can be stretched to cover multiple clock cycles. This function is only used in the tracking data stored in the SRAM1 and not the 8 trigger bits, called SBits, formatted by the Trigger unit. Upon reception of a L1A, data is transfered from the SRAM1 to the SRAM2 and serially transmitted over the DataOut and DataValid lines. The DataValid line caries the 192 bits that form an event while the DataOut line signals the validity of the data by going to a logic '1' during transmission. The four fast commands (L1A, Resync, CalPulse, and BC0), called the T1 in the VFAT2 context, are received over a single differential pair and are encoded on three bits meaning that no two consecutive L1As can be received within three BXs. Finally, the configuration of the ASIC is done using the I2C protocol. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/vfat2.png}
-        \caption{??? \cite{Aspell:1069906}.}
+        \caption{Schematic diagram of the VFAT2 showing the analog front-end on the left and the digital control and readout system on the right \cite{Aspell:1069906}.}
         \label{fig:II-2-vfat2}
       \end{figure}
 
-      The main differences between VFAT2 and VFAT3 are the communication protocols and the reduced bandwidth allocated to trigger data over the fixed latency path. While VFAT3 can be directly connect to the GBT chipset, the VFAT2 has to be controlled and readout by the FPGA located on the FPGA. Furthermore, VFAT3 has a trigger granularity of 64 bits per BX while VFAT2 is limited to 8 bits per BX. Altought the configuration of the bits can be chosen through programmable registers, it is common to divide the 128 strips in 8 groups of 16 neighbouring strips and transmit one bit for each group. \\
+      The main differences between VFAT2 and VFAT3 are the communication protocols and the reduced bandwidth allocated to trigger data over the fixed latency path. While VFAT3 can be directly connect to the GBT chipset, the VFAT2 has to be controlled and readout by the FPGA located on the FPGA. Furthermore, VFAT3 has a trigger granularity of 64 bits per BX while VFAT2 is limited to 8 bits per BX. Although the configuration of the bits can be chosen through programmable registers, it is common to divide the 128 strips in 8 groups of 16 neighboring strips and transmit one bit for each group. \\
 
-      As the VFAT2 ASIC does not come within a package like standard ICs, it is bounded to a small PCB called the VFAT2 Hybrid depicted in Figure \ref{fig:II-2-vfat2-hybrid}. The Hybrids are equipped with two connectors: one for the 128 analog input channels and one for the digital signals and the power. They are respectivly connected to the GEM readout plane on one side and the GEB on the other side.
+      As the VFAT2 ASIC does not come within a package like standard ICs, it is bounded to a small PCB called the VFAT2 Hybrid depicted in Figure \ref{fig:II-2-vfat2-hybrid}. The Hybrids are equipped with two connectors: one for the 128 analog input channels and one for the digital signals and the power. They are respectively connected to the GEM readout plane on one side and the GEB on the other side.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/vfat2-hybrid.jpg}
-        \caption{VFAT2-HYBRID.}
+        \caption{Photograph of the VFAT2 Hybrids on which the VFAT2 ASICs are mounted to be interfaced with the GEB.}
         \label{fig:II-2-vfat2-hybrid}
       \end{figure}
 
     \subsection{The GEM Electronic Board v1}
 
-      Due to the manufacturing challenge that is the production of a 1-m-long PCB, a first version of the GEB has been produced with minimal features. The first prototype was equipped with only six functionning positions in the middle row closest to the small side of the board. The positions shared a common clock and trigger line and were divided into two slow control sectors. As fewer connections were needed between the GEB and the OptoHybrid, a smaller connector was also used.
+      Due to the manufacturing challenge that is the production of a 1-m-long PCB, a first version of the GEB has been produced with minimal features. The first prototype was equipped with only six functioning positions in the middle row closest to the small side of the board. The positions shared a common clock and trigger line and were divided into two slow control sectors. As fewer connections were needed between the GEB and the OptoHybrid, a smaller connector was also used.
 
     \subsection{The OptoHybrid v1}
 
@@ -197,18 +197,18 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/oh-v1.jpg}
-        \caption{OptoHybrid V1.}
+        \caption{Photograph of the OptoHybrid V1 equipped with a Xilinx Spartan-6 FPGA that concentrates the data from the six VFAT2 Hybrids and transmits it over four optical links to the off-detector electronics.}
         \label{fig:II-2-ohv1}
       \end{figure}
 
     \subsection{The GLIB Advanced Mezzanine Card}
 
-      Designed by CERN, the Gigabit Link Interface Board (GLIB) \cite{Vichoudis:1359270} has been developped as an evaluation platform for the GBT-FPGA project. As shown in Figure \ref{fig:II-2-glib}, it is a general purpose microTCA AMC equipped with a Xilinx Virtex-6 FPGA, four SFP optical cages, and two extension header that can accomodate custom electronics. The GLIB can be used within the microTCA crate in so called crate-mode, or as standalone board in bench-top mode. To this end, it is equipped with an Ethernet connector to replace the fabric A line coming from the MCHs while still providing access using IPBus. \\
+      Designed by CERN, the Gigabit Link Interface Board (GLIB) \cite{Vichoudis:1359270} has been developed as an evaluation platform for the GBT-FPGA project. As shown in Figure \ref{fig:II-2-glib}, it is a general purpose microTCA AMC equipped with a Xilinx Virtex-6 FPGA, four SFP optical cages, and two extension header that can accommodate custom electronics. The GLIB can be used within the microTCA crate in so called crate-mode, or as standalone board in bench-top mode. To this end, it is equipped with an Ethernet connector to replace the fabric A line coming from the MCHs while still providing access using IPBus. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/glib.jpg}
-        \caption{\cite{Vichoudis:1359270}.}
+        \caption{Picture of the GLIB AMC equipped with a Xilinx Virtex-6 FPGA, four SFP optical cages, and two extension header that can accommodate custom electronics and is used as back-end electronics \cite{Vichoudis:1359270}.}
         \label{fig:II-2-glib}
       \end{figure}
 
@@ -221,7 +221,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v2a.pdf}
-      \caption{???.}
+      \caption{Architecture of the GE1/1 DAQ system used during the test beam with the VFAT2 ASIC, second version of the GEB, second version of the OptoHybrid, and GLIB AMC.}
       \label{fig:II-2-gem-system-v2a}
     \end{figure}
 
@@ -231,86 +231,51 @@
 
     \subsection{The OptoHybrid v2a}
 
-      The second version of the OptoHybrid is still a prototyping board which offers various configuration schemes to select the best operating mode. Represented in Figure \ref{fig:II-2-ohv2a}, the OptoHybridv2a uses a Xilinx Virtex-6 FPGA similar to the GLIB. It can either use 12 SFP optical cages or a QSFP+ transceiver which offers four optical connections in a single module. The LHC clock can be recovered by the Texas Instrument CDCE62005 which is a programmable clock generator or by the radiation hard QPLL module developped by CERN specifficaly to this end.
+      The second version of the OptoHybrid is still a prototyping board which offers various configuration schemes to select the best operating mode. Represented in Figure \ref{fig:II-2-ohv2a}, the OptoHybridv2a uses a Xilinx Virtex-6 FPGA similar to the GLIB. It can either use 12 SFP optical cages or a QSFP+ transceiver which offers four optical connections in a single module. The LHC clock can be recovered by the Texas Instrument CDCE62005 which is a programmable clock generator or by the radiation hard QPLL module developed by CERN specifically to this end.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/oh-v2a.jpg}
-        \caption{OptoHybrid V2a.}
+        \caption{Photograph of the OptoHybrid V2a equipped with a Xilinx Virtex-6 FPGA that concentrates the data from the 24 VFAT2 Hybrids and transmits it to the off-detector electronics.}
         \label{fig:II-2-ohv2a}
       \end{figure}
 
   \section{The GE1/1 Data Acquisition System for the Slice Test}
 
-    The last prototype of the architecture before developments for the final system start is the DAQ system for the slice test which is to be installed in January 2017. The architecture of the system is depicted in Figure \ref{fig:II-2-gem-system-v2b}. Altough this small scale test will be performed using the VFAT2 ASIC as the VFAT3 is still in developments, other components are more similar to the final version. The GBT chipset, which production has started, is used. Readout is performed using the AMC13 connected to the central DAQ of CMS.
+    The last prototype of the architecture before developments for the final system start is the DAQ system for the slice test which is to be installed in January 2017. The architecture of the system is depicted in Figure \ref{fig:II-2-gem-system-v2b}. Although this small scale test will be performed using the VFAT2 ASIC as the VFAT3 is still in developments, other components are more similar to the final version. The GBT chipset, which production has started, is used. Readout is performed using the AMC13 connected to the central DAQ of CMS.
 
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v2b.pdf}
-      \caption{???.}
+      \caption{Architecture of the GE1/1 DAQ system forseen for the slice test with the VFAT2 ASIC, second version of the GEB, second version of the OptoHybrid, CTP7 AMC, and AMC13.}
       \label{fig:II-2-gem-system-v2b}
     \end{figure}
 
     \subsection{The OptoHybrid v2b}
 
-      The second iteration on the OptoHybridv2 has a U shape to accomodate the constraints of the detector geometry, cooling system, and front-pannel as shown in Figure \ref{fig:II-2-ohv2b}. It is equipped with four optical links using the SFP cages and the VTRx and VTTx modules. Three of the links are controlled by the FPGA itsel while the last one is connected to a GBT chipset in turn controlled by the FPGA. The QPLL has been chosen over the CDCE62005 for its simplicity of use and its tolerance to radiation. The connection to the GEB and the GEB itsel remain unchanged.
+      The second iteration on the OptoHybridv2 has a U shape to accommodate the constraints of the detector geometry, cooling system, and front-panel as shown in Figure \ref{fig:II-2-ohv2b}. It is equipped with four optical links using the SFP cages and the VTRx and VTTx modules. Three of the links are controlled by the FPGA itself while the last one is connected to a GBT chipset in turn controlled by the FPGA. The QPLL has been chosen over the CDCE62005 for its simplicity of use and its tolerance to radiation. The connection to the GEB and the GEB itself remain unchanged.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/oh-v2b.jpg}
-        \caption{OptoHybrid V2b.}
+        \caption{Photograph of the OptoHybrid V2b that provides a testing platform for the GBT chipset.}
         \label{fig:II-2-ohv2b}
       \end{figure}
 
   \section{Summary}
 
-    \todo{MORE}
-
-    To summarize the evolution of the DAQ system and the various components used
+    The evolution of the DAQ system follows the readiness of the various components foreseen to be used in the final system. Table \ref{tab:II-2-summary} provides a summary of the various prototypes developed and the systems that will be installed during the slice test and in the final setup. Changes are incremental and allow to acquire expertise in the control of the various technologies interacting in the architecture. They also provide feedback on components that can be updated in future versions or more deeply integrated in the system, such as the GBT chipset or the Versatil Link.
 
     \begin{table}
       \begin{tabularx}{\textwidth}{C{1}C{1}C{1}C{1}}
         \textbf{First prototype} & \textbf{Test beam}   & \textbf{Slice test}  & \textbf{Final system} \\ \hline
-        6x VFAT2        & 24x VFAT2   & 24x VFAT2   & 24x VFAT3 \\
-        GEB v1          & GEB v2      & GEB v2      & GEB v3 \\
-        OptoHybrid v1           & OptoHybrid v2a      & OptoHybrid v2b      & OptoHybrid v3 \\
-        -               & -           & 1x GBT      & 3x GBT \\
-        GLIB            & GLIB        & CTP7        & CTP7 \\
-        -               & -           & AMC13       & AMC13 \\
+        6x VFAT2        & 24x VFAT2       & 24x VFAT2       & 24x VFAT3 \\
+        GEB v1          & GEB v2          & GEB v2          & GEB v3 \\
+        OptoHybrid v1   & OptoHybrid v2a  & OptoHybrid v2b  & OptoHybrid v3 \\
+        -               & -               & 1x GBT          & 3x GBT \\
+        GLIB            & GLIB            & CTP7            & CTP7 \\
+        -               & -               & AMC13           & AMC13 \\
       \end{tabularx}
-      \caption{??}
+      \caption{Summary of the evolution of the components of the DAQ system of GE1/1.}
       \label{tab:II-2-summary}
     \end{table}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--
