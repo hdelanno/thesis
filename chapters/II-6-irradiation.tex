@@ -35,7 +35,7 @@
 
     \subsection{Block RAM}
 
-      Besides programmable logic, the FPGA also includes dedicated storage elements. Block RAMs \cite{VIRTEX-RAM} can store up to 36 kb of data which can be configured in different ways: 32K x 1 bit, 16K x 2 bits, etc. They can also be used as First In First Out (FIFO) modules which are similar to data queues.
+      Besides programmable logic, the FPGA also includes dedicated storage elements. Block RAMs \cite{VIRTEX-RAM} (BRAMs) can store up to 36 kb of data which can be configured in different ways: 32K x 1 bit, 16K x 2 bits, etc. They can also be used as First In First Out (FIFO) modules which are similar to data queues.
 
     \subsection{Digital Signal Processing}
 
@@ -50,13 +50,26 @@
 
     \subsection{The configuration memory}
 
-      The configuration memory holds the configuration of the entire FPGA and sets its behavior. It defines the truth table of the LUTs, parametrizes the DSP, defines the connection between elements, etc. It is what implements the design in the FPGA. By nature, the configuration memory is volatile and will lose its configuration upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank state if it fails to do so.
+      The configuration memory holds the configuration of the entire FPGA and defines its behavior. It sets the truth table of the LUTs, parametrizes the DSP, creates the connection between elements, etc. It is what implements the design in the FPGA. In most FPGAs, the configuration memory is volatile and will lose its configuration upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank or corrupted state if it fails to do so.
 
   \section{The Effects of Radiation on FPGAs}
 
+    When charged particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-6-transistor}, the charges can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Integrated Dose (TID) of radiation.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-6-irradiation/transistor.png}
+      \caption{Charge deposition by a charged particle inside a transistor affecting the state of the circuit \cite{XILINX-RADIATION}.}
+      \label{fig:II-6-transistor}
+    \end{figure}
+
     \subsection{Single Event Upset}
 
+      When the charge deposited by radiation is located within a transistor, the critical voltage of the latter can be modified and a change of state occur. In case of memory cells, a change of state corresponds to a bit flip, which can influence the design. If the configuration memory is hit, the description of the CLBs, DSPs, and switch matrix will change dynamically during run time and the implemented logic will thus be affected. For BRAMs, the bit flip will occur in the data stored in memory, resulting in corrupted information.
+
     \subsection{Single Event Transients}
+
+      If the event affects combinatorial logic, a spike in current or voltage can be produced and propagate within the design. When coupled to sequential logic, such errors can be easily recovered from if their duration is small in comparison to the frequency of the clock used to run the circuit. Unless the error is produced exactly at the sampling time of the registers, it is not stored and thus mitigated.
 
     \subsection{Total Integrated Dose}
 
