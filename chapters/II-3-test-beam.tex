@@ -398,6 +398,46 @@
         \label{fig:II-3-data-beam-profile}
       \end{figure}
 
+  \section{Towards the Slice Test}
+
+    Using the feedback obtained during the test beam, a OptoHybrid v2b was designed which incorporated the GBT chipsets. In addition to porting the code to the new board, firmware developments were required in order to make use of the latter and move from the GTX and SFP+ optical links to the GBT chipset coupled with the Versatil Link. The resources available in the FPGA and the flexibility of the Wishbone bus allowed for the two technologies to be implemented and control the system at the same time. This increases redanduncy and offers the posibility to switch between the GTX and GBT in case of failure. \\
+
+    The GBT chipset is connected to the OptoHybrid through two E-Links for the receiver and four E-Links for the transmitter all running at 320 MHz. This configuration allows to receive 16 bits and transmit 32 bits per BX. The asymetry is due to the requirement of a higher bandwidth for the link to the off-detector electronics which carries the slow control and tracking data. \\
+
+    On the FPGA, the data is deserialized and aligned using a communication protocol ran during a synchronization phase between the OptoHybrid and the CTP7. As the 40 MHz clock on the former is generated from the 320 MHz clock, the phase relation with the clock of the latter is not known which causes data to be misaligned. At start up, the CTP7 sends a constant pattern of 0x76BC which the OptoHybrid tries to find in the data. If the pattern is not found, a bitslip is operated, shifting the received data by one unit. The operation is repeated until the link is aligned. At that moment, the OptoHybrid, which was transmitting a stream of zeros, switches to a constant pattern of 0x76BC76BC. When the CTP7 is able to identify this pattern, it returns a single 0x8943 word informing the OptoHybrid that data is aligned. Otherwise, the latter performs a bitslip on the transmitted data. \\
+
+    Once the aligment procedure is done, the two systems can communicate through the data format exposed in Table \ref{tab:II-3-gbt-format}. Although similar to the data format used over the GTX links, two fundamental changes have been operated: due to the fact that data is clocked at 40 MHz in the fabric of the FPGA, the TTC commands need to be send every BX; the bandwidth has been changed modifying the width of tha data packets. \\
+
+    \begin{table}
+      \begin{tabularx}{\textwidth}{C{1.15}C{0.85}}
+        \textbf{CTP7 to OptoHybrid frame} & \textbf{OptoHybrid to CTP7 frame} \\
+        {
+        \begin{tabularx}{0.52\textwidth}{|C{0.5}|C{1.25}|C{1.25}|}
+          \hline
+          \multicolumn{3}{|c|}{15 \hfill 0} \\ \hline
+          TTC & Header[3:0] & Address[31:24] \\ \hline
+          TTC & \multicolumn{2}{|c|}{Address[23:12]} \\ \hline
+          TTC & \multicolumn{2}{|c|}{Address[11:0]} \\ \hline
+          TTC & 0000 & Data[31:24] \\ \hline
+          TTC & \multicolumn{2}{|c|}{Request Data[23:12]} \\ \hline
+          TTC & \multicolumn{2}{|c|}{Request Data[11:0]} \\ \hline
+          TTC & \multicolumn{2}{|c|}{0xABC} \\ \hline
+        \end{tabularx} }
+        &
+        { \begin{tabularx}{0.4\textwidth}{|C{1}|C{1}|}
+          \hline
+          \multicolumn{2}{|c|}{31 \hfill 0} \\ \hline
+          Header[3:0] & 0x000BCBC \\ \hline
+          \multicolumn{2}{|c|}{VFAT2 data x7} \\ \hline
+          \multicolumn{2}{|c|}{Response data} \\ \hline
+        \end{tabularx} }
+      \end{tabularx}
+      \caption{??}
+      \label{tab:II-3-gbt-format}
+    \end{table}
+
+    Running along the GTX core, the GBT module is defined as a Wishbone master meaning it can operate the same requests as the former. Furthermore, tracking data is duplicated and sent over the two links insuring redundancy and protection against failure as the CTP7 can dynamically change between the two cores.
+
   \section{Conclusion}
 
     The November 2015 test beam campaign has shown that the DAQ system composed of the VFAT2 ASIC, GEB v2, OptoHybrid v2a, and GLIB is able to run flawlessly providing quality data which has been used to compute the noise and efficiency on the system as a function of various parameters. The system is able to handle a superchamber of GE1/1 detectors with ease. \\
