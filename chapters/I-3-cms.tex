@@ -16,7 +16,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=\textwidth]{img/I-3-cms/cms.pdf}
-      \caption{Schematic representation of the Compact Muon Solenoid detector and its subsystems installed at LHC \cite{1748-0221-3-08-S08004}.}
+      \caption{Schematic view of the Compact Muon Solenoid detector and its subsystems installed at LHC \cite{1748-0221-3-08-S08004}.}
       \label{fig:I-3-cms-global-view}
     \end{figure}
 
@@ -153,7 +153,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/I-3-cms/rpc.png}
-        \caption{Schematic view of the RPCs double gap layout \cite{1748-0221-3-08-S08004}.}
+        \caption{Diagram of the RPCs double gap layout \cite{1748-0221-3-08-S08004}.}
         \label{fig:I-3-rpc}
       \end{figure}
 
@@ -183,7 +183,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/I-3-cms/daq.jpg}
-        \caption{??? \cite{1748-0221-3-08-S08004}.}
+        \caption{Architecture of the DAQ system of CMS \cite{1748-0221-3-08-S08004}.}
         \label{fig:I-3-daq}
       \end{figure}
 
@@ -196,15 +196,3 @@
     \subsection{The Event Filter}
 
       The role of the event filter is to distribute the events to worker nodes in the processing farm which run offline reconstruction algorithms to process and select events for storage. It is where the HLT is located and is in charge of reducing the 100 kHz rate of data to a few kHz manageable by the mass storage system. Besides running reconstruction algorithms, Data Quality Monitoring (DQM) information is also generated for consistency checks. Finally, the selected events are sent for storage to data loggers.
-
-    % \subsection{DAQ Software, Control, and Monitoring}
-    %
-    %   All DAQ subsystems have adopted a common software standard called Coss-Platform DAQ Framework (XDAQ). XDAQ provides standards for the applications to follow as well as a set of tools that can be used in the programs. Furthermore, it includes a signaling protocol which allows data to be transfered from application to application. \\
-    %
-    %   For each subdetectors, multiple applications are running to control the systems and are grouped into self-contained applications. They are grouped in the Run Control application called RCMS.
-    %
-    % \subsection{Detector Control System}
-    %
-    %   The Detector Control System (DCS) monitors the subdetectors of CMS and ensures correct operation of the experiment. Each system report the status of individual detector electronics such as high voltage, low voltage, etc to the central DCS system where data is logged into a database. DCS provides bookkeeping and safety-related functions for all detectors via a software interface.
-    %
-    %   \todo{MORE}
