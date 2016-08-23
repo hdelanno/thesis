@@ -52,9 +52,9 @@
 
       The configuration memory holds the configuration of the entire FPGA and defines its behavior. It sets the truth table of the LUTs, parametrizes the DSP, creates the connection between elements, etc. It is what implements the design in the FPGA. In most FPGAs, the configuration memory is volatile and will lose its configuration upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank or corrupted state if it fails to do so.
 
-  \section{The Effects of Radiation on FPGAs}
+  \section{Effects of Radiation on FPGAs and Mitigation Techniques}
 
-    When charged particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-6-transistor}, the charges can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Integrated Dose (TID) of radiation.
+    When charged particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-6-transistor}, the charges can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Ionizing Dose (TID) of radiation.
 
     \begin{figure}[h!]
       \centering
@@ -65,19 +65,38 @@
 
     \subsection{Single Event Upset}
 
-      When the charge deposited by radiation is located within a transistor, the critical voltage of the latter can be modified and a change of state occur. In case of memory cells, a change of state corresponds to a bit flip, which can influence the design. If the configuration memory is hit, the description of the CLBs, DSPs, and switch matrix will change dynamically during run time and the implemented logic will thus be affected. For BRAMs, the bit flip will occur in the data stored in memory, resulting in corrupted information.
+      When the charge deposited by radiation is located within a transistor, the critical voltage of the latter can be modified and a change of state occur. In case of memory cells, a change of state corresponds to a bit flip, which can influence the design. If the configuration memory is hit, the description of the CLBs, DSPs, and switch matrix will change dynamically during run time and the implemented logic will thus be affected. For BRAMs, the bit flip will occur in the data stored in memory, resulting in corrupted information. \\
+
+      A common technique used to mitigate SEUs in CLBs and DSPs is to triplicate the logic and couple its outputs to a majority voter. First, the sequential logic is triplicated, meaning the inputs are sent to three identical modules which output is returned synchronously. The latter are then forwarded to a majority voter which performs a bit-by-bit vote and returns the most probable response. This technique can recover data if only one of the modules is affected by an SEU. In case two modules are corrupted and flip the same bit, data will be corrupted as well. Additionally, a flag can be raised by the majority voter if all three inputs are not identical, meaning an error occurred. \\
+
+      To correct SEUs taking place in the configuration memory, the latter has to be read out by the FPGA itself. This is possible through the Soft Error Mitigation (SEM) core, a component placed inside the device which allows the firmware to analyze the data in memory and, using a two bit complement, perform a FEC on the bits. Although very effective to correct errors on the fly, this technique is time consuming due to the large amount of data to readout and can take up to several milliseconds to identify and repair and error. Furthermore, the FEC will fail to recover the data in case two bits are flipped within the same word, raising a flag that tells the system a hard reset is needed. \\
+
+      Finally, SEUs occurring in BRAMs can be corrected using a two complements FEC which can recover single bit errors and detect double bit errors.
 
     \subsection{Single Event Transients}
 
       If the event affects combinatorial logic, a spike in current or voltage can be produced and propagate within the design. When coupled to sequential logic, such errors can be easily recovered from if their duration is small in comparison to the frequency of the clock used to run the circuit. Unless the error is produced exactly at the sampling time of the registers, it is not stored and thus mitigated.
 
-    \subsection{Total Integrated Dose}
+    \subsection{Total Ionizing Dose}
+
+      With time, the FPGA ages under the effects of radiation and malfunctions might appear. As charges get trapped in the substrate, transistors inside the device suffer from a shift in the threshold voltage of the gate and of leakage currents. This in turn affects the design, either by rendering data cells useless or by causing changes in the gate states.
 
   \section{Firmware Design for the Irradiated FPGA}
 
-    The firmware of the irradiated FPGA is design to use a maximum of the available resources and transmit any error detected during run time.
+    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-6-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green.
+
+    \begin{sidewaysfigure}[p!]
+      \centering
+      \includegraphics[width=0.32\textwidth]{img/II-6-irradiation/fpga-empty.png}
+      \includegraphics[width=0.32\textwidth]{img/II-6-irradiation/fpga-used.png}
+      \includegraphics[width=0.32\textwidth]{img/II-6-irradiation/fpga-color.png}
+      \caption{Schematic view of the occupancy of the FPGA. Left: sectors of the FPGA labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green. Middle: highlight of the resources used by the design. Right: occupancy of the code developed to test the CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green.}
+      \label{fig:II-6-floorplanning}
+    \end{sidewaysfigure}
 
     \subsection{Configurable Logic Block}
+
+
 
     \subsection{Block RAM}
 
