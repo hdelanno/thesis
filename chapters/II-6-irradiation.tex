@@ -110,9 +110,19 @@
 
     \subsection{Soft Error Mitigation}
 
+      The SEM core included in the Xilinx Virtex-6 FPGA, when activated, continuously scans the configuration memory to detect corrupted bits. The core outputs various signals to report its status: a heartbeat, a detection flag which indicates an error has been identified, a correction flag which indicates an error has been corrected, and a critical flag which indicates the detected error cannot be recovered. In case the critical flag is set, a hard reset is needed to trigger a total reconfiguration of the FPGA from the external memory containing the design files.
+
   \section{Firmware Design for the Control FPGA}
 
+    The signals collected by the irradiated FPGA are sent to a control FPGA located outside of the test area. This FPGA implements a set of counters that can be accessed by a computer through a dedicated core in the FPGA called ChipScope. The latter allows to monitor signals and send pulses inside the FPGA. It is used to monitor the communication protocol and read out the counters.
+
     \subsection{Communication Protocol}
+
+      Eight wires connect the two FPGAs and are all going from the irradiation zone to the control room. Four of the wires are used to send CLB, BRAM, and DSP errors and four are used by the SEM core. \\
+
+      The four wires used to transmit errors from the various components implement a simple protocol and encode data on two 4-bit words clocked at 40 MHz. The first word is composed of all '1' to inform the control FPGA that a communication is happening, and the second word encodes the type of error: CLB level-1, CLB level-2, BRAM single, BRAM double, DSP single, DSP double, or DSP triple. The control FPGA samples the signals at a frequency of 160 MHz in order to perform oversampling and avoid error when decoding the data due to the difference in frequency between the clocks of the two boards. \\
+
+      The remaining four wires connected to the SEM core carry the heartbeat, detection, correction, and critical signals.
 
     \subsection{ChipScope Core}
 
