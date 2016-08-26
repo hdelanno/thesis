@@ -126,6 +126,17 @@
 
     \subsection{ChipScope Core}
 
+      The Xilinx Virtex-6 FPGA implements a dedicated core called ChipScope that allows signals to be read out and set from a computer. In firmware, two versions of the core exist: one called Virtual Input/Output (VIO) which connects to signals and allows to modify then or view then in real-time, and one called Integrated Logic Analyzer (ILA) which reads out the signals and provide a view of the evolution of signals over time. In software, control windows cans be created to handle to signals as depicted in Figure \ref{fig:II-6-cs-clb} in which the VIO control window is located on the left with signals in blue or those that are read out, and signals in green are those that can be modified, and the ILA monitoring windows in showed on the right. \\
+
+      \begin{sidewaysfigure}[p!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-6-irradiation/cs-clb.png}
+        \caption{.}
+        \label{fig:II-6-cs-clb}
+      \end{sidewaysfigure}
+
+      The VIO window provides an overview of the error counters and allows to reset them individually. It also controls a timer which is used to count the elapsed time and a "reconfiguration needed" signal which indicates that the irradiated FPGA requires a hard reset. The ILA monitor displays the incoming bits and the resulting information. The first bus labeled "HDMI" holds the four bits used to encode the error types which can be seen to transition from 0x0 to 0xF and 0x4. The 0xF signals the beginning of a transmission and the 0x4 indicates a CLB level-1 error which in turn raises one of the error flags. The last four busses are connected to the signals of the SEM core.
+
   \section{Irradiation Setup}
 
   \section{Data Analysis}
