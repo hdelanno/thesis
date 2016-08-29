@@ -118,7 +118,7 @@
 
     \subsection{Communication Protocol}
 
-      Eight wires connect the two FPGAs and are all going from the irradiation zone to the control room. Four of the wires are used to send CLB, BRAM, and DSP errors and four are used by the SEM core. \\
+      To connect the two boards, a High-Definition Multimedia Interface (HDMI) cable is used containing a total of eight wires. The data is always going from the irradiation zone to the control room. Four of the wires are used to send CLB, BRAM, and DSP errors and four are used by the SEM core. \\
 
       The four wires used to transmit errors from the various components implement a simple protocol and encode data on two 4-bit words clocked at 40 MHz. The first word is composed of all '1' to inform the control FPGA that a communication is happening, and the second word encodes the type of error: CLB level-1, CLB level-2, BRAM single, BRAM double, DSP single, DSP double, or DSP triple. The control FPGA samples the signals at a frequency of 160 MHz in order to perform oversampling and avoid error when decoding the data due to the difference in frequency between the clocks of the two boards. \\
 
@@ -135,11 +135,29 @@
         \label{fig:II-6-cs-clb}
       \end{sidewaysfigure}
 
-      The VIO window provides an overview of the error counters and allows to reset them individually. It also controls a timer which is used to count the elapsed time and a "reconfiguration needed" signal which indicates that the irradiated FPGA requires a hard reset. The ILA monitor displays the incoming bits and the resulting information. The first bus labeled "HDMI" holds the four bits used to encode the error types which can be seen to transition from 0x0 to 0xF and 0x4. The 0xF signals the beginning of a transmission and the 0x4 indicates a CLB level-1 error which in turn raises one of the error flags. The last four busses are connected to the signals of the SEM core.
+      The VIO window provides an overview of the error counters and allows to reset them individually. It also controls a timer which is used to count the elapsed time and a "reconfiguration needed" signal which indicates that the irradiated FPGA requires a hard reset. The ILA monitor displays the incoming bits and the resulting information. The first bus labeled "HDMI" holds the four bits used to encode the error types which can be seen to transition from 0x0 to 0xF and 0x4. The 0xF signals the beginning of a transmission and the 0x4 indicates a CLB level-1 error which in turn raises one of the error flags. The last four buses are connected to the signals of the SEM core.
 
   \section{Irradiation Setup}
 
-    \todo{Write}
+    The irradiation tests were performed at the CYCLONE110 cyclotron at the Université Catholique de Louvain \cite{CYCLOTRON} using a proton beam with energies between 14.4 MeV and 62 MeV. The machine can deliver fluxes up to 2 $ \times $ 10$^8$ particles cm$^{-2}$ s$^{-1}$ with a homogeneity of 10\% within an 80 mm $ \times $ 80 mm beam spot. Figure \ref{fig:II-6-cyclotron} is a photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. \\
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-6-irradiation/cyclotron.jpg}
+      \caption{.}
+      \label{fig:II-6-cyclotron}
+    \end{figure}
+
+    Two OptoHybrids v2a were installed in front of the beam to mimic the setup of a superchamber in CMS. Figure \ref{fig:II-6-setup} is a photograph of the two boards placed being aligned in front of the beam using lasers. Next to the low voltage cables required the power the board, two HDMI cables are attached to each OptoHybrid v2a: one used to communicate with the control boards, and one used to send reset signals to the FPGA. \\
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-6-irradiation/boards.jpg}
+      \caption{.}
+      \label{fig:II-6-setup}
+    \end{figure}
+
+    In the control room, two additional OptoHybrids v2a were used to collect data through the HDMI cable. Data acquisition was performed using ChipScope on the two control boards separately.
 
   \section{Data Analysis}
 
