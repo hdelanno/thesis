@@ -310,7 +310,7 @@
 
       Latency scan are also used to measure the noise and the efficiency of the detector. When looking at out-of-time events, the only contribution to the hits is noise. On the other hand, when considering the window in which the latency is well adjusted, both the noise and the particle hits play a role in the measurement. Taking this value to be the measured efficiency, it corresponds to the ratio between the number of events detected by the GEM detector and those detected by the scintillator system. However, the measured efficiency is the superposition of two poison processes: the noise and the real detector efficiency. In order to obtain the computed or real efficiency, simulations were developed to compute upper and lower limits on the real efficiency according to the noise levels. This was achieved by running a thousand pseudo-experiments for each possible efficiency value and comparing the result to the measured value. With a noise level of 100\%, the real efficiency could be anything between 0\% and 100\%. However, with a noise level of 1\%, the computed efficiency will be close to the measured efficiency.
 
-    \subsection{Efficiency against High-Voltage}
+    \subsection{Evolution of the Efficiency with the High-Voltage}
 
       Using the latency scan to compute noise and efficiency values, the evolution of these parameters has been studied according to the high-voltage applied on the detector. Figure \ref{fig:II-3-data-eff-hv} plots the measured noise (green), measured efficiency (blue), and computed efficiency (orange) as a function of the high-voltage expressed in $\mu$A for GEM0 on the left and GEM1 on the right with muons. Both results show an increase in efficiency with the high-voltage, reaching a plateau around 98\%. This is caused by the higher gain at which the GEM foils start to operate which in turn amplifies the signals and allows for it to be detected by the VFAT2 ASIC. It can be noted that a shift exists between the results for GEM0 and GEM1. Values for the latter are shift to the left by approximately 10 $\mu$A. While GEM0 reaches a plateau at 800 $\mu$A, GEM1 requires 810 $\mu$A to reach an efficiency around 98\%. This is due to the leakage current observed during installation which decreases the voltage applied to the GEM foils and in turn performance. It can also be noted that the noise is constant with the high-voltage. These results were compared against previous test beam campaign results \cite{KARCHIN2012561} and are in excellent accordance with each other. From this, it was decided to operate both chambers at 800 $\mu$A as sparks were sometimes observed at 810 $\mu$A. This value is considered to be the default high-voltage except if otherwise specified.
 
@@ -322,7 +322,7 @@
         \label{fig:II-3-data-eff-hv}
       \end{figure}
 
-    \subsection{Efficiency against VFAT2 Threshold}
+    \subsection{Evolution of the Efficiency with the VFAT2 Threshold}
 
       Although it had been decided to run the system with a VFAT2 threshold of 25, a study of the evolution of the noise and efficiency according to the threshold was performed. It aimed at quantifying the amount of noise and signal that was cut when increasing its value allowing to select the configuration yielding the best signal over noise ratio. Contrary to the previously operated scan which used trigger bits to measure the noise, this procedure uses tracking data and the full granularity information to analyze events. Figure \ref{fig:II-3-data-eff-threshold} plots the measured noise (green), measured efficiency (blue), and computed efficiency (orange) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right with muons. Additional points in purple have been extracted from the tracking data. Using the two GEM detectors, it is possible to measure the efficiency of one using the other as reference. For each event, the following cuts were applied on the first GEM in order to reduce the dataset:
       \begin{itemize}
@@ -344,7 +344,7 @@
 
       \todo{Deviation with tracking data}
 
-    \subsection{Efficiency against Particle Rate}
+    \subsection{Evolution of the Efficiency with the Particle Rate}
 
       Similarly to the measurements and computations made for the previous study, the effect of particle rate on the efficiency was measured. Focus is given on the latter as it has been noted that noise levels are not influenced by the increase in rate. Figure \ref{fig:II-3-data-eff-rate} plots the measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the particle rates for GEM0 on the left and GEM1 on the right with pions. Control over the particle rates were done using collimaters in front of the beam setup. \\
 
