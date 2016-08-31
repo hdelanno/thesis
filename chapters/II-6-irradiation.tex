@@ -166,13 +166,13 @@
 
     \subsection{Evolution of the SEU Cross Section with the Energy}
 
-      The charge that a particle deposits in the FPGA and thus consequently the SEU cross section is a function of the energy. The more charge is deposited, the more the threshold voltage will be affected and thus cause an SEU. The cross section with the configuration memory and the BRAMs were computed from the collected data using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-6-data-seu-energy} displays the interaction cross section of particles with the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
+      The charge that a particle deposits in the FPGA and thus consequently the SEU cross section is a function of the energy. The more charge is deposited, the more the threshold voltage will be affected and thus cause an SEU. The cross section with the configuration memory and the BRAMs were computed from the collected data using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-6-data-seu-energy} displays the interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM-crop}
-        \caption{Interaction cross section of particles with the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
+        \caption{Interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
         \label{fig:II-6-data-seu-energy}
       \end{figure}
 
@@ -180,25 +180,35 @@
 
       These results can be compared with tests performed for the electronics of the CSCs \cite{Bylsma2013242} which yield values of 3.7 $ \times $ 10$^{-8}$ cm$^2$ and 5.7 $ \times $ 10$^{-8}$ cm$^2$ for interaction cross section with the CLBs and BRAMs respectively. The discrepancy in the values obtained for the configuration memory and CLBs is due to the limited range
 
+      \todo{Compare with previous results}
+
     \subsection{Evolution of the SEU Cross Section with the TID}
+
+      The OptoHybrids were initially exposed to a total of 33 kRad over the course of various tests performed during the first 22h. The remaining two hours were used to irradiate the FPGAs with high fluxes and then perform a data taking run to measure a potential increase in interaction cross section: first three runs that each provided 10 kRad, followed by a run at 20 kRad. Figure \ref{fig:II-6-data-seu-tid} displays the interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_BRAM-crop}
-        \caption{Plots of the measured noise (green), measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right with muons.}
+        \caption{Interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
         \label{fig:II-6-data-seu-tid}
       \end{figure}
 
+      From these results, no trend indicating an increase of the interaction cross section with the TID has been observed. This means that the FPGA remains operational at radiation doses that exceed those expected at CMS.
+
     \subsection{Comparison of the Two Boards}
+
+      Finally, a comparison between the two boards was operated regarding the evolution of the interaction cross section with the energy. A different behavior is expected from the two FPGAs as the first one shields the second one at low energies. As particles pass through the former, they lose energy and might reach the threshold at which no SEU is produced in the latter. Figure \ref{fig:II-6-data-seu-comp} displays the interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in correctable (green and red) errors on the left, and with the BRAMs resulting in single (blue and green) and double (orange and red) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEU_Comp-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM_Comp-crop}
-        \caption{Plots of the measured noise (green), measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right with muons.}
+        \caption{Interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in correctable (green and red) errors on the left, and with the BRAMs resulting in single (blue and green) and double (orange and red) bit flips on the right.}
         \label{fig:II-6-data-seu-comp}
       \end{figure}
+
+      It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 35 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 35 MeV where the slope of the curve quickly rises. 
 
     \subsection{Impact for the Triple-GEM Upgrade Project}
 
