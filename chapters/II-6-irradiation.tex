@@ -139,23 +139,18 @@
 
   \section{Irradiation Setup}
 
-    The irradiation tests were performed at the CYCLONE110 cyclotron at the Université Catholique de Louvain \cite{CYCLOTRON} using a proton beam with energies between 14.4 MeV and 62 MeV. The machine can deliver fluxes up to 2 $ \times $ 10$^8$ particles cm$^{-2}$ s$^{-1}$ with a homogeneity of 10\% within an 80 mm $ \times $ 80 mm beam spot. Figure \ref{fig:II-6-cyclotron} is a photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. \\
+    The irradiation tests were performed at the CYCLONE110 cyclotron at the Université Catholique de Louvain \cite{CYCLOTRON} using a proton beam with energies between 14.4 MeV and 62 MeV. The machine can deliver fluxes up to 2 $ \times $ 10$^8$ particles cm$^{-2}$ s$^{-1}$ with a homogeneity of 10\% within an 80 mm $ \times $ 80 mm beam spot. The top picture in Figure \ref{fig:II-6-cyclotron} is a photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. \\
 
-    \begin{figure}[h!]
+    \begin{figure}[p!]
       \centering
-      \includegraphics[width=\textwidth]{img/II-6-irradiation/cyclotron.jpg}
-      \caption{Photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles.}
+      \includegraphics[width=\textwidth]{img/II-6-irradiation/cyclotron.jpg} \\
+      \vspace*{0.4cm}
+      \includegraphics[width=\textwidth]{img/II-6-irradiation/boards.jpg}
+      \caption{Top: photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. Bottom: photograph of the two OptoHybrids being aligned in front of the beam using lasers.}
       \label{fig:II-6-cyclotron}
     \end{figure}
 
-    Two OptoHybrids v2a were installed in front of the beam to mimic the setup of a superchamber in CMS. Figure \ref{fig:II-6-setup} is a photograph of the two boards being aligned in front of the beam using lasers. Next to the low voltage cables required the power the board, two HDMI cables are attached to each OptoHybrid v2a: one used to communicate with the control boards, and one used to send reset signals to the FPGA. \\
-
-    \begin{figure}[h!]
-      \centering
-      \includegraphics[width=\textwidth]{img/II-6-irradiation/boards.jpg}
-      \caption{Photograph of the two OptoHybrids being aligned in front of the beam using lasers.}
-      \label{fig:II-6-setup}
-    \end{figure}
+    Two OptoHybrids v2a were installed in front of the beam to mimic the setup of a superchamber in CMS. The bottom picture in Figure \ref{fig:II-6-cyclotron} is a photograph of the two boards being aligned in front of the beam using lasers. Next to the low voltage cables required the power the board, two HDMI cables are attached to each OptoHybrid v2a: one used to communicate with the control boards, and one used to send reset signals to the FPGA. \\
 
     In the control room, two additional OptoHybrids v2a were used to collect data through the HDMI cable and count the errors. These values were read out using ChipScope on the two control boards separately from a computer.
 
@@ -169,17 +164,21 @@
 
     Over the duration of the test, the TID of the FPGAs increased, reaching up to 84 kRad. The rad is a unit used to measure the dose absorbed by the object and is a function of the fluence, the flux integrated over time, and the Linear Energy Transfer (LET) which defines the amount of energy transfered to the target according to the type of material. In comparison, the TID recorded by detectors in CMS at the end of Phase 2 is estimated to be of the order of 10 kRad. To accelerate the aging process of the FPGAs and accumulate statistics, both boards were exposed to fluxes up to 10 000 times higher than those that they will have to cope with in the environment of CMS.
 
-  \cite{Bylsma2013242}
-
     \subsection{Evolution of the SEU Cross Section with the Energy}
+
+      The charge that a particle deposits in the FPGA and thus consequently the SEU cross section is a function of the energy. The more charge is deposited, the more the threshold voltage will be affected and thus cause an SEU. The cross section with the configuration memory and the BRAMs were computed from the collected data using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-6-data-seu-energy} displays the interaction cross section of particles with the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM-crop}
-        \caption{Plots of the measured noise (green), measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right with muons.}
+        \caption{Interaction cross section of particles with the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
         \label{fig:II-6-data-seu-energy}
       \end{figure}
+
+      Under 25 MeV, the number of errors is almost null in both the configuration memory and BRAMs with zero errors detected at the lowest energy of 14.4 MeV. At energies between 25 MeV and 40 MeV, correctable errors and single bit flips are detected while critical errors are still rare events. At higher energies, the number of SEUs in the configuration memory keeps increasing to reach 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ at 62 MeV while the error count in the BRAM seems to hit a plateau at 1.02 $ \times $ 10$^{-7}$ cm$^2$. \\
+
+      These results can be compared with tests performed for the electronics of the CSCs \cite{Bylsma2013242} which yield values of 3.7 $ \times $ 10$^{-8}$ cm$^2$ and 5.7 $ \times $ 10$^{-8}$ cm$^2$ for interaction cross section with the CLBs and BRAMs respectively. The discrepancy in the values obtained for the configuration memory and CLBs is due to the limited range
 
     \subsection{Evolution of the SEU Cross Section with the TID}
 
@@ -200,5 +199,8 @@
         \caption{Plots of the measured noise (green), measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right with muons.}
         \label{fig:II-6-data-seu-comp}
       \end{figure}
+
+    \subsection{Impact for the Triple-GEM Upgrade Project}
+
 
   \section{Conclusion}
