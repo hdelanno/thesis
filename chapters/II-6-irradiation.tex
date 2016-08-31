@@ -208,9 +208,24 @@
         \label{fig:II-6-data-seu-comp}
       \end{figure}
 
-      It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 35 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 35 MeV where the slope of the curve quickly rises. 
+      It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 35 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 35 MeV where the slope of the curve quickly rises. The interaction cross section with the BRAM displayed a plateau in the first FPGA, which is seen in the second one also, with the only difference being in the energy at which it appears.
 
     \subsection{Impact for the Triple-GEM Upgrade Project}
+
+      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed during run time in CMS knowing that the maximum flux to which the GE1/1 chambers will be exposed is of 1 kHz cm$^{-2}$. Table \ref{tab:II-6-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS.
+
+      \begin{table}[h!]
+        \begin{tabularx}{\textwidth}{|C{1}|C{1}|C{1}|}
+          \hline Event type & Interaction cross section & Rate in CMS \\ \hline
+          Configuration memory - correctable & 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ &  26 / FPGA / day \\ \hline
+          Configuration memory - uncorrectable & 3.19 $ \times $ 10$^{-8}$ cm$^{2}$ & 3 / FPGA / day \\ \hline
+          BRAM - single bit flip & 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ & 9 / FPGA / day \\ \hline
+          BRAM - double bit flip & 1.71 $ \times $ 10$^{-8}$ cm$^{2}$ & 1 / FPGA / day \\
+          \hline
+        \end{tabularx}
+        \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS.}
+        \label{tab:II-6-seu-rate}
+      \end{table}
 
 
   \section{Conclusion}
