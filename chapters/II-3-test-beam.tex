@@ -132,9 +132,9 @@
         \label{tab:II-3-data-format}
       \end{table}
 
-      \subsection{System Summary}
+    \subsection{System Summary}
 
-        The aim of the OptoHybrid firmware is to provide a communication medium between the VFAT2s and the off-detector electronics and to speed up the calibration routines by implementing them closer to the detector. The developments that have been listed in this chapter are targeted at the OptoHybrid v2a and the configuration of the system ran during the test beams. Modifications have to be brought for the final system although the foundations of the firmware have been solidly laight out.
+      The aim of the OptoHybrid firmware is to provide a communication medium between the VFAT2s and the off-detector electronics and to speed up the calibration routines by implementing them closer to the detector. The developments that have been listed in this chapter are targeted at the OptoHybrid v2a and the configuration of the system ran during the test beams. Modifications have to be brought for the final system although the foundations of the firmware have been solidly laight out.
 
   \section{Architecture of the GLIB Firmware}
 
@@ -340,9 +340,7 @@
         \label{fig:II-3-data-eff-threshold}
       \end{figure}
 
-      It can be seen that at very low thresholds the computed efficiency displays a large error due to the high noise. As the latter decreases with the increase in the threshold, the algorithm computing the real efficiency is able to tighten its limits ultimately providing a computed efficiency close to the measured value. From a threshold value of 15, efficiency starts to slowly drop reaching 90\% at 50. This shows how the threshold cuts the signal while only slightly affecting noise. From these results, the choice to operate the system at a threshold of 25 is validated. Although displaying a slightly lower efficiency, still around 97-98\%, than results at a threshold of 20, the lower noise is non-negligible and reaches a local plateau.
-
-      \todo{Deviation with tracking data}
+      It can be seen that at very low thresholds the computed efficiency displays a large error due to the high noise. As the latter decreases with the increase in the threshold, the algorithm computing the real efficiency is able to tighten its limits ultimately providing a computed efficiency close to the measured value. From a threshold value of 15, efficiency starts to slowly drop reaching 90\% at 50. This shows how the threshold cuts the signal while only slightly affecting noise. From these results, the choice to operate the system at a threshold of 25 is validated. Although displaying a slightly lower efficiency, still around 97-98\%, than results at a threshold of 20, the lower noise is non-negligible and reaches a local plateau. The deviation between the efficiency obtained using the latency scans and the tracking data comes from the higher noise rejection performed when using the latter method in the case of GEM1 which is subject to higher noise.
 
     \subsection{Evolution of the Efficiency with the Particle Rate}
 
@@ -358,8 +356,6 @@
 
       These results support the claim that GEM detectors can sustain rates up to several tens of kHz. When going from 20 kHz to 120 kHz, a drop in efficiency of 1\% is observed for GEM0 and of roughly 2\% for GEM1.
 
-      \todo{Deviation with tracking data}
-
     \subsection{Cluster Multiplicity and Size}
 
       Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of strips per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectively plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. The results have been compared against previous test beam data \cite{Abbaneo:1494965, Abbaneo:1401079} and show good accordance. \\
@@ -373,8 +369,6 @@
       \end{figure}
 
       The cluster multiplicity reflects the number of clusters present in the event, some of which are due to noise other to signal. Its evolution is tightly linked to the evolution of the efficiency as a function of the VFAT2 threshold. It was observed that for threshold values of 25 and 30, the noise and efficiency were only slightly decreasing, while doing so at a faster rate at higher thresholds. This explain the proximity of the points at 25 and 30 for both pions and muons in GEM0 and GEM1. When the threshold is further increased, the effects start to appear, cutting both the noise and the signal. Furthermore, the counting of cluster is not directly affected by the cluster size when the latter is rather small. This means that two clusters of size two are equivalent to two clusters of size one. Even if by increasing the threshold, some strips are being deactivated, other strips in the cluster might still remain active thus leaving the cluster statistic unchanged. When cluster sizes increase too much, clusters start to overlap and the previous assumption becomes invalid. \\
-
-      \todo{Why more clusters with pions}
 
       \begin{figure}[h!]
         \centering
