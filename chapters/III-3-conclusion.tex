@@ -1,4 +1,16 @@
 \chapter{Conclusion}
 \label{chap:III-3-conclusion}
 
-  \todo{Write}
+  In this part, we presented the work performed on the design of two DAQ systems: one controlling a small Triple-GEM prototype which followed the classical rules of DAQ design, and one that made use of novel technologies to create an innovative architecture. \\
+
+    The evolution of the readout system of the 10 cm $ \times $ 10 cm GEM prototype followed the readiness of the hardware components. We first started with a Xilinx development board on which we implemented a Microblaze soft core processor as main control unit. Running custom software, the core interacted with a central computing node to propagate user requests to the front-end electronics. Additionally, a small mezzanine board was created in order to connect to the VFAT2 Hybrids. Although very functional, this system lacked in transfer speed as it used UART to transfer data at a maximum of 1 kHz. \\
+
+    The following generations relied on the GLIB at first, which was then backed up by the GEB and OptoHybrid. Dedicated firmware was design for all components in order to increase the speed of the system up to 1 GHz, the maximum speed of the Ethernet connection between the central node and the system. Furthermore, these setups allowed us to gain experience using the newly created hardware, later on used during test beam campaigns. \\
+
+    All systems described in this chapter follow a classical approach to DAQ system design: the implementation of a star topology using a central node to control the traffic on the network. These systems allow for easy maintenance as all requests transit through a given path. However, this might cause bottlenecks in the architecture and generate system failures.
+
+        Using recent developments in web technologies, we were able to create an innovative data acquisition system architecture which provides higher flexibility and better utilizes the resources of the nodes in the network. Compared to classic designs which use pull/push techniques to transfer data, the new implementation offers event driven interactions, making use of the bandwidth only when necessary. \\
+
+        Besides the increase in speed and optimization, the use of a web-based application offers greater portability on a variety of platforms without the need to maintain code for various systems. \\
+
+        This system is a prove of concept for a new type of data acquisition systems which relies on event based data analysis and control. It has the advantage to offer great flexibility and reduce the complexity of the overall system, while deeply combining the electronics readout and the server providing data.
