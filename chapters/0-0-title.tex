@@ -1,66 +1,83 @@
 % ------------------------------------  --> cover title page
 \begin{titlepage}
-	\pdfbookmark[0]{Cover}{Cover}
 	\flushright
 	\hfill
 	\vfill
-	{\LARGE\thesisTitle \par}
+	{ \LARGE \thesisTitle \par }
 	\rule[5pt]{\textwidth}{.4pt} \par
-	{\Large\thesisName}
+	{ \Large \thesisName }
 	\vfill
-	\textit{\large\thesisDate}
+	\textit{\large \thesisDate}
 \end{titlepage}
-
 
 % ------------------------------------  --> main title page
 \begin{titlepage}
-	\pdfbookmark[0]{Titlepage}{Titlepage}
 	\tgherosfont
 	\centering
 
-	{\Large \thesisUniversity} \\[4mm]
+	{ \Large \thesisUniversity } \\[4mm]
 	\textsf{\thesisUniversityDepartment} \\
 	\textsf{\thesisUniversityInstitute} \\
 
 	\vfill
-	{\large \thesisSubject} \\[5mm]
-	{\LARGE \color{ctcolortitle}\textbf{\thesisTitle} \\[10mm]}
-	{\Large \thesisName} \\
+	{ \large \thesisSubject } \\[5mm]
+	{ \LARGE \color{ctcolortitle} \textbf{\thesisTitle} \\[10mm] }
+	{ \Large \thesisName } \\
 
 	\vfill
-	\begin{minipage}[t]{.27\textwidth}
-		\raggedleft
-		\textit{1. Reviewer}
-	\end{minipage}
-	\hspace*{15pt}
-	\begin{minipage}[t]{.65\textwidth}
-		{\Large \thesisFirstReviewer} \\
-	  	{\small \thesisFirstReviewerDepartment} \\[-1mm]
-		{\small \thesisFirstReviewerUniversity}
-	\end{minipage} \\[5mm]
-	\begin{minipage}[t]{.27\textwidth}
-		\raggedleft
-		\textit{2. Reviewer}
-	\end{minipage}
-	\hspace*{15pt}
-	\begin{minipage}[t]{.65\textwidth}
-		{\Large \thesisSecondReviewer} \\
-	  	{\small \thesisSecondReviewerDepartment} \\[-1mm]
-		{\small \thesisSecondReviewerUniversity}
-	\end{minipage} \\[10mm]
+  \begin{minipage}[t]{.27\textwidth}
+    \raggedleft \hfill
+  \end{minipage}
+  \hspace*{15pt}
+  \begin{minipage}[t]{.65\textwidth}
+    { \small Doctoral examination commission }
+  \end{minipage} \\[3mm]
+  % Supervisor
 	\begin{minipage}[t]{.27\textwidth}
 		\raggedleft
 		\textit{Supervisor}
 	\end{minipage}
 	\hspace*{15pt}
 	\begin{minipage}[t]{.65\textwidth}
-		\thesisFirstSupervisor
+		{ \Large \thesisFirstSupervisor } \\
+    { \small \thesisFirstSupervisorUniversity }
+	\end{minipage} \\[3mm]
+  % Reviewers
+	\begin{minipage}[t]{.27\textwidth}
+		\raggedleft
+		\textit{President}
+	\end{minipage}
+	\hspace*{15pt}
+	\begin{minipage}[t]{.65\textwidth}
+		{ \Large \thesisFirstReviewer } \\
+	  { \small \thesisFirstReviewerUniversity }
+	\end{minipage} \\[3mm]
+	\begin{minipage}[t]{.27\textwidth}
+		\raggedleft
+		\textit{Secretary}
+	\end{minipage}
+	\hspace*{15pt}
+	\begin{minipage}[t]{.65\textwidth}
+		{ \Large \thesisSecondReviewer } \\
+	  { \small \thesisSecondReviewerUniversity }
+	\end{minipage} \\[3mm]
+	\begin{minipage}[t]{.27\textwidth}
+		\raggedleft
+		\textit{Reviewers}
+	\end{minipage}
+	\hspace*{15pt}
+	\begin{minipage}[t]{.65\textwidth}
+		{ \Large \thesisThirdReviewer } \\
+	  { \small \thesisThirdReviewerUniversity } \\[3mm]
+		{ \Large \thesisFourthReviewer } \\
+	  { \small \thesisFourthReviewerUniversity } \\[3mm]
+		{ \Large \thesisFifthReviewer } \\
+	  { \small \thesisFifthReviewerUniversity }
 	\end{minipage} \\[10mm]
 
 	\thesisDate \\
 
 \end{titlepage}
-
 
 % ------------------------------------  --> lower title back for single page layout
 \hfill
@@ -70,7 +87,7 @@
 	\textbf{\thesisName} \\
 	\textit{\thesisTitle} \\
 	\thesisSubject, \thesisDate \\
-	Reviewers: \thesisFirstReviewer\ and \thesisSecondReviewer \\
+	Reviewers: \thesisFirstReviewer,\ \thesisSecondReviewer,\ \thesisThirdReviewer,\ \thesisFourthReviewer,\ and \thesisFifthReviewer \\
 	Supervisor: \thesisFirstSupervisor \\[1.5em]
 	\textbf{\thesisUniversity} \\
 	\thesisUniversityInstitute \\
