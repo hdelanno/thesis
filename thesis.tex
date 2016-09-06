@@ -25,8 +25,8 @@
 % Code
 \usepackage{alltt}
 
-% Todo
-\newcommand{\todo}[1] { { \Large \textcolor{red}{TODO: #1} } \\ }
+% Epigraph
+\usepackage{epigraph}
 
 % Style options
 \input{style}
@@ -45,8 +45,6 @@
 % -- Check acronyms
 % ---- No capitals for nouns
 
-% "we" only in introduction and conclusion of chapters II 3, 4, 5, 6
-
 \begin{document}
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,28 +56,28 @@
   \pagestyle{empty}
 
   % Title
-  \input{chapters/0-0-title}
+  % \input{chapters/0-0-title}
 
   \pagestyle{plain}
 
   % Abstract
-  \input{chapters/0-1-abstract}
-  \addcontentsline{toc}{chapter}{Abstract}
-  \cleardoublepage
+  % \input{chapters/0-1-abstract}
+  % \addcontentsline{toc}{chapter}{Abstract}
+  % \cleardoublepage
 
-  \input{chapters/0-2-resume}
-  \addcontentsline{toc}{chapter}{Résumé}
-  \cleardoublepage
+  % \input{chapters/0-2-resume}
+  % \addcontentsline{toc}{chapter}{Résumé}
+  % \cleardoublepage
 
   % Acknowledgment
-  \input{chapters/0-3-ackowledgments}
-  \addcontentsline{toc}{chapter}{Acknowledgments}
-  \cleardoublepage
+  % \input{chapters/0-3-ackowledgments}
+  % \addcontentsline{toc}{chapter}{Acknowledgments}
+  % \cleardoublepage
 
   % Table of contents
-  \tableofcontents
-  \addcontentsline{toc}{chapter}{Table of Contents}
-  \cleardoublepage
+  % \tableofcontents
+  % \addcontentsline{toc}{chapter}{Table of Contents}
+  % \cleardoublepage
 
   \pagenumbering{arabic}
   \setcounter{page}{1}
@@ -95,56 +93,56 @@
   %% Content chapters          %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \part{An Introduction to Particle Physics} % 32 pages
+  % \part{An Introduction to Particle Physics} % 32 pages
 
-    \input{chapters/I-0-introduction.tex} % T OK
-    \cleardoublepage
+  %   \input{chapters/I-0-introduction.tex} % T OK
+  %   \cleardoublepage
 
-    \input{chapters/I-1-standard-model.tex} % T OK
-    \cleardoublepage
+  %   \input{chapters/I-1-standard-model.tex} % T OK
+  %   \cleardoublepage
 
-    \input{chapters/I-2-lhc.tex} % T OK - G OK
-    \cleardoublepage
+  %   \input{chapters/I-2-lhc.tex} % T OK - G OK
+  %   \cleardoublepage
 
-    \input{chapters/I-3-cms.tex} % T OK
-    \cleardoublepage
+  %   \input{chapters/I-3-cms.tex} % T OK
+  %   \cleardoublepage
 
-  \part{The CMS GEM Upgrade Project} % > 80 pages
+  % \part{The CMS GEM Upgrade Project} % > 80 pages
 
-    \input{chapters/II-0-introduction.tex}
-    \cleardoublepage
+  %   \input{chapters/II-0-introduction.tex}
+  %   \cleardoublepage
 
-    \input{chapters/II-1-gem.tex}
-    \cleardoublepage
+  %   \input{chapters/II-1-gem.tex}
+  %   \cleardoublepage
 
-    \input{chapters/II-2-daq.tex}
-    \cleardoublepage
+  %   \input{chapters/II-2-daq.tex}
+  %   \cleardoublepage
 
-    \input{chapters/II-3-test-beam.tex}
-    \cleardoublepage
+  %   \input{chapters/II-3-test-beam.tex}
+  %   \cleardoublepage
 
-    \input{chapters/II-5-qualification.tex}
-    \cleardoublepage
+  %   \input{chapters/II-5-qualification.tex}
+  %   \cleardoublepage
 
-    \input{chapters/II-6-irradiation.tex}
-    \cleardoublepage
+  %   \input{chapters/II-6-irradiation.tex}
+  %   \cleardoublepage
 
-    \input{chapters/II-7-conclusion.tex}
-    \cleardoublepage
+  % \input{chapters/II-7-conclusion.tex}
+  % \cleardoublepage
 
-  \part{Data Acquisition System Design} % > 26 pages
+  % \part{Data Acquisition System Design} % > 26 pages
 
-    \input{chapters/III-0-introduction.tex}
-    \cleardoublepage
+  %   \input{chapters/III-0-introduction.tex}
+  %   \cleardoublepage
 
-    \input{chapters/III-1-arch.tex}
-    \cleardoublepage
+  %   \input{chapters/III-1-arch.tex}
+  %   \cleardoublepage
 
-    \input{chapters/III-2-web-daq.tex}
-    \cleardoublepage
+  %   \input{chapters/III-2-web-daq.tex}
+  %   \cleardoublepage
 
-    \input{chapters/III-3-conclusion.tex}
-    \cleardoublepage
+  %   \input{chapters/III-3-conclusion.tex}
+  %   \cleardoublepage
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %% Back matter of the thesis %%
@@ -152,28 +150,28 @@
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   % Conclusion
-  \input{chapters/IV-0-conclusion.tex}
-  \addcontentsline{toc}{chapter}{Conclusion}
-  \cleardoublepage
+  % \input{chapters/IV-0-conclusion.tex}
+  % \addcontentsline{toc}{chapter}{Conclusion}
+  % \cleardoublepage
 
   % List of figures
-  \addcontentsline{toc}{chapter}{\listfigurename}
-  \listoffigures
-  \cleardoublepage
+  % \addcontentsline{toc}{chapter}{\listfigurename}
+  % \listoffigures
+  % \cleardoublepage
 
   % List of tables
-  \addcontentsline{toc}{chapter}{\listtablename}
-  \listoftables
-  \cleardoublepage
+  % \addcontentsline{toc}{chapter}{\listtablename}
+  % \listoftables
+  % \cleardoublepage
 
   % List of acronyms
-  \input{chapters/IV-1-acronym.tex}
-  \addcontentsline{toc}{chapter}{List of Acronyms}
-  \cleardoublepage
+  % \input{chapters/IV-1-acronym.tex}
+  % \addcontentsline{toc}{chapter}{List of Acronyms}
+  % \cleardoublepage
 
   % Bibliography
-  \addcontentsline{toc}{chapter}{Bibliography}
-  \printbibliography
-  \cleardoublepage
+  % \addcontentsline{toc}{chapter}{Bibliography}
+  % \printbibliography
+  % \cleardoublepage
 
 \end{document}

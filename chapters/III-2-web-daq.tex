@@ -12,7 +12,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/sp601.jpg}
-      \caption{Photograph of the Xilinx SP601 development board showing the various components: the Spartan-6 FPGA in the middle, the SDRAM on its right, the Ethernet connector and MAC controller in the bottom-left corner, and the FMC connector on the left}
+      \caption{Photograph of the Xilinx SP601 development board showing the various components: the Spartan-6 FPGA in the middle, the SDRAM on its right, the Ethernet connector and MAC controller in the bottom-left corner, and the FMC connector on the left.}
       \label{fig:III-2-sp601}
     \end{figure}
 
@@ -24,7 +24,7 @@
 
     \subsection{The HTTP Standard}
 
-      When an Internet browser pulls a web page from a server, it sends an Hypertext Transfer Protocol (HTTP) request containing the type of request and the path of the page. The type of request defines what the action of the client is. It can be GET, PUT, DELETE, etc which will respectively ask for a specific page, transfer content, delete content, etc. The path on the other hand can be a reference to a file to download or to a script to handle the new data. The request is encoded in ASCII characters and is thus human-readable. Figure \ref{fig:III-2-http} displays an example of HTTP request and response in which the client requests a specific page and the server returns the content of that page. \\
+      When an Internet browser pulls a web page from a server, it sends an Hypertext Transfer Protocol (HTTP) request containing the type of request and the path of the page. The type of request defines what the action of the client is. It can be GET, PUT, DELETE, etc which will respectively ask for a specific page, transfer content, delete content, etc. The path on the other hand can be a reference to a file to download or to a script to handle the new data. The request is encoded in ASCII characters and is thus human-readable. Figure \ref{fig:III-2-http} displays an example of an HTTP request and response in which the client requests a specific page and the server returns the content of that page. \\
 
       \begin{figure}[h!]
         \begin{tabularx}{\textwidth}{C{1}C{1}}
@@ -43,7 +43,7 @@
 \textbf{This is the web application !}
 \end{alltt} }
         \end{tabularx}
-        \caption{}
+        \caption{Transcript of an HTTP request and response in which the client requests a specific page and the server returns the content of that page.}
         \label{fig:III-2-http}
       \end{figure}
 
@@ -79,7 +79,7 @@
 \textcolor{BurntOrange}{Sec-WebSocket-Protocol:} chat
 \end{alltt} }
         \end{tabularx}
-        \caption{}
+        \caption{Transcript of the request and response that are sent during the handshaking procedure of the WebSockets protocol between the client and the server.}
         \label{fig:III-2-websocket}
       \end{figure}
 
@@ -136,7 +136,7 @@
 >> Request: WebSocket Data                   [\textcolor{Red}{Unknown}]
 >> Request: WebSocket Disconnect             [\textcolor{Green}{Bye}]
 \end{alltt}
-      \caption{}
+      \caption{Boot-up sequence of the operating system of the MicroBlaze highlighting the configuration of the various subsystems.}
       \label{fig:III-2-Microblaze}
     \end{figure}
 
@@ -175,7 +175,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/old-sys.png}
-      \caption{System}
+      \caption{Diagram of the architecture used in most DAQ systems in which the whole system relies on the presence of the server which acts as the central node.}
       \label{fig:III-2-system-old}
     \end{figure}
 
@@ -186,7 +186,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/new-sys.png}
-      \caption{System}
+      \caption{Diagram of the new DAQ system which forms a mesh network where every component can directly access all other nodes.}
       \label{fig:III-2-system-new}
     \end{figure}
 
