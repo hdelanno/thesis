@@ -1,0 +1,35 @@
+\chapter{Summary}
+\label{chap:II-7-summary}
+
+The November 2015 test beam campaign has shown that the DAQ system composed of the VFAT2 ASIC, GEB v2, OptoHybrid v2a, and GLIB is able to run flawlessly providing quality data which has been used to compute the noise and efficiency on the system as a function of various parameters. The system is able to handle a superchamber of GE1/1 detectors with ease. \\
+
+The flexible firmware architecture we developed for the OptoHybrid which provides the user with numerous monitoring and control options ran for the duration of the test beam and carried out all required tasks. The wishbone-like communication protocol implemented in the FPGA allows future developments to be easily integrated and modules to communicate with one another. \\
+
+The firmware of the GLIB and the communication through the optical links have ran smoothly showing no errors on the transmitted data. The readout rate was high enough to prevent buffer from overflowing and the data taking has shown to be well integrated with the software. \\
+
+The web application that we designed has been used extensively and is still in use for gain and uniformity studies at CERN. It has proven to be a complete solution to control and monitor the DAQ system allowing users to run all the necessary scans. \\
+
+Finally, we have analyzed the data recorded during the test beam. Threshold scans have shown an elevated noise level which has since then been understood and solved. Using the latency scans and the tracking data, we performed various studies of the noise and efficiency levels against high-voltage, threshold, and particle rates. Our results have been compared to previous test beams and are consistent. An efficiency of 97\% has been obtained and rate capability has been tested up until 120 kHz with a resulting efficiency of 96\%. The analysis we have performed show that the GEM detectors equipped with the DAQ system we have designed meet the requirements of the project regarding the efficiency and the rate capability of the chambers.
+
+
+
+
+
+For the first time, a method was developed to use the VFAT2 capabilities to their full extend by taking advantage of the channel by channel optimization. The procedure is used to detect faulty units and perform qualification tests which results are stored in database for future reference. With this script, the analog front-end of each VFAT2 is entirely characterized which provides information on the effective threshold applied in terms of electrons and thus induced charge. \\
+
+Furthermore, a GEB testing board has been design to test each position on the GEB and detect broken lines. The board relies on an FPGA coupled with an MCU to communicate with the OptoHybrid and test the integrity of the transmitted signals. The results of each test are displayed using on-board LEDs. \\
+
+Finally, the system as a whole is tested using a script which targets specific components of the architectures. Random read/write operations to the GLIB, OptoHybrid, and VFAT2s are performed, tracking data is read out, and stress tests are done to push the system to the limit. \\
+
+These tools are used for the preparation of the slice test to select appropriate components and install testing facilities at CERN and in other associated research laboratories.
+
+
+
+
+To characterize the behavior of the on-detector electronics used for the CMS GEM project when subject to radiation, two OptoHybrid v2a boards were exposed to proton beams during irradiation tests performed at the cyclotron of Louvain-La-Neuve. Custom firmware was developed for the FPGAs in order to compute the interaction cross section with the various components inside the chip and to study the effectiveness of mitigation techniques.  \\
+
+After analysis of the data, we obtained an interaction cross section of 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ and 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ for the configuration memory of the FPGA and the BRAM respectively, the two main sources of errors. When transposed to the environment of CMS, this yields a rate of 27 errors a day and 9 errors a day respectively. These errors can be mitigated using triplication techniques which have proven to be efficient at low particle fluxes. \\
+
+Over the course of the tests, the FPGAs were exposed to a total of 84 kRad, corresponding to a dose 8 times higher than what will be collected during the totality of the LHC Phase 2. We did not observe any increase in the interaction cross section for the components of the FPGAs which continued to function correctly until the end of the tests. \\
+
+From our studies, we conclude that, although subject to SEUs, the FPGAs used in the OptoHybrid design are suitable for the environment of CMS and will survive for the entirety of the Phase 2 run. The mitigation technique that we tested, namely triplication, is a suitable method to mitigate any error in the data accompanied by the use of the SEM core to correct the upsets that modify the configuration of the FPGA.

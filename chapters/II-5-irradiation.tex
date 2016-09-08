@@ -1,5 +1,5 @@
 \chapter{Irradiation Tests}
-\label{chap:II-6-irradiation}
+\label{chap:II-5-irradiation}
 
   The OptoHybrid will be located in a region of CMS exposed to high fluxes of particles, some of which might interact with the FPGA and cause errors in the logic. Those could in turn influence the functioning of the system and degrade its performance. To understand and potentially solve this issue, irradiation tests have been performed to measure the interaction cross-section of the particles with the various components of the FPGA. Two OptoHybrids programmed with a dedicated firmware designed to detect errors have been placed in a high intensity proton beam. The two boards were each controlled by an additional OptoHybrid placed outside the test area which recorded the events and statistics. \\
 
@@ -15,22 +15,22 @@
 
       \begin{figure}[p!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-6-irradiation/clb.png}
+        \includegraphics[width=\textwidth]{img/II-5-irradiation/clb.png}
         \caption{Simplified view of a slice composed of four LUTs on the left and eight registers on the right \cite{VIRTEX-CLB}.}
-        \label{fig:II-6-clb}
+        \label{fig:II-5-clb}
       \end{figure}
 
-      Each CLB is composed of two slices each made of four LUTs and eight register which layout is shown in Figure \ref{fig:II-6-clb}. Each LUT is connected to an input bus of six signals (A, B, C, and D inputs) and to an unbuffered output bus of a single bit (O6 to A, B, C, and D). Four additional signals enter the slice (AX, BX, CX, and DX) and are connected to multiplexers (red) which allows to buffer either the former or the second output of the LUTs (O5). The output of the same buffer is then connected to a second multiplexer (orange) which allows to select either the former or an unbuffered output of the LUTs (AMUX, BMUX, CMUX, and DMUX). Finally, a third multiplexer (green) connects a range of signals to the registers on the right which are then connected to four outputs (AQ, BQ, CQ, and DQ). Three additional multiplexers (blue) offer the possibility to mix the signals from the four LUTs to generate a wider range of logical operations. The flexibility offered by this architecture is what enables FPGAs to implement complex designs. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
+      Each CLB is composed of two slices each made of four LUTs and eight register which layout is shown in Figure \ref{fig:II-5-clb}. Each LUT is connected to an input bus of six signals (A, B, C, and D inputs) and to an unbuffered output bus of a single bit (O6 to A, B, C, and D). Four additional signals enter the slice (AX, BX, CX, and DX) and are connected to multiplexers (red) which allows to buffer either the former or the second output of the LUTs (O5). The output of the same buffer is then connected to a second multiplexer (orange) which allows to select either the former or an unbuffered output of the LUTs (AMUX, BMUX, CMUX, and DMUX). Finally, a third multiplexer (green) connects a range of signals to the registers on the right which are then connected to four outputs (AQ, BQ, CQ, and DQ). Three additional multiplexers (blue) offer the possibility to mix the signals from the four LUTs to generate a wider range of logical operations. The flexibility offered by this architecture is what enables FPGAs to implement complex designs. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
 
     \subsection{The switching matrix}
 
-      The inputs and outputs of the slices of the CLBs as well as of the other components of the FPGA are interconnected through the switching matrix. It is a vast network of wires and switches which are used to route signals between elements. The open or closed state of each switch is programmable and defines the routes signals follow inside the logic. Figure \ref{fig:II-6-switch} shows an element of the matrix connected to two slices (blue) along with the signals that are routed in the network (cyan). Complex designs can span a large area of the FPGA due to the high usage of logic and thus be difficult to place and route by the compiler. A technique called floorplanning is used to reduce compilation time and improve the design by constraining parts of the code to given areas in the FPGA. This reduces propagation delays and logic usage which in turn yield a more efficient design.
+      The inputs and outputs of the slices of the CLBs as well as of the other components of the FPGA are interconnected through the switching matrix. It is a vast network of wires and switches which are used to route signals between elements. The open or closed state of each switch is programmable and defines the routes signals follow inside the logic. Figure \ref{fig:II-5-switch} shows an element of the matrix connected to two slices (blue) along with the signals that are routed in the network (cyan). Complex designs can span a large area of the FPGA due to the high usage of logic and thus be difficult to place and route by the compiler. A technique called floorplanning is used to reduce compilation time and improve the design by constraining parts of the code to given areas in the FPGA. This reduces propagation delays and logic usage which in turn yield a more efficient design.
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.8\textwidth]{img/II-6-irradiation/switch.png}
+        \includegraphics[width=0.8\textwidth]{img/II-5-irradiation/switch.png}
         \caption{Schematic of two slices (blue) connected to an element of the switching matrix which routes the signals (cyan) between components over the multitude of existing paths (gray).}
-        \label{fig:II-6-switch}
+        \label{fig:II-5-switch}
       \end{figure}
 
     \subsection{Block RAM}
@@ -39,13 +39,13 @@
 
     \subsection{Digital Signal Processing}
 
-      Digital Signal Processing units (DSPs) \cite{VIRTEX-DSP} are modules which perform mathematical operations using dedicated hardware elements. They are used to quickly solve problems without relying on CLBs which can consume large amount of resources to perform an equivalent task. Figure \ref{fig:II-6-dsp} shows a diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family. They include a 30-bits adder, a 25-bits by 18-bits multiplier, and a programmable module which can implement either a multiplication, an addition, or a logic operation. Using the various multiplexers and configuration bits, the user can define the data paths that are followed and thus create DSP modules which meet the requirements of the design.
+      Digital Signal Processing units (DSPs) \cite{VIRTEX-DSP} are modules which perform mathematical operations using dedicated hardware elements. They are used to quickly solve problems without relying on CLBs which can consume large amount of resources to perform an equivalent task. Figure \ref{fig:II-5-dsp} shows a diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family. They include a 30-bits adder, a 25-bits by 18-bits multiplier, and a programmable module which can implement either a multiplication, an addition, or a logic operation. Using the various multiplexers and configuration bits, the user can define the data paths that are followed and thus create DSP modules which meet the requirements of the design.
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-6-irradiation/dsp.png}
+        \includegraphics[width=\textwidth]{img/II-5-irradiation/dsp.png}
         \caption{Diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family \cite{VIRTEX-DSP}.}
-        \label{fig:II-6-dsp}
+        \label{fig:II-5-dsp}
       \end{figure}
 
     \subsection{The configuration memory}
@@ -54,13 +54,13 @@
 
   \section{Effects of Radiation on FPGAs and Mitigation Techniques}
 
-    When particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-6-transistor}, the charges can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Ionizing Dose (TID) of radiation which impacts the silicon.
+    When particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-5-transistor}, the charges can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Ionizing Dose (TID) of radiation which impacts the silicon.
 
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=\textwidth]{img/II-6-irradiation/transistor.png}
+      \includegraphics[width=\textwidth]{img/II-5-irradiation/transistor.png}
       \caption{Charge deposition by a charged particle inside a transistor affecting the state of the circuit \cite{XILINX-RADIATION}.}
-      \label{fig:II-6-transistor}
+      \label{fig:II-5-transistor}
     \end{figure}
 
     \subsection{Single Event Upset}
@@ -83,15 +83,15 @@
 
   \section{Firmware Design for the Irradiated FPGA}
 
-    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-6-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green.
+    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-5-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green.
 
     \begin{sidewaysfigure}[p!]
       \centering
-      \includegraphics[width=0.32\textwidth]{img/II-6-irradiation/fpga-empty.png}
-      \includegraphics[width=0.32\textwidth]{img/II-6-irradiation/fpga-used.png}
-      \includegraphics[width=0.32\textwidth]{img/II-6-irradiation/fpga-color.png}
+      \includegraphics[width=0.32\textwidth]{img/II-5-irradiation/fpga-empty.png}
+      \includegraphics[width=0.32\textwidth]{img/II-5-irradiation/fpga-used.png}
+      \includegraphics[width=0.32\textwidth]{img/II-5-irradiation/fpga-color.png}
       \caption{Schematic view of the occupancy of the FPGA. Left: sectors of the FPGA labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green. Middle: highlight of the resources used by the design. Right: occupancy of the code developed to test the CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green.}
-      \label{fig:II-6-floorplanning}
+      \label{fig:II-5-floorplanning}
     \end{sidewaysfigure}
 
     \subsection{Configurable Logic Block}
@@ -126,31 +126,31 @@
 
     \subsection{ChipScope Core}
 
-      The Xilinx Virtex-6 FPGA implements a dedicated core called ChipScope that allows signals to be read out and set from a computer. In firmware, two versions of the core exist: one called Virtual Input/Output (VIO) which connects to signals and allows to modify then or view then in real-time, and one called Integrated Logic Analyzer (ILA) which reads out the signals and provide a view of their evolution over time. In software, control windows can be created to handle those signals as depicted in Figure \ref{fig:II-6-cs-clb} in which the VIO control window is located on the left where signals in blue are those that are read out, and signals in green are those that can be modified, and the ILA monitoring windows in showed on the right. \\
+      The Xilinx Virtex-6 FPGA implements a dedicated core called ChipScope that allows signals to be read out and set from a computer. In firmware, two versions of the core exist: one called Virtual Input/Output (VIO) which connects to signals and allows to modify then or view then in real-time, and one called Integrated Logic Analyzer (ILA) which reads out the signals and provide a view of their evolution over time. In software, control windows can be created to handle those signals as depicted in Figure \ref{fig:II-5-cs-clb} in which the VIO control window is located on the left where signals in blue are those that are read out, and signals in green are those that can be modified, and the ILA monitoring windows in showed on the right. \\
 
       \begin{sidewaysfigure}[p!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-6-irradiation/cs-clb.png}
+        \includegraphics[width=\textwidth]{img/II-5-irradiation/cs-clb.png}
         \caption{View of the interface of ChipScope in which the VIO control window is located on the left where signals in blue are those that are read out, and signals in green are those that can be modified, and the ILA monitoring windows in showed on the right.}
-        \label{fig:II-6-cs-clb}
+        \label{fig:II-5-cs-clb}
       \end{sidewaysfigure}
 
       The VIO window provides an overview of the error counters and allows to reset them individually. It also controls a timer which is used to count the elapsed time and a "reconfiguration needed" signal which indicates that the irradiated FPGA requires a hard reset. The ILA monitor displays the incoming bits and the resulting information. The first bus labeled "HDMI" holds the four bits used to encode the error types which can be seen to transition from 0x0 to 0xF and 0x4. The 0xF signals the beginning of a transmission and the 0x4 indicates a CLB level-1 error which in turn raises one of the error flags. The last four buses are connected to the signals of the SEM core.
 
   \section{Irradiation Setup}
 
-    The irradiation tests were performed at the CYCLONE110 cyclotron at the Université Catholique de Louvain \cite{CYCLOTRON} using a proton beam with energies between 14.4 MeV and 62 MeV. The machine can deliver fluxes up to 2 $ \times $ 10$^8$ particles cm$^{-2}$ s$^{-1}$ with a homogeneity of 10\% within an 80 mm $ \times $ 80 mm beam spot. The top picture in Figure \ref{fig:II-6-cyclotron} is a photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. \\
+    The irradiation tests were performed at the CYCLONE110 cyclotron at the Université Catholique de Louvain \cite{CYCLOTRON} using a proton beam with energies between 14.4 MeV and 62 MeV. The machine can deliver fluxes up to 2 $ \times $ 10$^8$ particles cm$^{-2}$ s$^{-1}$ with a homogeneity of 10\% within an 80 mm $ \times $ 80 mm beam spot. The top picture in Figure \ref{fig:II-5-cyclotron} is a photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. \\
 
     \begin{figure}[p!]
       \centering
-      \includegraphics[width=\textwidth]{img/II-6-irradiation/cyclotron.jpg} \\
+      \includegraphics[width=\textwidth]{img/II-5-irradiation/cyclotron.jpg} \\
       \vspace*{0.4cm}
-      \includegraphics[width=\textwidth]{img/II-6-irradiation/boards.jpg}
+      \includegraphics[width=\textwidth]{img/II-5-irradiation/boards.jpg}
       \caption{Top: photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. Bottom: photograph of the two OptoHybrids being aligned in front of the beam using lasers.}
-      \label{fig:II-6-cyclotron}
+      \label{fig:II-5-cyclotron}
     \end{figure}
 
-    Two OptoHybrids v2a were installed in front of the beam to mimic the setup of a superchamber in CMS. The bottom picture in Figure \ref{fig:II-6-cyclotron} is a photograph of the two boards being aligned in front of the beam using lasers. Next to the low voltage cables required the power the board, two HDMI cables are attached to each OptoHybrid v2a: one used to communicate with the control boards, and one used to send reset signals to the FPGA. \\
+    Two OptoHybrids v2a were installed in front of the beam to mimic the setup of a superchamber in CMS. The bottom picture in Figure \ref{fig:II-5-cyclotron} is a photograph of the two boards being aligned in front of the beam using lasers. Next to the low voltage cables required the power the board, two HDMI cables are attached to each OptoHybrid v2a: one used to communicate with the control boards, and one used to send reset signals to the FPGA. \\
 
     In the control room, two additional OptoHybrids v2a were used to collect data through the HDMI cable and count the errors. These values were read out using ChipScope on the two control boards separately from a computer.
 
@@ -168,14 +168,14 @@
 
     \subsection{Evolution of the SEU Cross Section with the Energy}
 
-      The charge that a particle deposits in the FPGA and thus consequently the SEU cross section is a function of the energy. The more charge is deposited, the more the threshold voltage will be affected and thus cause an SEU. The cross section with the configuration memory and the BRAMs were computed from the collected data using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-6-data-seu-energy} displays the interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
+      The charge that a particle deposits in the FPGA and thus consequently the SEU cross section is a function of the energy. The more charge is deposited, the more the threshold voltage will be affected and thus cause an SEU. The cross section with the configuration memory and the BRAMs were computed from the collected data using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-5-data-seu-energy} displays the interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM-crop}
         \caption{Interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
-        \label{fig:II-6-data-seu-energy}
+        \label{fig:II-5-data-seu-energy}
       \end{figure}
 
       Under 25 MeV, the number of errors is almost null in both the configuration memory and BRAMs with zero errors detected at the lowest energy of 14.4 MeV. At energies between 25 MeV and 40 MeV, correctable errors and single bit flips are detected while critical errors are still rare events. At higher energies, the number of SEUs in the configuration memory keeps increasing to reach 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ at 62 MeV while the error count in the BRAM seems to hit a plateau at 1.02 $ \times $ 10$^{-7}$ cm$^2$. \\
@@ -184,28 +184,28 @@
 
     \subsection{Evolution of the SEU Cross Section with the TID}
 
-      The OptoHybrids were initially exposed to a total of 33 kRad over the course of various tests performed during the first 22h. The remaining two hours were used to irradiate the FPGAs with high fluxes and then perform a data taking run to measure a potential increase in interaction cross section: first three runs that each provided 10 kRad, followed by a run at 20 kRad. Figure \ref{fig:II-6-data-seu-tid} displays the interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
+      The OptoHybrids were initially exposed to a total of 33 kRad over the course of various tests performed during the first 22h. The remaining two hours were used to irradiate the FPGAs with high fluxes and then perform a data taking run to measure a potential increase in interaction cross section: first three runs that each provided 10 kRad, followed by a run at 20 kRad. Figure \ref{fig:II-5-data-seu-tid} displays the interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_BRAM-crop}
         \caption{Interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
-        \label{fig:II-6-data-seu-tid}
+        \label{fig:II-5-data-seu-tid}
       \end{figure}
 
       From these results, no trend indicating an increase of the interaction cross section with the TID has been observed. This means that the FPGA remains operational at radiation doses that exceed those expected at CMS.
 
     \subsection{Comparison of the Two Boards}
 
-      A comparison between the two boards was operated regarding the evolution of the interaction cross section with the energy. A different behavior is expected from the two FPGAs as the first one shields the second one at low energies. As particles pass through the former, they lose energy and might reach the threshold at which no SEU is produced in the latter. Figure \ref{fig:II-6-data-seu-comp} displays the interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in correctable (green and red) errors on the left, and with the BRAMs resulting in single (blue and green) and double (orange and red) bit flips on the right. \\
+      A comparison between the two boards was operated regarding the evolution of the interaction cross section with the energy. A different behavior is expected from the two FPGAs as the first one shields the second one at low energies. As particles pass through the former, they lose energy and might reach the threshold at which no SEU is produced in the latter. Figure \ref{fig:II-5-data-seu-comp} displays the interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in correctable (green and red) errors on the left, and with the BRAMs resulting in single (blue and green) and double (orange and red) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEU_Comp-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM_Comp-crop}
         \caption{Interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in correctable (green and red) errors on the left, and with the BRAMs resulting in single (blue and green) and double (orange and red) bit flips on the right.}
-        \label{fig:II-6-data-seu-comp}
+        \label{fig:II-5-data-seu-comp}
       \end{figure}
 
       It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 35 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 35 MeV where the slope of the curve quickly rises. The interaction cross section with the BRAM displayed a plateau in the first FPGA, which is seen in the second one also, with the only difference being in the energy at which it appears.
@@ -216,20 +216,20 @@
 
     \subsection{Effectiveness of Triplication as Error Mitigation Technique}
 
-      A common method used to mitigate SEUs is to triplicate the logic and perform a majority vote on the outputs. The effectiveness of this method was tested during irradiation at various particle fluxes. For this, two levels of triplication were compared: the level-1 which triplicates a basic algorithm, and the level-2 which triplicates the level-1 modules resulting in a double level of triplication. A failure of the level-1 only indicates that an error was detected in one of the module but corrected by the method. A failure detected at the level-2 is a sign that the triplication failed to correct an error in the system. Using these signals, a failure and success rate can be computed for this technique. Figure \ref{fig:II-6-data-triplication} shows the success (blue) and failure (orange) percentage of the triplication method according to the flux of particles. \\
+      A common method used to mitigate SEUs is to triplicate the logic and perform a majority vote on the outputs. The effectiveness of this method was tested during irradiation at various particle fluxes. For this, two levels of triplication were compared: the level-1 which triplicates a basic algorithm, and the level-2 which triplicates the level-1 modules resulting in a double level of triplication. A failure of the level-1 only indicates that an error was detected in one of the module but corrected by the method. A failure detected at the level-2 is a sign that the triplication failed to correct an error in the system. Using these signals, a failure and success rate can be computed for this technique. Figure \ref{fig:II-5-data-triplication} shows the success (blue) and failure (orange) percentage of the triplication method according to the flux of particles. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/c_l-crop}
         \caption{Success (blue) and failure (orange) percentage of the triplication method according to the flux of particles. }
-        \label{fig:II-6-data-triplication}
+        \label{fig:II-5-data-triplication}
       \end{figure}
 
       As can be observed, the failure rate increases with the particle flux due to the accumulation of errors in the design. The characteristic time needed to correct an error in the configuration memory is of a few milliseconds which at high fluxes is longer than the time between two SEUs. If two SEUs affect the same area of the logic, the triplication method will fail. At fluxes of 5 $ \times $ 10$^8$ cm$^{-2}$ s$^{-1}$, the SEU rate is so high that the triplication method cannot recover data at all. However, by extrapolating the data points to the flux expected in CMS, of the order of 1 kHz cm$^{-2}$, it can be seen that this technique will prove efficient and mitigate all the SEUs.
 
     \subsection{Impact for the Triple-GEM Upgrade Project}
 
-      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed during run time in CMS knowing that the maximum flux to which the GE1/1 chambers will be exposed is of 1 kHz cm$^{-2}$. Table \ref{tab:II-6-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS.
+      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed during run time in CMS knowing that the maximum flux to which the GE1/1 chambers will be exposed is of 1 kHz cm$^{-2}$. Table \ref{tab:II-5-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS.
 
       \begin{table}[h!]
         \begin{tabularx}{\textwidth}{C{1.2}C{1.1}C{0.7}}
@@ -242,7 +242,7 @@
           DSP & 2.04 $ \times $ 10$^{-8}$ cm$^{2}$ & 2 / day \\
         \end{tabularx}
         \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS.}
-        \label{tab:II-6-seu-rate}
+        \label{tab:II-5-seu-rate}
       \end{table}
 
       The correctable errors in the configuration memory and single bit flips occurring in the BRAM do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs. The uncorrectable errors will required a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs.
