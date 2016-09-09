@@ -9,24 +9,22 @@
 % Math
 \usepackage{amsmath, amssymb}
 
+% Color
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+
 % Figure
 \usepackage{graphicx}
 \usepackage{rotating}
+\usepackage{eso-pic}
 
 % Tables
 \usepackage{tabularx}
 \newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}
 \def\arraystretch{1.5}
 
-% Color
-\usepackage{color}
-\usepackage[dvipsnames]{xcolor}
-
 % Code
 \usepackage{alltt}
-
-% Epigraph
-\usepackage{epigraph}
 
 % Style options
 \input{style}
@@ -62,14 +60,14 @@
   \pagestyle{plain}
 
   % Abstract
-  \input{chapters/0-1-abstract}
-  \addcontentsline{toc}{chapter}{Abstract}
-  \cleardoublepage
+  % \input{chapters/0-1-abstract}
+  % \addcontentsline{toc}{chapter}{Abstract}
+  % \cleardoublepage
 
   % Résumé
-  \input{chapters/0-2-resume}
-  \addcontentsline{toc}{chapter}{Résumé}
-  \cleardoublepage
+  % \input{chapters/0-2-resume}
+  % \addcontentsline{toc}{chapter}{Résumé}
+  % \cleardoublepage
 
   % Acknowledgment
   % \input{chapters/0-3-acknowledgments}
