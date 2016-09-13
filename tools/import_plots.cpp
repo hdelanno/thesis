@@ -8,6 +8,7 @@
       if (!cl->InheritsFrom("TCanvas")) continue;
       TCanvas* c = (TCanvas*) key->ReadObj();
       c->SaveAs(".pdf");
+      c->SaveAs(".png");
    }
 
    TFile* f2(TFile::Open("/Users/tlenzi/Documents/PhD/software/Irradiation/plot.root"));
@@ -18,6 +19,7 @@
       if (!cl->InheritsFrom("TCanvas")) continue;
       TCanvas* c = (TCanvas*) key2->ReadObj();
       c->SaveAs(".pdf");
+      c->SaveAs(".png");
    }
 
    return 0;
