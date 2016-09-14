@@ -47,7 +47,7 @@
             \multicolumn{3}{|c|}{CRC} \\ \hline
           \end{tabularx} }
         \end{tabularx}
-        \caption{??}
+        \caption{Format of the tracking data packets sent by the VFAT2s.}
         \label{tab:II-3-vfat2-tk-format}
       \end{table}
 
@@ -66,7 +66,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/i2c.png}
-        \caption{??? \cite{I2C}.}
+        \caption{Data format of an I2C communication \cite{I2C}.}
         \label{fig:II-3-i2c}
       \end{figure}
 
@@ -88,12 +88,12 @@
 
       The link between the OptoHybrid and the off-detector electronics are the optical links from which two are used: one for the trigger data and fast commands, and one for the tracking data and slow control. Each optical fiber is connected to an SFP+ transceiver which contains the Light Emitting Diode (LED) that drives the link. The SFP+ module is in turn connected to a Gigabit Transceiver X (GTX) block inside the FPGA which is a dedicated component that can handle high-speed serial communications.
 
-      \paragraph{The GTX module} is in charge of the serialization/deserialization of high-speed data. A schematic diagram of the functions it provides ir shown in Figure \ref{fig:II-3-gtx}. The GTX handles both the transmission and reception of data. From the FPGA logic, it receives a parallel vector of bits containing the raw data. The raw data enters the Transmit FIFO which acts as a buffer before the Line Encoding module. The latter uses an eight-bit/ten-bit (8b/10b) encoding scheming which is a standard in high-speed communications. 8b/10b encodes every eight bit word on ten bits according to a predefined table. It has the particularity that whatever combination of words might be sent, no more than five successive '0's or '1's will arise in the serial stream. This ensures line balancing: the fact that the electric lines between the GTX and the SFP+ module will remain at an average voltage and not drift to a logic '1' or '0' over time, thus requiring a longer fall or rise time of the signals. 8b/10b also offers a set of K-characters which are unique patterns of bit that can never arise randomly in the stream. Those characters are used to detect the beginning of a frame and allow the receiver to align correctly. Finally, after the encoding of the data frame is done, it is serialized and transmitted to the SFP+ module over differential pairs. \\
+      \paragraph{The GTX module} is in charge of the serialization/deserialization of high-speed data. A schematic diagram of the functions it provides is shown in Figure \ref{fig:II-3-gtx}. The GTX handles both the transmission and reception of data. From the FPGA logic, it receives a parallel vector of bits containing the raw data. The raw data enters the Transmit FIFO which acts as a buffer before the Line Encoding module. The latter uses an eight-bit/ten-bit (8b/10b) encoding scheming which is a standard in high-speed communications. 8b/10b encodes every eight bit word on ten bits according to a predefined table. It has the particularity that whatever combination of words might be sent, no more than five successive '0's or '1's will arise in the serial stream. This ensures line balancing: the fact that the electric lines between the GTX and the SFP+ module will remain at an average voltage and not drift to a logic '1' or '0' over time, thus requiring a longer fall or rise time of the signals. 8b/10b also offers a set of K-characters which are unique patterns of bit that can never arise randomly in the stream. Those characters are used to detect the beginning of a frame and allow the receiver to align correctly. Finally, after the encoding of the data frame is done, it is serialized and transmitted to the SFP+ module over differential pairs. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/gtx.png}
-        \caption{??? \cite{GTX}.}
+        \caption{Functionnal diagram of the Gigabit Transceiver X module used inside the Xilinx Virtex-6 FPGAs for high-speed serial communication \cite{GTX}.}
         \label{fig:II-3-gtx}
       \end{figure}
 
@@ -128,7 +128,7 @@
             CRC \\ \hline
           \end{tabularx} }
         \end{tabularx}
-        \caption{??}
+        \caption{Format of the data packets used to communicate between the GLIB and OptoHybrid.}
         \label{tab:II-3-data-format}
       \end{table}
 
@@ -171,7 +171,7 @@
         \vspace*{0.3cm}
         \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/app-oh.png}
         \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/app-vfat2.png}
-        \caption{???}
+        \caption{Screenshots of the web application used to control and monitor the components of the DAQ system.}
         \label{fig:II-3-app-monitoring}
       \end{figure}
 
@@ -189,7 +189,7 @@
         \centering
         \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/app-t1.png}
         \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/app-i2c.png}
-        \caption{???}
+        \caption{Screenshots of the pages of the web application used to send fast commands (left) and slow control (right) requests to the VFAT2s.}
         \label{fig:II-3-app-control}
       \end{figure}
 
@@ -200,7 +200,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-scan.png}
-        \caption{???}
+        \caption{Screenshot of the page of the web application used to perform calibration scans of the VFAT2s.}
         \label{fig:II-3-app-calibration}
       \end{figure}
 
@@ -211,6 +211,7 @@
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-tk.png}
+        \caption{Screenshot of the page of the web application used to do online data quality monitoring.}
         \caption{???}
         \label{fig:II-3-app-tk}
       \end{figure}
@@ -222,7 +223,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/II-3-test-beam/sps.png}
-      \caption{???}
+      \caption{Monitoring page of the SPS indicating the presence of spills of particles (yellow).}
       \label{fig:II-3-sps}
     \end{figure}
 
@@ -235,7 +236,7 @@
       \begin{figure}[p!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/test-geb.jpg}
-        \caption{???}
+        \caption{Photograph of the GEM detectors used during the test beam and equipped with the full DAQ system.}
         \label{fig:II-3-test-geb}
       \end{figure}
 
@@ -259,7 +260,7 @@
           810 & 4537 & 3807 & 2896 & 2438 & 2084 & 1639 & 931 & 506 \\ \hline
         \end{tabularx}
         }
-        \caption{??}
+        \caption{Values of the voltages applied to the detectors according to the current flowing through the high voltage resistive divider.}
         \label{tab:II-3-test-hv}
       \end{table}
 
@@ -270,7 +271,7 @@
       \begin{sidewaysfigure}[p!]
         \centering
         \includegraphics[width=0.9\textwidth]{img/II-3-test-beam/test-setup.jpg}
-        \caption{???}
+        \caption{Photograph of the two detectors on the left placed in front of the beam transfer tunnel on the right side.}
         \label{fig:II-3-test-setup}
       \end{sidewaysfigure}
 
@@ -340,7 +341,7 @@
         \label{fig:II-3-data-eff-threshold}
       \end{figure}
 
-      It can be seen that at very low thresholds the computed efficiency displays a large error due to the high noise. As the latter decreases with the increase in the threshold, the algorithm computing the real efficiency is able to tighten its limits ultimately providing a computed efficiency close to the measured value. From a threshold value of 15, efficiency starts to slowly drop reaching 90\% at 50. This shows how the threshold cuts the signal while only slightly affecting noise. From these results, the choice to operate the system at a threshold of 25 is validated. Although displaying a slightly lower efficiency, still around 97-98\%, than results at a threshold of 20, the lower noise is non-negligible and reaches a local plateau. The deviation between the efficiency obtained using the latency scans and the tracking data for GEM1 comes from the higher noise to which it is subject. Apart from the requirement that the hits in GEM1 should be within a given windows around the hit in GEM0, no other cut is performed on the data in order to not bias the results. Therefore, the higher noise in GEM1 will artificially increase the efficiency when faking a hit.  
+      It can be seen that at very low thresholds the computed efficiency displays a large error due to the high noise. As the latter decreases with the increase in the threshold, the algorithm computing the real efficiency is able to tighten its limits ultimately providing a computed efficiency close to the measured value. From a threshold value of 15, efficiency starts to slowly drop reaching 90\% at 50. This shows how the threshold cuts the signal while only slightly affecting noise. From these results, the choice to operate the system at a threshold of 25 is validated. Although displaying a slightly lower efficiency, still around 97-98\%, than results at a threshold of 20, the lower noise is non-negligible and reaches a local plateau. The deviation between the efficiency obtained using the latency scans and the tracking data for GEM1 comes from the higher noise to which it is subject. Apart from the requirement that the hits in GEM1 should be within a given windows around the hit in GEM0, no other cut is performed on the data in order to not bias the results. Therefore, the higher noise in GEM1 will artificially increase the efficiency when faking a hit.
 
     \subsection{Evolution of the Efficiency with the Trigger Rate}
 
@@ -350,7 +351,7 @@
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM1-crop}
-        \caption{Plots of the measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the trigger rates for GEM0 on the left and GEM1 on the right with pions}
+        \caption{Plots of the measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the trigger rates for GEM0 on the left and GEM1 on the right with pions.}
         \label{fig:II-3-data-eff-rate}
       \end{figure}
 
@@ -426,7 +427,7 @@
           \multicolumn{2}{|c|}{Response data} \\ \hline
         \end{tabularx} }
       \end{tabularx}
-      \caption{??}
+      \caption{Data format of the packets sent between the off-detector and on-detector electronics over the GBT link.}
       \label{tab:II-3-gbt-format}
     \end{table}
 
