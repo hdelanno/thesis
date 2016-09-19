@@ -32,9 +32,9 @@
         \label{fig:II-4-adc}
       \end{figure}
 
-      All but one of the current based registers are related to the amplification and shaping of the analog signal. They power the front-end and are used to define the length of the tail of the signal shape, the rise time of the distribution, etc. The remaining register, IComp, defines the amount of current delivered to the comparator which in turn influences the response time of the later. These parameters are set to default values provided by the reference manual of the VFAT2. \\
+      All but one of the current based registers are related to the amplification and shaping of the analog signal. They power the front-end and are used to define the length of the tail of the signal shape, the rise time of the distribution, etc. The remaining register, IComp, defines the amount of current delivered to the comparator which in turn influences the response time of the latter. These parameters are set to default values provided by the reference manual of the VFAT2. \\
 
-      The voltage base registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels. Figure \ref{fig:II-4-injection} shows a diagram of the injection and calibration circuit of the VFAT2. The amplitude of the calibration pulse is equal to the difference between VBaseline which has a fixed value and VLow which is programmable. The output pulse is sent to one channel over a capacitor of 100 fF resulting in a pulse amplitude in term of charge of
+      The voltage based registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels. Figure \ref{fig:II-4-injection} shows a diagram of the injection and calibration circuit of the VFAT2. The amplitude of the calibration pulse is equal to the difference between VBaseline which has a fixed value and VLow which is programmable. The output pulse is sent to one channel over a capacitor of 100 fF resulting in a pulse amplitude in term of charge of
       \begin{equation}
         Q = 100 \ \text{fF} \times \left(\text{VBaseline} - \text{VLow} \right) .
       \end{equation}
@@ -71,11 +71,11 @@
         \label{fig:II-4-scurves}
       \end{figure}
 
-      Using these results, the threshold value applied on the strips can be converted to a charge, which is of important to compute the equivalent noise charge of the system. This is the amplitude of the noise in terms of electrons, which can easily be compared to the signal induced by the particles which is often expressed in fentocoulombs. The results presented here above are in agreement with those obtained during the initial qualification of the VFAT2 \cite{Aspell:1267947} both displaying a charge range of -2 fC to 18 fC.
+      Using these results, the threshold value applied on the strips can be converted to a charge, which is of importance to compute the equivalent noise charge of the system. This is the amplitude of the noise in terms of electrons, which can easily be compared to the signal induced by the particles which is often expressed in fentocoulombs. The results presented here above are in agreement with those obtained during the initial qualification of the VFAT2 \cite{Aspell:1267947} both displaying a charge range of -2 fC to 18 fC.
 
     \subsection{Front-end equalization}
 
-      The results obtained in the previous procedures were values averaged on all the strips. However, channels display a dispersion around the central value which induces a bias as the effective threshold is not constant across the chip. To eliminate this effect, it is possible to equalize the response of the front-end by using channel by channel programmable registers. Each of them is equipped with a programmable register which adjusts the threshold value slightly. The equalization procedure used to align the front-ends starts by applying a given value to the common threshold register and sets all channel registers to zero. It then performs s-curve scans for each channel. The operation is repeated but with the channel registers set to their maximum value. Figure \ref{fig:II-4-trim} plots the s-curve scans for each channel with the minimum value of the channel registers on the left and the maximum value on the right. The two plots obtained this way are very similar with only the turn-on value changing. \\
+      The results obtained in the previous procedures were values averaged on all the strips. However, channels display a dispersion around the central value which induces a bias as the effective threshold is not constant across the chip. To eliminate this effect, it is possible to equalize the response of the front-end by using channel by channel programmable registers. Each of them is equipped with a programmable register which slightly adjusts the threshold value. The equalization procedure used to align the front-ends starts by applying a given value to the common threshold register and sets all channel registers to zero. It then performs s-curve scans for each channel. The operation is repeated but with the channel registers set to their maximum value. Figure \ref{fig:II-4-trim} plots the s-curve scans for each channel with the minimum value of the channel registers on the left and the maximum value on the right. The two plots obtained this way are very similar with only the turn-on value changing. \\
 
       \begin{figure}[h!]
         \centering
@@ -103,7 +103,7 @@
 
     \subsection{The GEB Testing Board}
 
-      The PCB is a four layer board equipped with an FPGA and microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-4-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a digital-to-analog converter (DAC), a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA through serial peripheral interface bus (SPI), and powering options.
+      The PCB is a four layer board equipped with an FPGA and a microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-4-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a digital-to-analog converter (DAC), a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA through serial peripheral interface bus (SPI), and powering options.
 
       \begin{figure}[h!]
         \centering
@@ -118,7 +118,7 @@
 
       \paragraph{Powering of the board} is done either through the GEB connector which provides 2.5 V to the system or through the USB port. In case USB is used, the GEB power source is automatically disabled and 3.3 V is given to the system to increase processing speed. The 2.5 V or 3.3 V are further used to generate the 1.2 V required for the internal logic of the FPGA.
 
-      \paragraph{The processing units} of the board, namely the Xilinx Spartan-6 FPGA (XC6SLX9-2TQG144C) and the ATMEL MCU (ATmega164PA), are what control the various components. The FPGA is the main element of the board and is connected to all other chips. It can either control them directly or act as a router for the signals originating from the MCU. The communication between the two processing units is done four serial buses: two universal asynchronous receiver/transmitter (UART), one SPI, and one bus composed of four GPIOs. Next to the links to the FPGA, the remaining 16 IOs of the MCU are broken out on header connectors for debugging purposes. The same is done for 22 IOs of the FPGA which are connected to headers.
+      \paragraph{The processing units} of the board, namely the Xilinx Spartan-6 FPGA (XC6SLX9-2TQG144C) and the ATMEL MCU (ATmega164PA), are what controls the various components. The FPGA is the main element of the board and is connected to all other chips. It can either control them directly or act as a router for the signals originating from the MCU. The communication between the two processing units is done four serial buses: two universal asynchronous receiver/transmitter (UART), one SPI, and one bus composed of four GPIOs. Next to the links to the FPGA, the remaining 16 IOs of the MCU are broken out on header connectors for debugging purposes. The same is done for 22 IOs of the FPGA which are connected to headers.
 
       \paragraph{The GEB connector} holds 30 digital signals, 2 analog signals, and power and ground lines. The digital signals are all connected to the FPGA while the two analog signals are connected to the DAC.
 
@@ -132,7 +132,7 @@
 
       To test the GEB positions, the OptoHybrid is used to generate a pseudorandom binary sequence (PRBS) and transmit it over the data lines along with a reference clock. PRBS is often used to detect errors on communication lines including optical fibers. It relies on a sequence of bits to compute the next bit in the stream. A vector of bits is loaded in shift registers and is moved by one position every clock cycle. The overflowing position in transmitted on the line while the entering position is computed by summing the data stored in given positions. PRBS-7, for example, uses 7-bit-long vectors and computes the new element with
       \begin{equation}
-        x_0 = x_6 XOR x_5 AND 1
+        x_0 = x_6 \oplus x_5 & x_1
       \end{equation}
       which yields a repetition period of pattern of 127 clock cycles. \\
 
@@ -142,9 +142,9 @@
 
   \section{Qualification of the System}
 
-    The final qualification procedure developed aims at testing the system in its entirety. Figure \ref{fig:II-4-script} provides a screen shot of the output of the script. The latter first attempts to establish communication with the GLIB and the OptoHybrid in section A and B. It then performs a series of read/write operations on the registers ensuring that every request receives a response in section C and D. Once the tests on the GLIB and OptoHybrid are done, the script detects all present VFAT2s in section E through I2C requests. Using these, random read/write operation are made on the registers of the VFAT2s in section F to test the reliability of the communication. Afterwards, in section G, chips are turned on one by one and tracking data is read out. The script verifies that the counters add up and that the data is not corrupted. Then, it performs the same action with all VFAT2s active at the same time in section H. The last test performed using the VFAT2s, in section I, is the maximum readout rate that can be achieved by the system. Finally, section J looks at the error rate on the optical links to ensure no errors appear on the communication lines. \\
+    The final qualification procedure developed aims at testing the system in its entirety. Figure \ref{fig:II-4-script} provides a screen shot of the output of the script. The latter first attempts to establish communication with the GLIB/CTP7 and the OptoHybrid in section A and B. It then performs a series of read/write operations on the registers ensuring that every request receives a response in section C and D. Once the tests on the GLIB/CTP7 and OptoHybrid are done, the script detects all present VFAT2s in section E through I2C requests. Using these, random read/write operation are made on the registers of the VFAT2s in section F to test the reliability of the communication. Afterwards, in section G, chips are turned on one by one and tracking data is read out. The script verifies that the counters add up and that the data is not corrupted. Then, it performs the same action with all VFAT2s active at the same time in section H. The last test performed using the VFAT2s, in section I, is the maximum readout rate that can be achieved by the system. Finally, section J looks at the error rate on the optical links to ensure no errors appear on the communication lines. \\
 
-    This test is used to test the system configuration and ensure that every component is configured correctly. It can detect errors at any level of the system, from the VFAT2s to the GLIB.
+    This test is used to test the system configuration and ensure that every component is configured correctly. It can detect errors at any level of the system, from the VFAT2s to the GLIB/CTP7.
 
     \begin{figure}[p!]
       { \footnotesize
@@ -211,10 +211,10 @@ K. Results
 
   \section{Conclusion}
 
-    For the first time, a method was developed to use the VFAT2 capabilities to their full extend by taking advantage of the channel by channel optimization. The procedure we designed is used to detect faulty units and perform qualification tests which results are stored in database for future reference. With this script, the analog front-end of each VFAT2 is entirely characterized which provides information on the effective threshold applied in terms of electrons and thus induced charge. \\
+    For the first time, a method was developed to use the VFAT2 capabilities to their full extend by taking advantage of the channel by channel optimization. The procedure we designed is used to detect faulty units and perform qualification tests which results are stored in database for future reference. With this script, the analog front-end of each VFAT2 is entirely characterized, which provides information on the effective threshold applied in terms of electrons and thus induced charge. \\
 
     Furthermore, we designed a GEB testing board to test each position on the GEB and detect broken lines. The board relies on an FPGA coupled with an MCU to communicate with the OptoHybrid and test the integrity of the transmitted signals. The results of each test are displayed using on-board LEDs. \\
 
-    Finally, we tested the system as a whole using a script which targets specific components of the architectures. Random read/write operations to the GLIB, OptoHybrid, and VFAT2s are performed, tracking data is read out, and stress tests are done to push the system to the limit. \\
+    Finally, we tested the system as a whole using a script which targets specific components of the architectures. Random read/write operations to the GLIB/CTP7, OptoHybrid, and VFAT2s are performed, tracking data is read out, and stress tests are done to push the system to the limit. \\
 
     These tools are used for the preparation of the slice test to select appropriate components and install testing facilities at CERN and in other associated research laboratories.

@@ -1,7 +1,7 @@
 \chapter{Irradiation Tests}
 \label{chap:II-5-irradiation}
 
-  The OptoHybrid will be located in a region of CMS exposed to high fluxes of particles, some of which might interact with the FPGA and cause errors in the logic. Those could in turn influence the functioning of the system and degrade its performance. To understand and potentially solve this issue, irradiation tests have been performed to measure the interaction cross-section of the particles with the various components of the FPGA. Two OptoHybrids programmed with a dedicated firmware designed to detect errors have been placed in a high intensity proton beam. The two boards were each controlled by an additional OptoHybrid placed outside the test area which recorded the events and statistics. \\
+  The OptoHybrid will be located in a region of CMS exposed to high fluxes of particles, some of which might interact with the FPGA and cause errors in the logic. Those could in turn influence the functioning of the system and degrade its performance. To understand and potentially solve this issue, irradiation tests have been performed to measure the interaction cross section of the particles with the various components of the FPGA. Two OptoHybrids v2a programmed with a dedicated firmware designed to detect errors have been placed in a high intensity proton beam. The two boards were each controlled by an additional OptoHybrid placed outside the test area which recorded the events and statistics. \\
 
   In this chapter, we provide the user with an overview of the internal architecture of an FPGA to better understand the potential sources of errors and the effects of radiation. We then describe the firmware of the irradiated and control FPGAs which has been used during the test. The setup and beam parameters of the irradiation test are reviewed before presenting the results that were obtained after analysis.
 
@@ -11,7 +11,7 @@
 
     \subsection{Configurable Logic Blocks}
 
-      Configurable Logic Blocks (CLBs) \cite{VIRTEX-CLB} are the building blocks of the FPGA used to implement sequential and combinatorial logic. They are composed of two important objects: Look-Up Tables (LUTs) and registers. LUTs are components which outputs are a function of the inputs as defined in a programmable table. They implement a truth table for every possible combination of the inputs which defines the value of the outputs. The response of a LUT to a change in the inputs is almost instantaneous. LUTs in the Xilinx Virtex-6 FPGAs can either implement functions with six inputs and a single output or functions with five inputs and two outputs. The outputs of the LUTs can, if so required by the design, be connect to registers which sample the signals at the rising edge of a given clock. Register are used for their sample-and-hold functionality which makes designs synchronous to clocks. With these two components, CLBs can implement complex functions and describe intricate systems. \\
+      Configurable Logic Blocks (CLBs) \cite{VIRTEX-CLB} are the building blocks of the FPGA used to implement sequential and combinatorial logic. They are composed of two important objects: Look-Up Tables (LUTs) and registers. LUTs are components which outputs are a function of the inputs as defined in a programmable table. They implement a truth table for every possible combination of the inputs which defines the value of the outputs. The response of a LUT to a change in the inputs is almost instantaneous. LUTs in the Xilinx Virtex-6 FPGAs can either implement functions with six inputs and a single output or functions with five inputs and two outputs. The outputs of the LUTs can, if so required by the design, be connect to registers which sample the signals at the rising edge of a given clock. Registers are used for their sample-and-hold functionality which makes designs synchronous to clocks. With these two components, CLBs can implement complex functions and describe intricate systems. \\
 
       \begin{figure}[p!]
         \centering
@@ -20,7 +20,7 @@
         \label{fig:II-5-clb}
       \end{figure}
 
-      Each CLB is composed of two slices each made of four LUTs and eight register which layout is shown in Figure \ref{fig:II-5-clb}. Each LUT is connected to an input bus of six signals (A, B, C, and D inputs) and to an unbuffered output bus of a single bit (O6 to A, B, C, and D). Four additional signals enter the slice (AX, BX, CX, and DX) and are connected to multiplexers (red) which allows to buffer either the former or the second output of the LUTs (O5). The output of the same buffer is then connected to a second multiplexer (orange) which allows to select either the former or an unbuffered output of the LUTs (AMUX, BMUX, CMUX, and DMUX). Finally, a third multiplexer (green) connects a range of signals to the registers on the right which are then connected to four outputs (AQ, BQ, CQ, and DQ). Three additional multiplexers (blue) offer the possibility to mix the signals from the four LUTs to generate a wider range of logical operations. The flexibility offered by this architecture is what enables FPGAs to implement complex designs. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
+      Each CLB is composed of two slices each made of four LUTs and eight registers which layout is shown in Figure \ref{fig:II-5-clb}. Each LUT is connected to an input bus of six signals (A, B, C, and D inputs) and to an unbuffered output bus of a single bit (O6 to A, B, C, and D). Four additional signals enter the slice (AX, BX, CX, and DX) and are connected to multiplexers (red) which allows to buffer either the former or the second output of the LUTs (O5). The output of the same buffer is then connected to a second multiplexer (orange) which allows to select either the former or an unbuffered output of the LUTs (AMUX, BMUX, CMUX, and DMUX). Finally, a third multiplexer (green) connects a range of signals to the registers on the right which are then connected to four outputs (AQ, BQ, CQ, and DQ). Three additional multiplexers (blue) offer the possibility to mix the signals from the four LUTs to generate a wider range of logical operations. The flexibility offered by this architecture is what enables FPGAs to implement complex designs. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
 
     \subsection{The switching matrix}
 
@@ -50,11 +50,11 @@
 
     \subsection{The configuration memory}
 
-      The configuration memory holds the configuration of the entire FPGA and defines its behavior. It sets the truth table of the LUTs, parametrizes the DSP, creates the connection between elements, etc. It is what implements the design in the FPGA. In most FPGAs, the configuration memory is volatile and will lose its configuration upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank or corrupted state if it fails to do so.
+      The configuration memory holds the configuration of the entire FPGA and defines its behavior. It sets the truth table of the LUTs, parametrizes the DSP, creates the connection between elements, etc. It is what implements the design in the FPGA. In most FPGAs, the configuration memory is volatile and will lose its content upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank or corrupted state if it fails to do so.
 
   \section{Effects of Radiation on FPGAs and Mitigation Techniques}
 
-    When particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-5-transistor}, the charges can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Ionizing Dose (TID) of radiation which impacts the silicon.
+    When particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-5-transistor}, the charge can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Ionizing Dose (TID) of radiation which impacts the silicon.
 
     \begin{figure}[h!]
       \centering
@@ -83,7 +83,7 @@
 
   \section{Firmware Design for the Irradiated FPGA}
 
-    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-5-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green.
+    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-5-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green. The sampling rate of the various error detection tools is of 40 MHz.
 
     \begin{sidewaysfigure}[p!]
       \centering
@@ -139,7 +139,7 @@
 
   \section{Irradiation Setup}
 
-    The irradiation tests were performed at the CYCLONE110 cyclotron at the Université Catholique de Louvain \cite{CYCLOTRON} using a proton beam with energies between 14.4 MeV and 62 MeV. The machine can deliver fluxes up to 2 $ \times $ 10$^8$ particles cm$^{-2}$ s$^{-1}$ with a homogeneity of 10\% within an 80 mm $ \times $ 80 mm beam spot. The top picture in Figure \ref{fig:II-5-cyclotron} is a photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. \\
+    The irradiation tests were performed at the CYCLONE110 cyclotron at the Université Catholique de Louvain \cite{CYCLOTRON} using a proton beam with energies between 14.4 MeV and 62 MeV. The machine can deliver fluxes up to 2 $ \times $ 10$^8$ particles cm$^{-2}$ s$^{-1}$ with a homogeneity of 10\% within an 80 mm of diameter beam spot. The top picture in Figure \ref{fig:II-5-cyclotron} is a photograph of the beam line delivering the protons in the irradiation area in front of which degraders can be placed in order to change the energy of the particles. The FPGA was the only component on the OptoHybrid to be directly exposed to the beam. \\
 
     \begin{figure}[p!]
       \centering
@@ -156,13 +156,13 @@
 
   \section{Data Analysis}
 
-    The parameters of the beam and disposition of the setup allowed for the study of the dependence of the SEU cross-section with the energy, TID, and placement of the boards. The number of SEUs was recorded for various energies and fluxes of particles over the course of 24 hours. For every case, the cross section was computed from the counters as being
+    The parameters of the beam and disposition of the setup allowed for the study of the dependence of the SEU cross section with the energy, TID, and placement of the boards. The number of SEUs was recorded for various energies and fluxes of particles over the course of 24 hours. For every case, the cross section was computed from the counters as being
     \begin{equation}
-        \sigma = \frac{N \phi}{t} ,
+        \sigma = \frac{N}{\phi t} ,
     \end{equation}
     where $ N $ is the number of recorded SEUs, $ t $ is the duration of the test, and $ \phi $ is the flux of particles. \\
 
-    Over the duration of the test, the TID of the FPGAs increased, reaching up to 84 kRad. The rad is a unit used to measure the dose absorbed by the object and is a function of the fluence, the flux integrated over time, and the Linear Energy Transfer (LET) which defines the amount of energy transfered to the target according to the type of material. In comparison, the TID recorded by detectors in CMS at the end of Phase 2 is estimated to be of the order of 10 kRad. To accelerate the aging process of the FPGAs and accumulate statistics, both boards were exposed to fluxes up to 10 000 times higher than those that they will have to cope with in the environment of CMS. \\
+    Over the duration of the test, the TID of the FPGAs increased, reaching up to 84 kRad. The rad is a unit used to measure the dose absorbed by the object and is a function of the fluence, which is the flux integrated over time, and the Linear Energy Transfer (LET), which defines the amount of energy transfered to the target according to the type of material. In comparison, the TID recorded by detectors in CMS at the end of Phase 2 is estimated to be of the order of 10 kRad. To accelerate the aging process of the FPGAs and accumulate statistics, both boards were exposed to fluxes up to 10 000 times higher than those that they will have to cope with in the environment of CMS. \\
 
     Finally, from the error counting in the CLBs and the two triplication levels, it is possible to extract the effectiveness of this method as error mitigation technique.
 
@@ -208,7 +208,7 @@
         \label{fig:II-5-data-seu-comp}
       \end{figure}
 
-      It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 35 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 35 MeV where the slope of the curve quickly rises. The interaction cross section with the BRAM displayed a plateau in the first FPGA, which is seen in the second one also, with the only difference being in the energy at which it appears.
+      It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 35 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 35 MeV where the slope of the curve quickly rises. The interaction cross section with the BRAM displayed a plateau in the first FPGA, which is also seen in the second one, with the only difference being in the energy at which it appears.
 
     \subsection{Interaction with the CLBs and DSPs}
 
@@ -216,12 +216,12 @@
 
     \subsection{Effectiveness of Triplication as Error Mitigation Technique}
 
-      A common method used to mitigate SEUs is to triplicate the logic and perform a majority vote on the outputs. The effectiveness of this method was tested during irradiation at various particle fluxes. For this, two levels of triplication were compared: the level-1 which triplicates a basic algorithm, and the level-2 which triplicates the level-1 modules resulting in a double level of triplication. A failure of the level-1 only indicates that an error was detected in one of the module but corrected by the method. A failure detected at the level-2 is a sign that the triplication failed to correct an error in the system. Using these signals, a failure and success rate can be computed for this technique. Figure \ref{fig:II-5-data-triplication} shows the success (blue) and failure (orange) percentage of the triplication method according to the flux of particles. \\
+      A common method used to mitigate SEUs is to triplicate the logic and perform a majority vote on the outputs. The effectiveness of this method was tested during irradiation at various particle fluxes. For this, two levels of triplication were compared: the level-1 which triplicates a basic algorithm, and the level-2 which triplicates the level-1 modules resulting in a double level of triplication. A failure of the level-1 only indicates that an error was detected in one of the module but corrected by the method. A failure detected at the level-2 is a sign that the triplication failed to correct an error in the system. Using these signals, a failure and success rate can be computed for this technique. Figure \ref{fig:II-5-data-triplication} shows the success (blue) and failure (orange) percentage of the triplication method according to the flux of particles when an SEU appears. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/c_l-crop}
-        \caption{Success (blue) and failure (orange) percentage of the triplication method according to the flux of particles. }
+        \caption{Success (blue) and failure (orange) percentage of the triplication method according to the flux of particles when an SEU appears. }
         \label{fig:II-5-data-triplication}
       \end{figure}
 
@@ -229,7 +229,7 @@
 
     \subsection{Impact for the Triple-GEM Upgrade Project}
 
-      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed during run time in CMS knowing that the maximum flux to which the GE1/1 chambers will be exposed is of 1 kHz cm$^{-2}$. Table \ref{tab:II-5-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS.
+      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed during run time in CMS knowing that the maximum flux to which the GE1/1 chambers will be exposed is of 1 kHz cm$^{-2}$. Table \ref{tab:II-5-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA. \\
 
       \begin{table}[h!]
         \begin{tabularx}{\textwidth}{C{1.2}C{1.1}C{0.7}}
@@ -241,17 +241,19 @@
           CLB & 2.88 $ \times $ 10$^{-7}$ cm$^{2}$ & 25 / day \\
           DSP & 2.04 $ \times $ 10$^{-8}$ cm$^{2}$ & 2 / day \\
         \end{tabularx}
-        \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS.}
+        \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA.}
         \label{tab:II-5-seu-rate}
       \end{table}
 
-      The correctable errors in the configuration memory and single bit flips occurring in the BRAM do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs. The uncorrectable errors will required a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs.
+      The correctable errors in the configuration memory and single bit flips occurring in the BRAM do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs. The uncorrectable errors will required a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs. \\
+
+      The presented results are upper limits on the SEU cross section for an FPGA which resources are fully used. The firmware of the OptoHybrid v2a used for the DAQ system occupies 36\% of the CLBs and 3\% of the BRAMs. This means that the cross section of SEUs that will effectively impact the functioning of the design will be reduced by a factor of 3 for the CLBs and 33 for the BRAMs.
 
   \section{Conclusion}
 
     To characterize the behavior of the on-detector electronics used for the CMS GEM project when subject to radiation, two OptoHybrid v2a boards were exposed to proton beams during irradiation tests performed at the cyclotron of Louvain-La-Neuve. Custom firmware was developed for the FPGAs in order to compute the interaction cross section with the various components inside the chip and to study the effectiveness of mitigation techniques.  \\
 
-    After analysis of the data, we obtained an interaction cross section of 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ and 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ for the configuration memory of the FPGA and the BRAM respectively, the two main sources of errors. When transposed to the environment of CMS, this yields a rate of 27 errors a day and 9 errors a day respectively. These errors can be mitigated using triplication techniques which have proven to be efficient at low particle fluxes. \\
+    After analysis of the data, we obtained an interaction cross section of 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ and 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ for the configuration memory of the FPGA and the BRAM respectively, the two main sources of errors. When transposed to the environment of CMS, this yields a rate of 27 errors a day and 9 errors a day per FPGA respectively. These errors can be mitigated using triplication techniques which have proven to be efficient at low particle fluxes. \\
 
     Over the course of the tests, the FPGAs were exposed to a total of 84 kRad, corresponding to a dose 8 times higher than what will be collected during the totality of the LHC Phase 2. We did not observe any increase in the interaction cross section for the components of the FPGAs which continued to function correctly until the end of the tests. \\
 
