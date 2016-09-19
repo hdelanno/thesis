@@ -132,7 +132,7 @@
 
       To test the GEB positions, the OptoHybrid is used to generate a pseudorandom binary sequence (PRBS) and transmit it over the data lines along with a reference clock. PRBS is often used to detect errors on communication lines including optical fibers. It relies on a sequence of bits to compute the next bit in the stream. A vector of bits is loaded in shift registers and is moved by one position every clock cycle. The overflowing position in transmitted on the line while the entering position is computed by summing the data stored in given positions. PRBS-7, for example, uses 7-bit-long vectors and computes the new element with
       \begin{equation}
-        x_0 = x_6 \oplus x_5 & x_1
+        x_0 = x_6 \oplus x_5 \& x_1
       \end{equation}
       which yields a repetition period of pattern of 127 clock cycles. \\
 
