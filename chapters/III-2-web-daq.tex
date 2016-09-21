@@ -49,7 +49,7 @@
 
       After analyzing the HTTP request, the server performs the desired operation and returns a status code, information headers, and optionally data. The status codes are defined in the HTTP standard: 200 means the operation was successful, 404 means that the request file is missing, 500 means the server encountered an error, etc. The additional headers contain information regarding the type of content that is returned (text, image, etc), the encoding of the data, the data size, etc. Finally, the response ends with the raw data. \\
 
-      To each request, a single response is provided by the server. Moreover, the server does not initiate requests, meaning the communication has to be started by the client. The server can not push data to the client, but only provided data when probed (pulled).
+      To each request, a single response is provided by the server. Moreover, the server does not initiate requests, meaning the communication has to be started by the client; the server can not push data to the client, but only provided data when probed (pulled).
 
     \subsection{The WebSockets Protocol}
 
@@ -87,13 +87,13 @@
 
       The server on the Microblaze processor handles both HTTP and WebSocket requests, differentiating them using the HTTP header as selection criteria. It them forwards them to two dedicated functions according to the type of request. \\
 
-      For HTTP requests, the headers are extracted along with the type and path. Only GET requests need to be handled in this application, corresponding to the download of resources: web page, image, etc. In case the requested path is valid, the file is retrieved from memory and sent back to the user. Otherwise, an error 404 is generated to inform the user that the resource is not available. In normal operation mode, the client connects once to the server over HTTP to download the application and then switches over to WebSocket communication. The switching is done through code present in the application that is executed by the client in JavaScript. \\
+      For HTTP requests, the headers are extracted along with the type and path. Only GET requests need to be handled in this application, corresponding to the download of resources: web page, image, etc. In case the requested path is valid, the file is retrieved from memory and sent back to the user. Otherwise, an error 404 is generated to inform the user that the resource is not available. In normal operation mode, the client connects once to the server over HTTP to download the application and then switches over to WebSocket communication. The switching is done through JavaScript code present in the application that is executed by the client. \\
 
       Once the application is downloaded, the connection with the server over WebSockets is established automatically. The server registers the client and real-time communication between parties can begin.
 
     \subsection{The TCPSockets Implementation}
 
-      Although WebSockets provide an implementation of sockets in the web browser, they also define a format for the data that is being transmitted. This limits the field of application to the connection between a WebSockets client and server. A more generic approach uses the TCPSockets, a raw implementation of sockets in the web browser which is still in experimental phase. This technology enables the connection between any systems that support TCP sockets, including databases. A direct communication between the client and the database can thus be establishes in order to retrieve stored data, effectively by passing the need for an intermediary server.
+      Although WebSockets provide an implementation of sockets in the web browser, they also define a format for the data that is being transmitted. This limits the field of application to the connection between a WebSockets client and server. A more generic approach uses the TCPSockets, a raw implementation of sockets in the web browser which is still in experimental phase. This technology enables the connection between any systems that support TCP sockets, including databases. A direct communication between the client and the database can thus be establishes in order to retrieve stored data, effectively bypassing the need for an intermediary server.
 
   \section{The Microblaze Processor}
 
@@ -150,13 +150,13 @@
 
       \paragraph{The network layer} provides arbitration over a set of systems connected to a complex network where nodes are not directly connected to each other. It provides an address to each node in order for data to be transfered or routed. The prominent protocol used by networking systems is the Internet Protocol which provides a unique IP address to each node.
 
-      \paragraph{The transport and session layers} are built on top of the network layer to add functions like error recovery, flow control, timeout, etc. A lightweight protocol implemented at this level is UDP which provides connectionless communication between nodes. Nodes communicate by sending simple data packets without prior communication or acknowledgment system. This yields in a fast yet unreliable protocol. TCP on the other hand implements a full handshaking procedure which allows for features like congestion and flow control or data recovery. This however results in a heavyweight structure that can limit the range of target systems.
+      \paragraph{The transport and session layers} are built on top of the network layer to add functions like error recovery, flow control, timeout, etc. A lightweight protocol implemented at this level is UDP which provides connectionless communication between nodes. They communicate by sending simple data packets without prior communication or acknowledgment system. This yields in a fast yet unreliable protocol. TCP on the other hand implements a full handshaking procedure which allows for features like congestion and flow control or data recovery. This however results in a heavyweight structure that can limit the range of target systems.
 
       \paragraph{The presentation layer} handles the encoding of the data which might vary between the transport and application layer. It is responsible for the encryption of the stream.
 
       \paragraph{The application layer} is the layer with which the software interact. In this application, the software handles either HTTP or WebSockets packets. \\
 
-      Using lwIP, a TCP server is started on the Microblaze and is set to listen to any incoming connection on port 80, the default port used by Internet browsers. Upon reception of data, lwIP transfers the packet from its internal functions (transport and session layers) to user functions (presentation and application layers) which handle the HTTP and WebSockets requests.
+      Using lwIP, a TCP server is started on the Microblaze and is set up to listen to any incoming connection on port 80, the default port used by Internet browsers. Upon reception of data, lwIP transfers the packet from its internal functions (transport and session layers) to user functions (presentation and application layers) which handle the HTTP and WebSockets requests.
 
     \subsection{Memory File System}
 
@@ -179,9 +179,9 @@
       \label{fig:III-2-system-old}
     \end{figure}
 
-    The system described in this chapter moves away from a star network in which the server is the central piece and tries to form a mesh network where every component can directly access all other nodes. By taking advantage of the increase in computational power of microelectronics, it is possible to merge the functionalities of the server and the electronics in a single embedded system. Furthermore, developments in web technologies have enabled easy and reliable two-way communication between the client and the server and between the client and the database. The WebSockets technology provides response times up to ten times faster than classical solutions used to pull the server. The obtained system, which topology is shown in Figure \ref{fig:III-2-system-new}, thus allows for faster inter-node communication which releases the traffic on given data paths and allows for more bandwidth and activity. Furthermore, the distribution of the application is centralized by the server which transfer the most up-to-date version of the web pages to every client, ensuring compatibility across time and platforms. \\
+    The system described in this chapter moves away from a star network in which the server is the central piece and tries to form a mesh network where every component can directly access all other nodes. By taking advantage of the increase in computational power of microelectronics, it is possible to merge the functionalities of the server and the electronics in a single embedded system. Furthermore, developments in web technologies have enabled easy and reliable two-way communication between the client and the server and between the client and the database. The WebSockets technology provides response times up to ten times faster than classical solutions used to pull the server. The obtained system, which topology is shown in Figure \ref{fig:III-2-system-new}, thus allows for faster inter-node communication, which releases the traffic on given data paths, and allows for more bandwidth and activity. Furthermore, the distribution of the application is centralized by the server which transfer the most up-to-date version of the web pages to every client, ensuring compatibility across time and platforms. \\
 
-    Through the two-way mesh network topology, each node can inform the systems of changes in real-time, effectively by-passing the need for a pull system running on each node which requests updated data at constant interval and generates unwanted traffic on the network. The system becomes truly real-time and event driven with minimum delays.
+    Through the two-way mesh network topology, each node can inform the systems of changes in real-time, effectively bypassing the need for a pull system which requests updated data at constant interval and generates unwanted traffic on the network. The system becomes truly real-time and event driven with minimum delays.
 
     \begin{figure}[h!]
       \centering
@@ -196,4 +196,4 @@
 
     Besides the increase in speed and optimization, the use of a web-based application offers greater portability on a variety of platforms without the need to maintain code for various systems. \\
 
-    This system is a prove of concept for a new type of data acquisition systems which relies on event based data analysis and control. It has the advantage to offer great flexibility and reduce the complexity of the overall system, while deeply combining the electronics readout and the server providing data.
+    This system is a proof-of-concept for a new type of data acquisition systems which relies on event based data analysis and control. It has the advantage to offer great flexibility and reduce the complexity of the overall system, while deeply combining the electronics readout and the server providing data.
