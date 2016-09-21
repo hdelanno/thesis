@@ -257,7 +257,7 @@
       \label{fig:II-3-sps}
     \end{figure}
 
-    The two types of particles used during the test beam were pions and muons. Pions are obtained from the secondary beam by inserting a thin absorber which removes the electronic component of the beam. They can reach intensities between 10$^4$ and 10$^7$ particles per spill and produce a very narrow beam. From their decay, a muon beam can be obtained by using moderate intensity secondary beams and closing the collimators. The muon beam reaching the experimental setup is a wider and less intense.
+    The two types of particles used during the test beam were 150 GeV pions and muons. Pions are obtained from the secondary beam by inserting a thin absorber which removes the electronic component of the beam. They can reach intensities between 10$^4$ and 10$^7$ particles per spill and produce a very narrow beam. From their decay, a muon beam can be obtained by using moderate intensity secondary beams and closing the collimators. The muon beam reaching the experimental setup is a wider and less intense.
 
     \subsection{The GEM Detectors Setup}
 
@@ -353,7 +353,7 @@
         \label{fig:II-3-data-eff-hv}
       \end{figure}
 
-      The results obtained with GEM0 can be compared to the scans performed during a previous test beam \cite{Abbaneo:1709907} which used the same gas mixture. The plots show the efficiency in terms of gain, which is then expressed in terms of current. In the 700 $\mu$A to 810 $\mu$A range, gains of 100 to 8000 are obtained. Between these values, the efficiency quickly rises to 98\% to reach the very beginning of the plateau. The same behavior is observed in the results exposed before where the efficiency reaches maximum efficiency at the highest values of the high voltage right at the beginning of the plateau region. A second test beam \cite{Abbaneo:1494965} provides measurements of the efficiency as a function of the high voltage for lower thresholds of 10, 15, and 25. While they reach the efficiency plateau at lower currents, it lays at a value of 95\%, compared to 98\% for the results showed here-above.
+      The results obtained with GEM0 can be compared against the scans performed during previous test beams \cite{Abbaneo:1709907, Abbaneo:1401079} which used the same gas mixture. These scans show the efficiency in terms of gain, which is then expressed in terms of current through the high voltage divider. In the 700 $\mu$A to 810 $\mu$A range, gains of 100 to 8000 are obtained. Between these values, the efficiency quickly rises to 98\% to reach the very beginning of the plateau. The same behavior is observed in the results exposed before where the efficiency reaches its maximum at the highest values of the high voltage right at the beginning of the plateau region. A third test beam \cite{Abbaneo:1494965} provides measurements of the efficiency as a function of the high voltage for lower thresholds of 10, 15, and 20. While they reach the efficiency plateau at lower currents, it sits at a value of 95\%, compared to 98\% for the results showed here-above.
 
     \subsection{Evolution of the Efficiency with the VFAT2 Threshold}
 
@@ -411,12 +411,11 @@
         \label{fig:II-3-data-clu-size}
       \end{figure}
 
-      The previous explanation is supported by the plots of the cluster size as a function of the threshold. It is clear that the cluster size decreases as the threshold increases, meaning that less and less channels are being fired. At low threshold, clusters contain roughly 1.5 channels and an average of 1.6 clusters are present per event. When increasing the threshold, the average number of channels fired decreases slightly which does not immediately affect the cluster multiplicity: clusters are reduced in size but not in numbers.
+      The previous explanation is supported by the plots of the cluster size as a function of the threshold. It is clear that the cluster size decreases as the threshold increases, meaning that less and less channels are being fired. At low threshold, clusters contain roughly 1.5 channels and an average of 1.6 clusters are present per event. When increasing the threshold, the average number of channels fired decreases slightly which does not immediately affect the cluster multiplicity: clusters are reduced in size but not in numbers. \\
 
-      % Compare to TB -  The results have been compared against previous test beam data \cite{Abbaneo:1494965, Abbaneo:1401079} and show good accordance.
-      % Abbaneo:1494965 has cluster size at same gas
-      % Abbaneo:1401079 cluster size but no CF4
-      % Use RMS of distribution as error
+      Two test beam campaigns \cite{Abbaneo:1401079, Abbaneo:1494965} studied the distribution of the cluster size and provide a reference point against which the results here-above can be compared. These tests respectively yielded an average cluster size of 1.79 $\pm$ 1.16 for a mixed muon/pion beam at a threshold of 20 VFAT2 units, and 1.75 (no errors given) for a muon beam at a threshold of 12 VFAT2 units. The first measurement did not distinguish data taken during muon and pion runs and is thus an average of the two. Performing the same operation on the results shown above and assuming a similar number of events for both types of particles, an average value of 1.7 $\pm$ 1.1 is obtained. In order to compare the data against the second set of results, an extrapolation of the data points for the muons shown in the left plot of Figure \ref{fig:II-3-data-clu-size} was done towards 12 VFAT2 units. The obtained cluster size is of 1.77 $\pm$ 0.4. In both cases, the cluster sizes obtained during the previous test beams and the results shown above are well within the error bars and show excellent agreement. Additional measurements have been performed in previous studies \cite{Abbaneo:1973272} at Fermilab using hadron beams. These yielded a cluster size of 2.43 $\pm$ 1.04, that can be compared to the values obtained for pions of 2.15 $\pm$ 0.5. \\
+
+      These results confirm the different behaviors between muons and pions: the former with a cluster size smaller than two, and the latter greater than two.
 
     \subsection{Beam Profile}
 
@@ -480,4 +479,4 @@
 
     The web application that we designed has been used extensively and is still in use for gain and uniformity studies at CERN. It has proven to be a complete solution to control and monitor the DAQ system allowing users to run all the necessary scans. \\
 
-    Finally, we have analyzed the data recorded during the test beam. Threshold scans have shown an elevated noise level which has since then been understood and solved. Using the latency scans and the tracking data, we performed various studies of the noise and efficiency levels against high-voltage, threshold, and trigger rates. Our results have been compared to previous test beams and are consistent. An efficiency of 97\% has been obtained and rate capability has been tested up until 120 kHz with a resulting efficiency of 96\%. The analysis we have performed shows that the GEM detectors equipped with the DAQ system we have designed meet the requirements of the project regarding the efficiency and the rate capability of the chambers.
+    Finally, we have analyzed the data recorded during the test beam. Threshold scans have shown an elevated noise level which has since then been understood and solved. Using the latency scans and the tracking data, we performed various studies of the noise and efficiency levels against high-voltage, threshold, and trigger rates. Our results have been compared to previous test beams and are consistent. An efficiency of 97\% has been obtained and rate capability has been tested up until 120 kHz with a resulting efficiency of 96\%. Studies on the cluster size have yielded an average of 1.39 $\pm$ 0.3 for muons and 2.1 $\pm$ 0.4 for pions. These results are again in excellent agreement with previous measurements. The analysis we have performed shows that the GEM detectors equipped with the DAQ system we have designed meet the requirements of the project regarding the efficiency and the rate capability of the chambers.
