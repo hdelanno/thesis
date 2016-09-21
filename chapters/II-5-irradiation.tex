@@ -187,9 +187,9 @@
         \label{fig:II-5-data-seu-energy}
       \end{figure}
 
-      Under 25 MeV, the number of errors is almost null in both the configuration memory and BRAMs with zero errors detected at the lowest energy of 14.4 MeV. At energies between 25 MeV and 40 MeV, correctable errors and single bit flips are detected while critical errors are still rare events. At higher energies, the number of SEUs in the configuration memory keeps increasing to reach 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ at 62 MeV while the error count in the BRAM seems to hit a plateau at 1.02 $ \times $ 10$^{-7}$ cm$^2$. \\
+      Under 20 MeV, the number of errors is almost null in both the configuration memory and BRAMs with zero errors detected at the lowest energy of 14.4 MeV. This behavior has been observed and explained in previous test beams \cite{Bylsma2013242, Huhtinen2000155} and is due to the very limited range of the particles. At 10 MeV, a proton can only reach 10 $\mu$m due to the high energy losses it experiences and is thus not able to interact with the silicon of the FPGA but only with its packaging. At energies between 20 MeV and 40 MeV, correctable errors and single bit flips are detected while critical errors are still rare events. At higher energies, the number of SEUs in the configuration memory keeps increasing to reach 3.08 ($\pm$ 0.21) $ \times $ 10$^{-7}$ cm$^{2}$ at 62 MeV while the error count in the BRAM seems to hit a plateau at 1.02 ($\pm$ 0.12) $ \times $ 10$^{-7}$ cm$^2$. \\
 
-      These results can be compared with tests performed for the electronics of the CSCs \cite{Bylsma2013242} which yield values of 3.7 $ \times $ 10$^{-8}$ cm$^2$ and 5.7 $ \times $ 10$^{-8}$ cm$^2$ for interaction cross section with the CLBs and BRAMs respectively. The discrepancy in the values obtained for the configuration memory and CLBs is expected as the measured quantities differ. The configuration memory encapsulates the CLB and other resources present in the FPGA. It is thus expected that the interaction cross section of the former be larger than the latter. The interaction cross section of the BRAMs is on the same order of magnitude in both tests.
+      These results can be compared with tests performed for the electronics of the CSCs \cite{Bylsma2013242} for the same FPGA, which yield values of 3.7 ($\pm$ 0.50) $ \times $ 10$^{-8}$ cm$^2$ and 5.7 ($\pm$ 0.60) $ \times $ 10$^{-8}$ cm$^2$ for interaction cross sections with the CLBs and BRAMs respectively at 55 MeV. The discrepancy in the values obtained for the configuration memory and CLBs is expected as the measured quantities differ. The configuration memory encapsulates the CLB and other resources present in the FPGA. It is thus expected that the interaction cross section of the former be larger than the latter. For the BRAMs, the results vary by a factor of two.
 
     \subsection{Evolution of the SEU Cross Section with the TID}
 
@@ -257,6 +257,8 @@
       The correctable errors in the configuration memory and single bit flips occurring in the BRAM do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs. The uncorrectable errors will required a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs. \\
 
       The presented results are upper limits on the SEU cross section for an FPGA which resources are fully used. The firmware of the OptoHybrid v2a used for the DAQ system occupies 36\% of the CLBs and 3\% of the BRAMs. This means that the cross section of SEUs that will effectively impact the functioning of the design will be reduced by a factor of 3 for the CLBs and 33 for the BRAMs.
+
+      % \cite{Huhtinen2000155} shows no difference between protons and neutrons
 
   \section{Conclusion}
 
