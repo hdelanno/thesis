@@ -25,7 +25,7 @@
 
     \subsection{Front-end Currents and Voltages}
 
-      Following the threshold scan, the procedure reads out the currents and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an analog-to-digital converter (ADC) to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-4-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register. \\
+      Following the threshold scan, the procedure reads out the currents and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an ADC to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-4-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register. \\
 
       \begin{figure}[h!]
         \centering
@@ -106,7 +106,7 @@
 
     \subsection{The GEB Testing Board}
 
-      The PCB is a four layer board equipped with an FPGA and a microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-4-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a digital-to-analog converter (DAC), a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA through serial peripheral interface bus (SPI), and powering options.
+      The PCB is a four layer board equipped with an FPGA and a microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-4-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a DAC, a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA through serial peripheral interface bus (SPI), and powering options.
 
       \begin{figure}[h!]
         \centering
