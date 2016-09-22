@@ -36,6 +36,7 @@
 
       The voltage based registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels. Figure \ref{fig:II-4-injection} shows a diagram of the injection and calibration circuit of the VFAT2. The amplitude of the calibration pulse is equal to the difference between VBaseline which has a fixed value and VLow which is programmable. The output pulse is sent to one channel over a capacitor of 100 fF resulting in a pulse amplitude in term of charge of
       \begin{equation}
+        \label{eq:II-4-injection}
         Q = 100 \ \text{fF} \times \left(\text{VBaseline} - \text{VLow} \right) .
       \end{equation}
 
@@ -46,9 +47,13 @@
         \label{fig:II-4-injection}
       \end{figure}
 
+      By inserting the values of VBaseline and VLow in Equation \ref{eq:II-4-injection}, a range of injected charge can be computed and qualitatively compared to the one given in the VFAT2 specifications \cite{Aspell:1267947}. The latter states a range of -2 fC to 18.5 fC with a slope of 0.3 fC while the former results in a range of ??? fC to ??? fC with a slope of ??? fC. The agreement between both results helps to validate the methodology used during the calibration routines.
+
+      %%%% Insert values for 100 fF * (VBaseline - VLow) hereabove
+
     \subsection{Front-end Calibration}
 
-      Using the results from the ADC, the script can determine what amount of charge is injected during the calibration phase of the VFAT2 upon reception of a CalPulse fast command. With this, it is possible to produce s-curves which for a given threshold indicate at which amplitude of the calibration pulse a signal becomes visible. Figure \ref{fig:II-4-scurve} plots the hit-to-event ratio as a function of the calibration pulse height in VFAT2 units for a threshold of 25. The graph shows that below a value of 40 no signal is detected due to the threshold level. The turn-on of the curve is defined as the value for which 50\% of hit-to-event ratio is reached and is in this case equal to 44. \\
+      Using the results from the ADC, the script can determine what amount of charge is injected during the calibration phase of the VFAT2 upon reception of a CalPulse fast command. With this, it is possible to produce s-curves which for a given threshold indicate at which amplitude of the calibration pulse a signal becomes visible. Figure \ref{fig:II-4-scurve} plots the hit-to-event ratio as a function of the calibration pulse height in VFAT2 units for a threshold of 25. The calibration pulse height refers to the value written in the VLow register which linearly affects the charge deposited on the channels. The graph shows that below a value of 40 no signal is detected due to the threshold level. The turn-on of the curve is defined as the value for which 50\% of hit-to-event ratio is reached and is in this case equal to 44. \\
 
       \begin{figure}[h!]
         \centering
@@ -59,6 +64,7 @@
 
       The operation is then repeated for various threshold values and the turn-on value is extracted automatically using a logistic function to fit the curve. The equation of the function is as follows
       \begin{equation}
+        \label{eq:II-4-logistic}
         f(x) = \frac{1}{1 + e^{-k \left( x - x_0 \right)}}
       \end{equation}
       where $ x_0 $ is the value of the midpoint or turn-on, and $ k $ is the steepness of the slope. Figure \ref{fig:II-4-scurves} is a collection of s-curve scans for various thresholds on the left which can be translated to a plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units on the right. \\
@@ -71,9 +77,9 @@
         \label{fig:II-4-scurves}
       \end{figure}
 
-      Using these results, the threshold value applied on the strips can be converted to a charge, which is of importance to compute the equivalent noise charge of the system. This is the amplitude of the noise in terms of electrons, which can easily be compared to the signal induced by the particles which is often expressed in femtocoulombs. The results presented here above are in agreement with those obtained during the initial qualification of the VFAT2 \cite{Aspell:1267947} both displaying a charge range of -2 fC to 18 fC. \\
+      Using these results, the threshold value applied on the strips can be converted to a charge, which is of importance to compute the equivalent noise charge of the system. This is the amplitude of the noise in terms of electrons, which can easily be compared to the signal induced by the particles which is often expressed in femtocoulombs. The results presented here above are in agreement with those obtained during the initial qualification of the VFAT2 \cite{Aspell:1267947} both displaying a qualitative charge range of -2 fC to 18 fC. \\
 
-      Further comparison can be performed against \cite{Aspell:1069906} with respect to the electronic noise on the VFAT2. The latter will induce a smearing effect on the charge injected on the channel, either through noise on the voltage used to generate the pulse or on the electronics in the preamplification step. In a perfect system, the curve in Figure \ref{fig:II-4-scurve} would be a step function with values at 0 before the threshold is reached, and at 1 above. The noise is thus responsible for the steepness of the slope and thus defined as the sigma of the curve. After performing a fit, the sigma is found to be 1.27 $\pm$ 0.02 VFAT2 Units. This value can be converted to femtocoulombs using the previous results and yields 0.053 $\pm$ 0.009 fC, which in turn can be expressed in terms of electrons to obtain
+      A more quantitative comparison can be performed against \cite{Aspell:1069906} with respect to the electronic noise on the VFAT2. The latter will induce a smearing effect on the charge injected on the channel, either through noise on the voltage used to generate the pulse or on the electronics in the preamplification step. In a perfect system, the curve in Figure \ref{fig:II-4-scurve} would be a step function with values at 0 before the threshold is reached, and at 1 above. The noise is thus responsible for the steepness of the slope and defined as the sigma of the curve. After performing a fit of a logistic function, which is given in Equation \ref{eq:II-4-logistic}, the sigma is found to be 1.27 $\pm$ 0.02 VFAT2 Units. This value can be converted to femtocoulombs using the previous results and yields 0.053 $\pm$ 0.009 fC, which in turn can be expressed in terms of electrons to obtain
       \begin{equation}
         \sigma_e = 636 \pm 11 \ e^- \ .
       \end{equation}
@@ -101,7 +107,9 @@
         \label{fig:II-4-trimed}
       \end{figure}
 
-      At the end of the script, the VFAT2 channels have all been tested against noise issues and have been adjusted so that they all display the same response to calibration pulses. This is the first time the full range of possibilities offered by the VFAT2 is used in a DAQ system and demonstrates that these features are within working specification.
+      At the end of the script, the channels of the VFAT2 have all been tested against noise issues and have been adjusted so that they all display the same response to calibration pulses. The dispersion of the channels around the central value is improved from an initial value of ??? to a final value of ??? after alignment. This is the first time the full range of possibilities offered by the VFAT2 is used in a DAQ system and demonstrates that these features are within working specification.
+
+      %% RMS dispersion
 
   \section{Qualification of the GEB}
 
@@ -217,7 +225,9 @@ K. Results
 
   \section{Conclusion}
 
-    For the first time, a method was developed to use the VFAT2 capabilities to their full extend by taking advantage of the channel by channel optimization. The procedure we designed is used to detect faulty units and perform qualification tests which results are stored in database for future reference. With this script, the analog front-end of each VFAT2 is entirely characterized, which provides information on the effective threshold applied in terms of electrons and thus induced charge. \\
+    For the first time, a method was developed to use the calibration capabilities of the VFAT2 to their full extend by taking advantage of the channel by channel optimization. The procedure we designed is used to detect faulty units and perform qualification tests which entirely characterize the analog front-end of each VFAT2. The first part of the results can be compared to previous references and yields the range of charge that can be injected and the noise on the VFAT2. The former results in a range of -2 fC to 18 fC while the latter was found to be of 636 $\pm$ 11 e$^-$. This is in turn used to provide information on the effective threshold applied on the channels in terms of electrons and thus induced charge. The second part of the script aligns the response of each channel around a central value and reduces the threshold disparity from an initial dispersion value of ??? to a value ??? after alignment, bringing an improvement of ??? \%. \\
+
+    %% Add values of dispersion
 
     Furthermore, we designed a GEB testing board to test each position on the GEB and detect broken lines. The board relies on an FPGA coupled with an MCU to communicate with the OptoHybrid and test the integrity of the transmitted signals. The results of each test are displayed using on-board LEDs. \\
 
