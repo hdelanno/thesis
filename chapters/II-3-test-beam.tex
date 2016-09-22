@@ -223,7 +223,6 @@
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-tk.png}
         \caption{Screenshot of the page of the web application used to do online data quality monitoring.}
-        \caption{???}
         \label{fig:II-3-app-tk}
       \end{figure}
 
@@ -451,6 +450,14 @@
     \end{table}
 
     Running along the GTX core, the GBT module is defined as a Wishbone master meaning it can operate the same requests as the former. Furthermore, tracking data is duplicated and sent over the two links insuring redundancy and protection against failure as the CTP7 can dynamically change between the two cores.
+
+  \section{Towards the Final DAQ System}
+
+    The VFAT2 was designed to handle trigger rates up to 100 kHz and transmit data at a maximum rate of 0.32 Gbps for the trigger data and 0.02 Gbps for the tracking data. These data rates can easily be accommodated by the current system, however, they will be drastically increased for the final system using the VFAT3 ASIC. Furthermore, it is foreseen to multiply the L1A rate by a factor 10 from the current 100 kHz to 1 MHz. It is thus crucial to ensure that the GBT and other components will be able to cope with this increase. \\
+
+    The VFAT3 will output 64 trigger bits per BX which will be collected by the OptoHybrid. Many of these are empty as less than one particle hits the chamber per BX on average. A zero suppressing algorithm is thus implemented on the OptoHybrid in order to only encode bits which are active. Each fired trigger bit requires 11 bits to describe: 5 to address the VFAT3 and 6 to address the strip that is hit. As a maximum of 80 bits per BX can be transmitted over the 3.2 Gbps data link to the off-detector electronics or the CSCs, the probability that the number of hits exceeds 7 and thus overflows the link can be computed. This results in a probability of less 6 $ \times $ 10$^{-5}$. To reduce the probability of overflowing the link, double transmitter modules can be used to double the available bandwidth. \\
+
+    The tracking data can be zero suppressed by the VFAT3 itself resulting in data packets of minimum 48 bits compared to the 246 bits when using the lossless data format. Simulations were developed in order to compute the mean size of the data packets while taking into account the rate of particles to which GE1/1 will be exposed. This results in a data rate of 0.17 Gbps and 0.48 Gbps for the zero suppressed and lossless algorithms respectively. Both have a probability of less than 10$^{-7}$ to overflow the data links. When running at L1A rates of 1 MHz, a factor of 10 is applied to the resulting data rates, which still yield a probability of overflow less than 10$^{-7}$, limit of the simulation.
 
   \section{Conclusion}
 
