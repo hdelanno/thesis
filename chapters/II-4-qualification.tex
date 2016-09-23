@@ -47,9 +47,7 @@
         \label{fig:II-4-injection}
       \end{figure}
 
-      By inserting the values of VBaseline and VLow in Equation \ref{eq:II-4-injection}, a range of injected charge can be computed and qualitatively compared to the one given in the VFAT2 specifications \cite{Aspell:1267947}. The latter states a range of -2 fC to 18.5 fC with a slope of 0.08 fC while the former results in a range of ??? fC to ??? fC with a slope of ??? fC. The agreement between both results helps to validate the methodology used during the calibration routines.
-
-      %%%% Insert values for 100 fF * (VBaseline - VLow) hereabove
+      By inserting the values of VBaseline and VLow in Equation \ref{eq:II-4-injection}, a range of injected charge can be computed and qualitatively compared to the one given in the VFAT2 specifications \cite{Aspell:1267947}. The latter states a range of -2 fC to 18.5 fC with a slope of 0.08 fC while the former results in a range of -0.9 fC to 20 fC with a slope of 0.08 fC. The agreement between both results helps to validate the methodology used during the calibration routines.
 
     \subsection{Front-end Calibration}
 
@@ -77,13 +75,7 @@
         \label{fig:II-4-scurves}
       \end{figure}
 
-      Using these results, the threshold value applied on the strips can be converted to a charge, which is of importance to compute the equivalent noise charge of the system. This is the amplitude of the noise in terms of electrons, which can easily be compared to the signal induced by the particles which is often expressed in femtocoulombs. The results presented here above are in agreement with those obtained during the initial qualification of the VFAT2 \cite{Aspell:1267947} both displaying a qualitative charge range of -2 fC to 18 fC. \\
-
-      A more quantitative comparison can be performed against \cite{Aspell:1069906} with respect to the electronic noise on the VFAT2. The latter will induce a smearing effect on the charge injected on the channel, either through noise on the voltage used to generate the pulse or on the electronics in the preamplification step. In a perfect system, the curve in Figure \ref{fig:II-4-scurve} would be a step function with values at 0 before the threshold is reached, and at 1 above. The noise is thus responsible for the steepness of the slope and defined as the sigma of the curve. After performing a fit of a logistic function, which is given in Equation \ref{eq:II-4-logistic}, the sigma is found to be 1.27 $\pm$ 0.02 VFAT2 Units. This value can be converted to femtocoulombs using the previous results and yields 0.053 $\pm$ 0.009 fC, which in turn can be expressed in terms of electrons to obtain
-      \begin{equation}
-        \sigma_e = 636 \pm 11 \ e^- \ .
-      \end{equation}
-      This can be compared to the value listed in the specification of the VFAT2 which is of 589 $\pm$ 84 $e^-$ when no detector is connected to the electronics. Both results are thus compatible within the error bars.
+      Using these results, the threshold value applied on the strips can be converted to a charge, which is of importance to compute the equivalent noise charge of the system. This is the amplitude of the noise in terms of electrons, which can easily be compared to the signal induced by the particles which is often expressed in femtocoulombs. The results presented here above are in agreement with those obtained during the initial qualification of the VFAT2 \cite{Aspell:1267947} both displaying a qualitative charge range of -2 fC to 18 fC.
 
     \subsection{Front-end equalization}
 
@@ -107,9 +99,24 @@
         \label{fig:II-4-trimed}
       \end{figure}
 
-      At the end of the script, the channels of the VFAT2 have all been tested against noise issues and have been adjusted so that they all display the same response to calibration pulses. The dispersion of the channels around the central value is improved from an initial value of ??? to a final value of ??? after alignment. This is the first time the full range of possibilities offered by the VFAT2 is used in a DAQ system and demonstrates that these features are within working specification.
+      At the end of the script, the channels of the VFAT2 have all been tested against noise issues and have been adjusted so that they all display the same response to calibration pulses. The dispersion of the channels around the central value is improved from an initial value of 1.22 to a final value of 0.19 after alignment, corresponding to 0.10 fC and 0.02 fC respectively. This is the first time the full range of possibilities offered by the VFAT2 is used in a DAQ system and demonstrates that these features are within working specification.
 
-      %% RMS dispersion
+    \section{Noise Measurement}
+
+      A more quantitative comparison can be performed against \cite{Aspell:1069906} with respect to the electronic noise on the VFAT2. The latter will induce a smearing effect on the charge injected on the channel, either through noise on the voltage used to generate the pulse or on the electronics in the preamplification step. In a perfect system, the curve in Figure \ref{fig:II-4-scurve} would be a step function with values at 0 before the threshold is reached, and at 1 above. The noise is thus responsible for the steepness of the slope and defined as the sigma of the curve. After performing a fit of a logistic function, which is given in Equation \ref{eq:II-4-logistic}, the sigma is found to be 1.27 $\pm$ 0.02 VFAT2 Units. This value can be converted to femtocoulombs using the previous results and yields 0.10 $\pm$ 0.01 fC, which in turn can be expressed in terms of electrons to obtain
+      \begin{equation}
+        \sigma_e = 624 \pm 62 \ e^- \ .
+      \end{equation}
+      This can be compared to the value listed in the specification of the VFAT2 which is of 589 $\pm$ 84 $e^-$ when no detector is connected to the electronics. Both results are thus compatible within the error bars. \\
+
+      The second measurement that can be performed is to study the variation of the noise from channel to channel. Figure \ref{fig:II-4-noise} plots the Equivalent Noise Charge (ENC), or noise in terms of electrons, for each channel. The distribution is centered around 622 $e^-$ with a spread of 31 $e^-$. Although the previously exposed procedure is able to align the mean of the s-curves, it does not affect their slope and thus noise. This parameter can not be changed and is intrinsic to the VFAT2.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/plots/cEnoise_Disp-crop}
+        \caption{Plots the equivalent noise charge for each channel.}
+        \label{fig:II-4-noise}
+      \end{figure}
 
   \section{Qualification of the GEB}
 
@@ -225,9 +232,7 @@ K. Results
 
   \section{Conclusion}
 
-    For the first time, a method was developed to use the calibration capabilities of the VFAT2 to their full extend by taking advantage of the channel by channel optimization. The procedure we designed to qualify the VFAT2s is used to detect faulty units and perform qualification tests which entirely characterize the analog front-end of each VFAT2. The first part of the results can be compared to the specifications of the VFAT2 and yields the range of charge that can be injected on the channels and the noise on the VFAT2. The former results in a range of -2 fC to 18 fC while the latter was found to be of 636 $\pm$ 11 e$^-$. This is in turn used to provide information on the effective threshold applied on the channels in terms of electrons and thus induced charge. The second part of the script aligns the response of each channel around a central value and reduces the threshold disparity from an initial dispersion value of ??? to a value ??? after alignment, bringing an improvement of ??? \%. \\
-
-    %% Add values of dispersion
+    For the first time, a method was developed to use the calibration capabilities of the VFAT2 to their full extend by taking advantage of the channel by channel optimization. The procedure we designed to qualify the VFAT2s is used to detect faulty units and perform qualification tests which entirely characterize the analog front-end of each VFAT2. The first part of the results can be compared to the specifications of the VFAT2 and yields the range of charge that can be injected on the channels and the noise on the VFAT2. The former results in a range of -0.9 fC to 20 fC while the latter was found to be of 624 $\pm$ 62 e$^-$. This is in turn used to provide information on the effective threshold applied on the channels in terms of electrons and thus induced charge. The second part of the script aligns the response of each channel around a central value and reduces the threshold disparity from an initial dispersion value of 1.22 to a value 0.19 after alignment in VFAT2 units, corresponding to 0.10 fC and 0.02 fC respectively. \\
 
     Qualification procedures were also created for the GEB, for which we designed a GEB testing board to test each position and detect broken lines. The board relies on an FPGA coupled with an MCU to communicate with the OptoHybrid and test the integrity of the transmitted signals. The results of each test are displayed using on-board LEDs and inform the user of the quality of the signals and thus the GEB. \\
 
