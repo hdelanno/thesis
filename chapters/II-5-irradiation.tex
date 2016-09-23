@@ -168,17 +168,17 @@
 
     \subsection{Evolution of the SEU Cross Section with the Energy}
 
-      The charge that a particle deposits in the FPGA and thus consequently the SEU cross section is a function of the energy. The more charge is deposited, the more the threshold voltage will be affected and thus cause an SEU. The cross section with the configuration memory and the BRAMs were computed from the collected data using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-5-data-seu-energy} displays the interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
+      The charge that a particle deposits in the FPGA and thus consequently the SEU cross section is a function of the energy. The more charge is deposited, the more the threshold voltage will be affected and thus cause an SEU. The cross section with the configuration memory and the BRAMs were computed from the collected data using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-5-data-seu-energy} displays the interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in recoverable (green) and critical (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM-crop}
-        \caption{Interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
+        \caption{Interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in recoverable (green) and critical (blue) errors on the left, and with the BRAMs resulting in recoverable (blue) and critical (orange) errors on the right.}
         \label{fig:II-5-data-seu-energy}
       \end{figure}
 
-      Under 20 MeV, the number of errors is almost null in both the configuration memory and BRAMs with zero errors detected at the lowest energy of 14.4 MeV. This behavior has been observed and explained in previous irradiation tests \cite{Bylsma2013242, Huhtinen2000155} and is due to the very limited range of the particles. At 10 MeV, a proton can only reach 10 $\mu$m due to the high energy losses it experiences and is thus not able to interact with the silicon of the FPGA but only with its packaging. At higher energies, the particles start to penetrate the silicon and correctable errors and single bit flips are detected while critical errors are still rare events. The latter are still rare as the deposited energy is low and only generates limited SEUs in the FPGA which result in recoverable errors. At even higher energies, above 40 MeV, the number of SEUs in the configuration memory keeps increasing to reach 3.08 $\pm$ 0.21 $ \times $ 10$^{-7}$ cm$^{2}$ at 62 MeV while the error count in the BRAM seems to hit a plateau at 1.02 $\pm$ 0.12 $ \times $ 10$^{-7}$ cm$^2$. \\
+      Under 20 MeV, the number of errors is almost null in both the configuration memory and BRAMs with zero errors detected at the lowest energy of 14.4 MeV. This behavior has been observed and explained in previous irradiation tests \cite{Bylsma2013242, Huhtinen2000155} and is due to the very limited range of the particles. At 10 MeV, a proton can only reach 10 $\mu$m due to the high energy losses it experiences and is thus not able to interact with the silicon of the FPGA but only with its packaging. At higher energies, the particles start to penetrate the silicon and recoverable errors are detected while critical errors are still rare events. The latter are still rare as the deposited energy is low and only generates limited SEUs in the FPGA which result in recoverable errors. At even higher energies, above 40 MeV, the number of SEUs in the configuration memory keeps increasing to reach 3.08 $\pm$ 0.21 $ \times $ 10$^{-7}$ cm$^{2}$ at 62 MeV while the error count in the BRAM seems to hit a plateau at 1.02 $\pm$ 0.12 $ \times $ 10$^{-7}$ cm$^2$. \\
 
       These results can be compared with tests performed for the electronics of the CSCs \cite{Bylsma2013242} for the same FPGA, which yield values of 3.7 $\pm$ 0.50 $ \times $ 10$^{-8}$ cm$^2$ and 5.7 $\pm$ 0.60 $ \times $ 10$^{-8}$ cm$^2$ for interaction cross sections with the CLBs and BRAMs respectively at 55 MeV. The discrepancy in the values obtained for the configuration memory and CLBs is expected as the measured quantities differ. The configuration memory encapsulates the CLB and other resources present in the FPGA. It is thus expected that the interaction cross section of the former be larger than the latter. Taking into account the percentage of the configuration memory that describes the CLBs,
       ?????
@@ -188,13 +188,13 @@
 
     \subsection{Evolution of the SEU Cross Section with the TID}
 
-      The OptoHybrids were initially exposed to a total of 33 kRad over the course of various tests performed during the first 22h. The remaining two hours were used to irradiate the FPGAs with high fluxes and then perform a data taking run to measure a potential increase in interaction cross section: first three runs that each provided 10 kRad, followed by a run at 20 kRad. Figure \ref{fig:II-5-data-seu-tid} displays the interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
+      The OptoHybrids were initially exposed to a total of 33 kRad over the course of various tests performed during the first 22h. The remaining two hours were used to irradiate the FPGAs with high fluxes and then perform a data taking run to measure a potential increase in interaction cross section: first three runs that each provided 10 kRad, followed by a run at 20 kRad. Figure \ref{fig:II-5-data-seu-tid} displays the interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in recoverable (green) and critical (blue) errors on the left, and with the BRAMs resulting in recoverable (blue) and critical (orange) errors on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_BRAM-crop}
-        \caption{Interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in correctable (green) and uncorrectable (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right.}
+        \caption{Interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in recoverable (green) and critical (blue) errors on the left, and with the BRAMs resulting in recoverable (blue) and critical (orange) errors on the right.}
         \label{fig:II-5-data-seu-tid}
       \end{figure}
 
@@ -202,13 +202,13 @@
 
     \subsection{Comparison of the Two Boards}
 
-      A comparison between the two boards was operated regarding the evolution of the interaction cross section with the energy. A different behavior is expected from the two FPGAs as the first one shields the second one at low energies. As particles pass through the former, they lose energy and might reach the threshold at which no SEU is produced in the latter. Figure \ref{fig:II-5-data-seu-comp} displays the interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in correctable (green and red) errors on the left, and with the BRAMs resulting in single (blue and green) and double (orange and red) bit flips on the right. \\
+      A comparison between the two boards was operated regarding the evolution of the interaction cross section with the energy. A different behavior is expected from the two FPGAs as the first one shields the second one at low energies. As particles pass through the former, they lose energy and might reach the threshold at which no SEU is produced in the latter. Figure \ref{fig:II-5-data-seu-comp} displays the interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in recoverable (green and red) and critical (blue and purple) errors on the left, and with the BRAMs resulting in recoverable (blue and green) and critical (orange and red) errors on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEU_Comp-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM_Comp-crop}
-        \caption{Interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in correctable (green and red) errors on the left, and with the BRAMs resulting in single (blue and green) and double (orange and red) bit flips on the right.}
+        \caption{Interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in recoverable (green and red) and critical (blue and purple) errors on the left, and with the BRAMs resulting in recoverable (blue and green) and critical (orange and red) errors on the right.}
         \label{fig:II-5-data-seu-comp}
       \end{figure}
 
@@ -233,46 +233,41 @@
 
     \subsection{Impact for the Triple-GEM Upgrade Project}
 
-      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed during run time in CMS. The dominant background in CMS is composed of neutrons which have the same behavior as protons \cite{Huhtinen2000155} and can thus be described with the same values as obtained before. Figure \ref{fig:II-5-neutrons} shows the energy spectrum of the neutron background in the ME1/1 CSC system for the first phase of the LHC
+      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed during run time in CMS. The dominant background in CMS is composed of neutrons which have the same behavior as protons \cite{Huhtinen2000155} and can thus be described with the same values as those obtained before. Figure \ref{fig:II-5-neutrons} shows the energy spectrum of the neutron background in the ME1/1 CSC system for the first phase of the LHC. \\
 
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/II-5-irradiation/neutron-rate.png}
+        \caption{Energy spectrum of the neutron background in the ME1/1 CSC system for the first phase of the LHC.}
+        \label{fig:II-5-neutrons}
+      \end{figure}
 
-            \begin{figure}[h!]
-              \centering
-              \includegraphics[width=0.49\textwidth]{img/II-5-irradiation/neutron-rate.png}
-              \caption{Energy spectrum of the neutron background in the ME1/1 CSC system for the first phase of the LHC.}
-              \label{fig:II-5-neutrons}
-            \end{figure}
-
-
-
-       knowing that the maximum flux to which the GE1/1 chambers will be exposed is of 1 kHz cm$^{-2}$. Table \ref{tab:II-5-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA. \\
+      The contribution from the particles below 20 MeV is ignored as it has been shown that they do not interact with the FPGA, and the flux of particles above 100 MeV is negligible. Therefore, in order to set an upper limit on the number of SEUs, the interaction cross section is integrated with the flux between 20 MeV and 100 MeV. The cross section for particles with energy higher than 62 MeV is linearly extrapolated from the results shown in Figure \ref{fig:II-5-data-seu-energy}. Table \ref{tab:II-5-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA for the LHC Phase I and LHC Phase II conditions. \\
 
       \begin{table}[h!]
-        \begin{tabularx}{\textwidth}{C{1.2}C{1.1}C{0.7}}
-          \textbf{Event type} & \textbf{Interaction cross section} & \textbf{Rate in CMS} \\ \hline
-          Configuration memory - correctable & 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ &  27 / day \\
-          Configuration memory - uncorrectable & 3.19 $ \times $ 10$^{-8}$ cm$^{2}$ & 3 / day \\
-          BRAM - single bit flip & 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ & 9 / day \\
-          BRAM - double bit flip & 1.71 $ \times $ 10$^{-8}$ cm$^{2}$ & 1 / day \\
-          CLB & 2.88 $ \times $ 10$^{-7}$ cm$^{2}$ & 25 / day \\
-          DSP & 2.04 $ \times $ 10$^{-8}$ cm$^{2}$ & 2 / day \\
+        \begin{tabularx}{\textwidth}{C{1.2}C{1.2}C{0.8}C{0.8}}
+          \textbf{Event type} & \textbf{cross section} & \textbf{Rate in CMS LHC Phase I} & \textbf{Rate in CMS LHC Phase II} \\ \hline
+          SEM - recoverable & 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ &  6.65 / day & 33.2 / day \\
+          SEM - critical & 3.19 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.68 / day & 3.44 / day \\
+          BRAM - recoverable & 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ & 2.19 / day & 11 / day \\
+          BRAM - critical & 1.71 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.27 / day & 1.33 / day \\
+          CLB & 2.88 $ \times $ 10$^{-7}$ cm$^{2}$ & 6.21 / day & 31 / day \\
+          DSP & 2.04 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.44 / day & 2.2 / day \\
         \end{tabularx}
-        \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA.}
+        \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA assuming that the LHC runs at nominal values during 24h.}
         \label{tab:II-5-seu-rate}
       \end{table}
 
-      The correctable errors in the configuration memory and single bit flips occurring in the BRAM do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs. The uncorrectable errors will required a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs. \\
+      The recoverable errors do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs caused by the configuration memory, and ECC can correct those in the BRAM. The critical errors will required a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs. \\
 
       The presented results are upper limits on the SEU cross section for an FPGA which resources are fully used. The firmware of the OptoHybrid v2a used for the DAQ system occupies 36\% of the CLBs and 3\% of the BRAMs. This means that the cross section of SEUs that will effectively impact the functioning of the design will be reduced by a factor of 3 for the CLBs and 33 for the BRAMs.
-
-      % \cite{Huhtinen2000155} shows no difference between protons and neutrons
 
   \section{Conclusion}
 
     To characterize the behavior of the on-detector electronics used for the CMS GEM project when subject to radiation, two OptoHybrid v2a boards were exposed to proton beams during irradiation tests performed at the cyclotron of Louvain-La-Neuve. Custom firmware was developed for the FPGAs in order to compute the interaction cross section with the various components inside the chip and to study the effectiveness of mitigation techniques.  \\
 
-    After analysis of the data, we obtained an interaction cross section of 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ and 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ for the configuration memory of the FPGA and the BRAM respectively, the two main sources of errors. When transposed to the environment of CMS, this yields a rate of 27 errors a day and 9 errors a day per FPGA respectively. These errors can be mitigated using triplication techniques which have proven to be efficient at low particle fluxes. \\
+    After analysis of the data, we obtained an interaction cross section of 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ and 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ for the configuration memory of the FPGA and the BRAM respectively, the two main sources of errors. These values are obtained for protons of 62 MeV, which behavior is similar to neutrons, the prominent source of radiation that affect the FPGA. Within the neutron spectrum, particles bellow 20 MeV do not interact with the silicium of the chip while rates of particles above 100 MeV are negligible in CMS. When transposed to the environment of CMS, these values yield a rate of 33.2 errors a day and 11 errors a day per FPGA respectively for the LHC Phase II. These errors can be mitigated using triplication techniques which, through extrapolations from results at higher rates, have shown to be efficient at low particle fluxes below 5 $ \times $ 10$^4$ particles cm$^{-2}$ s$^{-1}$. \\
 
     Over the course of the tests, the FPGAs were exposed to a total of 84 kRad, corresponding to a dose 8 times higher than what will be collected during the totality of the LHC Phase 2. We did not observe any increase in the interaction cross section for the components of the FPGAs which continued to function correctly until the end of the tests. \\
 
-    From our studies, we conclude that, although subject to SEUs, the FPGAs used in the OptoHybrid design are suitable for the environment of CMS and will survive for the entirety of the Phase 2 run. The mitigation technique that we tested, namely triplication, is a suitable method to mitigate any error in the data accompanied by the use of the SEM core to correct the upsets that modify the configuration of the FPGA.
+    From our studies, we conclude that, although subject to SEUs, the FPGAs used in the OptoHybrid design are suitable for the environment of CMS and will survive for the entirety of the Phase II run. The mitigation technique that we tested, namely triplication, is a suitable method to mitigate any error in the data accompanied by the use of the SEM core to correct the upsets that modify the configuration of the FPGA.
