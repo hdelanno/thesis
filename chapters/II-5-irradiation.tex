@@ -162,7 +162,7 @@
     \end{equation}
     where $ N $ is the number of recorded SEUs, $ t $ is the duration of the test, and $ \phi $ is the flux of particles. \\
 
-    Over the duration of the test, the TID of the FPGAs increased, reaching up to 84 kRad. The rad is a unit used to measure the dose absorbed by the object and is a function of the fluence, which is the flux integrated over time, and the Linear Energy Transfer (LET), which defines the amount of energy transfered to the target according to the type of material. In comparison, the TID recorded by detectors in CMS at the end of Phase 2 is estimated to be of the order of 10 kRad. To accelerate the aging process of the FPGAs and accumulate statistics, both boards were exposed to fluxes up to 10 000 times higher than those that they will have to cope with in the environment of CMS. \\
+    Over the duration of the test, the TID of the FPGAs increased, reaching up to 84 kRad. The rad is a unit used to measure the dose absorbed by the object and is a function of the fluence, which is the flux integrated over time, and the Linear Energy Transfer (LET), which defines the amount of energy transferred to the target according to the type of material. In comparison, the TID recorded by detectors in CMS at the end of Phase 2 is estimated to be of the order of 10 kRad. To accelerate the aging process of the FPGAs and accumulate statistics, both boards were exposed to fluxes up to 10 000 times higher than those that they will have to cope with in the environment of CMS. \\
 
     Finally, from the error counting in the CLBs and the two triplication levels, it is possible to extract the effectiveness of this method as error mitigation technique.
 
@@ -180,7 +180,7 @@
 
       Under 20 MeV, the number of errors is almost null in both the configuration memory and BRAMs with zero errors detected at the lowest energy of 14.4 MeV. This behavior has been observed and explained in previous irradiation tests \cite{Bylsma2013242, Huhtinen2000155} and is due to the very limited range of the particles. At 10 MeV, a proton can only reach 10 $\mu$m due to the high energy losses it experiences and is thus not able to interact with the silicon of the FPGA but only with its packaging. At higher energies, the particles start to penetrate the silicon and recoverable errors are detected while critical errors are still rare events. The latter are still rare as the deposited energy is low and only generates limited SEUs in the FPGA which result in recoverable errors. At even higher energies, above 40 MeV, the number of SEUs in the configuration memory keeps increasing to reach 3.08 $\pm$ 0.21 $ \times $ 10$^{-7}$ cm$^{2}$ at 62 MeV while the error count in the BRAM seems to hit a plateau at 1.02 $\pm$ 0.12 $ \times $ 10$^{-7}$ cm$^2$. \\
 
-      These results can be compared with tests performed for the electronics of the CSCs \cite{Bylsma2013242} for the same FPGA, which yield values of 3.7 $\pm$ 0.50 $ \times $ 10$^{-8}$ cm$^2$ and 5.7 $\pm$ 0.60 $ \times $ 10$^{-8}$ cm$^2$ for interaction cross sections with the CLBs and BRAMs respectively at 55 MeV. The discrepancy in the values obtained for the configuration memory and CLBs is expected as the measured quantities differ. The configuration memory encapsulates the CLB and other resources present in the FPGA. It is thus expected that the interaction cross section of the former be larger than the latter. Taking into account the percentage of the configuration memory that describes the CLBs,
+      These results can be compared with tests performed for the electronics of the CSCs \cite{Bylsma2013242} for the same FPGA, which yielded values of 3.7 $\pm$ 0.50 $ \times $ 10$^{-8}$ cm$^2$ and 5.7 $\pm$ 0.60 $ \times $ 10$^{-8}$ cm$^2$ for interaction cross sections with the CLBs and BRAMs respectively at 55 MeV. The discrepancy in the values obtained for the configuration memory and CLBs is expected as the measured quantities differ. The configuration memory encapsulates the CLB and other resources present in the FPGA. It is thus expected that the interaction cross section of the former be larger than the latter. Taking into account the percentage of the configuration memory that describes the CLBs,
       ?????
       For the BRAMs, the results vary by a factor of two.
 
@@ -212,7 +212,13 @@
         \label{fig:II-5-data-seu-comp}
       \end{figure}
 
-      It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 35 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 35 MeV where the slope of the curve quickly rises. The interaction cross section with the BRAM displayed a plateau in the first FPGA, which is also seen in the second one, with the only difference being in the energy at which it appears.
+      It can be seen that the interaction cross section with the configuration memory of the second FPGA is lower than the first one due to the shielding provided by the latter. An incident beam with less than 40 MeV will not impact the second OptoHybrid due to the low energy remaining in the beam after the first interaction. The effect becomes visible only at energies higher than 40 MeV where the slope of the curve quickly rises. The interaction cross section with the BRAM displayed a plateau in the first FPGA, which is also seen in the second one, with the only difference being in the energy at which it appears. \\
+
+      To confirm the fact that no errors are expected in the second FPGA at energies bellow 40 MeV, the energy losses of the particles through the first FPGA can be computed using the LET. At 40 MeV, the LET is of 1.17 $ \times $ 10$^{-2} $ MeV cm$^{2}$ g$^{-1}$. From the specifications of the Xilinx Virtex-6 FPGAs, it can be found that the chip is made of a 1-mm-thick silicon layer, with density of 2.3290 g cm$^{-3}$, protected by a 1-mm-thick copper lid, with a density of 8.96 g cm$^{-3}$. The PCB of the OptoHybrid adds an additional 1.8 mm of FR-4 material with a density of 1.850 g cm$^{-3}$. Using these number, a total energy loss can be computed
+      \begin{equation}
+        \Delta E = LET \times \rho \times h,
+      \end{equation}
+      where $\rho$ is the density of the material and $ h $ its thickness. The combined energy loss is of 17.71 MeV for a particle of 40 MeV. This means it will have an energy of 22.29 MeV when reaching the second FPGA and thus be at the energy threshold to produce an SEU.
 
     \subsection{Interaction with the CLBs and DSPs}
 
@@ -245,16 +251,16 @@
       The contribution from the particles below 20 MeV is ignored as it has been shown that they do not interact with the FPGA, and the flux of particles above 100 MeV is negligible. Therefore, in order to set an upper limit on the number of SEUs, the interaction cross section is integrated with the flux between 20 MeV and 100 MeV. The cross section for particles with energy higher than 62 MeV is linearly extrapolated from the results shown in Figure \ref{fig:II-5-data-seu-energy}. Table \ref{tab:II-5-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA for the LHC Phase I and LHC Phase II conditions. \\
 
       \begin{table}[h!]
-        \begin{tabularx}{\textwidth}{C{1.2}C{1.2}C{0.8}C{0.8}}
-          \textbf{Event type} & \textbf{cross section} & \textbf{Rate in CMS LHC Phase I} & \textbf{Rate in CMS LHC Phase II} \\ \hline
-          SEM - recoverable & 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ &  6.65 / day & 33.2 / day \\
-          SEM - critical & 3.19 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.68 / day & 3.44 / day \\
-          BRAM - recoverable & 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ & 2.19 / day & 11 / day \\
-          BRAM - critical & 1.71 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.27 / day & 1.33 / day \\
-          CLB & 2.88 $ \times $ 10$^{-7}$ cm$^{2}$ & 6.21 / day & 31 / day \\
-          DSP & 2.04 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.44 / day & 2.2 / day \\
+        \begin{tabularx}{\textwidth}{L{1.1}C{1}C{0.95}C{0.95}}
+          \textbf{Event type} & \textbf{cross section} & \textbf{SEUs per day \newline LHC Phase I} & \textbf{SEUs per day \newline LHC Phase II} \\ \hline
+          SEM - recoverable & 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ &  6.65  & 33.2  \\
+          SEM - critical & 3.19 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.68  & 3.44  \\
+          BRAM - recoverable & 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ & 2.19  & 11  \\
+          BRAM - critical & 1.71 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.27  & 1.33  \\
+          CLB & 2.88 $ \times $ 10$^{-7}$ cm$^{2}$ & 6.21  & 31  \\
+          DSP & 2.04 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.44  & 2.2 \\
         \end{tabularx}
-        \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA assuming that the LHC runs at nominal values during 24h.}
+        \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting daily rate of errors in CMS per FPGA assuming that the LHC runs at nominal values during 24h.}
         \label{tab:II-5-seu-rate}
       \end{table}
 
