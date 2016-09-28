@@ -7,17 +7,21 @@
 
   \section{Effects of Radiation on FPGAs}
 
-    Radiation affects the functioning of FPGAs through its interactions with the silicon substrate that composes the chip. These interactions take the form of direct or indirect ionization depending on the nature of the incident particle. Charged particles will directly ionize the medium through their coulomb interactions with the electrons, causing them to escape with a fraction of the energy of the particle. Neutral particles on the other hand interact through indirect ionization which results from the scatterings with the medium which transfer energy to the electrons. Both processes result in a trail of ions and electrons in the path of the incident particle. \\
+    \subsection{Energy Losses in Matter}
 
-    The energy losses are stochastic by nature and thus described by probability distributions around a mean value. They further depend upon the energy of the incident particle as different physical processes will have different behaviors for their cross sections. However, a value called the Linear Energy Transfer (LET) is used and defined as the amount of energy transferred to the target per unit of distance
-    \begin{equation}
-      LET = - \frac{dE}{dX} .
-    \end{equation}
-    The latter greatly depends upon the medium and is thus normalized by its density and expressed in terms of MeV cm$^2$ g$^{-1}$. When the LET is greater than the energy of the particle itself, the latter is stopped by the medium. \\
+      Radiation affects the functioning of FPGAs through its interactions with the silicon substrate that composes the chip. These interactions take the form of direct or indirect ionization depending on the nature of the incident particle. Charged particles will directly ionize the medium through their coulomb interactions with the electrons, causing them to escape with a fraction of the energy of the particle. Neutral particles on the other hand interact through indirect ionization which results from the scatterings with the medium which transfer energy to the electrons. Both processes result in a trail of ions and electrons in the path of the incident particle. \\
 
-    The ions and electrons created along the track of the particle will either recombine if they are located in the bulk of the substrate, or drift towards the doped regions of the transistor if located near the p-n junction. The latter gives rise to the creation of an ion and electron current in the transistor and a resulting current spike at the gates of the component. This can propagate in the circuit and affect its status. \\
+      The energy losses are stochastic by nature and thus described by probability distributions around a mean value. They further depend upon the energy of the incident particle as different physical processes will have different behaviors for their cross sections. However, a value called the Linear Energy Transfer (LET) is used and defined as the amount of energy transferred to the target per unit of distance
+      \begin{equation}
+        LET = - \frac{dE}{dX} .
+      \end{equation}
+      The latter greatly depends upon the medium and is thus normalized by its density and expressed in terms of MeV cm$^2$ g$^{-1}$. When the LET is greater than the energy of the particle itself, the latter is stopped by the medium.
 
-    Over time, charge builds up in the oxyde region of the transistors and screens or enhances the electric field of the gate. This results in a shift of the voltage threshold of the transistor. Additionally, this also affects the mobility of the charge carriers in the region of the transistor where the conductive channel forms between the two doped regions. This can lead to current leakage and an increase in the voltage shift.
+    \subsection{Effects of Radiation on Transistors}
+
+      The ions and electrons created along the track of the particle will either recombine if they are located in the bulk of the substrate, or drift towards the doped regions of the transistor if located near the p-n junction. The latter gives rise to the creation of an ion and electron current in the transistor and a resulting current spike at the gates of the component. This can propagate in the circuit and affect its status. \\
+
+      Over time, charge builds up in the oxyde region of the transistors and screens or enhances the electric field of the gate. This results in a shift of the voltage threshold of the transistor. Additionally, this also affects the mobility of the charge carriers in the region of the transistor where the conductive channel forms between the two doped regions. This can lead to current leakage and an increase in the voltage shift.
 
   \section{Architecture of an FPGA}
 
