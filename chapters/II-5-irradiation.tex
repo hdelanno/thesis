@@ -5,6 +5,20 @@
 
   In this chapter, we provide the user with an overview of the internal architecture of an FPGA to better understand the potential sources of errors and the effects of radiation. We then describe the firmware of the irradiated and control FPGAs which has been used during the test. The setup and beam parameters of the irradiation test are reviewed before presenting the results that were obtained after analysis.
 
+  \section{Effects of Radiation on FPGAs}
+
+    Radiation affects the functioning of FPGAs through its interactions with the silicon substrate that composes the chip. These interactions take the form of direct or indirect ionization depending on the nature of the incident particle. Charged particles will directly ionize the medium through their coulomb interactions with the electrons, causing them to escape with a fraction of the energy of the particle. Neutral particles on the other hand interact through indirect ionization which results from the scatterings with the medium which transfer energy to the electrons. Both processes result in a trail of ions and electrons in the path of the incident particle. \\
+
+    The energy losses are stochastic by nature and thus described by probability distributions around a mean value. They further depend upon the energy of the incident particle as different physical processes will have different behaviors for their cross sections. However, a value called the Linear Energy Transfer (LET) is used and defined as the amount of energy transferred to the target per unit of distance
+    \begin{equation}
+      LET = - \frac{dE}{dX} .
+    \end{equation}
+    The latter greatly depends upon the medium and is thus normalized by its density and expressed in terms of MeV cm$^2$ g$^{-1}$. When the LET is greater than the energy of the particle itself, the latter is stopped by the medium. \\
+
+    The ions and electrons created along the track of the particle will either recombine if they are located in the bulk of the substrate, or drift towards the doped regions of the transistor if located near the p-n junction. The latter gives rise to the creation of an ion and electron current in the transistor and a resulting current spike at the gates of the component. This can propagate in the circuit and affect its status. \\
+
+    Over time, charge builds up in the oxyde region of the transistors and screens or enhances the electric field of the gate. This results in a shift of the voltage threshold of the transistor. Additionally, this also affects the mobility of the charge carriers in the region of the transistor where the conductive channel forms between the two doped regions. This can lead to current leakage and an increase in the voltage shift.
+
   \section{Architecture of an FPGA}
 
     To optimize the occupancy of the resources of the FPGA and develop code that uses the full potential of the device, a deep comprehension of the intrinsic architecture of the chip is required. Although families of FPGA differ in size and complexity, their building blocks remain the same and are described hereafter.
@@ -52,7 +66,7 @@
 
       The configuration memory holds the configuration of the entire FPGA and defines its behavior. It sets the truth table of the LUTs, parametrizes the DSP, creates the connection between elements, etc. It is what implements the design in the FPGA. In most FPGAs, the configuration memory is volatile and will lose its content upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank or corrupted state if it fails to do so.
 
-  \section{Effects of Radiation on FPGAs and Mitigation Techniques}
+  \section{SEU Mitigation Techniques}
 
     When particles pass through an FPGA, they interact with the silicon substrate and deposit charge within the device. If the interaction takes place near a transistor, as depicted in Figure \ref{fig:II-5-transistor}, the charge can affect the functioning of the component and induce a change of state. Alternatively, particles can produce current or voltage spikes which propagate in the design. Each type of interaction results in different effects in the FPGA. The most common are the Single Event Upsets (SEU) and Single Event Transients (SET). Besides being influenced by punctual events, the FPGA will also age and degrade due to the Total Ionizing Dose (TID) of radiation which impacts the silicon.
 
@@ -162,7 +176,7 @@
     \end{equation}
     where $ N $ is the number of recorded SEUs, $ t $ is the duration of the test, and $ \phi $ is the flux of particles. \\
 
-    Over the duration of the test, the TID of the FPGAs increased, reaching up to 84 kRad. The rad is a unit used to measure the dose absorbed by the object and is a function of the fluence, which is the flux integrated over time, and the Linear Energy Transfer (LET), which defines the amount of energy transferred to the target according to the type of material. In comparison, the TID recorded by detectors in CMS at the end of Phase II is estimated to be of the order of 10 kRad. To accelerate the aging process of the FPGAs and accumulate statistics, both boards were exposed to fluxes up to 10 000 times higher than those that they will have to cope with in the environment of CMS. \\
+    Over the duration of the test, the TID of the FPGAs increased, reaching up to 84 kRad. The rad is a unit used to measure the dose absorbed by the object and is a function of the fluence, which is the flux integrated over time, and the LET. In comparison, the TID recorded by detectors in CMS at the end of Phase II is estimated to be of the order of 10 kRad. To accelerate the aging process of the FPGAs and accumulate statistics, both boards were exposed to fluxes up to 10 000 times higher than those that they will have to cope with in the environment of CMS. \\
 
     Finally, from the error counting in the CLBs and the two triplication levels, it is possible to extract the effectiveness of this method as error mitigation technique.
 
