@@ -54,9 +54,9 @@
   	\end{equation}
   	where $ f_{process} $ is the number of expected events per second, and $ \sigma_{process} $ is the interaction cross-section of the process. For a circular collider, the instantaneous luminosity is defined as
   	\begin{equation}
-  		\mathcal{L} = \frac{N^2_b n_b f_{rev} \gamma}{4 \pi \epsilon_n \beta^*} F ,
+  		\mathcal{L} = f \frac{n_1 n_2}{4 \pi \sigma_x \sigma_y},
   	\end{equation}
-  	where $ N_b $ is the number of protons or ions per bunch, $ n_b $ is the number of bunches per beam, $ f_{rev} $ is the revolution frequency, $ \gamma $ is the Lorentz factor, $ \epsilon_n $ is the beam emittance, $ \beta^* $ is the beta function at the interaction point, and $ F $ is a function of the crossing angle between the beams. The $ \epsilon_n $ and $ F $ parameters are related to the structure of the bunches and more specifically to their spatial spreading. These parameters change during the operation of the machine as the number of protons per bunch decreases and the bunches spread out. \\
+  	where $ n_i $ is the number of protons or ions per bunch, $ f $ is the frequency of the collisions, and $ \sigma $ is the RMS of the transverse size of the beam in the $x$ and $y$ directions. These parameters change during the operation of the machine as the number of protons per bunch decreases and the bunches spread out. \\
 
     The instantaneous luminosity can be accumulated over a given period of time in order to obtain the integrated luminosity
   	\begin{equation}
@@ -78,13 +78,13 @@
 
 	\section{Operations and Schedule}
 
-    Over the past years, the LHC has been building up in energy but also in luminosity in order to reach its nominal values of 14 TeV and $ 10^{34} $ cm$^{-2}$ s$^{-1}$. Figure \ref{fig:I-2-futur} depicts the schedule of the LHC for the coming years throughout 2037 and the corresponding luminosities: peak on the left axis and integrated on the right axis. It can be seen that several LS are planned in order to upgrade the LHC and allow the experiments to perform maintenance and improvements. A noticeable increase in peak luminosity will happen after LS3 and mark the beginning of the so-called Phase2 operation of the LHC. Such an increase in luminosity will affect the experiments due to the higher number of proton-proton collisions during each BX which will in turn translated to a higher flux of particles in the detectors. Preparing the LHC and the detectors to function at such high luminosity is a challenge to which physicists and engineers are already providing answers.
+    Over the past years, the LHC has been building up in energy but also in luminosity in order to reach its nominal values of 14 TeV and $ 10^{34} $ cm$^{-2}$ s$^{-1}$. Figure \ref{fig:I-2-future} depicts the schedule of the LHC for the coming years throughout 2037 and the corresponding luminosities: peak on the left axis and integrated on the right axis. It can be seen that several LS are planned in order to upgrade the LHC and allow the experiments to perform maintenance and improvements. A noticeable increase in peak luminosity will happen after LS3 and mark the beginning of the so-called Phase2 operation of the LHC. Such an increase in luminosity will affect the experiments due to the higher number of proton-proton collisions during each BX which will in turn translated to a higher flux of particles in the detectors. Preparing the LHC and the detectors to function at such high luminosity is a challenge to which physicists and engineers are already providing answers.
 
     \begin{figure}[h!]
       \centering
       \includegraphics[width=\textwidth]{img/I-2-LHC/lhc-schedule.png}
       \caption{Projected instantaneous and integrated luminosity of the LHC throughout 2037 \cite{HOME-CERN}.}
-      \label{fig:I-2-futur}
+      \label{fig:I-2-future}
     \end{figure}
 
   \section{Scientific Motivations}
@@ -93,6 +93,6 @@
 
     The discovery of the Brout-Englert-Higgs boson is one of the main goals of the LHC which has already been fulfilled. However, the characterization of the particle still requires a great amount of analysis in order to, for example, quantify the coupling constants to fermions or weak bosons. Moreover, it is not excluded that other scalar bosons exist at higher energy as predicted by some theories. In this case, the upgrade of the LHC becomes a necessity to detect the new exotic physics at play. \\
 
-    Not only physics beyond the Standard Model is being explored by the LHC. Measuring the free parameters of the theory and comparing them to theoretical and experimentally obtained values is also an important task which helps validating the models. Running at high luminosity allows to study rare processes such as the $ B^0_S $ meson decay, $ \bar{b}s \rightarrow \mu + \bar{\mu} $, which was first observed at the LHC. \\
+    Not only physics beyond the Standard Model is being explored by the LHC. Measuring the free parameters of the theory and comparing them to theoretical and experimentally obtained values is also an important task which helps validating the models. Running at high luminosity allows to study rare processes such as the $ B^0_S $ meson decay, $ \bar{b}s \rightarrow \mu + \bar{\mu} $, which was first observed at the LHC \cite{b0smumu}. \\
 
     The measurements and observations described here above are done by the detectors which are installed on the LHC using the collisions it provides. From the four large experiments the LHC hosts, two of them, namely ATLAS and CMS, are considered to be generalist as they are built to detect a wide range of interactions. ALICE and LHCb on the other hand are respectively optimized to study Pb-Pb interactions at lower energy but which result in a higher density of collisions, and b quark physics to understand the CP violation. The three smaller experiments, namely TOTEM, LHCf, and MoEDAL, use the forward particles that are far away from the interaction point to respectively analyze elastic collisions, simulate cosmic rays, and search for magnetic monopoles.
