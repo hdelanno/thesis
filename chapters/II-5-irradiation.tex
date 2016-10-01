@@ -22,21 +22,6 @@
 
       Each CLB is composed of two slices each made of four LUTs and eight registers which layout is shown in Figure \ref{fig:II-5-clb}. Each LUT is connected to an input bus of six signals (A, B, C, and D inputs) and to an unbuffered output bus of a single bit (O6 to A, B, C, and D). Four additional signals enter the slice (AX, BX, CX, and DX) and are connected to multiplexers (red) which allow to buffer either the former or the second output of the LUTs (O5). The output of the same buffer is then connected to a second multiplexer (orange) which allows to select either the former or an unbuffered output of the LUTs (AMUX, BMUX, CMUX, and DMUX). Finally, a third multiplexer (green) connects a range of signals to the registers on the right which are then connected to four outputs (AQ, BQ, CQ, and DQ). Three additional multiplexers (blue) offer the possibility to mix the signals from the four LUTs to generate a wider range of logical operations. The flexibility offered by this architecture is what enables FPGAs to implement complex designs. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
 
-    \subsection{The switching matrix}
-
-      The inputs and outputs of the slices of the CLBs as well as of the other components of the FPGA are interconnected through the switching matrix. It is a vast network of wires and switches which are used to route signals between elements. The open or closed state of each switch is programmable and defines the routes signals follow inside the logic. Figure \ref{fig:II-5-switch} shows an element of the matrix connected to two slices (blue) along with the signals that are routed in the network (cyan). Complex designs can span a large area of the FPGA due to the high usage of logic and thus be difficult to place and route by the compiler. A technique called floorplanning is used to reduce compilation time and improve the design by constraining parts of the code to given areas in the FPGA. This reduces propagation delays and logic usage which in turn yield a more efficient design.
-
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=0.7\textwidth]{img/II-5-irradiation/switch.png}
-        \caption{Schematic of two slices (blue) connected to an element of the switching matrix which routes the signals (cyan) between components over the multitude of existing paths (gray).}
-        \label{fig:II-5-switch}
-      \end{figure}
-
-    \subsection{Block RAM}
-
-      Besides programmable logic, the FPGA also includes dedicated storage elements. Block RAMs (BRAMs) \cite{VIRTEX-RAM} can store up to 36 kb of data which can be configured in different ways: 32K x 1 bit, 16K x 2 bits, etc. They can also be used as First In First Out (FIFO) modules which are similar to data queues.
-
     \subsection{Digital Signal Processing}
 
       Digital Signal Processing units (DSPs) \cite{VIRTEX-DSP} are modules which perform mathematical operations using dedicated hardware elements. They are used to quickly solve problems without relying on CLBs which can consume large amount of resources to perform an equivalent task. Figure \ref{fig:II-5-dsp} shows a diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family. They include a 30-bits adder, a 25-bits by 18-bits multiplier, and a programmable module which can implement either a multiplication, an addition, or a logic operation. Using the various multiplexers and configuration bits, the user can define the data paths that are followed and thus create DSP modules which meet the requirements of the design.
@@ -47,6 +32,21 @@
         \caption{Diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family \cite{VIRTEX-DSP}.}
         \label{fig:II-5-dsp}
       \end{figure}
+
+    \subsection{The switching matrix}
+
+      The inputs and outputs of the slices of the CLBs as well as of the other components of the FPGA are interconnected through the switching matrix. It is a vast network of wires and switches which are used to route signals between elements. The open or closed state of each switch is programmable and defines the routes signals follow inside the logic. Figure \ref{fig:II-5-switch} shows an element of the matrix connected to two slices (blue) along with the signals that are routed in the network (cyan). Complex designs can span a large area of the FPGA due to the high usage of logic and thus be difficult to place and route by the compiler. A technique called floorplanning is used to reduce compilation time and improve the design by constraining parts of the code to given areas in the FPGA. This reduces propagation delays and logic usage which in turn yield a more efficient design.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/II-5-irradiation/switch.png}
+        \caption{Schematic of two slices (blue) connected to an element of the switching matrix which routes the signals (cyan) between components over the multitude of existing paths (gray).}
+        \label{fig:II-5-switch}
+      \end{figure}
+
+    \subsection{Block RAM}
+
+      Besides programmable logic, the FPGA also includes dedicated storage elements. Block RAMs (BRAMs) \cite{VIRTEX-RAM} can store up to 36 kb of data which can be configured in different ways: 32K x 1 bit, 16K x 2 bits, etc. They can also be used as First In First Out (FIFO) modules which are similar to data queues.
 
     \subsection{The configuration memory}
 
@@ -150,15 +150,15 @@
       The remaining four wires connected to the SEM core carry the heartbeat, detection, correction, and critical signals.
 
     \subsection{ChipScope Core}
-
-      The Xilinx Virtex-6 FPGA implements a dedicated core called ChipScope that allows signals to be read out and set from a computer. In firmware, two versions of the core exist: one called Virtual Input/Output (VIO) which connects to signals and allows to modify then or view then in real-time, and one called Integrated Logic Analyzer (ILA) which reads out the signals and provide a view of their evolution over time. In software, control windows can be created to handle those signals as depicted in Figure \ref{fig:II-5-cs-clb} in which the VIO control window is located on the left where signals in blue are those that are read out, and signals sin green are those that can be modified, and the ILA monitoring windows in showed on the right. \\
-
+    
       \begin{sidewaysfigure}[p!]
         \centering
         \includegraphics[width=\textwidth]{img/II-5-irradiation/cs-clb.png}
         \caption{View of the interface of ChipScope in which the VIO control window is located on the left where signals in blue are those that are read out, and signals in green are those that can be modified, and the ILA monitoring windows in showed on the right.}
         \label{fig:II-5-cs-clb}
       \end{sidewaysfigure}
+
+      The Xilinx Virtex-6 FPGA implements a dedicated core called ChipScope that allows signals to be read out and set from a computer. In firmware, two versions of the core exist: one called Virtual Input/Output (VIO) which connects to signals and allows to modify then or view then in real-time, and one called Integrated Logic Analyzer (ILA) which reads out the signals and provide a view of their evolution over time. In software, control windows can be created to handle those signals as depicted in Figure \ref{fig:II-5-cs-clb} in which the VIO control window is located on the left where signals in blue are those that are read out, and signals sin green are those that can be modified, and the ILA monitoring windows in showed on the right. \\
 
       The VIO window provides an overview of the error counters and allows to reset them individually. It also controls a timer which is used to count the elapsed time and a "reconfiguration needed" signal which indicates that the irradiated FPGA requires a hard reset. The ILA monitor displays the incoming bits and the resulting information. The first bus labeled "HDMI" holds the four bits used to encode the error types which can be seen to transition from 0x0 to 0xF and 0x4. The 0xF signals the beginning of a transmission and the 0x4 indicates a CLB level-1 error which in turn raises one of the error flags. The last four buses are connected to the signals of the SEM core.
 
@@ -245,7 +245,7 @@
 
     \subsection{Interaction with the CLBs and DSPs}
 
-      By computing the ratio of errors seen in the CLBs and DSPs, and by making the approximation that all errors produced in the configuration memory are reflected in either of these components, an upper limit can be given on the interaction cross section. From all the events recorded, 6.61\% affected the DSPs and 93.39\% the CLBs. This yields an interaction cross section of 2.04 $ \times $ 10$^{-8}$ cm$^2$ and 2.88 $ \times $ 10$^{-7}$ cm$^2$ respectively.
+      The errors occurring in the CLBs and DSPs are due to bit flips in the configuration memory which change the structure of the design. This means that these SEUs will be detected by both SEM and the triplicated logic. By computing the ratio of errors seen in the CLBs and DSPs, and by making the approximation that all errors produced in the configuration memory are reflected in either of these components, an upper limit can be given on the interaction cross section. From all the events recorded by the triplicated logic, 6.61\% affected the DSPs and 93.39\% the CLBs. By applying those ratios to the cross section of recoverable errors in SEM, this yields an interaction cross section of 2.04 $ \times $ 10$^{-8}$ cm$^2$ and 2.88 $ \times $ 10$^{-7}$ cm$^2$ respectively for protons at 62 MeV.
 
     \subsection{Effectiveness of Triplication as Error Mitigation Technique}
 
@@ -258,7 +258,7 @@
         \label{fig:II-5-data-triplication}
       \end{figure}
 
-      As can be observed, the failure rate increases with the particle flux due to the accumulation of errors in the design. The characteristic time needed to correct an error in the configuration memory is of a few milliseconds which at high fluxes is longer than the time between two SEUs. If two SEUs affect the same area of the logic, the triplication method will fail. At fluxes of 5 $ \times $ 10$^8$ cm$^{-2}$ s$^{-1}$, the SEU rate is so high that the triplication method cannot recover data at all. However, by extrapolating the data points to the flux expected in CMS, of the order of 1 kHz cm$^{-2}$, it can be seen that this technique will prove efficient and mitigate all the SEUs.
+      As can be observed, the failure rate increases with the particle flux due to the accumulation of errors in the design. The characteristic time needed to correct an error in the configuration memory is of a few milliseconds which at high fluxes is longer than the time between two SEUs. If two SEUs affect the same area of the logic, the triplication method will fail. At fluxes of 5 $ \times $ 10$^8$ cm$^{-2}$ s$^{-1}$, the SEU rate is so high that the triplication method cannot recover data at all. However, by extrapolating the data points, it can be seen that this technique will prove efficient and mitigate all the SEUs at fluxes bellow 10$^5$ cm$^{-2}$ s$^{-1}$.
 
     \subsection{Impact for the Triple-GEM Upgrade Project}
 
@@ -276,12 +276,12 @@
       \begin{table}[h!]
         \begin{tabularx}{\textwidth}{L{1.1}C{1}C{0.95}C{0.95}}
           \textbf{Event type} & \textbf{cross section} & \textbf{SEUs per day \newline LHC Phase I} & \textbf{SEUs per day \newline LHC Phase II} \\ \hline
-          SEM - recoverable & 3.08 $ \times $ 10$^{-7}$ cm$^{2}$ &  6.65  & 33.2  \\
-          SEM - critical & 3.19 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.68  & 3.44  \\
-          BRAM - recoverable & 1.02 $ \times $ 10$^{-7}$ cm$^{2}$ & 2.19  & 11  \\
-          BRAM - critical & 1.71 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.27  & 1.33  \\
-          CLB & 2.88 $ \times $ 10$^{-7}$ cm$^{2}$ & 6.21  & 31  \\
-          DSP & 2.04 $ \times $ 10$^{-8}$ cm$^{2}$ & 0.44  & 2.2 \\
+          SEM - recoverable & 3.08 $ \times $ 10$^{-7}$ cm$^2$ &  6.65  & 33.2  \\
+          SEM - critical & 3.19 $ \times $ 10$^{-8}$ cm$^2$ & 0.68  & 3.44  \\
+          BRAM - recoverable & 1.02 $ \times $ 10$^{-7}$ cm$^2$ & 2.19  & 11  \\
+          BRAM - critical & 1.71 $ \times $ 10$^{-8}$ cm$^2$ & 0.27  & 1.33  \\
+          CLB & 2.88 $ \times $ 10$^{-7}$ cm$^2$ & 6.21  & 31  \\
+          DSP & 2.04 $ \times $ 10$^{-8}$ cm$^2$ & 0.44  & 2.2 \\
         \end{tabularx}
         \caption{Types of SEUs encountered along with their respective interaction cross section and the resulting daily rate of errors in CMS per FPGA assuming that the LHC runs at nominal values during 24h.}
         \label{tab:II-5-seu-rate}
@@ -295,7 +295,7 @@
 
     To characterize the behavior of the on-detector electronics used for the CMS GEM project when subject to radiation, two OptoHybrid v2a boards were exposed to proton beams during irradiation tests performed at the cyclotron of Louvain-La-Neuve. Custom firmware was developed for the FPGAs in order to compute the interaction cross section with the various components inside the chip and to study the effectiveness of mitigation techniques.  \\
 
-    After analysis of the data, we obtained an interaction cross section of 3.08 $\pm$ 0.21 $ \times $ 10$^{-7}$ cm$^{2}$ and 1.02 $\pm$ 0.12 $ \times $ 10$^{-7}$ cm$^{2}$ for the configuration memory of the FPGA and the BRAM respectively, the two main sources of errors. These values are obtained for protons of 62 MeV, which behavior is similar to neutrons, the prominent source of radiation that affect the FPGA. Within the neutron spectrum, particles bellow 20 MeV do not interact with the silicium of the chip while rates of particles above 100 MeV are negligible in CMS. When transposed to the environment of CMS, these values yield a rate of 33.2 errors a day and 11 errors a day per FPGA respectively for the LHC Phase II. These errors can be mitigated using triplication techniques which, through extrapolations from results at higher rates, have shown to be efficient at low particle fluxes below 5 $ \times $ 10$^4$ particles cm$^{-2}$ s$^{-1}$. \\
+    After analysis of the data, we obtained an interaction cross section of 3.08 $\pm$ 0.21 $ \times $ 10$^{-7}$ cm$^2$ and 1.02 $\pm$ 0.12 $ \times $ 10$^{-7}$ cm$^2$ for the configuration memory of the FPGA and the BRAM respectively, the two main sources of errors. These values are obtained for protons of 62 MeV, which behavior is similar to neutrons, the prominent source of radiation that affect the FPGA. Within the neutron spectrum, particles bellow 20 MeV do not interact with the silicon of the chip while rates of particles above 100 MeV are negligible in CMS. When transposed to the environment of CMS, these values yield a rate of 33.2 errors a day and 11 errors a day per FPGA respectively for the LHC Phase II. These errors can be mitigated using triplication techniques which, through extrapolations from results at higher rates, have shown to be efficient at low particle fluxes below 5 $ \times $ 10$^4$ particles cm$^{-2}$ s$^{-1}$. \\
 
     Over the course of the tests, the FPGAs were exposed to a total of 84 krad, corresponding to a dose 8 times higher than what will be collected during the totality of the LHC Phase II. We did not observe any increase in the interaction cross section for the components of the FPGAs which continued to function correctly until the end of the tests. \\
 
