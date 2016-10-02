@@ -85,7 +85,7 @@
 
     \subsection{Handling Client Requests}
 
-      The server on the Microblaze processor handles both HTTP and WebSocket requests, differentiating them using the HTTP header as selection criteria. It them forwards them to two dedicated functions according to the type of request. \\
+      The server on the Microblaze processor handles both HTTP and WebSocket requests, differentiating them using the HTTP header as selection criteria. It then forwards them to two dedicated functions according to the type of request. \\
 
       For HTTP requests, the headers are extracted along with the type and path. Only GET requests need to be handled in this application, corresponding to the download of resources: web page, image, etc. In case the requested path is valid, the file is retrieved from memory and sent back to the user. Otherwise, an error 404 is generated to inform the user that the resource is not available. In normal operation mode, the client connects once to the server over HTTP to download the application and then switches over to WebSocket communication. The switching is done through JavaScript code present in the application that is executed by the client. \\
 
@@ -93,7 +93,7 @@
 
     \subsection{The TCPSockets Implementation}
 
-      Although WebSockets provide an implementation of sockets in the web browser, they also define a format for the data that is being transmitted. This limits the field of application to the connection between a WebSockets client and server. A more generic approach uses the TCPSockets, a raw implementation of sockets in the web browser which is still in experimental phase. This technology enables the connection between any systems that support TCP sockets, including databases. A direct communication between the client and the database can thus be establishes in order to retrieve stored data, effectively bypassing the need for an intermediary server.
+      Although WebSockets provide an implementation of sockets in the web browser, they also define a format for the data being transmitted. This limits the field of application to the connection between a WebSockets client and server. A more generic approach uses the TCPSockets, a raw implementation of sockets in the web browser which is still in experimental phase. This technology enables the connection between any systems that support TCP sockets, including databases. A direct communication between the client and the database can thus be established in order to retrieve stored data, effectively bypassing the need for an intermediary server.
 
   \section{The Microblaze Processor}
 

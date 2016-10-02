@@ -28,7 +28,7 @@
 
   \section{The Infrastructure of the System}
 
-    To control and monitor the GEM detector, high voltage, and gas systems, a custom solution was developed around a web interface. The latter allows the user to change parameters of the runs, visualize the evolution of the settings, access logs, etc. All this information is stored in a database located on the central computing node which also hosts the web server. The database is the communication interface between all elements. It stores requests, responses, statuses, etc. From the database, a second computer located near the experimental setup extracts the parameters that need to be set on the high voltage and gas system and handles the communication protocol with these two components. This infrastructure remained unchanged while the data readout of the GEMs evolved with time.
+    To control and monitor the GEM detector, high voltage, and gas systems, a custom solution was developed around a web interface. The latter allows the user to change parameters of the runs, visualize the evolution of the settings, access logs, etc. All this information is stored in a database located on the central computing node which also hosts the web server. The database is the communication interface between all elements. It stores requests, responses, statuses, etc. From the database, a second computer located near the experimental setup extracts the parameters that need to be set on the high voltage and gas system, and handles the communication protocol with these two components. This infrastructure remained unchanged while the data readout of the GEMs evolved with time.
 
     \subsection{The Web Interface}
 
@@ -116,7 +116,7 @@
         \label{fig:III-1-uart}
       \end{figure}
 
-      To control the systems, it was chosen to use an implementation of IPBus over UART to be as close as possible to later developments. To this end, dedicated software has been design for both the computer and the Microblaze. The software is flexible enough to either user a UART or an Ethernet interface, abstracting the transportation layer from the data. In the case of the UART implementation that was used, the 32-bit structure of the IPBus frame is decomposed in 8-bit packets. Each instruction is then recomposed by the Microblaze and forwarded to the corresponding module. The response is then sent back to the computer. \\
+      To control the systems, it was chosen to use an implementation of IPBus over UART to be as close as possible to later developments. To this end, dedicated software has been design for both the computer and the Microblaze. The software is flexible enough to either use a UART or an Ethernet interface, abstracting the transportation layer from the data. In the case of the UART implementation that was used, the 32-bit structure of the IPBus frame is decomposed in 8-bit packets. Each instruction is then recomposed by the Microblaze and forwarded to the corresponding module. The response is then sent back to the computer. \\
 
       The software in charge of the communication with the SP601 that is running on the computer is constantly polling the database for new requests to transmit. It also pulls data out of the tracking data buffers that is then stored in the same database. The user can then visualize the events from the web interface or issue commands by polling the server. Figure \ref{fig:III-1-app-cmd} is a screenshot of the interface that allows the user to send commands and read the response from the system.
 
