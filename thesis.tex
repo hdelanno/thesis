@@ -1,4 +1,5 @@
 \documentclass[11pt, twoside, a4paper]{scrreprt}
+\PassOptionsToPackage{warn}{textcomp}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %% Place packages here %%
@@ -72,7 +73,7 @@
   \pagestyle{maincontentstyle}
 
   % Introduction
-  \input{chapters/0-4-introduction}             % -
+  \input{chapters/0-4-introduction}             % T OK
   \cleardoublepage
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,7 +138,7 @@
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   % Conclusion
-  \input{chapters/IV-0-conclusion.tex}          % -
+  \input{chapters/IV-0-conclusion.tex}          % T OK
   \cleardoublepage
 
   % List of figures
@@ -155,8 +156,8 @@
   \cleardoublepage
 
   % Bibliography
-  % \addcontentsline{toc}{chapter}{Bibliography}
-  % \printbibliography
-  % \cleardoublepage
+  \addcontentsline{toc}{chapter}{Bibliography}
+  \printbibliography
+  \cleardoublepage
 
 \end{document}
