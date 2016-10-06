@@ -197,7 +197,7 @@
 
   \section{The Data Acquisition System}
 
-    The DAQ system of CMS, shown in Figure \ref{fig:I-3-daq}, reads out the full granularity data of events from more than 650 sources in the whole detector. It is able to handle a data flow of 100 GBytes per second and redirect data to the HLT which reduces the rate of events by a factor of 1000. \\
+    The DAQ system of CMS, shown in Figure \ref{fig:I-3-daq}, reads out the full granularity data of events from more than 650 sources in the whole detector. It is able to handle a data flow of 100 GBytes per second and redirect data to the HLT which reduces the rate of events by a factor of 1 000. \\
 
       \begin{figure}[h!]
         \centering
@@ -214,7 +214,7 @@
 
     \subsection{The Event Filter}
 
-      The role of the event filter is to distribute the events to worker nodes in the processing farm which run offline reconstruction algorithms to process and select events for storage. It is where the HLT is located and is in charge of reducing the 100 kHz rate of data to 100 Hz manageable by the mass storage system. Besides running reconstruction algorithms, Data Quality Monitoring (DQM) information is also generated for consistency checks. Finally, the selected events are sent for storage to data loggers.
+      The role of the event filter is to distribute the events to worker nodes in the processing farm which run offline reconstruction algorithms to process and select events for storage. It is where the HLT is located and is in charge of reducing the 500 kHz rate of data to 100 Hz manageable by the mass storage system. Besides running reconstruction algorithms, Data Quality Monitoring (DQM) information is also generated for consistency checks. Finally, the selected events are sent for storage to data loggers.
 
   \section{The Upgrades of CMS}
 
