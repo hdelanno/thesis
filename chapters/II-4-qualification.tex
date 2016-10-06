@@ -22,7 +22,7 @@
 
     \subsection{Front-end Currents and Voltages}
 
-      Following the threshold scan, the procedure reads out the currents and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the 8-bit registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an ADC to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-4-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the 8-bit value written in the register. \\
+      Following the threshold scan, the procedure reads out the currents and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the eight bits registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip, which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an ADC to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-4-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the eight bits value written in the register. \\
 
       \begin{figure}[h!]
         \centering
@@ -34,7 +34,7 @@
 
       All but one of the current based registers are related to the amplification and shaping of the analog signal. They power the front-end and are used to define the length of the tail of the signal shape, the rise time of the distribution, etc. The remaining register, IComp, defines the amount of current delivered to the comparator which in turn influences the response time of the latter. These parameters are set to default values provided by the reference manual of the VFAT2. \\
 
-      The voltage based registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels. Figure \ref{fig:II-4-injection} shows a diagram of the injection and calibration circuit of the VFAT2. The amplitude of the calibration pulse is equal to the difference between VBaseline which has a fixed value and VLow which is programmable. The output pulse is sent to one channel over a capacitor of 100 fF resulting in a pulse amplitude in term of charge of
+      The voltage based registers are used for the comparator and the calibration modules. The VThreshold1 and VThreshold2 signals are those defining the threshold on the strips. By design, VFAT2 can handle positive and negative pulse and provides one threshold register for each polarity. During operations, one of the registers is set to zero and the other one is used to adjust the threshold, meaning that a single parameter is used. The VBaseline, VCal, and VLow registers are used to define the amplitude of the calibration pulse sent to the channels. Figure \ref{fig:II-4-injection} shows a diagram of the injection and calibration circuit of the VFAT2. The amplitude of the calibration pulse is equal to the difference between VBaseline which has a fixed value of 1.514 $\pm$ 0.009 V and VLow which is programmable between 1.529$\pm$ 0.002 V and 1.314 $\pm$ 0.002 V. The output pulse is sent to one channel over a capacitor of 100 fF resulting in a pulse amplitude in term of charge of
       \begin{equation}
         \label{eq:II-4-injection}
         Q = 100 \ \text{fF} \times \left(\text{VBaseline} - \text{VLow} \right) .
@@ -47,7 +47,7 @@
         \label{fig:II-4-injection}
       \end{figure}
 
-      By inserting the values of VBaseline and VLow in Equation \ref{eq:II-4-injection}, a range of injected charge can be computed and qualitatively compared to the one given in the VFAT2 specifications \cite{Aspell:1267947}. The latter states a range of -2 fC to 18.5 fC with a slope of 0.08 fC while the former results in a range of -0.9 fC to 20 fC with a slope of 0.08 fC. The agreement between both results helps to validate the methodology used during the calibration routines.
+      By inserting the values of VBaseline and VLow in Equation \ref{eq:II-4-injection}, a range of injected charge can be computed and qualitatively compared to the one given in the VFAT2 specifications \cite{Aspell:1267947}. The latter states a range of -2 fC to 18.5 fC with a slope of 0.08 fC per VFAT2 unit, while the former results in a range of -1.5 $\pm$ 0.9 fC to 19.2 $\pm$ 0.9 fC with a slope of 0.08 $\pm$ 0.01 fC per VFAT2 unit. Both measurements agree well within the error margins and help to validate the methodology used during the calibration routines.
 
     \subsection{Front-end Calibration}
 
@@ -63,15 +63,15 @@
       The operation is then repeated for various threshold values and the turn-on value is extracted automatically using a logistic function to fit the curve. The equation of the function is as follows
       \begin{equation}
         \label{eq:II-4-logistic}
-        f(x) = \frac{1}{1 + e^{-k \left( x - x_0 \right)}}
+        f(x) = \frac{1}{1 + e^{-\sigma \left( x - x_0 \right)}}
       \end{equation}
-      where $ x_0 $ is the value of the midpoint or turn-on, and $ k $ is the steepness of the slope. Figure \ref{fig:II-4-scurves} is a collection of s-curve scans for various thresholds on the left which can be translated to a plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units on the right. \\
+      where $ x_0 $ is the value of the midpoint or turn-on, and $ \sigma $ is the steepness of the slope. Figure \ref{fig:II-4-scurves} is a collection of s-curve scans for various thresholds on the left which can be translated to a plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units on the right. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ThresholdVCal-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_TurnOn-crop}
-        \caption{Left: collection of s-curve scans for various thresholds with corresponding curent values. Right: plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units.}
+        \caption{Left: collection of s-curve scans for various thresholds with corresponding current values. Right: plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units.}
         \label{fig:II-4-scurves}
       \end{figure}
 
@@ -109,12 +109,12 @@
       \end{equation}
       This can be compared to the value listed in the specification of the VFAT2 which is of 589 $\pm$ 84 $e^-$ when no detector is connected to the electronics. Both results are thus compatible within the error bars. \\
 
-      The second measurement that can be performed is to study the variation of the noise from channel to channel. Figure \ref{fig:II-4-noise} plots the Equivalent Noise Charge (ENC), or noise in terms of electrons, for each channel. The distribution is centered around 622 $e^-$ with a spread of 31 $e^-$. Although the previously exposed procedure is able to align the mean of the s-curves, it does not affect their slope and thus noise. This parameter can not be changed and is intrinsic to the VFAT2.
+      The second measurement that can be performed is to study the variation of the noise from channel to channel. Figure \ref{fig:II-4-noise} plots the Equivalent Noise Charge (ENC), or noise in terms of electrons, for each channel. The distribution is centered around 622 $e^-$ with a spread of 31 $e^-$. Although the previously exposed procedure is able to align the mean of the s-curves, it does not affect their slope and thus noise. This parameter cannot be changed and is intrinsic to the VFAT2.
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEnoise_Disp-crop}
-        \caption{Plots the equivalent noise charge for each channel.}
+        \caption{Plot of the Equivalent Noise Charge (ENC) for each channel.}
         \label{fig:II-4-noise}
       \end{figure}
 
@@ -153,7 +153,7 @@
 
       To test the GEB positions, the OptoHybrid is used to generate a pseudorandom binary sequence (PRBS) and transmit it over the data lines along with a reference clock. PRBS is often used to detect errors on communication lines including optical fibers. It relies on a sequence of bits to compute the next bit in the stream. A vector of bits is loaded in shift registers and is moved by one position every clock cycle. The overflowing position in transmitted on the line while the entering position is computed by summing the data stored in given positions. PRBS-7, for example, uses 7-bit-long vectors and computes the new element with
       \begin{equation}
-        x_0 = x_6 \oplus x_5 \& x_1
+        x_0 = x_6 \oplus x_5 \land x_1
       \end{equation}
       which yields a repetition period of pattern of 127 clock cycles. \\
 
@@ -232,7 +232,7 @@ K. Results
 
   \section{Conclusion}
 
-    For the first time, a method was developed to use the calibration capabilities of the VFAT2 to their full extend by taking advantage of the channel by channel optimization. The procedure we designed to qualify the VFAT2s is used to detect faulty units and perform qualification tests which entirely characterize the analog front-end of each VFAT2. The first part of the results can be compared to the specifications of the VFAT2 and yields the range of charge that can be injected on the channels and the noise on the VFAT2. The former results in a range of -0.9 fC to 20 fC while the latter was found to be of 624 $\pm$ 62 e$^-$. This is in turn used to provide information on the effective threshold applied on the channels in terms of electrons and thus induced charge. The second part of the script aligns the response of each channel around a central value and reduces the threshold disparity from an initial dispersion value of 1.22 to a value 0.19 after alignment in VFAT2 units, corresponding to 0.10 fC and 0.02 fC respectively. \\
+    For the first time, a method was developed to use the calibration capabilities of the VFAT2 to their full extend by taking advantage of the channel by channel optimization. The procedure we designed to qualify the VFAT2s is used to detect faulty units and perform qualification tests which entirely characterize the analog front-end of each VFAT2. The first part of the results can be compared to the specifications of the VFAT2 and yields the range of charge that can be injected on the channels and the noise on the VFAT2. The former results in a range of -1.5 $\pm$ 0.9 fC to 19.2 $\pm$ 0.9 fC with a slope of 0.08 $\pm$ 0.01 fC per VFAT2 unit, while the latter was found to be of 624 $\pm$ 62 e$^-$. This is in turn used to provide information on the effective threshold applied on the channels in terms of electrons and thus induced charge. The second part of the script aligns the response of each channel around a central value and reduces the threshold disparity from an initial dispersion value of 1.22 to a value 0.19 after alignment in VFAT2 units, corresponding to 0.10 fC and 0.02 fC respectively. \\
 
     Qualification procedures were also created for the GEB, for which we designed a GEB testing board to test each position and detect broken lines. The board relies on an FPGA coupled with an MCU to communicate with the OptoHybrid and test the integrity of the transmitted signals. The results of each test are displayed using on-board LEDs and inform the user of the quality of the signals and thus the GEB. \\
 
