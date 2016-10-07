@@ -1,13 +1,13 @@
 \chapter{Gas Electron Multiplier Detectors}
 \label{chap:II-1-gem}
 
-  In 1968, G. Charpak revolutionized the field of tracking detectors by introducing the Multiwire Proportional Chamber (MWPC). MWPCs were more reliable than the existing single-wire gas counters providing a higher sub-mm resolution and rate capabilities up to fluxes of several MHz cm$^{-2}$. Developments of manufacturing techniques and high-density electronics led to a new generation of detectors fulfilling the needs of high-energy physics experimentation. However, their use in high-luminosity experiments revealed some intrinsic weaknesses: the mechanical design of the chamber limits the spacial resolution; long ion drift times affect the efficiency of the detector at high fluxes; solid deposits agglomerate on the wires due to aging and induce sparks in the chamber. \\
+  In 1968, G. Charpak revolutionized the field of tracking detectors by introducing the Multiwire Proportional Chamber (MWPC). MWPCs were more reliable than the existing single-wire gas counters providing a higher sub-mm resolution and rate capabilities up to fluxes of several MHz mm$^{-2}$. Developments of manufacturing techniques and high-density electronics led to a new generation of detectors fulfilling the needs of high-energy physics experimentation. However, their use in high-luminosity experiments revealed some intrinsic weaknesses: the mechanical design of the chamber limits the spacial resolution; long ion drift times affect the efficiency of the detector at high fluxes; solid deposits agglomerate on the wires due to aging and induce sparks in the chamber. \\
 
-  Twenty years later, Micro-Strip Gas Counters (MSGCs) were developed using photolithographic processes to engrave anode and cathode strips on an insulating support. Both the position resolution and the rate capability were increase by several orders of magnitude. Unfortunately, the detectors were prone to the effect of aging and discharges, irremediably damaging the counters. \\
+  Twenty years later, Micro-Strip Gas Counters (MSGCs) were developed using photolithographic processes to engrave anode and cathode strips on an insulating support. Both the position resolution and the rate capability were increased by several orders of magnitude. Unfortunately, the detectors were prone to the effect of aging and discharges, irremediably damaging the counters. \\
 
-  The relative success of the MSGCs led to the development of Micro-Pattern Gas Detectors (MPGDs) less susceptible to discharges and offering comparable performances. They make use of micro pattern structures to amplify the signal and reduce the probability of sparks inside the chamber. Two technologies have proven to be operational: the micro-mesh gaseous structure (MICROMEGAS) and the Gas Electron Multiplier (GEM) \cite{SAULI1997531}. \\
+  The relative success of the MSGCs led to the development of Micro-Pattern Gas Detectors (MPGDs) less susceptible to discharges and offering comparable performances. They make use of micro pattern structures to amplify the signal and reduce the probability of sparks inside the chamber. Two technologies have proven to be operational: the MICRO-MEsh GASeous structure (MICROMEGAS) and the Gas Electron Multiplier (GEM) \cite{SAULI1997531}. \\
 
-  Already in use in the COMPASS and TOTEM experiments at CERN, GEM detectors have proven to meet the requirements of high-luminosity environments. In 2009, a dedicated R\&D program was launched to study the feasibility of the installation of GEMs in the muon spectrometer of CMS to instrument the positions left vacant by RPCs. Seven years later, the so called GE1/1 muon detector upgrade project was approved by CMS to be installed during LS2.
+  Already in use in the COMPASS and TOTEM experiments at CERN, GEM detectors have proven to meet the requirements of high-luminosity environments. In 2009, a dedicated R\&D program was launched to study the feasibility of the installation of GEMs in the muon spectrometer of CMS to instrument the positions left vacant by RPCs. Six years later, the so called GE1/1 muon detector upgrade project was approved by CMS to be installed during LS2.
 
   \section{Motivations for the GE1/1 Upgrade}
 
@@ -20,9 +20,9 @@
       \label{fig:II-1-ge11}
     \end{figure}
 
-    The main motivation for the installation of GE1/1 is the significant impact it has on the triggering system of CMS. Left as is, the performance of the current system would degrade in the coming years with the increase in instantaneous luminosity due to the rate limitations of the ME1/1 station exposed to an intense flux of particles. Muon triggering will in turn suffer from a degradation in the resolution on the transverse momentum, p$_T$. As muon triggers are limited in bandwidth to a fraction of the total allocated bandwidth of the trigger, typically a few kilohertz, they must set a cut on the minimum p$_T$ of the muons. In the scenario where the muon spectrometer remains unmodified, the threshold would have to be raised to p$_T$ $ \approx $ 30 GeV which would be a considerable drawback in terms of physics analysis, decreasing the acceptance by more than 35\% for given channels. \\
+    The main motivation for the installation of GE1/1 is the significant impact it has on the triggering system of CMS. Left as is, the performance of the current system would degrade in the coming years with the increase in instantaneous luminosity due to the rate limitations of the ME1/1 station exposed to an intense flux of particles. Muon triggering will in turn suffer from a degradation in the resolution on the transverse momentum, p$_T$. As muon triggers are limited in bandwidth to a fraction of the total allocated bandwidth of the trigger, typically a 5 kHz for the single muon trigger, they must set a cut on the minimum p$_T$ of the muons (around 20 GeV). In the scenario where the muon spectrometer remains unmodified, the threshold would have to be raised to p$_T$ $ \approx $ 30 GeV which would be a considerable drawback in terms of physics analysis, decreasing the acceptance by more than 35\% for given channels. \\
 
-    To prevent the degradation of the trigger system, the GEM collaboration investigated the possibility to use the bending angle of tracks between GE1/1 and ME1/1 to estimate the p$_T$ of muons, which trajectory is curved by the magnetic field. Figure \ref{fig:II-1-csc-bending} shows on the left the lever arm given by the 20 cm to 46 cm distance between the two detectors. The variation in distance corresponds to "close" and "far" chambers which are staggered in order to allow for some overlap and avoid dead space. From this, the picture on the right displays the discrimination power between 5 GeV and a 20 GeV muons. \\
+    To prevent the degradation of the trigger system, the GEM collaboration investigated the possibility to use the bending angle of tracks between GE1/1 and ME1/1 to estimate the p$_T$ of muons, which trajectory is curved by the magnetic field. Figure \ref{fig:II-1-csc-bending} shows on the left the lever arm given by the 20 cm to 46 cm distance between the two detectors. The variation in distance corresponds to "close" and "far" chambers which are staggered in order to allow for some overlap and avoid dead space. From this, the picture on the right displays the discrimination power between 5 GeV and 20 GeV muons. \\
 
     \begin{figure}[h!]
       \centering
@@ -32,7 +32,7 @@
       \label{fig:II-1-csc-bending}
     \end{figure}
 
-    Using these results, a common effort from the GEM and CSC collaborations ensued to integrate the GEM measurements in the CSC trigger system to provide an additional layer of information. Using simulations, it has been shown that the efficiency of the combined system increases, thus yielding a lower rate of triggers. These results are shown in Figure \ref{fig:II-1-trigger}. In the left plot, which shows the efficiency as a function of the pseudorapidity of the particles, it can be seen that the efficiency of the GEM and CSC combined trigger (blue) is superior to the CSC only results (red), recovering the losses occurring at higher rates. In the right plot which shows the trigger rate as a function of the cut applied on the momentum of the particle, it is depicted how the trigger rate of the combined system (blue) diminishes by one order of magnitude compared to the current system (red). For a given trigger rate, a smaller muon p$_T$ threshold can be applied due to the lower rate of misreconstructed particles, which improves the physics performance of the detectors. \\
+    Using these results, a common effort from the GEM and CSC collaborations ensued to integrate the GEM measurements in the CSC trigger system to provide an additional layer of information. By the means of simulations, it has been shown that the efficiency of the combined system increases, thus yielding a lower rate of triggers. These results are shown in Figure \ref{fig:II-1-trigger}. In the left plot, which shows the efficiency as a function of the pseudorapidity of the particles, it can be seen that the efficiency of the GEM and CSC combined trigger (blue) is superior to the CSC only results (red), recovering the losses occurring at higher rates. In the right plot which shows the trigger rate as a function of the cut applied on the momentum of the particle, it is depicted how the trigger rate of the combined system (blue) diminishes by one order of magnitude compared to the current system (red). For a given trigger rate, a smaller muon p$_T$ threshold can be applied due to the lower rate of misreconstructed particles, which improves the physics performance of the detectors. \\
 
     \begin{figure}[h!]
       \centering
@@ -41,18 +41,18 @@
       \label{fig:II-1-trigger}
     \end{figure}
 
-    Preserving a low p$_T$ threshold is essential for physics analysis to yield a good reconstruction efficiency for soft muons, muons with low momentum. These particles are important for a wide range of processes from beyond the standard model searches to measurements in the Higgs sector. Simulation studies have shown that in the case of $ H \rightarrow \tau^+ \tau^- $ where one $ \tau $ decays into a muon, a decrease of 5 GeV in the p$_T$ threshold results in an increase of 35\% in the acceptance of the channel. In addition, the impact is not limited to the single muon trigger but affects all other triggers involving muons analysis, for example, $\mu+jet$ or $e/\gamma+\mu$ signals. \\
+    Preserving a low p$_T$ threshold is essential for physics analysis to yield a good reconstruction efficiency for soft muons, muons with low momentum. These particles are important for a wide range of processes from beyond the Standard Model searches to measurements in the Higgs sector. Simulation studies have shown that in the case of $ H \rightarrow \tau^+ \tau^- $ where one $ \tau $ decays into a muon and the other hadronically, a decrease of 5 GeV in the p$_T$ threshold results in an increase of 35\% in the acceptance of the channel. In addition, the impact is not limited to the single muon trigger but affects all other triggers involving muons analysis, for example, $\mu+jet$ or $e/\gamma+\mu$ signals. \\
 
-    To further improve the trigger efficiency of CMS, it is planned to integrate a new track trigger, a trigger system for the tracker, which would benefit from the high resolution of the silicon subdetector. Foreseen to be installed during LS3, the system yields excellent results in the identification, reconstruction, and triggering of muons. However, due to the high occupancy of hits and the limited amount of computational time allocated to the trigger, given approximations need to be done, degrading the results for certain physics channels. One of the assumptions made by the algorithms is that every particle originates from the interaction point. This has a significant impact on new physics processes involving hidden sectors of low interacting particles such as the decay of a Higgs into two neutralinos $ n $, which in turn create a so-called dark photon $ \gamma_d $
+    To further improve the trigger efficiency of CMS, it is planned to integrate a new track trigger, a trigger system for the tracker, which would benefit from the high resolution of the silicon subdetector. Foreseen to be installed during LS3, the system yields excellent results in the identification, reconstruction, and triggering of muons. However, due to the high occupancy of hits and the limited amount of computational time allocated to the trigger, given approximations need to be done, degrading the results for certain physics channels. One of the assumptions made by the algorithms is that every particle originates from the interaction point. This has a significant impact on new physics processes involving hidden sectors of low interacting particles such as the decay of a Higgs into two neutralinos $ n_1 $, which in turn create a so-called dark photon $ \gamma_d $
     \begin{equation}
       h \rightarrow 2 n_1 \rightarrow 2 n_d \gamma_d .
     \end{equation}
-    The dark photon in turn decays into two muons which originate from a displaced vertex. Figure \ref{fig:II-1-dark-photon} illustrates the limitations of the track trigger (red) to reconstruct muons as a function of the distance between the vertex and the interaction point. Efficiency quickly drops to reach 0\% around 50 cm. The muon standalone trigger (blue) on the other hand is capable of reconstructing the track with high efficiency underlining the necessity of a preserving excellent trigger performances in the muon spectrometer.
+    The dark photon in turn decays into two muons which originate from a displaced vertex. Figure \ref{fig:II-1-dark-photon} illustrates the limitations of the track trigger (red) to reconstruct muons as a function of the distance between the vertex and the interaction point. Efficiency quickly drops to reach 0\% around 50 cm. The muon standalone trigger (blue) on the other hand is capable of reconstructing the track with high efficiency underlining the necessity of preserving excellent trigger performances in the muon spectrometer.
 
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.6\textwidth]{img/II-1-gem/dark-photon.pdf}
-      \caption{The probability of reconstructing at least one muon candidate produced in the decay of a light long-lived light particle decaying to a pair of muons $\gamma_d \rightarrow \mu \mu $ as a function of L$_{xy}$, the distance between the $\gamma_d$ decay vertex to the beamline in the transverse plane. Standalone muon trigger L1Mu performance is compared to that of L1TrkMu, a trigger based on matching muon and track trigger candidates with the CMS Phase-II detector simulation \cite{Colaleo:2021453}.}
+      \caption{The probability of reconstructing at least one muon candidate produced in the decay of a light long-lived particle decaying to a pair of muons $\gamma_d \rightarrow \mu \mu $ as a function of L$_{xy}$, the distance between the $\gamma_d$ decay vertex to the beamline in the transverse plane. Standalone muon trigger L1Mu performance is compared to that of L1TrkMu, a trigger based on matching muon and track trigger candidates with the CMS Phase-II detector simulation \cite{Colaleo:2021453}.}
       \label{fig:II-1-dark-photon}
     \end{figure}
 
@@ -130,19 +130,50 @@
       \item Gain uniformity of 15\% or better across a chamber and between chambers to ensure that no geometrical or trigger biases are present. \\
     \end{itemize}
 
-    Rate capability has been measured by monitoring the gain of a chamber when subject to a 22 keV Ag X-ray source and a high-intensity 8 keV Cu source. With ArCO$_2$, gain uniformity is maintained up to 100 MHz cm$^{-2}$, at which point the gain begins to drop. This confirms that the GE1/1 chambers are able to sustain rates up to 10 000 times higher than what they will experience in the 1.6 < |$\eta$| < 2.2 region of CMS. \\
+    \subsection{Rate Capability}
 
-    The detection efficiency is measured using a multi-layer tracking system placed in front of the detector in a beam of particles. Tracks are reconstructed in the former and extrapolated to the latter to match with reconstructed hits. When using the analog readout electronics, an offline cut is applied on the charge of the strips to cancel noise. In the digital readout system, an online threshold is applied. Both results indicate an efficiency plateau at 97\%. \\
+      Rate capability has been measured by monitoring the gain of a chamber when subject to a 22 keV Ag X-ray source and a high-intensity 8 keV Cu source. With ArCO$_2$, gain uniformity is maintained up to 100 MHz cm$^{-2}$, at which point the gain begins to drop. This confirms that the GE1/1 chambers are able to sustain rates up to 10 000 times higher than what they will experience in the 1.6 < |$\eta$| < 2.2 region of CMS. \\
 
-    Using the above mentioned tracking system, the angular resolution of the GE1/1 chambers has also been measured during test beams. The resolution is taken to be the difference between the projected track position and the measured position in the detector. A resolution of 137$\pm$1 $\mu$rad has been obtained setting an upper limit on the angular resolution which is close to the theoretical value computed for a binary readout of
-    \begin{equation}
-      \frac{\text{angular strip pitch}}{\sqrt{12}} = \frac{455\  \mu\text{rad}}{\sqrt{12}} = 131\ \mu\text{rad} .
-    \end{equation}
-    Similar results were obtained using analog readout systems. \\
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-1-gem/rate.png}
+        \caption{Effective gas gain as a function of the rate of incident particles in a GE1/1-IV detector irradiated with a 22 keV X-ray source \cite{Colaleo:2021453}.}
+        \label{fig:II-1-time}
+      \end{figure}
 
-    The timing measurements are done by fitting the spread of the distribution plotting the time difference between a trigger seen by scintillators and the detection of the particle by the GEM detector. Time resolution studies have been performed using ArCO$_2$CF$_4$ as well as ArCO$_2$ gas mixtures. The former yields as resolution of 4 ns due to the fast electron transport speed in CF$_4$ while the latter provides 8 ns. \\
+    \subsection{Detection Efficiency}
 
-    The response uniformity of the GEMs is measured for each detector as part of the quality control process. An X-ray generator is used to scan the entire chamber and the peak amplitude of the pulse charge distribution is taken as measurement of the uniformity. The latter does not vary more than 15\% across the detector.
+      The detection efficiency is measured using a multi-layer tracking system placed in front of the detector in a beam of particles. Tracks are reconstructed in the former and extrapolated to the latter to match with reconstructed hits. When using the analog readout electronics, an offline cut is applied on the charge of the strips to cancel noise. In the digital readout system, an online threshold is applied. Both results indicate an efficiency plateau at 97\%. \\
+
+    \subsection{Spatial Resolution}
+
+      Using the above mentioned tracking system, the angular resolution of the GE1/1 chambers has also been measured during test beams. The resolution is taken to be the difference between the projected track position and the measured position in the detector. A resolution of 137$\pm$1 $\mu$rad has been obtained setting an upper limit on the angular resolution which is close to the theoretical value computed for a binary readout of
+      \begin{equation}
+        \frac{\text{angular strip pitch}}{\sqrt{12}} = \frac{455\  \mu\text{rad}}{\sqrt{12}} = 131\ \mu\text{rad} .
+      \end{equation}
+      Similar results were obtained using analog readout systems. \\
+
+    \subsection{Time Resolution}
+
+      The timing measurements are done by fitting the spread of the distribution plotting the time difference between a trigger seen by scintillators and the detection of the particle by the GEM detector. Time resolution studies have been performed using ArCO$_2$CF$_4$ as well as ArCO$_2$ gas mixtures. The former yields a resolution of 4 ns due to the fast electron transport speed in CF$_4$ while the latter provides 8 ns \cite{Thierry:2065693}. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-1-gem/time-resolution.png}
+        \caption{Time resolution of a small Triple-GEM detector as a function of the electric field in the drift gap \cite{Thierry:2065693}.}
+        \label{fig:II-1-time}
+      \end{figure}
+
+    \subsection{Response Uniformity}
+
+      The response uniformity of the GEMs is measured for each detector as part of the quality control process. An X-ray generator is used to scan the entire chamber and the peak amplitude of the pulse charge distribution is taken as measurement of the uniformity. Figure \ref{fig:II-1-uniformity} represents the distribution of the pulse charge measured over different strips on the left, and the evolution of the mean of the distribution of the pulse charge over multiple strips on the right. These tests show that the uniformity of the detector does not vary more than 15\%.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-1-gem/uniformity.png}
+        \caption{Left: distribution of the pulse charge measured over different strips. Right: evolution of the mean of the distribution of the pulse charge over multiple strips \cite{Colaleo:2021453}.}
+        \label{fig:II-1-uniformity}
+      \end{figure}
 
   \section{GEM Upgrade Schedule}
 
