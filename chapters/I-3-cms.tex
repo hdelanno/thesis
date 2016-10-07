@@ -66,7 +66,7 @@
 
   \section{The Electromagnetic Calorimeter}
 
-    The Electromagnetic Calorimeter (ECAL) of CMS has been designed to provide an energy resolution for electrons and photons of the order of 1\% for 100 GeV. It is composed of lead tungsten (PbWO$_4$) crystals that act as homogeneous calorimeters: they both initiate the particle cascades and provide the proportional response to the energy deposition. The barrel counts 61 200 crystals closed by 7 324 crystals in each endcap. Additionally, a silicon preshower detector is installed in front of the crystals in the endcaps to improve the detection of collimated particles. \\
+    The Electromagnetic Calorimeter (ECAL) of CMS has been designed to provide an energy resolution for electrons and photons of the order of 1\% for 100 GeV. It is composed of lead tungsten (PbWO$_4$) crystals that act as homogeneous calorimeters: they both initiate the particle cascades and provide the proportional response to the energy deposition. The barrel counts 61 200 crystals and is closed by 7 324 crystals in each endcap. Additionally, a silicon preshower detector is installed in front of the crystals in the endcaps to improve the detection of collimated particles. \\
 
     The structure of the ECAL is shown in Figure \ref{fig:I-3-ecal}. In the barrel, the ECAL covers a pseudorapidity range $ | \eta | $ < 1.479 and is divided in 360 sections in $ \phi $ and 170 in $ \eta $. The cross section of the crystals varies between 22 mm $ \times $ 22 mm to 26 mm $ \times $ 26 mm for a length of 230 mm corresponding to 25.8 radiation lengths. An alveolar structure maintains crystals together in submodules which are grouped into modules of 400 to 500 crystals further assembled in supermodules containing 1700 crystals in total. In the endcaps, modules cover a pseudorapidity of 1.479 < $ | \eta | $ < 3.0 with each crystal having a front cross-section of 28.62 mm $ \times $ 28.62 mm and a length of 220 mm. These are grouped in units of 5 $ \times $ 5 crystals called supercrystals further inserted in one of the two \emph{Dees} that compose an endcap and maintains the ECAL in place. The preshower uses lead radiators to initiate the avalanche that will be detected by silicon strips to measure the deposited energy and the avalanche profile. Each sensitive module has an active area of 61 mm $\times$ 61 mm divided among 32 strips. The preshower is installed in the 1.653 < $ | \eta | $ < 2.6 pseudorapidity region. \\
 
@@ -79,16 +79,16 @@
 
     The energy resolution of the ECAL for particles with energy bellow 500 GeV is parametrized by the following equation:
     \begin{equation}
-      \left( \frac{\sigma}{E} \right)^2 = \left( \frac{S}{\sqrt{E}} \right)^2 + \left( \frac{N}{E} \right)^2 + C^2
+      \left( \frac{\sigma}{E[GeV]} \right)^2 = \left( \frac{S}{\sqrt{E[GeV]}} \right)^2 + \left( \frac{N}{E[GeV]} \right)^2 + C^2
     \end{equation}
     where $ S $ is the stochastic term, $ N $ the noise term, and $ C $ the constant term. The main contributions to the stochastic term are related to fluctuations in the lateral shower containment, photostatistics contributions, and fluctuations in the energy deposition inside the preshower radiators compared to what is measured by the silicon detector. The noise term includes noise from the electronics, the digitization, and pile-up. Finally, the constant term accounts for non-uniformities in the crystals, calibration errors, and leakage of energy from the back of the crystals. From test beams, the values of $ S $, $ N $, and $ E $, were found to be so that: \\
     \begin{equation}
-      \left( \frac{\sigma}{E} \right)^2 = \left( \frac{2.8\%}{\sqrt{E}} \right)^2 + \left( \frac{0.12}{E} \right)^2 + (0.30\%)^2
+      \left( \frac{\sigma}{E[GeV]} \right)^2 = \left( \frac{2.8\%}{\sqrt{E[GeV]}} \right)^2 + \left( \frac{0.12}{E[GeV]} \right)^2 + (0.30\%)^2
     \end{equation}
 
   \section{The Hadron Calorimeter}
 
-    The Hadron Calorimeter (HCAL) provides a measurement of the energy of the hadronic jets and enables the computation of the missing energy. It is divided into a barrel region (HB), two endcaps regions (HE), and an outer calorimeter (HO) placed right outside the magnet as represented in Figure \ref{fig:I-3-hcal}. The HB sits between the ECAL and the magnet at radii of 1.77 m and 2.95 m respectively, which limits the amount of material and thus absorption lengths that can be used, justifying the need for the HO to catch the trail of the cascades. An additional forward calorimeter (HF) is placed in the very forward region of CMS to analyze particles that are produced or scattered at $ \eta $ > 3. \\
+    The Hadron Calorimeter (HCAL) provides a measurement of the energy of the hadrons. It is divided into a barrel region (HB), two endcaps regions (HE), and an outer calorimeter (HO) placed right outside the magnet as represented in Figure \ref{fig:I-3-hcal}. The HB sits between the ECAL and the magnet at radii of 1.77 m and 2.95 m respectively, which limits the amount of material and thus absorption lengths that can be used, justifying the need for the HO to catch the tail of the cascades. An additional forward calorimeter (HF) is placed in the very forward region of CMS to analyze particles that are produced or scattered at $ \eta $ > 3. \\
 
     \begin{figure}[h!]
       \centering
@@ -101,11 +101,11 @@
 
     The energy resolution of the HCAL can be expressed in the same manner as the ECAL, breaking down the result into a stochastic term and a constant term. The obtained resolutions \cite{Baiatian:1049929} are
     \begin{equation}
-      \left( \frac{\sigma}{E} \right)^2 = \left( \frac{120\%}{\sqrt{E}} \right)^2 + (9.5\%)^2
+      \left( \frac{\sigma}{E[GeV]} \right)^2 = \left( \frac{120\%}{\sqrt{E[GeV]}} \right)^2 + (9.5\%)^2
     \end{equation}
     for the HB and HE combined, and
     \begin{equation}
-      \left( \frac{\sigma}{E} \right)^2 = \left( \frac{280\%}{\sqrt{E}} \right)^2 + (11\%)^2
+      \left( \frac{\sigma}{E[GeV]} \right)^2 = \left( \frac{280\%}{\sqrt{E[GeV]}} \right)^2 + (11\%)^2
     \end{equation}
     for the HO.
 
@@ -180,7 +180,7 @@
 
   \section{The Trigger System}
 
-    Every 25 ns approximately 20 proton-proton interactions resulting from the collisions of the LHC occur, yielding more than 1 000 particles in the final state. Each collision generates more than one MB of data which makes it impossible to process and store as is. Therefore, two trigger stages have been implemented to reduce the 40 MHz rate of collisions to 100 kHz at first and 500 Hz afterwards. The Level-1 Trigger (L1 Trigger) consists of custom electronics designed to quickly discriminate between the events. In less than 3.2 $\mu$s the system has to take the decision to forward the event to the next stage or drop it and lose the data. Accepted events are passed to the High Level Trigger (HLT) which runs on a farm of commercial computers. Unlike the L1 Trigger, which due to the small allocated computation time has restricted access to hit information from the detectors, the HLT can use the full granularity of the detector to reconstruct events. \\
+    Every 25 ns and a luminosity of $ 10^{34} $ cm$^{-2}$ s$^{-1}$, approximately 20 proton-proton interactions resulting from the collisions of the LHC occur, yielding more than 1 000 particles in the final state. Each collision generates more than one MB of data which makes it impossible to process and store as is. Therefore, two trigger stages have been implemented to reduce the 40 MHz rate of collisions to 100 kHz at first and 500 Hz afterwards. The Level-1 Trigger (L1 Trigger) consists of custom electronics designed to quickly discriminate between the events. In less than 3.2 $\mu$s the system has to take the decision to forward the event to the next stage or drop it and lose the data. Accepted events are passed to the High Level Trigger (HLT) which runs on a farm of commercial computers. Unlike the L1 Trigger, which due to the small allocated computation time has restricted access to hit information from the detectors, the HLT can use the full granularity of the detector to reconstruct events. \\
 
     At the L1 Trigger stage, only the information from the HCAL, ECAL, and muon chambers are used as depicted in Figure \ref{fig:I-3-l1}. The energy depositions collected by the HCAL and ECAL are sent to the Calo Trigger Layer 1 which performs data formatting and concentration, and forwards events to the Calo Trigger Layer 2. The latter finds the twelve highest transverse energy jet, tau, and electron/photon candidates and computes global energy sums. \\
 
