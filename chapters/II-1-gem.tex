@@ -132,18 +132,25 @@
 
     \subsection{Rate Capability}
 
-      Rate capability has been measured by monitoring the gain of a chamber when subject to a 22 keV Ag X-ray source and a high-intensity 8 keV Cu source. With ArCO$_2$, gain uniformity is maintained up to 100 MHz cm$^{-2}$, at which point the gain begins to drop. This confirms that the GE1/1 chambers are able to sustain rates up to 10 000 times higher than what they will experience in the 1.6 < |$\eta$| < 2.2 region of CMS. \\
+      Rate capability has been measured by monitoring the gain of a chamber when subject to a 22 keV Ag X-ray source, as represented in Figure \ref{fig:II-1-rate-mes}, and a high-intensity 8 keV Cu source. With ArCO$_2$, gain uniformity is maintained up to 100 MHz cm$^{-2}$, at which point the gain begins to drop. This confirms that the GE1/1 chambers are able to sustain rates up to 10 000 times higher than what they will experience in the 1.6 < |$\eta$| < 2.2 region of CMS. \\
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-1-gem/rate.png}
+        \includegraphics[width=0.8\textwidth]{img/II-1-gem/rate.png}
         \caption{Effective gas gain as a function of the rate of incident particles in a GE1/1-IV detector irradiated with a 22 keV X-ray source \cite{Colaleo:2021453}.}
-        \label{fig:II-1-time}
+        \label{fig:II-1-rate-mes}
       \end{figure}
 
     \subsection{Detection Efficiency}
 
-      The detection efficiency is measured using a multi-layer tracking system placed in front of the detector in a beam of particles. Tracks are reconstructed in the former and extrapolated to the latter to match with reconstructed hits. When using the analog readout electronics, an offline cut is applied on the charge of the strips to cancel noise. In the digital readout system, an online threshold is applied. Both results indicate an efficiency plateau at 97\%. \\
+      The detection efficiency is measured using a multi-layer tracking system placed in front of the detector in a beam of particles. Tracks are reconstructed in the former and extrapolated to the latter to match with reconstructed hits. When using the analog readout electronics, an offline cut is applied on the charge of the strips to cancel noise. In the digital readout system, an online threshold is applied. Figure \ref{fig:II-1-efficiency-hv} plots the evolution of the efficiency as a function of the high voltage applied to the drift electrode for a GE1/1-III chamber operated with ArCO$_2$ at 70\% and 30\% respectively and for different offline cuts on the collected charge. Both results indicate an efficiency plateau at 97\%. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/II-1-gem/efficiency.png}
+        \caption{Evolution of the efficiency as a function of the high voltage applied to the drift electrode for a GE1/1-III chamber operated with ArCO$_2$ at 70\% and 30\% respectively and for different offline cuts on the collected charge \cite{Colaleo:2021453}.}
+        \label{fig:II-1-efficiency-hv}
+      \end{figure}
 
     \subsection{Spatial Resolution}
 
@@ -155,13 +162,13 @@
 
     \subsection{Time Resolution}
 
-      The timing measurements are done by fitting the spread of the distribution plotting the time difference between a trigger seen by scintillators and the detection of the particle by the GEM detector. Time resolution studies have been performed using ArCO$_2$CF$_4$ as well as ArCO$_2$ gas mixtures. The former yields a resolution of 4 ns due to the fast electron transport speed in CF$_4$ while the latter provides 8 ns \cite{Thierry:2065693}. \\
+      The timing measurements are done by fitting the spread of the distribution plotting the time difference between a trigger seen by scintillators and the detection of the particle by the GEM detector. Figure \ref{fig:II-1-time-res} shows the time resolution of a small Triple-GEM detector as a function of the electric field in the drift gap. Time resolution studies have been performed using ArCO$_2$CF$_4$ as well as ArCO$_2$ gas mixtures. At the highest voltages, the former yields a resolution of 4 ns due to the fast electron transport speed in CF$_4$ while the latter provides 8 ns \cite{Thierry:2065693}. \\
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-1-gem/time-resolution.png}
+        \includegraphics[width=0.5\textwidth]{img/II-1-gem/time-resolution.png}
         \caption{Time resolution of a small Triple-GEM detector as a function of the electric field in the drift gap \cite{Thierry:2065693}.}
-        \label{fig:II-1-time}
+        \label{fig:II-1-time-res}
       \end{figure}
 
     \subsection{Response Uniformity}
@@ -170,7 +177,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-1-gem/uniformity.png}
+        \includegraphics[width=0.9\textwidth]{img/II-1-gem/uniformity.png}
         \caption{Left: distribution of the pulse charge measured over different strips. Right: evolution of the mean of the distribution of the pulse charge over multiple strips \cite{Colaleo:2021453}.}
         \label{fig:II-1-uniformity}
       \end{figure}
