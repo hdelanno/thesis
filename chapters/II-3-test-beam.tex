@@ -96,13 +96,31 @@
 
       The OptoHybrid is used to control itself through wishbone and the VFAT2s through I2C \cite{i2c}. The slow control of the OptoHybrid mainly consists in selecting TTC command sources, setting the trigger throttling, reading out counters, etc. These operations are performed to control the data flow and the functioning of the DAQ system itself. Commands sent to the VFAT2s on the other hand have direct impact on the physics of the data taking through the bias of the analog front-end readout. \\
 
-      To communicate with the VFAT2s, six I2C controllers are implemented in the firmware of the OptoHybrid, one per sector on the GEB. Each controller can access four VFAT2s which are identified using three resistors that can be installed on the GEB. VFAT2 uses a modified I2C protocol with the same frame format as the official one but a different addressing scheme. The official I2C data frame is shown in Figure \ref{fig:II-3-i2c}. The master starts by sending seven address bits which are used to identify the slave it wants to talk to, followed by a read/write bit (R/W). After the slave acknowledged (ACK) the request, eight bits are sent from the master to the slave in case of a write operation followed by a slave acknowledgment (ACK), or the opposite in case of a read operation. For the VFAT2, the first three bits of the address are used to select the chip that is addressed by the master while the four remaining bits are used to select the register that needs to be accessed. This addressing scheme allows the OptoHybrid to access up to 16 registers on the VFAT2s. However, each VFAT2 holds 16 primary registers and 136 extended registers. The extended registers are accesses using two primary pointer registers: one set to point to an extended register, and one to read/write the data in said register. Thus, in order to perform a transaction on a primary register, only one operation is necessary, while two are required to access extended registers. \\
+      The I2C protocol uses two signals to connect one master to multiple slaves: one clock (SCK) and one data (SDA) line. The master controls the clock signal which defines the reference clock of the exchanges. The data line on the other hand is driven by both the master and the slaves according to a defined data format. The official I2C data frame is shown in Figure \ref{fig:II-3-i2c}. A communication is always started by the master by driving SDA low when SCK is high. The master then sends seven address bits (yellow) which are used to identify the slave it wants to talk to, followed by a read/write bit (R/W, blue). If a slave was configured to respond to the address, it will drive SDA low to signal an acknowledgement (ACK, green). Afterwards, eight bits (red) are sent from the master to the slave in case of a write operation followed by a slave acknowledgment (ACK, green), or the opposite in case of a read operation. The frame ends when the master drives SDA high while SCK is low. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/i2c.png}
-        \caption{Data format of an I2C communication.}
+        \caption{Chronograph of an I2C communication.}
         \label{fig:II-3-i2c}
+      \end{figure}
+
+      To communicate with the VFAT2s, six I2C controllers are implemented in the firmware of the OptoHybrid, one per sector on the GEB. Each controller can access four VFAT2s which are identified using three resistors that can be installed on the GEB. VFAT2 uses a modified I2C protocol with the same frame format as the official one but a different addressing scheme. For the VFAT2, the first three bits of the address are used to select the chip that is addressed by the master while the four remaining bits are used to select the register that needs to be accessed. This addressing scheme allows the OptoHybrid to access up to 16 registers on the VFAT2s. Figure \ref{fig:II-3-i2c-vfat2} represents a chronograph of the modified I2C communication for the VFAT2. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/i2c-vfat2.png}
+        \caption{Chronograph of an I2C communication performed with the VFAT2.}
+        \label{fig:II-3-i2c-vfat2}
+      \end{figure}
+
+      However, each VFAT2 holds 16 primary registers and 136 extended registers. The latter are accesses using two primary registers: one set to point to an extended register (Extended Pointer), and one to read/write the data in said register (Extended Data). Thus, in order to perform a transaction on a primary register, only one operation is necessary, while two are required to access extended registers. A first operation will modify the content of the Extended Pointer register to point to the desired extended register, and a second operation will read/write the Extended Data register to affect the extended register. Figure \ref{fig:II-3-i2c-extended} illustrates how the extended registers are addressed through two primary registers. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/i2c-extended}
+        \caption{Addressing of the extended registers through two primary registers.}
+        \label{fig:II-3-i2c-extended}
       \end{figure}
 
       To make this process transparent to the user and flatten out the address space of the VFAT2s, the OptoHybrid maps the primary registers from addresses 0 to 15 and the extended registers from addresses 16 to 151. When performing a transaction with the extended registers, the I2C controllers automatically run the double addressing scheme. \\
