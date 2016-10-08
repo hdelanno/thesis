@@ -1,7 +1,7 @@
 \chapter{A Data Acquisition System for the Test Beam}
 \label{chap:II-3-test-beam}
 
-  During the ongoing process of the development of the DAQ system, the electronics was tested in two test beams organized in Fall 2014 and November 2015. The first test beam, ran with the first prototype of the DAQ, aimed at proving the feasibility of the architecture of the system, not focusing on data taking from the provided pion and muon beam but rather on usability. As the results were encouraging, the second version of the electronics was developed involving a complete redesign of the hardware, firmware, and software. Therefore, we will mainly focus on the second test beam, which electronics is described in the previous chapter, during which abundant data was recorded showing both excellent results for the detectors and the DAQ system. \\
+  During the ongoing process of the development of the DAQ system, the electronics was tested during two test beams organized in Fall 2014 and November 2015 respectively. The first test beam, ran with the first prototype of the DAQ, aimed at proving the feasibility of the architecture of the system, not focusing on data taking from the provided pion and muon beam but rather on usability. As the results were encouraging, the second version of the electronics was developed involving a complete redesign of the hardware, firmware, and software. Therefore, we will mainly focus on the second test beam, which electronics is described in the previous chapter, during which abundant data was recorded showing both excellent results for the detectors and the DAQ system. \\
 
   In this chapter, we present the firmware and software developments done for the DAQ system for the test beams, followed by the analysis of the recorded data. First, we will present the firmware architecture of the OptoHybrid and the GLIB to better understand the global layout of the system and the features that have been implemented to control the components. Then we will move on to the back-end applications developed to control and monitor the DAQ system and read out data. Finally, after a presentation of the layout of the test beam setup and its characteristics, we will show the results obtained after analysis of the recorded data.
 
@@ -9,31 +9,59 @@
 
     The most important function of the OptoHybrid is to transfer data between the VFAT2s and the GLIB. Downwards, from the off-detector to the on-detector electronics, it transfers slow control requests and fast commands while upwards it sends the trigger and tracking data back to the back-end system. Next to the handling of the basic VFAT2 functionalities, it must also handle the optical links and a couple of programmable registers which control the system. Furthermore, procedures that were previously implemented in software requiring extensive computational time have been moved to firmware in order to speed up the system. \\
 
-    Although rather complex, the firmware of the OptoHybrid can be decomposed in six blocks: the fast commands, the trigger data, the tracking data, the slow control, the calibration routines, and the optical links. Even tough these blocks will be presented separately, they are tightly interconnected using a wishbone-like architecture for intercommunication.
+    Although rather complex, the modules implemented in the firmware of the OptoHybrid can be regrouped under six categories: the fast commands, the trigger data, the tracking data, the slow control, the calibration routines, and the optical links. Even though these will be presented separately, they are tightly interconnected using a wishbone-like \cite{wishbone} architecture for intercommunication. A summary of the system is provided in Figure \ref{fig:II-3-sys} through a schematic representation of the modules implemented in the firmware of the OptoHybrid and the categories they fall in.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-3-test-beam/system}
+      \caption{Schematic diagram of the modules implemented in the firmware of the OptoHybrid.}
+      \label{fig:II-3-sys}
+    \end{figure}
 
     \subsection{Internal Communication Through a Wishbone-Like Bus}
 
       Wishbone is an open-source communication protocol used in many projects to enable data transfer between ICs. A light version of the protocol has been implemented in the OptoHybrid to link the various modules of the system. The latter are divided in two categories: masters which initiate requests, and slaves which provide responses. The link between the two is done through a switching hub which redirects the requests to the appropriate slaves by using a 32-bit-long address space mapped to the various modules. By design, multiple masters can interact simultaneously with different slaves allowing for parallelism in the system. \\
 
-      A request form a master is composed of four signals: a flag signaling the presence of a request, a write-enable bit to indicate the nature of the request (read or write), a 32-bit-long address to which the request will be redirected, and an optional 32-bit-long data field in case the request is a write operation. The response from a slave consists of: an acknowledgment signal, a 4-bit-long error status in case the operation failed, and an optional 32-bit-long data field holding the response to read requests. A programmable timeout has also been implemented to avoid blocking operation. Some components implement both a master and a slave module in order to be able to receive requests and propagate them to various other modules. \\
+      A request form a master is composed of four signals: a flag signaling the presence of a request, a write-enable bit to indicate the nature of the request (read or write), a 32-bit-long address to which the request will be redirected, and an optional 32-bit-long data field in case the request is a write operation. The response from a slave consists of: an acknowledgment signal, a 4-bit-long error status in case the operation failed, and an optional 32-bit-long data field holding the response to read requests. Figure \ref{fig:II-3-wishbone-chrono} represents a chronograph of two wishbone communications between a master and a slave for a successful write operation and a read operation resulting in an error. A programmable timeout has also been implemented to avoid blocking operation. Some components implement both a master and a slave module in order to be able to receive requests and propagate them to various other modules. \\
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/wishbone-chrono.png}
+        \caption{Chronograph of two wishbone communications between a master and a slave for a successful write operation and a read operation resulting in an error.}
+        \label{fig:II-3-wishbone-chrono}
+      \end{figure}
 
       Communication done through the wishbone-like protocol is used mainly for slow control or non-time-critical operations as the latency of a transactions is not fixed. Indeed, the switching hub implements a waiting list functionality which allows two masters to address the same slave at the same time by storing one of the requests in memory and awaiting for the slave to finish the other transaction.
 
     \subsection{Encoding Fast Commands}
 
-      Fast commands such as L1As, Resyncs, BC0s, etc can originate from various sources. In normal data taking runs, the AMC13 receives the TTC signals, forwards them to the microTCA AMC which in turn transmits them to the OptoHybrid. When data taking is stopped and calibration runs are performed, the routines implemented in the OptoHybrid are ran and require fast commands. To this end, the TTC signals can also be generated locally using the T1 generator block. This entity can generate L1As, Resyncs, BC0s, and CalPulses in three different ways: send a single command a given number of times at fixed interval, send a CalPulse followed by a L1A with a fixed delay, or send a programmable pattern involving all the commands. Finally, the two remaining sources of TTC commands, and more precisly L1As, are either a loopback from a given VFAT2 trigger bits directly to all the VFAT2s (self-triggering) or the signals coming from an external component through a debugging header on the OptoHybrid. \\
+      Fast commands such as L1As, Resyncs, BC0s, etc can originate from various sources. In normal data taking runs, the AMC13 receives the TTC signals common to CMS, forwards them to the microTCA AMC which in turn transmits them to the OptoHybrid. When data taking is stopped and calibration runs are performed, the routines implemented in the OptoHybrid are ran and require fast commands. To this end, the TTC signals can also be generated locally using the T1 generator module. This entity can generate L1As, Resyncs, BC0s, and CalPulses in three different ways: send a single command a given number of times at fixed interval, send a CalPulse followed by a L1A with a fixed delay, or send a programmable pattern involving all the commands. Figure \ref{fig:II-3-t1-chrono} illustrates those functionalities through a chronograph of two events generated by the T1 generator and encoded on the T1 lines for the VFAT2s: first two L1As (green) are sent with a fixed interval, then a CalPulse (red) is generated followed by a L1A after a defined delay. The T1 commands are then encoded on three bits for the VFAT2s (100 for L1As and 111 for CalPulses). \\
 
-      The switching between the various sources is done by setting a register through slow control operations. Once the source has been selected, the commands are forwarded to the VFAT2s and encoded on the T1 signals. Each command is composed of three bits clocked at 40 MHz. An additional feature has been added to the L1A line to throttle the trigger signals when working in high rate environments. Through registers, the operator can select to send only a fraction of the received commands not to overload the VFAT2 buffers and allow for correct readout of the chip.
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/t1-chrono.png}
+        \caption{Chronograph of two events generated by the T1 generator and encoded on the T1 lines for the VFAT2s: first two L1As (green) are sent with a fixed interval, then a CalPulse (red) is generated followed by a L1A after a defined delay. The T1 commands are encoded on three bits for the VFAT2s (100 for L1As and 111 for CalPulses).}
+        \label{fig:II-3-t1-chrono}
+      \end{figure}
+
+      The two remaining sources of TTC commands, and more precisely L1As, are either a loopback from a given VFAT2 trigger bits directly to all the VFAT2s (self-triggering) or the signals coming from an external component through a debugging header on the OptoHybrid. The former can be used to trigger on noise or when no other source of triggers is available; the latter has been used during the test beams in conjunction with scintillators. The switching between the various sources is done by setting a register through slow control operations. Once the source has been selected, the commands are forwarded to the VFAT2s and encoded on the T1 signals. Each command is composed of three bits clocked at 40 MHz. An additional feature has been added to the L1A line to throttle the trigger signals when working in high rate environments. Through registers, the operator can select to send only a fraction of the received commands not to overload the VFAT2 buffers and allow for correct readout of the chip. Figure \ref{fig:II-3-t1-switch} summarizes the encoding of fast commands through a diagram of the switching and throttling process for T1 commands highlighting the various sources of T1 commands (blue) and the involved modules (green) before the signal is sent to the VFAT2 chips (orange).
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/t1-switch}
+        \caption{Diagram of the switching and throttling process for T1 commands highlighting the various sources of T1 commands (blue) and the involved modules (green) before the signal is sent to the VFAT2 chips (orange).}
+        \label{fig:II-3-t1-switch}
+      \end{figure}
 
     \subsection{Formatting Trigger Data}
 
-      Each of the 24 VFAT2s transmits eight trigger bits per BX. These are regrouped using a logic OR in the DAQ system of the test beam  thus yielding 24 bits. The trigger information is used for calibration routines and forwarded over debugging headers to an external electronics crate. As the number of external connections is limited, only six trigger bits can be sent, thus requiring the need for a selection mechanism controlled by programmable registers.
+      Each of the 24 VFAT2s transmits eight trigger bits per BX. These are regrouped using a logic OR in the firmware of the OptoHybrid thus yielding 24 bits. The trigger information is used for calibration routines and forwarded over debugging headers to an external electronics crate. As the number of external connections is limited, only six trigger bits can be sent, thus requiring the need for a selection mechanism controlled by programmable registers.
 
     \subsection{Acquiring Tracking Data}
 
       Upon reception of a L1A, the VFAT2 transfers the selected event from its SRAM1 to SRAM2 and then to an encoder which serializes the data. Each event is 192 bits long followed by two idle bits and clocked at 40 MHz. This means that it takes 194 BXs to read out one event and that the VFAT2 cannot handle trigger rates higher than $\approx$ 200 kHz without experiencing an overflow of the buffers. The data is pushed out of the VFAT2 automatically and formatted according to the pattern shown in Table \ref{tab:II-3-vfat2-tk-format}. The top left bits are the Most Significant Bits (MSBs) which are pushed out first and the bottom right bits or the Least Significant Bits (LSBs) which come in last. The first four bits of the first three 16-bit-long words are constant values. These are completed by the BC which increments at each clock cycle, the EC which counts the number of received L1As, four flags which hold information on the status of the buffers, and a chip ID unique to each VFAT2. Following are the 128 bits reflecting the hit information on each channel. Finally, the VFAT2 uses a Cyclic Redundancy Check (CRC) on 16 bits to detect errors. The CRC uses all other 176 bits to encode its data but does not provide a way to correct errors. \\
 
-      \begin{table}
+      \begin{table}[h!]
         \begin{tabularx}{\textwidth}{C{1}}
           \textbf{VFAT2 tracking data} \\
           {
@@ -51,22 +79,29 @@
         \label{tab:II-3-vfat2-tk-format}
       \end{table}
 
-      Next to the data line, each VFAT2 provides a DataValid line which is pulled high when the bits coming out of the VFAT2 are valid. However, due to the limited number of pins connecting the GEB and the OptoHybrid, this signal has been left unconnected for all but six VFAT2s. Therefore, data is constantly shifted in a 194 bits (192 bits of data and 2 idle bits) serial-to-parallel converter and analyzed. When the fixed pattern of 12 bits is seen, a flag is raised signaling the presence of potential data. The data packet is split up in its various elements and the CRC is recomputed and compared against the received CRC. Two additional flags respectively hold the results of the comparison of both CRCs indicating if the data is valid or not, and a logic OR of all 128 channel to indicate if the packet contains a hit or not. In theory, only packets with valid CRCs could be transmitted to the back-end electronics. However, sending all packets offers the possibility to identify recurring errors in the CRCs computation and the possibility to correct them offline. \\
+      Next to the data line, each VFAT2 provides a DataValid line which is pulled high when the bits coming out of the VFAT2 are valid. However, due to the limited number of pins connecting the GEB and the OptoHybrid, this signal has been left unconnected for all but six VFAT2s. Therefore, data is constantly shifted in a 194 bits (192 bits of data and 2 idle bits) serial-to-parallel converter and analyzed. When the fixed pattern of 12 bits is seen, a flag is raised signaling the presence of potential data. The data packet is split up in its various elements and the CRC is recomputed and compared against the received CRC. Two additional flags respectively hold the results of the comparison of both CRCs indicating if the data is valid or not, and a logic OR of all 128 channel to indicate if the packet contains a hit or not. Figure \ref{fig:II-3-tkdata-chrono} illustrates this process through a chronograph of the serial decoding of an incoming data packet (blue) which is analyzed and placed in parallel busses (yellow) with the CRC check bit and the hit present bit. In theory, only packets with valid CRCs could be transmitted to the back-end electronics. However, sending all packets offers the possibility to identify recurring errors in the CRCs computation and the possibility to correct them offline. \\
 
-      In parallel to the decoding of the data packets, the OptoHybrid maintains its own BC and stores the value of the counter in a buffer each time a L1A is received. When the decoding modules report they have detected data, a concentrator module aggregates the information from all available VFAT2s. Every packet received within a window of ten BX is assigned to the same event to which the value of the corresponding BC is appended. The assembled event is stored in a large buffer to be latter sent over the optical links to the GLIB. \\
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/tkdata-chrono.png}
+        \caption{Chronograph of the serial decoding of an incoming data packet (blue) which is analyzed and placed in parallel busses (yellow) with the CRC check bit and the hit present bit.}
+        \label{fig:II-3-tkdata-chrono}
+      \end{figure}
+
+      In parallel to the decoding of the data packets, the OptoHybrid maintains its own BC and stores the value of the counter in a buffer each time a L1A is received. When the 24 decoding modules, one for each VFAT2, report they have detected data, a concentrator module aggregates the information from all available VFAT2s. Every packet received within a window of ten BX is assigned to the same event to which the value of the corresponding BC is appended. The assembled event is stored in a large buffer to be latter sent over the optical links to the GLIB. \\
 
       To prevent positions either not equipped with VFAT2 Hybrids or that are noisy to generate fake data, a 24-bit-long register allows to mask individual positions to ignore any packets it generates. Next to this, each decoding module is equipped with two counters respectively counting the number of valid and invalid packets.
 
     \subsection{Controlling and Monitoring the Systems}
 
-      The OptoHybrid is used to control itself through wishbone and the VFAT2s through I2C. The slow control of the OptoHybrid mainly consists in selecting TTC command sources, setting the trigger throttling, reading out counters, etc. These operations are performed to control the data flow and the functioning of the DAQ system itself. Commands sent to the VFAT2s on the other hand have direct impact on the physics of the data taking through the bias of the analog front-end readout. \\
+      The OptoHybrid is used to control itself through wishbone and the VFAT2s through I2C \cite{i2c}. The slow control of the OptoHybrid mainly consists in selecting TTC command sources, setting the trigger throttling, reading out counters, etc. These operations are performed to control the data flow and the functioning of the DAQ system itself. Commands sent to the VFAT2s on the other hand have direct impact on the physics of the data taking through the bias of the analog front-end readout. \\
 
-      To communicate with the VFAT2s, six I2C controllers are implemented in the firmware of the OptoHybrid, one per sector on the GEB. Each controller can access four VFAT2s which are identified using three resistors that can be installed on the GEB. VFAT2 uses a modified I2C protocol with the same frame format as the official one but a different addressing scheme. The official I2C data frame is shown in Figure \ref{fig:II-3-i2c}. The master starts by sending seven address bits (A[6..0]) which are used to identify the slave it wants to talk to, followed by a read/write bit (R/W). After the slave acknowledged (ACK) the request, eight bits (D[7..0]) are sent from the master to the slave in case of a write operation followed by a slave acknowledgment (ACK), or the opposite in case of a read operation. For the VFAT2, the first three bits of the address are used to select the chip that is addressed by the master while the four remaining bits are used to select the register that needs to be accessed. This addressing scheme allows the OptoHybrid to access up to 16 registers on the VFAT2s. However, each VFAT2 holds 16 primary registers and 136 extended registers. The extended registers are accesses using two primary pointer registers: one set to point to an extended register, and one to read/write the data in said register. Thus, in order to perform a transaction on a primary register, only one operation is necessary, while two are required to access extended registers. \\
+      To communicate with the VFAT2s, six I2C controllers are implemented in the firmware of the OptoHybrid, one per sector on the GEB. Each controller can access four VFAT2s which are identified using three resistors that can be installed on the GEB. VFAT2 uses a modified I2C protocol with the same frame format as the official one but a different addressing scheme. The official I2C data frame is shown in Figure \ref{fig:II-3-i2c}. The master starts by sending seven address bits which are used to identify the slave it wants to talk to, followed by a read/write bit (R/W). After the slave acknowledged (ACK) the request, eight bits are sent from the master to the slave in case of a write operation followed by a slave acknowledgment (ACK), or the opposite in case of a read operation. For the VFAT2, the first three bits of the address are used to select the chip that is addressed by the master while the four remaining bits are used to select the register that needs to be accessed. This addressing scheme allows the OptoHybrid to access up to 16 registers on the VFAT2s. However, each VFAT2 holds 16 primary registers and 136 extended registers. The extended registers are accesses using two primary pointer registers: one set to point to an extended register, and one to read/write the data in said register. Thus, in order to perform a transaction on a primary register, only one operation is necessary, while two are required to access extended registers. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/i2c.png}
-        \caption{Data format of an I2C communication \cite{I2C}.}
+        \caption{Data format of an I2C communication.}
         \label{fig:II-3-i2c}
       \end{figure}
 
@@ -138,14 +173,7 @@
 
     \subsection{System Summary}
 
-      The aim of the firmware of the OptoHybrid is to provide a communication medium between the VFAT2s and the off-detector electronics and to speed up the calibration routines by implementing them closer to the detector. The developments that have been listed in this chapter are targeted at the OptoHybrid v2a and the configuration of the system ran during the test beams. Modifications have to be brought for the final system although the foundations of the firmware have been solidly laid out. A summary of the system is provided in Figure \ref{fig:II-3-sys} through a schematic representation of the modules implemented in the firmware of the OptoHybrid.
-
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=\textwidth]{img/II-3-test-beam/system}
-        \caption{Schematic diagram of the modules implemented in the firmware of the OptoHybrid.}
-        \label{fig:II-3-sys}
-      \end{figure}
+      The aim of the firmware of the OptoHybrid is to provide a communication medium between the VFAT2s and the off-detector electronics and to speed up the calibration routines by implementing them closer to the detector. The developments that have been listed in this chapter are targeted at the OptoHybrid v2a and the configuration of the system ran during the test beams. Modifications have to be brought for the final system although the foundations of the firmware have been solidly laid out.
 
   \section{Architecture of the GLIB Firmware}
 
