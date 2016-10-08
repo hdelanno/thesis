@@ -139,6 +139,7 @@
       The Virtex-6 FPGA of the AMC13 is connected to the central DAQ of CMS through the two SFP+ optical links running at 6 Gb/s which implement the S-Link Express protocol defined by CMS. An additional SFP+ can be used as spare if the bandwidth is required. Next to the data, the AMC13 also send TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate for the system to be able to cope.
 
     \subsection{The IPBus Protocol}
+    \label{sec:II-2-ipbus}
 
       To communicate between the control and monitoring applications and the subsystems, a new protocol called IPBus has been developed for the CMS subdetectors. It uses the Internet Protocol (IP) and can be sent over User Data Protocol (UDP) or Transmission Control Protocol (TCP). IPBus transactions are simple read/write operations using a A32/D32 implementation (Address of 32 bits, Data of 32 bits). A sequence of transactions is called a packet which starts with a packet header of 32 bits which format is shown in Figure \ref{fig:II-2-ipbus}. \\
 
