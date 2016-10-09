@@ -14,9 +14,9 @@
       \label{fig:II-2-gem-system}
     \end{figure}
 
-    The on-detector electronics focuses on the control and readout of the VFAT3 Application Specific Integrated Circuit (ASIC) which connects to the strips of the chamber and digitizes the signals. The GEM Electronic Board (GEB), on which the VFAT3s are plugged in, then routes the data to the OptoHybrid which acts as concentrator board and communication relay for the 24 VFAT3s. The communication with the off-detector system is performed through the GigaBit Transceiver (GBT) chipset and the Versatil Link installed on the OptoHybrid. Both projects are led by CERN and provide radiation hard tools for LHC experiments. \\
+    The on-detector electronics focuses on the control and readout of the VFAT3 Application Specific Integrated Circuit (ASIC) which connects to the strips of the chamber and digitizes the signals. The GEM Electronic Board (GEB), on which the VFAT3s are plugged in, then routes the data to the OptoHybrid which acts as concentrator board and communication relay for the 24 VFAT3s. The communication with the off-detector system is performed through the GigaBit Transceiver (GBT) chipset and the Versatile Link installed on the OptoHybrid. Both projects are led by CERN and provide radiation hard tools for LHC experiments. \\
 
-    On the off-detector side, the Micro Telecommunications Computing Architecture (microTCA, MTCA, or $\mu$TCA) \cite{PICMG} crate standard is used to power and monitor the Advanced Mezzanine Cards (AMCs) which provide the resources to communicate with the on-detector electronics. Links from 12 OptoHybrids are concentrated on one CTP7 AMC which formats the data and transfers it to the CMS AMC13 mezzanine. The AMC13 is the link between the microTCA crate and the central DAQ of CMS which provides the clocking, trigger, and control over the system. The control of the DAQ chain is performed from a XDAQ application using the IPBus protocol over Ethernet.
+    On the off-detector side, the Micro Telecommunications Computing Architecture (microTCA, MTCA, or $\mu$TCA) \cite{PICMG} crate standard is used to power and monitor the Advanced Mezzanine Cards (AMCs) which provide the resources to communicate with the on-detector electronics. Links from 12 OptoHybrids are concentrated on one CTP7 AMC which formats the data and transfers it to the CMS AMC13 mezzanine. The AMC13 is the link between the microTCA crate and the central DAQ of CMS which provides the clocking, trigger, and control over the system. The control of the DAQ chain is performed through software using the IPBus protocol over Ethernet.
 
     \subsection{The VFAT3 ASIC}
 
@@ -54,20 +54,20 @@
 
     \subsection{The OptoHybrid}
 
-      The OptoHybrid is the interface between the VFAT3 ASICs and the off-detector system. It is a 10 cm $ \times $ 20 cm board mounted on the GEB equipped with a Field Programmable Gate Array (FPGA) and Integrated Circuits (ICs) dedicated to the operation of the optical links. The FPGA solely handles the trigger data by applying zero suppression algorithms, formatting the data, and sending it to the CSC and the GEM trigger system separately over two optical links using the SFP+ connectors. The other functions of the VFAT3s are directly connected to the three GBT chipsets installed on the OptoHybrid. Each GBT chipset is capable of handling one column of eight VFAT3s.
+      The OptoHybrid is the interface between the VFAT3 ASICs and the off-detector system. It is a 10 cm $ \times $ 20 cm board mounted on the GEB equipped with a Field Programmable Gate Array (FPGA) and Integrated Circuits (ICs) dedicated to the operation of the optical links. The FPGA solely handles the trigger data by applying zero suppression algorithms, formatting the data, and sending it to the CSC and the GEM trigger system separately over two optical links. The other functions of the VFAT3s are directly connected to the three GBT chipsets installed on the OptoHybrid. Each GBT chipset is capable of handling one column of eight VFAT3s.
 
-    \subsection{The GBT and Versatil Link}
+    \subsection{The GBT and Versatile Link}
 
-      The GBT \cite{Moreira:1235836} and Versatil Link \cite{Soos:1609037} are projects developed by CERN providing radiation hard tools for optical communication to the LHC experiments. The GBT is an optical data link technology providing bidirectional 4.8 Gb/s (Gigabits per second) serial communication designed to connect the on-detector and off-detector electronics. It is declined in two version: the GBTX which is a radiation hard ASIC, and the GBT-FPGA which is a core that can be implemented inside an FPGA. Complementary to the GBT which provides the data structure and communication protocol between components, the Versatil Link project develops radiation hard optical transceivers. The integration of the GBTX, Versatil Link, and GBT-FPGA projects is shown in Figure \ref{fig:II-2-gbt-versatile}. \\
+      The GBT \cite{Moreira:1235836} and Versatile Link \cite{Soos:1609037} are projects developed by CERN providing radiation hard tools for optical communication to the LHC experiments. The GBT is an optical data link technology providing bidirectional 4.8 Gbps (Gigabits per second) serial communication designed to connect the on-detector and off-detector electronics. It is declined in two version: the GBTX which is a radiation hard ASIC, and the GBT-FPGA which is a core that can be implemented inside an FPGA. Complementary to the GBT which provides the data structure and communication protocol between components, the Versatile Link project develops radiation hard optical transceivers which connect to the GBT and generates the signals on the optical fibers. The integration of the GBTX, Versatile Link, and GBT-FPGA projects is shown in Figure \ref{fig:II-2-gbt-versatile}. \\
 
       \begin{figure}[h!]
         \centering
         \includegraphics[width=\textwidth]{img/II-2-daq/gbt-versatile.pdf}
-        \caption{Architecture of the radiation hard optical link setup integrating the GBT and Versatil Link projects \cite{Moreira:1235836}.}
+        \caption{Architecture of the radiation hard optical link setup integrating the GBT and Versatile Link projects \cite{Moreira:1235836}.}
         \label{fig:II-2-gbt-versatile}
       \end{figure}
 
-      The GBT defines a data format shown in Figure \ref{fig:II-2-gbt-frame}. The stream of data is divided into frames of 120 bits transmitted at 40 MHz, resulting in a data rate of 4.8 Gb/s from which 3.36 Gb/s are accessible by the user. The frame starts with a four bits header (H) which defines the frame type and ends with 32 bits of Forward Error Correction (FEC). The error correction is done by encoding the data using a Reed-Salomon code that can correct bit flips due to radiation. The 84 remaining bits are user accessible. The first two bits are used for internal slow control (IC) and the two following bits for external slow control (EC), leaving 80 bits of data (D) accessible to the user for DAQ, TTC, and slow control purposes. \\
+      The GBT defines a data format shown in Figure \ref{fig:II-2-gbt-frame}. The stream of data is divided into frames of 120 bits transmitted at 40 MHz, resulting in a data rate of 4.8 Gbps from which 3.36 Gbps are accessible by the user. The frame starts with a four bits header (H) which defines the frame type and ends with 32 bits of Forward Error Correction (FEC). The error correction is done by encoding the data using a Reed-Salomon code that can correct bit flips due to radiation. The 84 remaining bits are user accessible. The first two bits are used for internal slow control (IC) and the two following bits for external slow control (EC), leaving 80 bits of data (D) accessible to the user for DAQ, TTC, and slow control purposes. \\
 
       \begin{figure}[h!]
         \centering
@@ -87,7 +87,14 @@
         \label{fig:II-2-gbt-asic}
       \end{figure}
 
-      To convert the GBTX signals into optical communication, the Versatil Link project provides two laser diode modules: a transceiver module called VTRx and a dual transmitter module called VTTx. The modules have been designed to withstand high magnetic field and radiation doses as encountered in the LHC experiments. The maximal bit rate is of 4.8 Gb/s with a bit error rate inferior to 10$^{-12}$.
+      To convert the GBTX signals into optical communication, the Versatile Link project provides two laser diode modules: a transceiver module called VTRx and a dual transmitter module called VTTx. The modules have been designed to withstand high magnetic field and radiation doses as encountered in the LHC experiments. The maximal bit rate is of 4.8 Gbps with a bit error rate inferior to 10$^{-12}$. Figure \ref{fig:II-2-versatile} shows a picture of the VTRx and VTTx optical transceivers of the Versatile Link project.
+
+      \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/empty.png}
+        \caption{Picture of the VTRx and VTTx optical transceivers of the Versatile Link project.}
+        \label{fig:II-2-versatile}
+      \end{figure}
 
     \subsection{The microTCA Standard}
 
@@ -127,7 +134,7 @@
 
     \subsection{The AMC13}
 
-      The module which delivers the TTC signals and the LHC clock to the CTP7s and retrieves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 is the microTCA crate. Its functional diagram is shown in Figure \ref{fig:II-2-amc13}. It is equipped with two FPGAs: a powerful Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwarded on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retrieve tracking and trigger data over the fabric A ports running at 5 Gb/s. For development purposes, the AMC13 integrates internal TTC commands and LHC clock generators. \\
+      The module which delivers the TTC signals and the LHC clock to the CTP7s and retrieves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 is the microTCA crate. Its functional diagram is shown in Figure \ref{fig:II-2-amc13}. It is equipped with two FPGAs: a powerful Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwarded on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retrieve tracking and trigger data over the fabric A ports running at 5 Gbps. For development purposes, the AMC13 integrates internal TTC commands and LHC clock generators. \\
 
       \begin{figure}[h!]
         \centering
@@ -136,7 +143,7 @@
         \label{fig:II-2-amc13}
       \end{figure}
 
-      The Virtex-6 FPGA of the AMC13 is connected to the central DAQ of CMS through the two SFP+ optical links running at 6 Gb/s which implement the S-Link Express protocol defined by CMS. An additional SFP+ can be used as spare if the bandwidth is required. Next to the data, the AMC13 also send TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate for the system to be able to cope.
+      The Virtex-6 FPGA of the AMC13 is connected to the central DAQ of CMS through the two SFP+ optical links running at 6 Gbps which implement the S-Link Express protocol defined by CMS. An additional SFP+ can be used as spare if the bandwidth is required. Next to the data, the AMC13 also send TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate for the system to be able to cope.
 
     \subsection{The IPBus Protocol}
     \label{sec:II-2-ipbus}
@@ -248,7 +255,7 @@
     \begin{figure}[h!]
       \centering
       \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v2b.pdf}
-      \caption{Architecture of the GE1/1 DAQ system forseen for the slice test with the VFAT2 ASIC, second version of the GEB, second version of the OptoHybrid, CTP7 AMC, and AMC13.}
+      \caption{Architecture of the GE1/1 DAQ system foreseen for the slice test with the VFAT2 ASIC, second version of the GEB, second version of the OptoHybrid, CTP7 AMC, and AMC13.}
       \label{fig:II-2-gem-system-v2b}
     \end{figure}
 
@@ -265,9 +272,9 @@
 
   \section{Evolution of the DAQ System}
 
-    The evolution of the DAQ system follows the readiness of the various components foreseen to be used in the final system. Table \ref{tab:II-2-summary} provides a summary of the various prototypes developed and the systems that will be installed during the slice test and in the final setup. Changes are incremental and allow to acquire expertise in the control of the various technologies interacting in the architecture. They also provide feedback on components that can be updated in future versions or more deeply integrated in the system, such as the GBT chipset or the Versatil Link. To validate the design of the prototypes, test beam campaigns were organized during which the DAQ system was instrumented on detectors and exposed to particles beams.
+    The evolution of the DAQ system follows the readiness of the various components foreseen to be used in the final system. Table \ref{tab:II-2-summary} provides a summary of the various prototypes developed and the systems that will be installed during the slice test and in the final setup. Changes are incremental and allow to acquire expertise in the control of the various technologies interacting in the architecture. They also provide feedback on components that can be updated in future versions or more deeply integrated in the system, such as the GBT chipset or the Versatile Link. To validate the design of the prototypes, test beam campaigns were organized during which the DAQ system was instrumented on detectors and exposed to particles beams.
 
-    \begin{table}
+    \begin{table}[h!]
       \begin{tabularx}{\textwidth}{C{1}C{1}C{1}C{1}}
         \textbf{First prototype} & \textbf{Test beam}   & \textbf{Slice test}  & \textbf{Final system} \\ \hline
         6x VFAT2        & 24x VFAT2       & 24x VFAT2       & 24x VFAT3 \\
