@@ -11,7 +11,7 @@
 
     \begin{figure}[h!]
       \centering
-      \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/sp601.jpg}
+      \includegraphics[width=0.7\textwidth]{img/III-2-web-daq/sp601.jpg}
       \caption{Photograph of the Xilinx SP601 development board showing the various components: the Spartan-6 FPGA in the middle, the SDRAM on its right, the Ethernet connector and MAC controller in the bottom-left corner, and the FMC connector on the left.}
       \label{fig:III-2-sp601}
     \end{figure}
@@ -20,11 +20,18 @@
 
   \section{Web Server, WebSockets, and TCPSockets}
 
-    A Microblaze processor is embedded on the FPGA of the SP601 and acts as web server to deliver web applications to clients which connect to the IP address of the board. Once the web application has been downloaded by the client, real-time communication is established over WebSockets to transmit requests between parties.
+    A Microblaze processor is embedded on the FPGA of the SP601 and acts as web server to deliver web applications to clients which connect to the IP address of the board. Once the web application has been downloaded by the client over Hypertext Transfer Protocol (HTTP), real-time communication is established over WebSockets to transmit requests between parties. Figure \ref{fig:III-2-flow} displays the exchange of information between the client and the server.
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-2-web-daq/flow}
+      \caption{Exchange of information between the client and the server.}
+      \label{fig:III-2-flow}
+    \end{figure}
 
     \subsection{The HTTP Standard}
 
-      When an Internet browser pulls a web page from a server, it sends an Hypertext Transfer Protocol (HTTP) request containing the type of request and the path of the page. The type of request defines what the action of the client is. It can be GET, PUT, DELETE, etc which will respectively ask for a specific page, transfer content, delete content, etc. The path on the other hand can be a reference to a file to download or to a script to handle the new data. The request is encoded in ASCII characters and is thus human-readable. Figure \ref{fig:III-2-http} displays an example of an HTTP request and response in which the client requests a specific page and the server returns the content of that page. \\
+      When an Internet browser pulls a web page from a server, it sends an HTTP request containing the type of request and the path of the page. The type of request defines what the action of the client is. It can be GET, PUT, DELETE, etc which will respectively ask for a specific page, transfer content, delete content, etc. The path on the other hand can be a reference to a file to download or to a script to handle the new data. The request is encoded in ASCII characters and is thus human-readable. Figure \ref{fig:III-2-http} displays an example of an HTTP request and response in which the client requests a specific page and the server returns the content of that page. \\
 
       \begin{figure}[h!]
         \begin{tabularx}{\textwidth}{C{1}C{1}}
@@ -181,7 +188,7 @@
 
     The system described in this chapter moves away from a star network in which the server is the central piece and tries to form a mesh network where every component can directly access all other nodes. By taking advantage of the increase in computational power of microelectronics, it is possible to merge the functionalities of the server and the electronics in a single embedded system. Furthermore, developments in web technologies have enabled easy and reliable two-way communication between the client and the server and between the client and the database. The WebSockets technology provides response times up to ten times faster than classical solutions used to pull the server. The obtained system, which topology is shown in Figure \ref{fig:III-2-system-new}, thus allows for faster inter-node communication, which releases the traffic on given data paths, and allows for more bandwidth and activity. Furthermore, the distribution of the application is centralized by the server which transfer the most up-to-date version of the web pages to every client, ensuring compatibility across time and platforms. \\
 
-    Through the two-way mesh network topology, each node can inform the systems of changes in real-time, effectively bypassing the need for a pull system which requests updated data at constant interval and generates unwanted traffic on the network. The system becomes truly real-time and event driven with minimum delays.
+    Through the two-way mesh network topology, each node can inform the systems of changes in real-time, effectively bypassing the need for a pull system which requests updated data at constant interval and generates unwanted traffic on the network. The system becomes truly real-time and event driven with minimum delays. The bandwidth allocated to each client on the network for a given number of client $ N $ goes from O(1/N) to O(1). As updates are pushed by the server, only one data packet is sent to all clients at once. Each client is not required to handle the pull system, each using up bandwidth.
 
     \begin{figure}[h!]
       \centering
