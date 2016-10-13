@@ -108,7 +108,16 @@
 
   \section{Firmware Design for the Irradiated FPGA}
 
-    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-5-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green. The sampling rate of the various error detection tools is of 40 MHz.
+    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. Figure \ref{fig:II-5-firmware} provides a logic diagram of the firmware designed to detect errors in the various components of the irradiated FPGA. \\
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-5-irradiation/firmware}
+      \caption{Logic diagram of the firmware designed to detect errors in the irradiated FPGA.}
+      \label{fig:II-5-firmware}
+    \end{figure}
+
+    To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-5-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green. The sampling rate of the various error detection tools is of 40 MHz.
 
     \begin{sidewaysfigure}[p!]
       \centering
@@ -260,7 +269,7 @@
 
       As can be observed, the failure rate increases with the particle flux due to the accumulation of errors in the design. The characteristic time needed to correct an error in the configuration memory is of a few milliseconds which at high fluxes is longer than the time between two SEUs. If two SEUs affect the same area of the logic, the triplication method will fail. At fluxes of 5 $ \times $ 10$^8$ cm$^{-2}$ s$^{-1}$, the SEU rate is so high that the triplication method cannot recover data at all. However, by extrapolating the data points, it can be seen that this technique will prove efficient and mitigate all the SEUs at fluxes bellow 10$^5$ cm$^{-2}$ s$^{-1}$.
 
-    \subsection{Impact for the Triple-GEM Upgrade Project}
+    \subsection{Impact on the Triple-GEM Upgrade Project}
 
       From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed by the OptoHybrid in GE1/1 during run time in CMS. The dominant background in CMS is composed of photons and neutrons. Figure \ref{fig:II-5-neutrons} shows the particle fluxes for the GE1/1 station as a function of the pseudorapidity for the LHC Phase II on the left, and the energy spectrum of the background particles in GE1/1 on the right. \\
 
@@ -290,9 +299,13 @@
         \label{tab:II-5-seu-rate}
       \end{table}
 
-      The recoverable errors do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs caused by the configuration memory, and ECC can correct those in the BRAM. Indeed, the maximum flux of 2 kHz cm$^{-2}$ is inferior to the 100 kHz cm$^{-2}$ the triplication can handle. The critical errors will require a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs. \\
+      The recoverable errors do not pose a problem for the design as the triplication method can be used to successfully mitigate all errors in the CLBs and DSPs caused by the configuration memory, and ECC can correct those in the BRAM. Indeed, the maximum flux of 2 kHz cm$^{-2}$ is inferior to the 100 kHz cm$^{-2}$ the triplication can handle. The critical errors will require a partial reconfiguration of the FPGA, a process in which the defective bits are recovered from the external memory device and reloaded in real-time. Finally, the double bit flips in the BRAM can be mitigated by triplicating the storage of data in memory, which is allowed due to the large amount of available BRAMs.
 
-      The presented results are upper limits on the SEU cross section for an FPGA which resources are fully used. The firmware of the OptoHybrid v2a used for the DAQ system occupies 36\% of the CLBs and 3\% of the BRAMs. This means that the cross section of SEUs that will effectively impact the functioning of the design will be reduced by a factor of 3 for the CLBs and 33 for the BRAMs.
+    \subsection{Impact on the Firmware of the OptoHybrid}
+
+      The presented results are upper limits on the cross section of SEUs for an FPGA which resources are fully used. The firmware of the OptoHybrid v2 used for the DAQ system of the slice test occupies 36\% of the CLBs and 3\% of the BRAMs. This means that the cross section of SEUs that will effectively impact the functioning of the design will be reduced by a factor of 3 for the CLBs and 33 for the BRAMs. \\
+
+      Although the total number of SEUs that will affect the logic per day during the slice test (LHC Phase I) will be on the order of five, some modules are critical and need to be triplicated in order to mitigate errors. These modules are the tracking data readout and the trigger data formatting, as well as some registers which control the system. The remaining of the system is used for slow control operations and can be affected by SEUs without having an impact on the data taking and thus compromise the run. The system can afford to wait a few milliseconds for SEM to correct the errors and normal operations to resume.
 
   \section{Conclusion}
 
