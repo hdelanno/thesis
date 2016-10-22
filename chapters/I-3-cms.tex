@@ -196,6 +196,7 @@
     The GT implements a menu of triggers that performs selections on the reconstructed objects such as electrons, photons, or muons and take the decision to accept or reject the events. If an event is accepted, a Level-1 Accept (L1A) is issued and sent to the Trigger Control and Distribution System (TCDS) \cite{1748-0221-9-08-C08002}. The latter forwards the L1A to all the subsystems according to the readiness of the subdetectors and the data acquisition (DAQ) system. Upon reception of a L1A, the front-end electronics provides the full granularity data to the read-out DAQ which includes the HLT.
 
   \section{The Data Acquisition System}
+  \label{sec:I-3-daq}
 
     The DAQ system of CMS, shown in Figure \ref{fig:I-3-daq}, reads out the full granularity data of events from more than 650 sources in the whole detector. It is able to handle a data flow of 100 GBytes per second and redirect data to the HLT which reduces the rate of events by a factor of 1 000. \\
 

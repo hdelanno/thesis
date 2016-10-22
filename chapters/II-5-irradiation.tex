@@ -108,16 +108,7 @@
 
   \section{Firmware Design for the Irradiated FPGA}
 
-    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. Figure \ref{fig:II-5-firmware} provides a logic diagram of the firmware designed to detect errors in the various components of the irradiated FPGA. \\
-
-    \begin{figure}[h!]
-      \centering
-      \includegraphics[width=\textwidth]{img/II-5-irradiation/firmware}
-      \caption{Logic diagram of the firmware designed to detect errors in the irradiated FPGA.}
-      \label{fig:II-5-firmware}
-    \end{figure}
-
-    To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-5-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green. The sampling rate of the various error detection tools is of 40 MHz.
+    The firmware of the irradiated FPGA is designed to use a maximum of the available resources and transmit any error detected during run time. Specific firmware has been developed to test the CLBs, BRAMs, DSPs, and SEM. To optimize the design, floorplanning is used to divide the FPGA in ten regions running identical code. This prevents the compiler from placing elements in different sectors of the device and thus increase routing resources. Figure \ref{fig:II-5-floorplanning} depicts how the design occupies the FPGA: the image on the left represents the FPGA sectors labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green; the image in the middle highlights the resources used by the design; and the image on the right shows how the firmware developed for each function occupies the FPGA with CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green. The sampling rate of the various error detection tools is of 40 MHz. Figure \ref{fig:II-5-firmware} provides a logic diagram of the firmware designed to detect errors in the various components of the irradiated FPGA.
 
     \begin{sidewaysfigure}[p!]
       \centering
@@ -127,6 +118,13 @@
       \caption{Schematic view of the occupancy of the FPGA. Left: sectors of the FPGA labeled XaYb composed of CLBs in dark blue, BRAMs in red, and DSPs in green. Middle: highlight of the resources used by the design. Right: occupancy of the code developed to test the CLBs in blue, BRAMs in yellow, DSPs in red, SEM in purple, and the communication protocol in green.}
       \label{fig:II-5-floorplanning}
     \end{sidewaysfigure}
+
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{img/II-5-irradiation/firmware}
+      \caption{Logic diagram of the firmware designed to detect errors in the irradiated FPGA.}
+      \label{fig:II-5-firmware}
+    \end{figure}
 
     \subsection{Configurable Logic Block}
 
