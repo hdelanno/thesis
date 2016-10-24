@@ -157,9 +157,9 @@
       \end{equation}
       which yields a repetition period of pattern of 127 clock cycles. \\
 
-      For each differential pair or single ended signal, a different seed is used for the PRBS-7 generator. By receiving the clock along with the data, the GEB tester board can decode the bit streams and ensure that the encoding is correct. In case one of the lines is faulty, the LEDs connected to the FPGA are used to display an error code. \\
+      For each differential pair or single ended signal, a different seed is used for the PRBS-7 generator. By receiving the clock along with the data, the GEB tester board can decode the bit streams and ensure that the encoding is correct. In case one of the lines is faulty, the LEDs connected to the FPGA are used to display an error code. The analog lines are tested by generating a given voltage using the DAC. The OptoHybrid is then used to readout the value on the line and check the results are matching. \\
 
-      The analog lines are tested by generating a given voltage using the DAC. The OptoHybrid is then used to readout the value on the line and check the results are matching.
+      This procedure was used to test one GEB which was found to be healthy. To validate the functioning of the algorithm, the response to an error was simulated by injecting an error from the OptoHybrid. The latter was successfully detected by the testing board. 
 
   \section{Qualification of the System}
 
