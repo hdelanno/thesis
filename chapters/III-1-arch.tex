@@ -7,14 +7,14 @@
 
   \section{The Experimental Setup}
 
+      \begin{figure}[b!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/III-1-arch/gem.png}
+        \caption{Photograph of the 10 cm $ \times $ 10 cm Triple-GEM prototype along with the high voltage resistive divider in the bottom-left corner, the gas supply in the bottom-right corner, and the four readout sectors on the right and top of the image.}
+        \label{fig:III-1-gem}
+      \end{figure}
     The experimental setup consists of a 10 cm $ \times $ 10 cm Triple-GEM detector placed between two scintillators which coincidence, processed using a NIM crate, is used to produce triggers upon crossing of a cosmic muon. The GEM prototype is equipped with a two-dimensional readout board with 2 times 128 strips in each direction. Figure \ref{fig:III-1-gem} is a photograph of the detector showing the four readout connector, the high voltage resistive divider in the bottom-left corner, and the gas supply in the bottom-right corner. \\
 
-    \begin{figure}[h!]
-      \centering
-      \includegraphics[width=0.8\textwidth]{img/III-1-arch/gem.png}
-      \caption{Photograph of the 10 cm $ \times $ 10 cm Triple-GEM prototype along with the high voltage resistive divider in the bottom-left corner, the gas supply in the bottom-right corner, and the four readout sectors on the right and top of the image.}
-      \label{fig:III-1-gem}
-    \end{figure}
 
     The high voltage provided to the GEM and the photomultipliers attached to the scintillators is originating from a CAEN V6533N VME module. VME \cite{VMEBUS-ANSI} is a crate standard that defines a high speed communication protocol and an infrastructure for the interconnect of the boards. A CAEN V1718 VME-USB bridge board is used to control the communication of the VME crate from a computer. This modules allows the latter to talk to any board in the crate by initiating requests. The gas flow is regulated by four HORIBA STEC SEC-N112MGRW mass flow controllers: three for the Ar, CO$_2$, and CF$_4$ gas bottles and one to monitor the mixture. These are controlled through a serial link communication by a computer. Figure \ref{fig:III-1-gas-hv} shows photographs of the VME high-voltage module on the left and the mass flow meters on the right.
 
