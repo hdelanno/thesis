@@ -7,18 +7,19 @@
 
   \section{The Experimental Setup}
 
-      \begin{figure}[b!]
-        \centering
-        \includegraphics[width=0.8\textwidth]{img/III-1-arch/gem.png}
-        \caption{Photograph of the 10 cm $ \times $ 10 cm Triple-GEM prototype along with the high voltage resistive divider in the bottom-left corner, the gas supply in the bottom-right corner, and the four readout sectors on the right and top of the image.}
-        \label{fig:III-1-gem}
-      \end{figure}
+    \begin{figure}[b!]
+      \centering
+      \includegraphics[width=0.8\textwidth]{img/III-1-arch/gem.png}
+      \caption{Photograph of the 10 cm $ \times $ 10 cm Triple-GEM prototype along with the high voltage resistive divider in the bottom-left corner, the gas supply in the bottom-right corner, and the four readout sectors on the right and top of the image.}
+      \label{fig:III-1-gem}
+    \end{figure}
+
     The experimental setup consists of a 10 cm $ \times $ 10 cm Triple-GEM detector placed between two scintillators which coincidence, processed using a NIM crate, is used to produce triggers upon crossing of a cosmic muon. The GEM prototype is equipped with a two-dimensional readout board with 2 times 128 strips in each direction. Figure \ref{fig:III-1-gem} is a photograph of the detector showing the four readout connector, the high voltage resistive divider in the bottom-left corner, and the gas supply in the bottom-right corner. \\
 
 
     The high voltage provided to the GEM and the photomultipliers attached to the scintillators is originating from a CAEN V6533N VME module. VME \cite{VMEBUS-ANSI} is a crate standard that defines a high speed communication protocol and an infrastructure for the interconnect of the boards. A CAEN V1718 VME-USB bridge board is used to control the communication of the VME crate from a computer. This modules allows the latter to talk to any board in the crate by initiating requests. The gas flow is regulated by four HORIBA STEC SEC-N112MGRW mass flow controllers: three for the Ar, CO$_2$, and CF$_4$ gas bottles and one to monitor the mixture. These are controlled through a serial link communication by a computer. Figure \ref{fig:III-1-gas-hv} shows photographs of the VME high-voltage module on the left and the mass flow meters on the right.
 
-    \begin{figure}[h!]
+    \begin{figure}[b!]
       \centering
       \includegraphics[width=0.39\textwidth]{img/III-1-arch/hv.jpg}
       \includegraphics[width=0.39\textwidth]{img/III-1-arch/gas.jpg}
@@ -30,7 +31,7 @@
 
     To control and monitor the GEM detector, high voltage, and gas systems, a custom solution was developed around a web interface. The latter allows the user to change parameters of the runs, visualize the evolution of the settings, access logs, etc. All this information is stored in a database located on the central computing node which also hosts the web server. The database is the communication interface between all elements. It stores requests, responses, statuses, etc. From the database, a second computer located near the experimental setup extracts the parameters that need to be set on the high voltage and gas system, and handles the communication protocol with these two components. This infrastructure, shown in Figure \ref{fig:III-1-sys-infra}, remained unchanged while the data readout of the GEMs evolved with time.
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=\textwidth]{img/III-1-arch/sys.png}
       \caption{Infrastructure of the system composed of the central node which hosts the database and web server, the experimental node which is located near the setup and controls the high voltage and gas, and the web interface which allows the user to interact with the systems.}
@@ -45,21 +46,23 @@
 
       \begin{figure}[p!]
         \centering
-        \includegraphics[width=\textwidth]{img/III-1-arch/app-home.png}
-        \includegraphics[width=\textwidth]{img/III-1-arch/app-runs.png} \\
+        \includegraphics[width=0.9\textwidth]{img/III-1-arch/app-home.png} \\
+        \vspace*{0.5cm}
+        \includegraphics[width=0.9\textwidth]{img/III-1-arch/app-runs.png}
         \caption{Screenshots of the web pages controlling the experimental setup with the home page on the top, and the run page on the bottom.}
         \label{fig:III-1-app-control}
       \end{figure}
 
-      To monitor the parameters during a run, the user can use the high voltage and gas pages to view an extended list of details. These list the current status of the registers and monitoring values which can be plotted. Figure \ref{fig:III-1-app-monitor} is a list of screenshots from the web application with the high voltage page on the top, and gas page on the bottom. Each page defines alarms that will modify the layout of the interface if error occurs such as incorrect values stored in the system, over heating, etc. The high voltage page allows to monitor the delivered voltages and currents as well as the temperature of the high voltage modules. The gas page displays the evolution of the flows for the individual gases and the mixture over time. \\
-
       \begin{figure}[p!]
         \centering
-        \includegraphics[width=\textwidth]{img/III-1-arch/app-hv.png}
-        \includegraphics[width=\textwidth]{img/III-1-arch/app-gas.png}
+        \includegraphics[width=0.9\textwidth]{img/III-1-arch/app-hv.png} \\
+        \vspace*{0.5cm}
+        \includegraphics[width=0.9\textwidth]{img/III-1-arch/app-gas.png}
         \caption{Screenshots of the web pages monitoring the experimental setup with the high voltage page on the top, and gas page on the bottom.}
         \label{fig:III-1-app-monitor}
       \end{figure}
+
+      To monitor the parameters during a run, the user can use the high voltage and gas pages to view an extended list of details. These list the current status of the registers and monitoring values which can be plotted. Figure \ref{fig:III-1-app-monitor} is a list of screenshots from the web application with the high voltage page on the top, and gas page on the bottom. Each page defines alarms that will modify the layout of the interface if error occurs such as incorrect values stored in the system, over heating, etc. The high voltage page allows to monitor the delivered voltages and currents as well as the temperature of the high voltage modules. The gas page displays the evolution of the flows for the individual gases and the mixture over time. \\
 
       Every action taken or value read is respectively stored or retrieved from the database. The web interface is the link between the user and the latter.
 
@@ -75,7 +78,7 @@
 
     The first prototype of the DAQ system was developed using a Xilinx SP601 development board which is equipped with a Xilinx Spartan-6 FPGA (XC6SLX16-2CSG324) similar to the one used on the first version of the OptoHybrid, 1 Gb of DDR2 SDRAM, an Ethernet PHY, a USB-to-UART bridge, and a VITA 57.1 FMC-LPC extension header. The SP601 was linked to a VFAT2 Hybrid mounted on the Triple-GEM detector through a specially designed board which plugged onto the FMC connector. On the other side, the SP601 was connected to the computer present in the rack. Figure \ref{fig:III-1-sys-1} provides a schematic overview of the system and its components.
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_1.png}
       \caption{Schematic view of the first prototype of the DAQ system of the 10 cm $ \times $ 10 cm Triple-GEM prototype. The VFAT2 Hybrid is connected through an FMC module to the SP601 development board, in turn connected to a server through IPBus over UART. A NIM crate is used to perform the coincidence between the photomultipliers and send a trigger to the VFAT2 Hybrid through the FMC \cite{Leonard:2065693}.}
@@ -86,7 +89,7 @@
 
       The VFAT2 FMC, shown in Figure \ref{fig:III-1-fmc}, is a small board which makes the connection between the SP601 and two VFAT2s, provides power to the boards, and is able to receive or send triggers through two LEMO connectors. It connects to the FMC header of the SP601 and forwards the signals of the VFAT2s to the FPGA.
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.7\textwidth]{img/III-1-arch/fmc.jpg}
         \caption{Photograph of the VFAT2 FMC module which connects the SP601 development board to two VFAT2 Hybrids, provides power to the latter, and is able to receive or send trigger through two LEMO connectors.}
@@ -103,7 +106,7 @@
 
       The Microblaze \cite{Microblaze} is an embedded 32-bit processor developed by Xilinx which can be implemented on the fabric of the FPGA. As it is not hard-coded in the silicon of the FPGA, it is said to be a soft core. Figure \ref{fig:III-1-Microblaze} is a functional diagram of the architecture of the processor. The instruction buffer holds the instructions to be executed by the processor. They are decoded by the instruction decoder which forwards the operation to the registers or various logic units: the Arithmetic Logic Unit (ALU) which performs integer operations, the Floating Point Unit (FPU) which performs floating point operations, etc. The result of the operation is either stored in the registers or forwarded on the data bus. Finally, new instructions are fetched on the instruction bus to be stored in the instruction buffer according to the program counter value which points to the next address to execute. The data and instruction buses use a 32-bit addressing scheme to retrieve data from the elements they are connected to, and communicate with the components that attach to the processor. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=\textwidth]{img/III-1-arch/Microblaze.png}
         \caption{Functional diagram of the architecture of the Microblaze soft core processor developed by Xilinx \cite{Microblaze}.}
@@ -122,7 +125,7 @@
 
       UART is a full-duplex two-wires protocol: RX which receives data, and TX which transmits data. The communicating parties are set on equal ground (no master or slave) and do not exchange a clock, which means they have to agree on a sampling frequency before hand. The latter is the limiting factor as uncorrelated clocks will have slightly different frequencies and thus induce errors when sampling at high speeds. Therefore, UART is limited to speeds of 1 kHz which means data is transmitted at 100 bytes per second. When the lines are idle, they are pulled up in order to indicate the presence of the other party. To initiate a communication, a start bit corresponding to a logic '0' is sent. Then follows the 8 bits of data with the LSB transmitted first. Finally, a stop bit equal to a logic '1' is sent, ensuring that during each communication a transition from '0' to '1' ensues. Figure \ref{fig:III-1-uart} shows the communication protocol with the relevant bit order. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/III-1-arch/uart.png}
         \caption{Illustration of the sequence of bits in the UART communication protocol.}
@@ -133,9 +136,9 @@
 
       The software in charge of the communication with the SP601 that is running on the computer is constantly polling the database for new requests to transmit. It also pulls data out of the tracking data buffers that is then stored in the same database. The user can then visualize the events from the web interface or issue commands by polling the server. Figure \ref{fig:III-1-app-cmd} is a screenshot of the interface that allows the user to send commands and read the response from the system.
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/III-1-arch/app-cmd.png}
+        \includegraphics[width=\textwidth]{img/III-1-arch/app-cmd.png}
         \caption{Screenshot of the web interface used by the user to control the VFAT2 Hybrid through the Microblaze.}
         \label{fig:III-1-app-cmd}
       \end{figure}
@@ -144,7 +147,7 @@
 
     When the GLIB became available, developments focused on the back-end electronics and software moved from an IPBus UART to an IPBus Ethernet implementation. As the GLIB is also equipped with an FMC connector, it was decided to use it as front-end module coupled with the VFAT2 FMC already used in the first prototype. The choice to separate the system instead of implementing the full design on a single GLIB was made to develop knowledge with respect to the use of optical links. Figure \ref{fig:III-1-sys-2} displays the configuration of the system using two GLIBs as readout boards. \\
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_2.png}
       \caption{Schematic view of the second prototype of the DAQ system of the 10 cm $ \times $ 10 cm Triple-GEM prototype. The VFAT2 Hybrid is connected through an FMC module to a first GLIB, in turn connected to a second GLIB through optical fibers. A NIM crate is used to perform the coincidence between the photomultipliers and send a trigger to the VFAT2 Hybrid through the FMC \cite{Leonard:2065693}.}
@@ -157,7 +160,7 @@
 
     The final system was developed when the first version of the GEB and OptoHybrid became available. The former is equipped with special connector which allow to plug in flexible cables to connect to remote VFAT2s Hybrids. This was used to test the GEB and ensure that signals were transfered correctly from the VFAT2 connected to the small GEM prototype to the OptoHybrid. The trigger is delivered directly to the latter through a debugging connector which could also receive a clock in order to synchronize with the GLIB. The design of this system laid the foundations of the architecture used during the two test beams and allowed for testing with detectors. Figure \ref{fig:III-1-sys-3} represents the system using the GLIB, OptoHybrid, and GEB to which a VFAT2 Hybrid is attached via a cable. This version can handle up to six VFAT2s unlike the previous ones which could only communicate with two VFAT2s through the VFAT2 FMC board.
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/III-1-arch/sys_3.png}
       \caption{Schematic view of the third prototype of the DAQ system of the 10 cm $ \times $ 10 cm Triple-GEM prototype. The VFAT2 Hybrid is connected through the GEB to the OptoHybrid, in turn connected to the GLIB through optical fibers. A NIM crate is used to perform the coincidence between the photomultipliers and send a trigger to the VFAT2 Hybrid through the OptoHybrid \cite{Leonard:2065693}.}
