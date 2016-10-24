@@ -26,9 +26,9 @@
 
       Digital Signal Processing units (DSPs) \cite{VIRTEX-DSP} are modules which perform mathematical operations using dedicated hardware elements. They are used to quickly solve problems without relying on CLBs which can consume large amount of resources to perform an equivalent task. Figure \ref{fig:II-5-dsp} shows a diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family. They include a 30-bits adder, a 25-bits by 18-bits multiplier, and a programmable module which can implement either a multiplication, an addition, or a logic operation. Using the various multiplexers and configuration bits, the user can define the data paths that are followed and thus create DSP modules which meet the requirements of the design.
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-5-irradiation/dsp.png}
+        \includegraphics[width=\textwidth]{img/II-5-irradiation/dsp.png}
         \caption{Diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family \cite{VIRTEX-DSP}.}
         \label{fig:II-5-dsp}
       \end{figure}
@@ -37,9 +37,9 @@
 
       The inputs and outputs of the slices of the CLBs as well as of the other components of the FPGA are interconnected through the switching matrix. It is a vast network of wires and switches which are used to route signals between elements. The open or closed state of each switch is programmable and defines the routes signals follow inside the logic. Figure \ref{fig:II-5-switch} shows an element of the matrix connected to two slices (blue) along with the signals that are routed in the network (cyan). Complex designs can span a large area of the FPGA due to the high usage of logic and thus be difficult to place and route by the compiler. A technique called floorplanning is used to reduce compilation time and improve the design by constraining parts of the code to given areas in the FPGA. This reduces propagation delays and logic usage which in turn yield a more efficient design.
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
-        \includegraphics[width=0.9\textwidth]{img/II-5-irradiation/switch.png}
+        \includegraphics[width=\textwidth]{img/II-5-irradiation/switch.png}
         \caption{Schematic of two slices (blue) connected to an element of the switching matrix which routes the signals (cyan) between components over the multitude of existing paths (gray).}
         \label{fig:II-5-switch}
       \end{figure}
@@ -70,7 +70,7 @@
 
       The ions and electrons created along the track of the particle will either recombine if they are located in the bulk of the substrate, or drift towards the doped regions of the transistor if located near the p-n junction, as depicted in Figure \ref{fig:II-5-transistor}. The latter gives rise to the creation of an ion and electron current in the transistor and a resulting current spike at the gates of the component. This can propagate in the circuit and affect its status. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.5\textwidth]{img/II-5-irradiation/transistor.png}
         \caption{Charge deposition by a charged particle inside a transistor affecting the state of the circuit \cite{XILINX-RADIATION}.}
@@ -97,7 +97,7 @@
 
     A common technique used to mitigate errors in CLBs and DSPs is to triplicate the logic and couple its outputs to a majority voter. This allows to correct the data while SEM solves the corrupted bits in the configuration memory. First, the sequential logic is triplicated, meaning the inputs are sent to three identical modules which output is returned synchronously. The latter are then forwarded to a majority voter which performs a bit-by-bit vote and returns the most probable response. This technique can recover data if only one of the modules is affected by an SEU. In case two modules are corrupted and flip the same bit, data will be corrupted as well. Additionally, a flag can be raised by the majority voter if all three inputs are not identical, meaning an error occurred. A logic diagram of a triplicated module is shown in Figure \ref{fig:II-5-tmr}. Next to the simple triplication method exposed here-above and represented in black, a more complex triplication can be set in place and is represented in gray. In addition to the triplication of the modules holding the logic, the voter is also triplicated along with its outputs. In that scheme, the three outputs are passed to the next module on three different inputs. This allows to mitigate errors occurring in the voter itself. \\
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=0.7\textwidth]{img/II-5-irradiation/tmr}
       \caption{Logic diagram of a triplicated module coupled to a single voter (black) or to three distinct voters (gray).}
@@ -119,7 +119,7 @@
       \label{fig:II-5-floorplanning}
     \end{sidewaysfigure}
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=\textwidth]{img/II-5-irradiation/firmware}
       \caption{Logic diagram of the firmware designed to detect errors in the irradiated FPGA.}
@@ -202,7 +202,7 @@
 
       The cross section with the configuration memory and the BRAMs were computed from the data collected using the results of the SEM core and the FEC of the BRAMs. Figure \ref{fig:II-5-data-seu-energy} displays the interaction cross section of particles as a function of the energy of the beam for the configuration memory resulting in recoverable (green) and critical (blue) errors on the left, and with the BRAMs resulting in single (blue) and double (orange) bit flips on the right. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM-crop}
@@ -220,7 +220,7 @@
 
       The OptoHybrids were initially exposed to a total of 33 krad over the course of various tests performed during the first 22h. The remaining two hours were used to irradiate the FPGAs with high fluxes and then perform a data taking run to measure a potential increase in interaction cross section: first, three runs that each provided 10 krad, followed by a run at 20 krad. Figure \ref{fig:II-5-data-seu-tid} displays the interaction cross section of particles as a function of the TID at an energy of 49.7 MeV for the configuration memory resulting in recoverable (green) and critical (blue) errors on the left, and with the BRAMs resulting in recoverable (blue) and critical (orange) errors on the right. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_SEM-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cDose_BRAM-crop}
@@ -234,7 +234,7 @@
 
       A comparison between the two boards was operated regarding the evolution of the interaction cross section with the energy. A different behavior is expected from the two FPGAs as the first one shields the second one at low energies. As particles pass through the former, they lose energy and might reach the threshold at which no SEU is produced in the latter. Figure \ref{fig:II-5-data-seu-comp} displays the interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in recoverable (green and red) and critical (blue and purple) errors on the left, and with the BRAMs resulting in recoverable (blue and green) and critical (orange and red) errors on the right. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cE_SEU_Comp-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cE_BRAM_Comp-crop}
@@ -271,7 +271,7 @@
 
       From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed by the OptoHybrid in GE1/1 during run time in CMS. The dominant background in CMS is composed of photons and neutrons. Figure \ref{fig:II-5-neutrons} shows the particle fluxes for the GE1/1 station as a function of the pseudorapidity for the LHC Phase II on the left, and the energy spectrum of the background particles in GE1/1 on the right. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=\textwidth]{img/II-5-irradiation/fluka.png}
         \caption{Left: particle fluxes for the GE1/1 station as a function of the pseudorapidity for the LHC Phase II \cite{Zenoni:2065693}.Right: energy spectrum of the background particles in GE1/1 \cite{Zenoni:2065693}.}

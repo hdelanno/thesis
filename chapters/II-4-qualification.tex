@@ -13,7 +13,7 @@
 
       The first step of the procedure is to run a threshold scan for each channel to reveal those that are not responding or that are noisy. To do so, the tools use the threshold scan module of the firmware that relies on tracking data to access the full granularity information. Figure \ref{fig:II-4-threshold} is a two-dimensional graph plotting the evolution of the noise level for each channel as a function of the VFAT2 threshold in VFAT2 units. As can be seen, one of the channels appears to be damaged as it does not display any change during the whole scan and remains empty. From this result, the VFAT2 would be disqualified and not used for data taking. If performing these scans on instrumented VFAT2s, the results can be used to mask faulty channels and regain acceptable operational conditions.
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.5\textwidth]{img/plots/cThreshold_Channel-crop}
         \caption{Two-dimensional graph plotting the evolution of the noise level for each channel as a function of the VFAT2 threshold in VFAT2 units.}
@@ -24,7 +24,7 @@
 
       Following the threshold scan, the procedure reads out the currents and voltages that are produced by the VFAT2 to bias its analog front-end. When writing values in the eight bits registers defining the threshold and other parameters, a conversion to an analog value is performed inside the chip, which will vary from component to component. It is therefore essential to record the results of each chip. In order to access the analog signals inside the VFAT2, two analog signals are sent out: one for the voltage reference and one for the current reference. These lines are routed on the GEB and transmitted to the OptoHybrid which uses an ADC to digitize the information. To fit the window of operation of the ADC, which has a range of 0 V to 1 V, the voltage signal is sent through a voltage divider and the current signal is measured over a resistor. Figure \ref{fig:II-4-adc} plots the ADC counts, current values on the left, and voltage values on the right of each settable register of the VFAT2 as a function of the eight bits value written in the register. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cADC_Current-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cADC_Voltage-crop}
@@ -53,7 +53,7 @@
 
       Using the results from the ADC, the script can determine what amount of charge is injected during the calibration phase of the VFAT2 upon reception of a CalPulse fast command. With this, it is possible to produce s-curves which for a given threshold indicate at which amplitude of the calibration pulse a signal becomes visible. Figure \ref{fig:II-4-scurve} plots the hit-to-event ratio as a function of the calibration pulse height in VFAT2 units for a threshold of 25. The calibration pulse height refers to the value written in the VLow register which linearly affects the charge deposited on the channels. The graph shows that below a value of 40 no signal is detected due to the threshold level. The turn-on of the curve is defined as the value for which 50\% of hit-to-event ratio is reached and is in this case equal to 44. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.5\textwidth]{img/plots/cSCurve_T25-crop}
         \caption{Plot of the hit-to-event ratio as a function of the calibration pulse height in VFAT2 units for a threshold of 25.}
@@ -67,7 +67,7 @@
       \end{equation}
       where $ x_0 $ is the value of the midpoint or turn-on, and $ \sigma $ is the steepness of the slope. Figure \ref{fig:II-4-scurves} is a collection of s-curve scans for various thresholds on the left which can be translated to a plot of the calibration pulse height of the turn-on in VFAT2 units and current as a function of the threshold in VFAT2 units on the right. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ThresholdVCal-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_TurnOn-crop}
@@ -81,7 +81,7 @@
 
       The results obtained in the previous procedures were values averaged on all the strips. However, channels display a dispersion around the central value which induces a bias as the effective threshold is not constant across the chip. To eliminate this effect, it is possible to equalize the response of the front-end by using channel by channel programmable registers. Each of them is equipped with a programmable register which slightly adjusts the threshold value. The equalization procedure used to align the front-ends starts by applying a given value to the common threshold register and sets all channel registers to zero. It then performs s-curve scans for each channel. The operation is repeated but with the channel registers set to their maximum value. Figure \ref{fig:II-4-trim} plots the s-curve scans for each channel with the minimum value of the channel registers on the left and the maximum value on the right. The two plots obtained this way are very similar with only the turn-on value changing. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trim0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trim1-crop}
@@ -91,7 +91,7 @@
 
       To align the channels, the average value of turn-on for both minimal and maximal value configuration is taken and set to be the aim of the equalization routine. For each channel, the script then sets its individual register value to the mean value and performs an s-curve scan. According to the turn-on value, the register is incremented or decremented and the procedure is repeated until the channel is aligned. The results of the alignment are shown in Figure \ref{fig:II-4-trimed} which plots the s-curve scan for each channel with the aligned values for the register on the left and the dispersion of the turn-on value for the non-aligned and aligned configurations. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Trimed-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cSCurve_ChannelVCal_Disp-crop}
@@ -111,7 +111,7 @@
 
       The second measurement that can be performed is to study the variation of the noise from channel to channel. Figure \ref{fig:II-4-noise} plots the Equivalent Noise Charge (ENC), or noise in terms of electrons, for each channel. The distribution is centered around 622 $e^-$ with a spread of 31 $e^-$. Although the previously exposed procedure is able to align the mean of the s-curves, it does not affect their slope and thus noise. This parameter cannot be changed and is intrinsic to the VFAT2.
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEnoise_Disp-crop}
         \caption{Plot of the Equivalent Noise Charge (ENC) for each channel.}
@@ -126,7 +126,7 @@
 
       The PCB is a four layer board equipped with an FPGA and a microcontroller unit (MCU) to analyze the signals. Figure \ref{fig:II-4-geb-pcb} provides 3D models and a PCB layout of the board. Next to the processing units, the board also embarks an ADC, a DAC, a flash memory, a USB-to-SPI converter to link the universal serial bus (USB) port to the FPGA through serial peripheral interface bus (SPI), and powering options.
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/II-4-qualification/geb-3d-0.png}
         \includegraphics[width=0.49\textwidth]{img/II-4-qualification/geb-3d-1.png}
@@ -159,7 +159,7 @@
 
       For each differential pair or single ended signal, a different seed is used for the PRBS-7 generator. By receiving the clock along with the data, the GEB tester board can decode the bit streams and ensure that the encoding is correct. In case one of the lines is faulty, the LEDs connected to the FPGA are used to display an error code. The analog lines are tested by generating a given voltage using the DAC. The OptoHybrid is then used to readout the value on the line and check the results are matching. \\
 
-      This procedure was used to test one GEB which was found to be healthy. To validate the functioning of the algorithm, the response to an error was simulated by injecting an error from the OptoHybrid. The latter was successfully detected by the testing board. 
+      This procedure was used to test one GEB which was found to be healthy. To validate the functioning of the algorithm, the response to an error was simulated by injecting an error from the OptoHybrid. The latter was successfully detected by the testing board.
 
   \section{Qualification of the System}
 

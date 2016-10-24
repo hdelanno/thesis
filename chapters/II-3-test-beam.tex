@@ -11,7 +11,7 @@
 
     Although rather complex, the modules implemented in the firmware of the OptoHybrid can be regrouped under six categories: the fast commands, the trigger data, the tracking data, the slow control, the calibration routines, and the optical links. Even though these will be presented separately, they are tightly interconnected using a wishbone-like \cite{wishbone} architecture for intercommunication. A summary of the system is provided in Figure \ref{fig:II-3-sys} through a schematic representation of the modules implemented in the firmware of the OptoHybrid and the categories they fall in.
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=\textwidth]{img/II-3-test-beam/system}
       \caption{Schematic diagram of the modules implemented in the firmware of the OptoHybrid regrouped by functionality.}
@@ -22,7 +22,7 @@
 
       Wishbone is an open-source communication protocol used in many projects to enable data transfer between ICs. A light version of the protocol has been implemented in the OptoHybrid to link the various modules of the system. The latter are divided in two categories: masters which initiate requests, and slaves which provide responses. The link between the two is created through a switching hub which redirects the requests to the appropriate slaves by using a 32-bit-long address space mapped to the various modules. Some components implement both a master and a slave module in order to be able to receive requests and propagate them to various other modules. Figure \ref{fig:II-3-wishbone-arch} is a schematic illustration of the architecture of the system without Wishbone on the left and with Wishbone on the right. In the architecture of the first version of the firmware, all requests had to originate from the software routines which were the only masters of the system. This meant that the firmware modules could not communicate among themselves. In the second version, firmware routines can be developed which act as masters in the system and have direct access to all resources of the FPGA in a unified way. The right part of the figure shows how the software sends a request to the firmware routine in red, and how the firmware routine then handles the communication with the other modules. All the requests transit through the switch and are redirected to the appropriate slaves. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/wishbone_arch}
         \caption{Schematic illustration of the architecture of the system without Wishbone on the left and with Wishbone on the right.}
@@ -31,7 +31,7 @@
 
       To highlight the benefits of the implementation of the Wishbone-like bus on the architecture, Figure \ref{fig:II-3-wishbone-flow} presents the flow of operations for a custom calibration routine performed on the system without Wishbone on the left and with Wishbone on the right. The IPBus requests that the system has to perform are highlighted in blue, the I2C requests in orange, and the computations in green. In the system on the left, the software has to perform an IPBus request for every single action it needs to perform. Each request is sent over the network and has thus a large latency, higher than 100 ms. For complex routines, this can add up to several minutes and thus block the system. In the architecture of the second version of the firmware, the OptoHybrid itself handles the operations with the VFAT2. A single IPBus request is sent from the software to start the scan and all other operations are done in parallel by the firmware. The analysis of the data is done directly upon reception of an event and the results are stored in memory. Meanwhile, other operations can be performed by the software on the system. At the end of the scan, the software can collect the results and display them directly. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/wishbone_flow}
         \caption{Flow of operations for a custom calibration routine performed on the system without Wishbone on the left and with Wishbone on the right.}
@@ -40,7 +40,7 @@
 
       A request from a master is composed of four signals: a flag signaling the presence of a request, a write-enable bit to indicate the nature of the request (read or write), a 32-bit-long address to which the request will be redirected, and an optional 32-bit-long data field in case the request is a write operation. The response from a slave consists of: an acknowledgment signal, a 4-bit-long error status in case the operation failed, and an optional 32-bit-long data field holding the response to read requests. Figure \ref{fig:II-3-wishbone-chrono} represents a chronograph of two wishbone communications between a master and a slave for a successful write operation and a read operation resulting in an error. A programmable timeout has also been implemented to avoid blocking operation.  \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/wishbone-chrono.png}
         \caption{Chronograph of two wishbone communications between a master and a slave for a successful write operation and a read operation resulting in an error.}
@@ -53,7 +53,7 @@
 
       Fast commands such as L1As, Resyncs, BC0s, etc can originate from various sources. In normal data taking runs, the AMC13 receives the TTC signals common to CMS, forwards them to the microTCA AMC which in turn transmits them to the OptoHybrid. When data taking is stopped and calibration runs are performed, the routines implemented in the OptoHybrid are run and require fast commands. To this end, the TTC signals can also be generated locally using the T1 generator module. This entity can generate L1As, Resyncs, BC0s, and CalPulses in three different ways: send a single command a given number of times at fixed interval, send a CalPulse followed by a L1A with a fixed delay, or send a programmable pattern involving all the commands. Figure \ref{fig:II-3-t1-chrono} illustrates those functionalities through a chronograph of two events generated by the T1 generator and encoded on the T1 lines for the VFAT2s: first two L1As (blue) are sent with a fixed interval, then a CalPulse (red) is generated followed by a L1A (green) after a defined delay. The T1 commands are then encoded on three bits for the VFAT2s (100 for L1As and 111 for CalPulses). \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/t1-chrono.png}
         \caption{Chronograph of two events generated by the T1 generator and encoded on the T1 lines for the VFAT2s: first two L1As (blue) are sent with a fixed interval, then a CalPulse (red) is generated followed by a L1A (green) after a defined delay. The T1 commands are encoded on three bits for the VFAT2s ("100" for L1As and "111" for CalPulses).}
@@ -177,7 +177,7 @@
 
       \paragraph{The GTX module} is in charge of the serialization/deserialization of high-speed data up to 6.6 Gbps. A schematic diagram of the functions it provides is shown in Figure \ref{fig:II-3-gtx}. The GTX handles both the transmission and reception of data. From the FPGA logic, it receives a parallel vector of bits containing the raw data. The raw data enters the Transmit FIFO which acts as a buffer before the Line Encoding module. The latter uses an eight-bit/ten-bit (8b/10b) encoding scheming which is a standard in high-speed communications. 8b/10b encodes every eight bit word on ten bits according to a predefined table. It has the particularity that whatever combination of words might be sent, no more than five successive '0's or '1's will arise in the serial stream. This ensures line balancing: the fact that the electric lines between the GTX and the SFP+ module will remain at an average voltage and not drift to a logic '1' or '0' over time, thus requiring a longer fall or rise time of the signals. 8b/10b also offers a set of K-characters which are unique patterns of bit that can never arise randomly in the stream. Those characters are used to detect the beginning of a frame and allow the receiver to align correctly. Finally, after the encoding of the data frame is done, it is serialized and transmitted to the SFP+ module over differential pairs. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-3-test-beam/gtx.png}
         \caption{Functionnal diagram of the Gigabit Transceiver X module used inside the Xilinx Virtex-6 FPGAs for high-speed serial communication \cite{GTX}.}
@@ -288,7 +288,7 @@
 
       The control over the GLIB, OptoHybrids, and VFAT2s is done through four pages. The home page of the application, which is shown in Figure \ref{fig:II-3-app-home}, provides an overview of the status of each system. The left panel displays the firmware version of the GLIB and OptoHybrid; the middle panel gives the occupancy of the GLIB readout buffers, which are here signaled as full through the use of a red flag, and the status of the various modules of the OptoHybrid; finally, the right panel lists the VFAT2s that are turned on in green, turned off in red, and missing in gray. By clicking on any of the elements, the user is redirected to the corresponding system control page. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-home.png}
         \caption{Screenshots of the home page of the web application used to control and monitor the components of the DAQ system.}
@@ -297,25 +297,22 @@
 
       The control page of the GLIB is shown in Figure \ref{fig:II-3-app-glib}. The information it contains is mainly related to counters which allow to see, for example, the number of requests sent to the OptoHybrid and the number of responds received. It also counts the number of errors detected on the optical link providing a quantitative value of the health of the link. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[p!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-glib.png}
         \caption{Screenshots of the page used to control and monitor the GLIB.}
         \label{fig:II-3-app-glib}
-      \end{figure}
-
-      The OptoHybrid page, shown in Figure \ref{fig:II-3-app-oh}, provides more information and control options to the user. The top-left part of the page is used to modify system register controlling the trigger source, clock source, trigger information sent over the debugging header, etc. This is where the user can change the type of ongoing run by going from a data taking run using external triggers to a calibration run using internally generated triggers. The panel directly on the right provides status information on the various clocking resources in the FPGA. By default, the OptoHybrid uses the on-board oscillator to power the system and the optical links. As communication is established with the GLIB, the GTXs provide the recovered clock from the link which is the system clock. When the latter is stable, the OptoHybrid can decide to switch from its on-board clock to the system clock in order to be synchronous with the whole DAQ system. This operation can be prohibited, forced, or allowed by the user, which can also chose to use an external clock provided through the debugging header. These clocking options are useful for the test beam setup where the clock can be provided externally to synchronize with other electronics equipment. Finally, the bottom part of the page display counter values for the wishbone request, fast commands, link errors, etc. Note that when a discrepancy is observed between two correlated counters, a warning flag is raised as can be seen in the bottom-left of the picture. \\
-
-      \begin{figure}[h!]
-        \centering
+        \vspace{1cm}
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-oh.png}
         \caption{Screenshots of the page used to control and monitor the OptoHybrid.}
         \label{fig:II-3-app-oh}
       \end{figure}
 
+      The OptoHybrid page, shown in Figure \ref{fig:II-3-app-oh}, provides more information and control options to the user. The top-left part of the page is used to modify system register controlling the trigger source, clock source, trigger information sent over the debugging header, etc. This is where the user can change the type of ongoing run by going from a data taking run using external triggers to a calibration run using internally generated triggers. The panel directly on the right provides status information on the various clocking resources in the FPGA. By default, the OptoHybrid uses the on-board oscillator to power the system and the optical links. As communication is established with the GLIB, the GTXs provide the recovered clock from the link which is the system clock. When the latter is stable, the OptoHybrid can decide to switch from its on-board clock to the system clock in order to be synchronous with the whole DAQ system. This operation can be prohibited, forced, or allowed by the user, which can also chose to use an external clock provided through the debugging header. These clocking options are useful for the test beam setup where the clock can be provided externally to synchronize with other electronics equipment. Finally, the bottom part of the page display counter values for the wishbone request, fast commands, link errors, etc. Note that when a discrepancy is observed between two correlated counters, a warning flag is raised as can be seen in the bottom-left of the picture. \\
+
       Finally, the control page of the VFAT2s, shown in Figure \ref{fig:II-3-app-vfat2}, gives access to the most significant registers of the front-end chips. It provides a summary of the on/off/absent status of each VFAT2 on the GEB and, by clicking on an individual slot, the value of each register as shown in the panel on the right. Default settings for the registers are saved in memory and compared to the current values, raising warnings when they differ and allowing the user to correct them. The user can also control all the VFAT2s at once by applying the default settings or turning them on or off at the same time. In the bottom panel, control buttons allow to mask individual VFAT2s in case they generate noise or send corrupted tracking data. Two counters monitor the number of valid (with a correct CRC) and invalid packets each position has sent.
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-vfat2.png}
         \caption{Screenshots of the page used to control and monitor the VFAT2.}
@@ -326,30 +323,28 @@
 
       The fast control or T1 generator is controlled by a dedicated page, displayed on the top of Figure \ref{fig:II-3-app-control}, which allows to select the type of commands to generate, the pattern to send, and the delay between two pulses. The slow control of the VFAT2s handled by the I2C modules and the extended I2C controller is managed by another page shown on the bottom. The slow control commands can either target a single VFAT2 as shown in the left panel or an entire set of chips as can be seen in the right panel. In case of a single command, the response is shown inline. For multiple operations, a table of results is shown indicating the value and the corresponding VFAT2. To help the user, the accessible registers are named rather than listed using their address.
 
-      \begin{figure}[h!]
+      \begin{figure}[p!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-t1.png} \\
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-t1.png}
+        \vspace{0.5cm}
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-i2c.png}
         \caption{Screenshots of the pages of the web application used to send fast commands (top) and slow control (bottom) requests to the VFAT2s.}
         \label{fig:II-3-app-control}
+        \vspace{1cm}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-scan.png}
+        \caption{Screenshot of the page of the web application used to perform calibration scans of the VFAT2s.}
+        \label{fig:II-3-app-calibration}
       \end{figure}
 
     \subsection{Calibrating the VFAT2s}
 
       The calibration of the VFAT2s is done through a dedicated page which regroups the various operations that can be performed on the chip. Figure \ref{fig:II-3-app-calibration} is a screenshot of the application running a threshold scan on one of the VFAT2s. The left panel allows the user to select all the required parameters such as the type of scan, the range of the scan, the number of events per point, etc. Once the parameters are entered, the user starts the scan and waits for it to finish in firmware. When done, a graph displays the results in the right panel. The user can then dynamically change VFAT2 settings by clicking on a point of the graph to, for example, select the most appropriate threshold or latency value. Furthermore, the user can save the data points to disk for offline analysis.
 
-      \begin{figure}[h!]
-        \centering
-        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-scan.png}
-        \caption{Screenshot of the page of the web application used to perform calibration scans of the VFAT2s.}
-        \label{fig:II-3-app-calibration}
-      \end{figure}
-
     \subsection{Data Quality Monitoring}
 
       DQM is used online to check the consistency of the recorded data. This is the last component of the application shown in Figure \ref{fig:II-3-app-tk}. This page monitors the status of the readout buffers of the GLIB and allows the user to acquire data. Once acquisition has started, plots begin to fill with the various parameters extracted from the VFAT2 data format. The user can visualize the number of data packets, BC, EC, flags, and chip ID distribution, the occupancy of the channels, etc, effectively monitoring the validity of the data and if required change the parameters of the run. Although this application has the ability to readout data and store it to disk, this feature was not used to this intend during the test beam. A program developed by the software development team of the GEM collaboration was used to acquire raw data from the GLIB and store it on disk in text files for later analysis.
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-tk.png}
         \caption{Screenshot of the page of the web application used to do online data quality monitoring.}
@@ -360,7 +355,7 @@
 
     The test beam campaigns took place at CERN in the North Area of Prevessin, one of the secondary sites. The beam provided to the experiments originates from the SPS proton bunches which are extracted from the accelerator at 400 GeV and interact with a 30-cm-thick Beryllium target to produce the secondary beams mainly composed of electrons and hadrons (protons, pions, and kaons). A selection on the type of particles and their momentum is performed using so-called wobbling magnets that bend the beams and redirect them to the experimental setups. In the transfer tunnels, collimators can be adjusted to increase or reduce the flux of particles and an optional secondary target can be placed in the beam path to create a tertiary beam. Figure \ref{fig:II-3-sps} shows the monitoring page of the SPS indicating the presence of spills of particles in yellow. Spills last between 4.8 s and 9.6 s and repeat every 14 s to 48 s depending on the SPS operation. \\
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/II-3-test-beam/sps.png}
       \caption{Monitoring page of the SPS indicating the presence of spills of particles (yellow).}
@@ -406,7 +401,7 @@
 
       The high voltage applied on the drift plane can be converted to an effective gas gain for the Triple-GEM detector. Figure \ref{fig:II-3-gain} shows the measured gas gains as a function of the current through the high voltage divider for the different generations of GEM detectors and for ArCO$_2$ 70:30 and ArCO$_2$CF$_4$ 45:15:40.
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.9\textwidth]{img/II-3-test-beam/gain.png}
         \caption{Measured gas gains as a function of the current through the high voltage divider for the different generations of GEM detectors and for ArCO$_2$ 70:30 and ArCO$_2$CF$_4$ 45:15:40 \cite{Merlin:2155685}.}
@@ -434,7 +429,7 @@
 
       The first parameter to study is the noise on the VFAT2s induced by the system and by the effect of the channels. To this end, threshold scans have been produced using the web application. These scans are ran when the beam is not present. They use the trigger bits of the VFAT2s which do not need a L1A source to be produced. These are clocked at 40 MHz and for each threshold value the ratio of events containing hits against the total amount of collected events is defined to be the noise. Figure \ref{fig:II-3-data-threshold} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units, the decimal value written in the eight bits register afterwards converted to a voltage level, for GEM0 on the left and GEM1 on the right with muons. Although the noise level quickly diminishes, it never reaches the expected value of 0 even at very high threshold. Typically, previous test beams have shown that a value of 15 eliminates the noise. Furthermore, it can be seen that noise level is slightly higher in GEM1, which reaches 20\% at a threshold value of 10 against 15\% for GEM0. From the threshold scans, it was decided to run both chambers at a VFAT2 threshold level of 25 for data taking runs. This value is considered to be the default threshold except if otherwise specified. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM1-crop}
@@ -444,7 +439,7 @@
 
       After the end of the test beam, the noise issue has been investigated thoroughly and two sources have been isolated: the I2C clock used for the slow communication and the LEMO cables used for the trigger input. In the version of the firmware used during the test beam, the I2C clock ran continuously which induced noise on the trigger bits of the VFAT2s at a frequency of 100 kHz, the same as the clock itself. This problem has been solved by activating the I2C clock solely when a slow control operation takes place, limiting the number of corrupted trigger bits. The second issue originated from current loops formed between the low power cables of the OptoHybrids and the LEMO cable connecting the system to the NIM crate. The ground of the latter was connected to the OptoHybrid ground through the shielding of the LEMO cables. Once the two ground systems were isolated, noise level comparable to previous observations were obtained. Figure \ref{fig:II-3-noise-comp} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units with results obtained during the test beam on the left and with the improved noise cancelation on the right. The reduction in noise in turn allowed to function at a lower threshold and thus increase the efficiency of the detector, reaching the required 98\% mark. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cThreshold_SBitsTK-crop}
@@ -458,7 +453,7 @@
 
       Once the threshold on the VFAT2s has been set and the beam turned on, a latency scan must be done in order to capture the events corresponding to the triggers coming from the scintillators. Again, the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ratio of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} plots the ratio of hit events as a function of the VFAT2 latency in terms of BXs for a monostable pulse length of four clock cycles for GEM0 on the left and GEM1 on the right with muons. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct window, it rises to a value close to 0.98. These plots illustrate the usefulness of the settable monostable pulse length. Indeed, the two points at approximately 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting one half of the events. This is due to the asynchronous trigger coming from the PMs. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. From these results, a VFAT2 latency value of 11 has been used for data taking runs. This value is considered to be the default latency except if otherwise specified. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cLatency_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cLatency_GEM1-crop}
@@ -472,7 +467,7 @@
 
       Using the latency scan to compute noise and efficiency values, the evolution of these parameters has been studied according to the high-voltage applied on the detector. Figure \ref{fig:II-3-data-eff-hv} plots the measured noise (green), measured efficiency (blue), and computed efficiency (orange) as a function of the high-voltage expressed in microamperes for GEM0 on the left and GEM1 on the right with muons. Both results show an increase in efficiency with the high-voltage, reaching the start of a plateau around 97\%. This is caused by the higher gain at which the GEM foils start to operate which in turn amplifies the signals and allows it to be detected by the VFAT2 ASIC. It can be noted that a shift exists between the results for GEM0 and GEM1. Values for the latter are shifted to the left by approximately 10 $\mu$A. While GEM0 reaches a plateau at 800 $\mu$A, GEM1 requires 810 $\mu$A to reach an efficiency around 97\%. This is due to the leakage current observed during installation which decreases the voltage applied to the GEM foils and in turn performance. It can also be noted that the noise is constant with the high-voltage and remains at 4\%. From this, it was decided to operate both chambers at 800 $\mu$A as sparks were sometimes observed at 810 $\mu$A. This value is considered to be the default high-voltage except if otherwise specified. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_HV_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_HV_GEM1-crop}
@@ -492,7 +487,7 @@
       \end{itemize}
       The first condition eliminates events where a hit is accompanied by noise, creating an ambiguity on the cluster associated with the particles. The second condition helps to remove noise related events as they have a cluster size distribution peaked at one channel. Therefore, combining these two criteria creates a stringent condition for the selection of signals generated by particles. The final condition ensures that the hit in the second GEM detector will be located inside the VFAT2 thus eliminating acceptance problems. Using the reduced dataset, the algorithm computed the efficiency by looking for hits in the second GEM detector in a window of ten channels around the center of the cluster of the GEM of reference, which corresponds to a windows of 40 mm. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Threshold_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Threshold_GEM1-crop}
@@ -506,7 +501,7 @@
 
       Similarly to the measurements and computations made for the previous study, the effect of trigger rate on the efficiency was measured. Focus is given on the latter as the noise levels are not influenced by the increase in rate and remain at 4\%. Figure \ref{fig:II-3-data-eff-rate} plots the measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the trigger rates for GEM0 on the left and GEM1 on the right with pions. Control over the trigger rates were done using collimaters in front of the beam setup. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM1-crop}
@@ -520,7 +515,7 @@
 
       Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of channels per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectively plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM1-crop}
@@ -532,7 +527,7 @@
 
       The impact of the efficiency according to the threshold is however not directly visible when considering the cluster size. It is clear that the cluster size decreases as the threshold increases, meaning that less and less channels are being fired. At low threshold, clusters contain roughly 1.5 channels and an average of 1.6 clusters are present per event. When increasing the threshold, the average number of channels fired decreases slightly which does not immediately affect the cluster multiplicity: clusters are reduced in size but not in numbers. The counting of cluster is not directly affected by the cluster size when the latter is greater than one. This means that two clusters of size two are equivalent to two clusters of size one. Even if by increasing the threshold, some channels are being deactivated, other channels in the cluster might still remain active thus leaving the cluster statistic unchanged. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM1-crop}
@@ -548,7 +543,7 @@
 
       Finally, to illustrate the structure of the beam, one can create a beam profile obtained by superimposing the collected data and counting the number of hits for each channels. Figure \ref{fig:II-3-data-beam-profile} plots the beam profile for muons (green) and pions (blue) for GEM0 on the left and GEM1 on the right. The pion beam is well defined and centered on the VFAT2 as it is guided and collimated by the magnets of the transfer tunnels from the SPS to the experimental area. The muon beam on the other side displays a large spread due to the decay process of the pions and the collimators installed to stop them. The sharp cut-off on the left side of the profile is due to the geometrical acceptance of the PM placed in the back of the detector. These plots show that the chips do not have any dead channels and that the accumulation follows the expected Gaussian shape.
 
-      \begin{figure}[h!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM1-crop}
