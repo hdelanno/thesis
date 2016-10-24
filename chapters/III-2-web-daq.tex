@@ -56,7 +56,7 @@
 
       After analyzing the HTTP request, the server performs the desired operation and returns a status code, information headers, and optionally data. The status codes are defined in the HTTP standard: 200 means the operation was successful, 404 means that the request file is missing, 500 means the server encountered an error, etc. The additional headers contain information regarding the type of content that is returned (text, image, etc), the encoding of the data, the data size, etc. Finally, the response ends with the raw data. \\
 
-      To each request, a single response is provided by the server. Moreover, the server does not initiate requests, meaning the communication has to be started by the client; the server can not push data to the client, but only provided data when probed (pulled).
+      To each request, a single response is provided by the server. Moreover, the server does not initiate requests, meaning the communication has to be started by the client; the server can not push data to the client, but only provides data when probed (pulled).
 
     \subsection{The WebSockets Protocol}
 
