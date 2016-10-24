@@ -1,9 +1,9 @@
 \chapter{A Data Acquisition System for the Test Beam}
 \label{chap:II-3-test-beam}
 
-  During the ongoing process of the development of the DAQ system, the electronics was tested in two test beams organized in Fall 2014 and November 2015 respectively. The first test beam, ran with the first prototype of the DAQ, aimed at proving the feasibility of the architecture of the system, not focusing on data taking from the provided pion and muon beam but rather on usability. As the results were encouraging, the second version of the electronics was developed involving a complete redesign of the hardware, firmware, and software. Therefore, we will mainly focus on the second test beam, which electronics is described in the previous chapter, during which abundant data was recorded showing both excellent results for the detectors and the DAQ system. \\
+  During the ongoing process of the development of the DAQ system, the electronics was tested in two test beams organized in Fall 2014 and November 2015 respectively. The first test beam, ran with the first prototype of the DAQ, aimed at proving the feasibility of the architecture of the system, not focusing on data taking from the provided pion and muon beam but rather on usability. As the results were encouraging, the second version of the electronics was developed involving a complete redesign of the hardware, firmware, and software. Therefore, we will mainly focus on the second test beam, of which the electronics were described in the previous chapter, during which abundant data was recorded showing both excellent results for the detectors and the DAQ system. \\
 
-  In this chapter, we present the firmware and software developments done for the DAQ system for the test beams, followed by the analysis of the recorded data. First, we will present the firmware architecture of the OptoHybrid and the GLIB to better understand the global layout of the system and the features that have been implemented to control the components. Then we will move on to the back-end applications developed to control and monitor the DAQ system and read out data. Finally, after a presentation of the layout of the test beam setup and its characteristics, we will show the results obtained after analysis of the recorded data.
+  In this chapter, we present the firmware and software developments done for the DAQ system for the test beams, followed by the analysis of the recorded data. First, we will present the firmware architecture of the OptoHybrid and the GLIB to better understand the global layout of the system and the features that have been implemented to control the components. Then we will move on to the back-end applications developed to control and monitor the DAQ system and read out data. Finally, after a presentation of the layout of the test beam setup and its characteristics, we will review the results obtained after analysis of the recorded data.
 
   \section{Architecture of the OptoHybrid Firmware}
 
@@ -20,7 +20,7 @@
 
     \subsection{Internal Communication Through a Wishbone-Like Bus}
 
-      Wishbone is an open-source communication protocol used in many projects to enable data transfer between ICs. A light version of the protocol has been implemented in the OptoHybrid to link the various modules of the system. The latter are divided in two categories: masters which initiate requests, and slaves which provide responses. The link between the two is done through a switching hub which redirects the requests to the appropriate slaves by using a 32-bit-long address space mapped to the various modules. Some components implement both a master and a slave module in order to be able to receive requests and propagate them to various other modules. Figure \ref{fig:II-3-wishbone-arch} is a schematic illustration of the architecture of the system without Wishbone on the left and with Wishbone on the right. In the architecture of the first version of the firmware, all requests had to originate from the software routines which were the only masters of the system. This meant that the firmware modules could not communicate among themselves. In the second version, firmware routines can be developed which act as masters in the system and have direct access to all resources of the FPGA in a unified way. The right part of the figure shows how the software sends a request to the firmware routine in red, and how the firmware routine then handles the communication with the other modules. All the requests transit through the switch and are redirected to the appropriate slaves. \\
+      Wishbone is an open-source communication protocol used in many projects to enable data transfer between ICs. A light version of the protocol has been implemented in the OptoHybrid to link the various modules of the system. The latter are divided in two categories: masters which initiate requests, and slaves which provide responses. The link between the two is created through a switching hub which redirects the requests to the appropriate slaves by using a 32-bit-long address space mapped to the various modules. Some components implement both a master and a slave module in order to be able to receive requests and propagate them to various other modules. Figure \ref{fig:II-3-wishbone-arch} is a schematic illustration of the architecture of the system without Wishbone on the left and with Wishbone on the right. In the architecture of the first version of the firmware, all requests had to originate from the software routines which were the only masters of the system. This meant that the firmware modules could not communicate among themselves. In the second version, firmware routines can be developed which act as masters in the system and have direct access to all resources of the FPGA in a unified way. The right part of the figure shows how the software sends a request to the firmware routine in red, and how the firmware routine then handles the communication with the other modules. All the requests transit through the switch and are redirected to the appropriate slaves. \\
 
       \begin{figure}[h!]
         \centering
@@ -39,7 +39,7 @@
       \end{figure}
 
 
-      A request form a master is composed of four signals: a flag signaling the presence of a request, a write-enable bit to indicate the nature of the request (read or write), a 32-bit-long address to which the request will be redirected, and an optional 32-bit-long data field in case the request is a write operation. The response from a slave consists of: an acknowledgment signal, a 4-bit-long error status in case the operation failed, and an optional 32-bit-long data field holding the response to read requests. Figure \ref{fig:II-3-wishbone-chrono} represents a chronograph of two wishbone communications between a master and a slave for a successful write operation and a read operation resulting in an error. A programmable timeout has also been implemented to avoid blocking operation.  \\
+      A request from a master is composed of four signals: a flag signaling the presence of a request, a write-enable bit to indicate the nature of the request (read or write), a 32-bit-long address to which the request will be redirected, and an optional 32-bit-long data field in case the request is a write operation. The response from a slave consists of: an acknowledgment signal, a 4-bit-long error status in case the operation failed, and an optional 32-bit-long data field holding the response to read requests. Figure \ref{fig:II-3-wishbone-chrono} represents a chronograph of two wishbone communications between a master and a slave for a successful write operation and a read operation resulting in an error. A programmable timeout has also been implemented to avoid blocking operation.  \\
 
       \begin{figure}[h!]
         \centering
@@ -48,11 +48,11 @@
         \label{fig:II-3-wishbone-chrono}
       \end{figure}
 
-      Communication done through the wishbone-like protocol is used mainly for slow control or non-time-critical operations as the latency of a transactions is not fixed. Indeed, the switching hub implements a waiting list functionality which allows two masters to address the same slave at the same time by storing one of the requests in memory and awaiting for the slave to finish the other transaction.
+      Communication done through the wishbone-like protocol is used mainly for slow control or non-time-critical operations as the latency of a transactions is not fixed. Indeed, the switching hub implements a waiting list functionality, which allows two masters to address the same slave at the same time by storing one of the requests in memory and awaiting for the slave to finish the other transaction.
 
     \subsection{Encoding Fast Commands}
 
-      Fast commands such as L1As, Resyncs, BC0s, etc can originate from various sources. In normal data taking runs, the AMC13 receives the TTC signals common to CMS, forwards them to the microTCA AMC which in turn transmits them to the OptoHybrid. When data taking is stopped and calibration runs are performed, the routines implemented in the OptoHybrid are ran and require fast commands. To this end, the TTC signals can also be generated locally using the T1 generator module. This entity can generate L1As, Resyncs, BC0s, and CalPulses in three different ways: send a single command a given number of times at fixed interval, send a CalPulse followed by a L1A with a fixed delay, or send a programmable pattern involving all the commands. Figure \ref{fig:II-3-t1-chrono} illustrates those functionalities through a chronograph of two events generated by the T1 generator and encoded on the T1 lines for the VFAT2s: first two L1As (green) are sent with a fixed interval, then a CalPulse (red) is generated followed by a L1A after a defined delay. The T1 commands are then encoded on three bits for the VFAT2s (100 for L1As and 111 for CalPulses). \\
+      Fast commands such as L1As, Resyncs, BC0s, etc can originate from various sources. In normal data taking runs, the AMC13 receives the TTC signals common to CMS, forwards them to the microTCA AMC which in turn transmits them to the OptoHybrid. When data taking is stopped and calibration runs are performed, the routines implemented in the OptoHybrid are run and require fast commands. To this end, the TTC signals can also be generated locally using the T1 generator module. This entity can generate L1As, Resyncs, BC0s, and CalPulses in three different ways: send a single command a given number of times at fixed interval, send a CalPulse followed by a L1A with a fixed delay, or send a programmable pattern involving all the commands. Figure \ref{fig:II-3-t1-chrono} illustrates those functionalities through a chronograph of two events generated by the T1 generator and encoded on the T1 lines for the VFAT2s: first two L1As (green) are sent with a fixed interval, then a CalPulse (red) is generated followed by a L1A after a defined delay. The T1 commands are then encoded on three bits for the VFAT2s (100 for L1As and 111 for CalPulses). \\
 
       \begin{figure}[h!]
         \centering
@@ -96,7 +96,7 @@
         \label{tab:II-3-vfat2-tk-format}
       \end{table}
 
-      Next to the data line, each VFAT2 provides a DataValid line which is pulled high when the bits coming out of the VFAT2 are valid. However, due to the limited number of pins connecting the GEB and the OptoHybrid, this signal has been left unconnected for all but six VFAT2s. Therefore, data is constantly shifted in a 194 bits (192 bits of data and 2 idle bits) serial-to-parallel converter and analyzed. When the fixed pattern of 12 bits is seen, a flag is raised signaling the presence of potential data. The data packet is split up in its various elements and the CRC is recomputed and compared against the received CRC. Two additional flags respectively hold the results of the comparison of both CRCs indicating if the data is valid or not, and a logic OR of all 128 channel to indicate if the packet contains a hit or not. Figure \ref{fig:II-3-tkdata-chrono} illustrates this process through a chronograph of the serial decoding of an incoming data packet (blue) which is analyzed and placed in parallel busses (yellow) with the CRC check bit and the hit present bit. In theory, only packets with valid CRCs could be transmitted to the back-end electronics. However, sending all packets offers the possibility to identify recurring errors in the CRCs computation and the possibility to correct them offline. \\
+      Next to the data line, each VFAT2 provides a DataValid line which is pulled high when the bits exiting the VFAT2 are valid. However, due to the limited number of pins connecting the GEB and the OptoHybrid, this signal has been left unconnected for all but six VFAT2s. Therefore, data is constantly shifted in a 194 bits (192 bits of data and 2 idle bits) serial-to-parallel converter and analyzed. When the fixed pattern of 12 bits is seen, a flag is raised signaling the presence of potential data. The data packet is split up in its various elements and the CRC is recomputed and compared against the received CRC. Two additional flags respectively hold the results of the comparison of both CRCs indicating if the data is valid or not, and a logic OR of all 128 channel to indicate if the packet contains a hit or not. Figure \ref{fig:II-3-tkdata-chrono} illustrates this process through a chronograph of the serial decoding of an incoming data packet (blue) which is analyzed and placed in parallel busses (yellow) with the CRC check bit and the hit present bit. In theory, only packets with valid CRCs could be transmitted to the back-end electronics. However, sending all packets offers the possibility to identify recurring errors in the CRCs computation and the possibility to correct them offline. \\
 
       \begin{figure}[h!]
         \centering
@@ -105,9 +105,9 @@
         \label{fig:II-3-tkdata-chrono}
       \end{figure}
 
-      In parallel to the decoding of the data packets, the OptoHybrid maintains its own BC and stores the value of the counter in a buffer each time a L1A is received. When the 24 decoding modules, one for each VFAT2, report they have detected data, a concentrator module aggregates the information from all available VFAT2s. Every packet received within a window of ten BX is assigned to the same event to which the value of the corresponding BC is appended. The assembled event is stored in a large buffer to be latter sent over the optical links to the GLIB. \\
+      In parallel to the decoding of the data packets, the OptoHybrid maintains its own BC and stores the value of the counter in a buffer each time a L1A is received. When the 24 decoding modules, one for each VFAT2, report they have detected data, a concentrator module aggregates the information from all available VFAT2s. Every packet received within a window of ten BX is assigned to the same event to which the value of the corresponding BC is appended. The assembled event is stored in a large buffer to be later sent over the optical links to the GLIB. \\
 
-      To prevent positions either not equipped with VFAT2 Hybrids or that are noisy to generate fake data, a 24-bit-long register allows to mask individual positions to ignore any packets it generates. Next to this, each decoding module is equipped with two counters respectively counting the number of valid and invalid packets.
+      To prevent positions either not equipped with VFAT2 Hybrids or that are noisy to generate fake data, a 24-bit-long register allows the masking of individual positions to ignore any packets it generates. Next to this, each decoding module is equipped with two counters respectively counting the number of valid and invalid packets.
 
     \subsection{Controlling and Monitoring the Systems}
 
@@ -122,7 +122,7 @@
         \label{fig:II-3-i2c}
       \end{figure}
 
-      To communicate with the VFAT2s, six I2C controllers are implemented in the firmware of the OptoHybrid, one per sector on the GEB. Each controller can access four VFAT2s which are identified using three resistors that can be installed on the GEB. VFAT2 uses a modified I2C protocol with the same frame format as the official one but a different addressing scheme. For the VFAT2, the first three bits of the address are used to select the chip that is addressed by the master while the four remaining bits are used to select the register that needs to be accessed. This addressing scheme allows the OptoHybrid to access up to 16 registers on the VFAT2s. Figure \ref{fig:II-3-i2c-vfat2} represents a chronograph of the modified I2C communication for the VFAT2. \\
+      To communicate with the VFAT2s, six I2C controllers are implemented in the firmware of the OptoHybrid, one per sector on the GEB. Each controller can access four VFAT2s which are identified using three resistors that can be installed on the GEB. VFAT2 uses a modified I2C protocol with the same frame format as the official one, but a different addressing scheme. For the VFAT2, the first three bits of the address are used to select the chip that is addressed by the master while the four remaining bits are used to select the register that needs to be accessed. This addressing scheme allows the OptoHybrid to access up to 16 registers on the VFAT2s. Figure \ref{fig:II-3-i2c-vfat2} represents a chronograph of the modified I2C communication for the VFAT2. \\
 
       \begin{figure}[h!]
         \centering
@@ -142,7 +142,7 @@
 
       To make this process transparent to the user and flatten out the address space of the VFAT2s, the OptoHybrid maps the primary registers from addresses 0 to 15 and the extended registers from addresses 16 to 151. When performing a transaction with the extended registers, the I2C controllers automatically run the double addressing scheme. \\
 
-      Next to the basic I2C controllers, an extended I2C controller was developed to abstract individual addressing and allow request broadcasting. This module forwards I2C requests to all selected VFAT2s at once to configure the entire system in parallel. A programmable register allows to leave out given VFAT2s from the broadcast while a buffer stores the result of the operations.
+      Next to the basic I2C controllers, an extended I2C controller was developed to abstract individual addressing and allow request broadcasting. This module forwards I2C requests to all selected VFAT2s at once to configure the entire system in parallel. A programmable register makes it possible to leave out given VFAT2s from the broadcast while a buffer stores the result of the operations.
 
     \subsection{Calibrating the Systems}
 
@@ -174,7 +174,7 @@
 
     \subsection{Optical Communication with the Off-Detector Electronics}
 
-      The connection between the OptoHybrid and the off-detector electronics is the optical links from which two are used: one for the trigger data and fast commands, and one for the tracking data and slow control. Each optical fiber is connected to an SFP+ transceiver which contains the Light Emitting Diode (LED) that drives the link. The SFP+ module is in turn connected to a Gigabit Transceiver X (GTX) block inside the FPGA which is a dedicated component that can handle high-speed serial communications.
+      The connection between the OptoHybrid and the off-detector electronics is the optical links from which two are used: one for the trigger data and fast commands, and one for the tracking data and slow control. Each optical fiber is connected to an SFP+ transceiver which contains the Light Emitting Diode (LED) that drives the link. The SFP+ module is in turn connected to a Gigabit Transceiver X (GTX) block inside the FPGA, which is a dedicated component that can handle high-speed serial communications.
 
       \paragraph{The GTX module} is in charge of the serialization/deserialization of high-speed data up to 6.6 Gbps. A schematic diagram of the functions it provides is shown in Figure \ref{fig:II-3-gtx}. The GTX handles both the transmission and reception of data. From the FPGA logic, it receives a parallel vector of bits containing the raw data. The raw data enters the Transmit FIFO which acts as a buffer before the Line Encoding module. The latter uses an eight-bit/ten-bit (8b/10b) encoding scheming which is a standard in high-speed communications. 8b/10b encodes every eight bit word on ten bits according to a predefined table. It has the particularity that whatever combination of words might be sent, no more than five successive '0's or '1's will arise in the serial stream. This ensures line balancing: the fact that the electric lines between the GTX and the SFP+ module will remain at an average voltage and not drift to a logic '1' or '0' over time, thus requiring a longer fall or rise time of the signals. 8b/10b also offers a set of K-characters which are unique patterns of bit that can never arise randomly in the stream. Those characters are used to detect the beginning of a frame and allow the receiver to align correctly. Finally, after the encoding of the data frame is done, it is serialized and transmitted to the SFP+ module over differential pairs. \\
 
@@ -217,7 +217,7 @@
         \label{tab:II-3-trigger-format}
       \end{table}
 
-      \paragraph{The variable latency link} is used to transmit and receive slow control commands and to transmit the tracking data of one VFAT2 at the time to the GLIB. As only one VFAT2 was exposed to the beam at any given time during the test beam, reconstructing and sending the full event was not a necessity for the DAQ system. The format used to transmit the data is detailed in Table \ref{tab:II-3-data-format}. In both directions, a given frame format is constantly sent using two bits in the header to indicate the presence of a valid slow control request and valid VFAT2 tracking data in case of the uplink. Both send a 16 bit header to align the link followed by the frame data. As can be seen in the table on the left, the OptoHybrid receives requests from the optical link which are then converted to wishbone-like requests by the logic. The optical link module is one of the wishbone masters that controls the system and which responses are forwarded back to the GLIB.
+      \paragraph{The variable latency link} is used to transmit and receive slow control commands and to transmit the tracking data of one VFAT2 at the time to the GLIB. As only one VFAT2 was exposed to the beam at any given time during the test beam, reconstructing and sending the full event was not a necessity for the DAQ system. The format used to transmit the data is detailed in Table \ref{tab:II-3-data-format}. In both directions, a given frame format is constantly sent using two bits in the header to indicate the presence of a valid slow control request and valid VFAT2 tracking data in case of the uplink. Both send a 16 bit header to align the link followed by the frame data. As can be seen in the table on the left, the OptoHybrid receives requests from the optical link which are then converted to wishbone-like requests by the logic. The optical link module is one of the wishbone masters that controls the system and whose responses are forwarded back to the GLIB.
 
       \begin{table}[h!]
         \begin{tabularx}{\textwidth}{C{1}C{1}}
@@ -260,7 +260,7 @@
 
     \subsection{The Tracking Data Readout}
 
-      The GLIB acts as buffer for the tracking data it reads out from the OptoHybrids and decodes from the optical links. It stores the VFAT2 events until the control and monitoring application reads them out through IPBus. In case the buffers reach their full occupancy, new events are discarded and flags are raised. The buffers can hold up to 16 383 VFAT2 events per connected OptoHybrid and the system has been tested and proven to work without overflows up until L1A rates of 200 kHz, the maximum rate the VFAT2s can handle.
+      The GLIB acts as buffer for the tracking data it reads out from the OptoHybrids and decodes from the optical links. It stores the VFAT2 events until the control and monitoring application reads them out through IPBus. In case the buffers reach their full occupancy, new events are discarded and flags are raised. The buffers can hold up to 16 383 VFAT2 events per connected OptoHybrid. Additionally, the system has been tested and proven to work without overflows up until L1A rates of 200 kHz, the maximum rate the VFAT2s can handle.
 
     \subsection{The IPBus Controller and Slaves}
 
@@ -268,7 +268,7 @@
 
   \section{The Control and Monitoring Application}
 
-    The first version of the control and monitoring application that communicated with the system was based on a series of Python scripts running PyChips, a Python implementation of IPBus provided with the GLIB source code. Each script was developed to run a specific task and needed to be ran over and over again. This was feasible for the first test beam during which only the system was tested for small amounts of time, but not for the second one that was meant to collect data. Therefore, a web application was developed based on NodeJS \cite{NODEJS} as server technology, SocketIO \cite{SOCKETIO} for the client/server exchange, AngularJS \cite{ANGULARJS} as front-end framework, and Bootstrap \cite{BOOTSTRAP} as design framework. The architecture of the application is depicted in Figure \ref{fig:II-3-app-layout} which shows how the various technologies interact.
+    The first version of the control and monitoring application that communicated with the system was based on a series of Python scripts running PyChips, a Python implementation of IPBus provided with the GLIB source code. Each script was developed to run a specific task and needed to be run over and over again. This was feasible for the first test beam during which only the system was tested for small amounts of time, but not for the second one that was meant to collect data. Therefore, a web application was developed based on NodeJS \cite{NODEJS} as server technology, SocketIO \cite{SOCKETIO} for the client/server exchange, AngularJS \cite{ANGULARJS} as front-end framework, and Bootstrap \cite{BOOTSTRAP} as design framework. The architecture of the application is depicted in Figure \ref{fig:II-3-app-layout} which shows how the various technologies interact.
 
     \begin{figure}[h!]
       \centering
@@ -279,11 +279,11 @@
 
     \subsection{Architecture of the Application}
 
-      NodeJS is a JavaScript (JS) runtime that has the ability to run JS code outside the context of a web browser. It extends JavaScript from its original use in web content to a wide range of applications by enabling it to manipulate files, data streams, etc. The most common use for NodeJS is the implementation of a web server that has the property to be much more reactive than other infrastructures. Where classic server structures display a blocking behavior, meaning they only handle one request at the time blocking the queue of incoming demands, NodeJS is event driven and thus non-blocking. For example, if a client requests a file, NodeJS will transfer the request to the operating system and continue to respond to other client as long as the file is not served. Interactions are thus more reactive and allow to easily implement a real-time control and monitoring system. Along side the NodeJS server that serves the content of the web application, a version of IPBus in JS was also implemented. The latter allows the server to execute IPBus requests on the GLIB and readout the response. \\
+      NodeJS is a JavaScript (JS) runtime that has the ability to run JS code outside the context of a web browser. It extends JavaScript from its original use in web content to a wide range of applications by enabling it to manipulate files, data streams, etc. The most common use for NodeJS is the implementation of a web server that has the ability to be much more reactive than other infrastructures. Where classic server structures display a blocking behavior, meaning they only handle one request at a time, blocking the queue of incoming demands, NodeJS is event driven and thus non-blocking. For example, if a client requests a file, NodeJS will transfer the request to the operating system and continue to respond to other client as long as the file is not served. Interactions are thus more reactive and allow for easy implementation of a real-time control and monitoring system. Alongside the NodeJS server that serves the content of the web application, a version of IPBus in JS was also implemented. The latter allows the server to execute IPBus requests on the GLIB and readout the response. \\
 
       To link the client side controlled by the user and the server side which sends requests to the GLIB, the SocketIO project is used. It is an abstraction layer on the fairly new WebSocket technology which adds sockets to web browsers and allows for fast communication with servers by bypassing the HTTP protocol. When the client changes settings in its web browser, SocketIO transfers the request to NodeJS which in turn creates an IPBus packet. When the GLIB responded to the request, the server transfers the response back to the client which can handle the data as it likes. \\
 
-      To handle data in a dynamic and convenient way, the web pages use Bootstrap and AngularJS. Bootstrap is a design framework which provides simple and readable themes to layout the pages. The content of the page on the other hand is managed by AngularJS which is a front-end JS framework. It helps rendering dynamic content in function of the data received from the server. Actions can be triggered or disabled according to the state of the system, data can be updated live, etc. It renders the user experience more fluid and enjoyable by providing a usable set of actions and an efficient navigation through the control pages.
+      To handle data in a dynamic and convenient way, the web pages use Bootstrap and AngularJS. Bootstrap is a design framework which provides simple and readable themes to layout the pages. The content of the page on the other hand is managed by AngularJS which is a front-end JS framework. It helps render dynamic content in function of the data received from the server. Actions can be triggered or disabled according to the state of the system, data can be updated live, etc. It renders the user experience more fluid and enjoyable by providing a usable set of actions and an efficient navigation through the control pages.
 
     \subsection{Controlling the Systems}
 
@@ -291,7 +291,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-home.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-home.png}
         \caption{Screenshots of the home page of the web application used to control and monitor the components of the DAQ system.}
         \label{fig:II-3-app-home}
       \end{figure}
@@ -300,7 +300,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-glib.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-glib.png}
         \caption{Screenshots of the page used to control and monitor the GLIB.}
         \label{fig:II-3-app-glib}
       \end{figure}
@@ -309,7 +309,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-oh.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-oh.png}
         \caption{Screenshots of the page used to control and monitor the OptoHybrid.}
         \label{fig:II-3-app-oh}
       \end{figure}
@@ -318,7 +318,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-vfat2.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-vfat2.png}
         \caption{Screenshots of the page used to control and monitor the VFAT2.}
         \label{fig:II-3-app-vfat2}
       \end{figure}
@@ -329,8 +329,8 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-t1.png} \\
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-i2c.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-t1.png} \\
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-i2c.png}
         \caption{Screenshots of the pages of the web application used to send fast commands (top) and slow control (bottom) requests to the VFAT2s.}
         \label{fig:II-3-app-control}
       \end{figure}
@@ -341,7 +341,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-scan.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-scan.png}
         \caption{Screenshot of the page of the web application used to perform calibration scans of the VFAT2s.}
         \label{fig:II-3-app-calibration}
       \end{figure}
@@ -352,7 +352,7 @@
 
       \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/II-3-test-beam/app-tk.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-tk.png}
         \caption{Screenshot of the page of the web application used to do online data quality monitoring.}
         \label{fig:II-3-app-tk}
       \end{figure}
@@ -457,7 +457,7 @@
 
     \subsection{VFAT2 Latency Scans}
 
-      Once the threshold on the VFAT2s has been set and the beam turned on, a latency scan has to be done in order to capture the events corresponding to the triggers coming from the scintillators. Again, the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ratio of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} plots the ratio of hit events as a function of the VFAT2 latency in terms of BXs for a monostable pulse length of four clock cycles for GEM0 on the left and GEM1 on the right with muons. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct window, it rises to a value close to 0.98. These plots illustrate the usefulness of the settable monostable pulse length. Indeed, the two points at approximately 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting one half of the events. This is due to the asynchronous trigger coming from the PMs. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. From these results, a VFAT2 latency value of 11 has been used for data taking runs. This value is considered to be the default latency except if otherwise specified. \\
+      Once the threshold on the VFAT2s has been set and the beam turned on, a latency scan must be done in order to capture the events corresponding to the triggers coming from the scintillators. Again, the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ratio of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} plots the ratio of hit events as a function of the VFAT2 latency in terms of BXs for a monostable pulse length of four clock cycles for GEM0 on the left and GEM1 on the right with muons. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct window, it rises to a value close to 0.98. These plots illustrate the usefulness of the settable monostable pulse length. Indeed, the two points at approximately 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting one half of the events. This is due to the asynchronous trigger coming from the PMs. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. From these results, a VFAT2 latency value of 11 has been used for data taking runs. This value is considered to be the default latency except if otherwise specified. \\
 
       \begin{figure}[h!]
         \centering
@@ -501,7 +501,7 @@
         \label{fig:II-3-data-eff-threshold}
       \end{figure}
 
-      It can be seen that at very low thresholds the computed efficiency displays a large error due to the high noise. As the latter decreases with the increase in the threshold, the algorithm computing the real efficiency is able to tighten its limits ultimately providing a computed efficiency close to the measured value. From a threshold value of 15, efficiency starts to slowly drop from 98\% to 90\% at 50. This shows how the threshold cuts the signal while only slightly affecting noise which remains at 4\% at thresholds above 25. From these results, the choice to operate the system at a threshold of 25 is validated. Although displaying a slightly lower efficiency, still around 97\%, than results at a threshold of 15, the lower noise is non-negligible and reaches a local plateau. The deviation between the efficiency obtained using the latency scans and the tracking data for GEM1 comes from the higher noise to which it is subject. Apart from the requirement that the hits in GEM1 should be within a given windows around the hit in GEM0, no other cut is performed on the data in order to not bias the results. Therefore, the higher noise in GEM1 will artificially increase the efficiency when faking a hit.
+      It can be noted that at very low thresholds the computed efficiency displays a large error due to the high noise. As the latter decreases with the increase in the threshold, the algorithm computing the real efficiency is able to tighten its limits ultimately providing a computed efficiency close to the measured value. From a threshold value of 15, efficiency starts to slowly drop from 98\% to 90\% at 50. This shows how the threshold cuts the signal while only slightly affecting noise which remains at 4\% at thresholds above 25. From these results, the choice to operate the system at a threshold of 25 is validated. Although displaying a slightly lower efficiency, still around 97\%, than results at a threshold of 15, the lower noise is non-negligible and reaches a local plateau. The deviation between the efficiency obtained using the latency scans and the tracking data for GEM1 comes from the higher noise to which it is subject. Apart from the requirement that the hits in GEM1 should be within a given windows around the hit in GEM0, no other cut is performed on the data in order to not bias the results. Therefore, the higher noise in GEM1 will artificially increase the efficiency when faking a hit.
 
     \subsection{Evolution of the Efficiency with the Trigger Rate}
 
@@ -609,7 +609,7 @@
 
     The November 2015 test beam campaign showed that the DAQ system composed of the VFAT2 ASIC, GEB v2, OptoHybrid v2a, and GLIB was able to run flawlessly during the entirety of the campaigns. The latter was able to handle two GE1/1 detectors with ease while providing quality data which has been used to compute the noise and efficiency on the system as a function of various parameters as well as the cluster multiplicity and size. \\
 
-    The flexible firmware architecture we developed for the OptoHybrid, which provides the user with numerous monitoring and control options, ran for the duration of the test beam and carried out all required tasks: handle the slow control with the VFAT2s, read out tracking data, and monitor the system. The wishbone-like communication protocol implemented in the FPGA allows future developments to be easily integrated and modules to communicate with one another. The firmware of the GLIB and the communication through the optical links have ran smoothly showing no errors on the transmitted data. The readout rate was high enough to prevent buffer from overflowing and the data taking has shown to be well integrated with the software. The latter, namely a web application that we designed, has been used extensively and is still in use for gain and uniformity studies at CERN. It has proven to be a complete solution to control and monitor the DAQ system allowing users to run all the necessary scans. \\
+    The flexible firmware architecture we developed for the OptoHybrid, which provides the user with numerous monitoring and control options, ran for the duration of the test beam and carried out all required tasks: handle the slow control with the VFAT2s, read out tracking data, and monitor the system. The wishbone-like communication protocol implemented in the FPGA allows future developments to be easily integrated and modules to communicate with one another. The firmware of the GLIB and the communication through the optical links have ran smoothly showing no errors on the transmitted data. The readout rate was high enough to prevent the buffer from overflowing and the data taking has shown to be well integrated with the software. The latter, namely a web application that we designed, has been used extensively and is still in use for gain and uniformity studies at CERN. It has proven to be a complete solution to control and monitor the DAQ system allowing users to run all the necessary scans. \\
 
     Finally, we have analyzed the data recorded during the test beam. Threshold scans have shown an elevated noise level around 4\%, which has since then been understood and solved, forcing us to work at higher threshold values and thus reducing the efficiency by 1\%-2\% to 97\%. Nonetheless, using the latency scans and the tracking data, we performed various studies of the noise and efficiency levels against high-voltage, threshold, and trigger rates. An efficiency of 97\% has been obtained when running at nominal values, and trigger rate capability has been tested up until 120 kHz with a resulting efficiency of 96\%. Studies on the cluster size have yielded an average of 1.42 $\pm$ 0.5 for muons and 1.62 $\pm$ 0.6 for pions. These results are in excellent agreement with measurements performed during two test beams campaigns. \\
 
