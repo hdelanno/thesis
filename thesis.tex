@@ -44,119 +44,119 @@
   \pagenumbering{roman}
   \pagestyle{empty}
 
-  % Title
-  \input{chapters/0-0-title}
-  \cleardoublepage
+  % % Title
+  % \input{chapters/0-0-title}
+  % \cleardoublepage
 
   \pagestyle{plain}
 
-  % Abstract
-  \input{chapters/0-1-abstract}
-  \cleardoublepage
-
-  % Résumé
-  \input{chapters/0-2-resume}
-  \cleardoublepage
+  % % Abstract
+  % \input{chapters/0-1-abstract} % OK
+  % \cleardoublepage
+  %
+  % % Résumé
+  % \input{chapters/0-2-resume} % OK
+  % \cleardoublepage
 
   % % Acknowledgment
   % \input{chapters/0-3-acknowledgments}
   % \cleardoublepage
 
-  % Table of contents
-  \addcontentsline{toc}{chapter}{Table of Contents}
-  \tableofcontents
-  \cleardoublepage
+  % % Table of contents
+  % \addcontentsline{toc}{chapter}{Table of Contents}
+  % \tableofcontents
+  % \cleardoublepage
 
   \pagenumbering{arabic}
   \setcounter{page}{1}
   \pagestyle{maincontentstyle}
 
-  % Introduction
-  \input{chapters/0-4-introduction}
-  \cleardoublepage
+  % % Introduction
+  % \input{chapters/0-4-introduction} % OK
+  % \cleardoublepage
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %% Main matter of the thesis %%
   %% Content chapters          %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \part{An Introduction to Particle Physics}
-
-    \input{chapters/I-0-preface.tex}
-    \cleardoublepage
-
-    \input{chapters/I-1-standard-model.tex}
-    \cleardoublepage
-
-    \input{chapters/I-2-lhc.tex}
-    \cleardoublepage
-
-    \input{chapters/I-3-cms.tex}
-    \cleardoublepage
-
-  \part{The CMS GEM Upgrade Project}
-
-    \input{chapters/II-0-preface.tex}
-    \cleardoublepage
+  % \part{An Introduction to Particle Physics}
+  %
+  %   \input{chapters/I-0-preface.tex} % OK
+  %   \cleardoublepage
+  %
+  %   \input{chapters/I-1-standard-model.tex} % OK
+  %   \cleardoublepage
+  %
+  %   \input{chapters/I-2-lhc.tex} % OK
+  %   \cleardoublepage
+  %
+  %   \input{chapters/I-3-cms.tex} % OK
+  %   \cleardoublepage
+%
+  % \part{The CMS GEM Upgrade Project}
+  %
+  %   \input{chapters/II-0-preface.tex} % OK
+  %   \cleardoublepage
 
     \input{chapters/II-1-gem.tex}
     \cleardoublepage
 
-    \input{chapters/II-2-daq.tex}
-    \cleardoublepage
-
-    \input{chapters/II-3-test-beam.tex}
-    \cleardoublepage
-
-    \input{chapters/II-4-qualification.tex}
-    \cleardoublepage
-
-    \input{chapters/II-5-irradiation.tex}
-    \cleardoublepage
-
-    \input{chapters/II-6-summary.tex}
-    \cleardoublepage
-
-  \part{Data Acquisition System Design}
-
-    \input{chapters/III-0-preface.tex}
-    \cleardoublepage
-
-    \input{chapters/III-1-arch.tex}
-    \cleardoublepage
-
-    \input{chapters/III-2-web-daq.tex}
-    \cleardoublepage
-
-    \input{chapters/III-3-summary.tex}
-    \cleardoublepage
+    % \input{chapters/II-2-daq.tex}
+    % \cleardoublepage
+  %
+  %   \input{chapters/II-3-test-beam.tex}
+  %   \cleardoublepage
+  %
+  %   \input{chapters/II-4-qualification.tex}
+  %   \cleardoublepage
+  %
+  %   \input{chapters/II-5-irradiation.tex}
+  %   \cleardoublepage
+  %
+  %   \input{chapters/II-6-summary.tex}
+  %   \cleardoublepage
+  %
+  % \part{Data Acquisition System Design}
+  %
+  %   \input{chapters/III-0-preface.tex}
+  %   \cleardoublepage
+  %
+  %   \input{chapters/III-1-arch.tex}
+  %   \cleardoublepage
+  %
+  %   \input{chapters/III-2-web-daq.tex}
+  %   \cleardoublepage
+  %
+  %   \input{chapters/III-3-summary.tex}
+  %   \cleardoublepage
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %% Back matter of the thesis %%
   %% Conclusion, figures, ...  %%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  % Conclusion
-  \input{chapters/IV-0-conclusion.tex}
-  \cleardoublepage
-
-  % List of figures
-  \addcontentsline{toc}{chapter}{\listfigurename}
-  \listoffigures
-  \cleardoublepage
-
-  % List of tables
-  \addcontentsline{toc}{chapter}{\listtablename}
-  \listoftables
-  \cleardoublepage
-
-  % List of acronyms
-  \input{chapters/IV-1-acronym.tex}
-  \cleardoublepage
-
-  % Bibliography
-  \addcontentsline{toc}{chapter}{Bibliography}
-  \printbibliography
-  \cleardoublepage
+  % % Conclusion
+  % \input{chapters/IV-0-conclusion.tex}
+  % \cleardoublepage
+  %
+  % % List of figures
+  % \addcontentsline{toc}{chapter}{\listfigurename}
+  % \listoffigures
+  % \cleardoublepage
+  %
+  % % List of tables
+  % \addcontentsline{toc}{chapter}{\listtablename}
+  % \listoftables
+  % \cleardoublepage
+  %
+  % % List of acronyms
+  % \input{chapters/IV-1-acronym.tex}
+  % \cleardoublepage
+  %
+  % % Bibliography
+  % \addcontentsline{toc}{chapter}{Bibliography}
+  % \printbibliography
+  % \cleardoublepage
 
 \end{document}
