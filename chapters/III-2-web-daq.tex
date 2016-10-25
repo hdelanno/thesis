@@ -197,11 +197,85 @@
       \label{fig:III-2-system-new}
     \end{figure}
 
-  \section{...}
+  \section{Comparaison of Three DAQ Systems}
+
+    To quantify the improvements made by the architecture described above, a comparaison of the response time of three DAQ systems is performed, each with a different layout. First is the setup described in Section \ref{sec:III-1-sp601} which relies on a database to interface between the user control and the front-end ; second is the setup using IPBus to communicate with two GLIB boards, as detailled in Section \ref{sec:III-1-glib} ; third is the setup described above which uses the SP601 with an embedded Microblaze. The comparaison is done for two types of communications: a slow control request sent from the user control to the front-end electronics, and the readout of data coming from the front-end electronics towards the user.
+
+    \subsection{Slow Control Request}
+
+      In the first scenario, the user wants to send a slow control command to the front-end to change the content of a register. This process is illustrated in Figure \ref{fig:III-2-ctrl-req} which depicts the nodes of the DAQ systems and the interactions they have in order to transmit the request from the user control to the front-end electronics. Blue arrows indicate that data is pushed to the next node, and red arrows that the data is pulled from the node. The first setup uses WebSockets between the web interface and NodeJS (A) which then writes the request into the database (B). The same database is pulled by a server (C) which transfers the data to the SP601 over UART (D) and then to the VFAT2 over I2C (E). By considering that every request is 32 bits long, except for the communication with the VFAT2 which is always 8 bits long, the total propagation time for a request in this system is of
+      \begin{equation}
+        \begin{split}
+          t_{tot}\text{[ms]} & = t_A + t_B + t_C + t_D + t_E \\
+                             & = 2.58 + 3342.8 + (2500 + 35.72) + 40 + 0.2 = 5921.3 \ \text{ms}.
+        \end{split}
+      \end{equation}
+      The two major contributions to the response time are the communication between the NodeJS server and the database (B), and the fact that the server needs to pull data from the database (C). The latter is done every 5 s and thus results in a mean delay of 2.5 s before a request is seen as new, when averaging over multiple requests. Finally, the UART communication (D) is the third largest contribution as it is one of the slowest protocols used to exchange data. It runs at 1 kHz with an overhead of 2 bits for every 8 bits it transfers, thus requiring a total of 40 bits to transmit the 32 bits of data. This yields 40 ms to transfer a request. \\
+
+      \begin{figure}[t!]
+        \centering
+        \includegraphics[width=\textwidth]{img/III-2-web-daq/ctrl_req}
+        \caption{Nodes of the DAQ systems and the interactions they have in order to transmit the request from the user control to the front-end electronics. Blue arrows indicate that data is pushed to the next node, and red arrows that the data is pulled from the node.}
+        \label{fig:III-2-ctrl-req}
+      \end{figure}
+
+      The same computation can be done for the second setup in which a Python script communicates with a first GLIB over IPBus (F). The request is then transferred to a second GLIB over optical links (G) and then to the VFAT2 over I2C (H). This setup yields a reponse time of
+      \begin{equation}
+        \begin{split}
+          t_{tot}\text{[ms]} & = t_F + t_G + t_H \\
+                             & = 0.44 + 10^{-6} + 0.2 = 0.44 \ \text{ms}.
+        \end{split}
+      \end{equation}
+      As noted, the propagation time of the requests over the optical link is neagligeable and the main contribution comes from the IPBus protocol. As for the I2C request (E) to the VFAT2, it is done with a reference clock of 100 kHz and requires the exchange of 20 bits to transfer the request, resulting in a propagation time of 0.2 ms. \\
+
+      Finally, the last system, in which a WebSocket request is sent from the web interface to the SP601 (I) and then transferred to the VFAT2 over I2C (J), totals a propagation time of
+      \begin{equation}
+        \begin{split}
+          t_{tot}\text{[ms]} & = t_I + t_J \\
+                             & = 2.58 + 0.2 = 2.78 \ \text{ms}.
+        \end{split}
+      \end{equation}
+      This results in a response time over 2 000 times faster than the first setup while being only around 6 times slower than the setup using IPBus. This is due to the difference in execution environments in which the softwares are running. The Python scripts that perform the IPBus requests are executed in a terminal with almost no overhead. They have a high priority of execution within the operating system. The web interface on the other hand is executed inside a web browser which adds a layer on top of the system.
+
+    \subsection{Data Readout}
+
+      In the second scenario, a data packet of 224 bits is pushed from the front-end electronics to the user. This process is illustrated in Figure \ref{fig:III-2-ctrl-req} which depicts the nodes of the DAQ systems and the interactions they have in order to transmit the data from the front-end electronics to the user control. Blue arrows indicate that data is pushed to the next node, and red arrows that the data is pulled from the node. In the first setup, the SP601 reads out the data from the VFAT2 at 40 MHz (E) and transfers it to the server over UART (D) which then stores it in the database (C). The latter is read out by NodeJS (B) when pulled by the web interface (A). The total propagation time for the data to reach the user is of
+      \begin{equation}
+        \begin{split}
+          t_{tot}\text{[ms]} & = t_A + t_B + t_C + t_D + t_E \\
+                             & = (2500 + 2.58) + 3342.8 + 35.72 + 280 + 5.6 \times 10^{-3} = 6161.1 \ \text{ms}.
+        \end{split}
+      \end{equation}
+      The delay caused by the pulling of the database has been moved from the server to the web interface. Every five seconds, the latter sends a request to NodeJS which polls the database for new data packets. When new data is present, NodeJS transfers the information back to the web interface. \\
+
+      The second setup relies on the same pulling mechanism from the Python script to the GLIB which stores new events in a large buffer. The propagation time is thus of
+      \begin{equation}
+        \begin{split}
+          t_{tot}\text{[ms]} & = t_F + t_G + t_H \\
+                             & = (2500 + 0.44) + 10^{-6} + 5.6 \times 10^{-3} = 2500.44 \ \text{ms}.
+        \end{split}
+      \end{equation}
+      The fact that the communication between the nodes is not bidirectionnal is what adds delay in the system and reduces its efficiency. \\
+
+      \begin{figure}[t!]
+        \centering
+        \includegraphics[width=\textwidth]{img/III-2-web-daq/data_req}
+        \caption{Nodes of the DAQ systems and the interactions they have in order to transmit the data from the front-end electronics to the user control. Blue arrows indicate that data is pushed to the next node, and red arrows that the data is pulled from the node.}
+        \label{fig:III-2-data-req}
+      \end{figure}
+
+      In the last setup, the SP601 is able to push data to the web interface directly, which yields a response time of
+      \begin{equation}
+        \begin{split}
+          t_{tot}\text{[ms]} & = t_I + t_J \\
+                             & = 2.58 + 5.6 \times 10^{-3} = 2.58 \ \text{ms}.
+        \end{split}
+      \end{equation}
+      By allowing the SP601 to inform the web interface directly upon reception of new data from the VFAT2, the response time of the system is reduced by a factor of 2 000 and 1 000 compared to the first and second setup respectively. A responsiveness of 2.58 ms is achived which allows the system to be trully event driven.
 
   \section{Conclusion}
 
-    Using recent developments in web technologies, we were able to create an innovative data acquisition system architecture which provides higher flexibility and better utilizes the resources of the nodes in the network. Compared to classic designs which use pull/push techniques to transfer data, the new implementation offers event driven interactions, making use of the bandwidth only when necessary. \\
+    Using recent developments in web technologies, we were able to create an innovative data acquisition system architecture which provides higher flexibility and better utilizes the resources of the nodes in the network. Compared to classic designs which use pull/push techniques to transfer data, the new implementation offers event driven interactions, making use of the bandwidth only when necessary. The response time of the system was thereby improved by a factor of up to 1 000 compared to classic architectures. \\
 
     Besides the increase in speed and optimization, the use of a web-based application offers greater portability on a variety of platforms without the need to maintain code for various systems. \\
 

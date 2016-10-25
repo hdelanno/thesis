@@ -75,6 +75,7 @@
       The communication between the database and the high voltage and gas systems is done through a computer placed in a rack near the experimental setup. Custom software was developed by the ULB DAQ team to communicate with the VME crate and the mass flow controllers. CAEN provides an integrated library to perform read/write operations on the crate which is used to apply the parameters stored in the database. Communication with the flow meters is done the same application, which is thus in charge of loading the parameters in the registers and logging the monitoring values.
 
   \section{A First Prototype using the Xilinx SP601 Development Board}
+  \label{sec:III-1-sp601}
 
     The first prototype of the DAQ system was developed using a Xilinx SP601 development board which is equipped with a Xilinx Spartan-6 FPGA (XC6SLX16-2CSG324) similar to the one used on the first version of the OptoHybrid, 1 Gb of DDR2 SDRAM, an Ethernet PHY, a USB-to-UART bridge, and a VITA 57.1 FMC-LPC extension header. The SP601 was linked to a VFAT2 Hybrid mounted on the Triple-GEM detector through a specially designed board which plugged onto the FMC connector. On the other side, the SP601 was connected to the computer present in the rack. Figure \ref{fig:III-1-sys-1} provides a schematic overview of the system and its components.
 
@@ -144,6 +145,7 @@
       \end{figure}
 
   \section{Upgrade of the System using the GLIB}
+  \label{sec:III-1-glib}
 
     When the GLIB became available, developments focused on the back-end electronics and software moved from an IPBus UART to an IPBus Ethernet implementation. As the GLIB is also equipped with an FMC connector, it was decided to use it as front-end module coupled with the VFAT2 FMC already used in the first prototype. The choice to separate the system instead of implementing the full design on a single GLIB was made to develop knowledge with respect to the use of optical links. Figure \ref{fig:III-1-sys-2} displays the configuration of the system using two GLIBs as readout boards. \\
 
