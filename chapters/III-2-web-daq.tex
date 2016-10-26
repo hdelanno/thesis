@@ -293,7 +293,14 @@
 
     The control and monitoring application could benefit from the architecture described above by using the microprocessor available on the CTP7. As mentioned in Section \ref{sec:II-2-ctp7}, the CTP7 embarks a Zynq FPGA (XC7Z045) which is composed of programmable logic and two hard processors. The latter can run fullflegded operating systems on top of which one can program a web server. The client could thus directly connect and communicate with software running on the CTP7, as it was done using the SP601. \\
 
-    However, the question of scalability must be raised as a total of 12 CTP7s will be used to control the two endcaps of GE1/1 detectors. The architecture presented before where each board delivers the web application and provides the WebSockets communication becomes unpratical when multiple components have to be monitored at the same time. The user would need to open 12 instances of the same interface and operate the requests on each one individually. The solution comes from the flexibility of the WebSockets which allow to interact with multiple sources within the same web application. The client would connect to a server which sole functionnality is to deliver the interface and scripts of the application. The communication with the CTP7s can then be established directly between the client and the electronics through WebSockets. This system centralizes the maintainance of the interface to a single server while still benefiting from the advantages provided by the architecture described above.
+    \begin{figure}[b!]
+      \centering
+      \includegraphics[width=\textwidth]{img/III-2-web-daq/gem-sys}
+      \caption{Hypothetical architecture of the control and monitoring system of the DAQ system of the GE1/1 system using the techniques described in this chapter.}
+      \label{fig:III-2-gem}
+    \end{figure}
+
+    However, the question of scalability must be raised as a total of 12 CTP7s will be used to control the two endcaps of GE1/1 detectors. The architecture presented before where each board delivers the web application and provides the WebSockets communication becomes unpratical when multiple components have to be monitored at the same time. The user would need to open 12 instances of the same interface and operate the requests on each one individually. The solution comes from the flexibility of the WebSockets which allow to interact with multiple sources within the same web application. The client would connect to a server which sole functionnality is to deliver the interface and scripts of the application. The communication with the CTP7s can then be established directly between the client and the electronics through WebSockets. This system centralizes the maintainance of the interface to a single server while still benefiting from the advantages provided by the architecture described above. This is illustrated in Figure \ref{fig:III-2-gem} which is a schematic of the hypothetical architecture of the control and monitoring system of the DAQ system of the GE1/1 system using the techniques described in this chapter.
 
   \section{Conclusion}
 
