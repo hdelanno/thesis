@@ -499,7 +499,7 @@
 
     \subsection{Evolution of the Efficiency with the Trigger Rate}
 
-      Similarly to the measurements and computations made for the previous study, the effect of trigger rate on the efficiency was measured. Focus is given on the latter as the noise levels are not influenced by the increase in rate and remain at 4\%. Figure \ref{fig:II-3-data-eff-rate} plots the measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the trigger rates for GEM0 on the left and GEM1 on the right with pions. Control over the trigger rates were done using collimaters in front of the beam setup. \\
+      Similarly to the measurements and computations made for the previous study, the effect of trigger rate on the efficiency was measured. Focus is given on the latter as the noise levels are not influenced by the increase in rate and remain at 4\%. Figure \ref{fig:II-3-data-eff-rate} plots the measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the trigger rates for GEM0 on the left and GEM1 on the right with pions. The trigger rate was adjusted using collimaters placed in front of the beam setup. As noted in the results shown in the previous section, the deviation between the efficiency obtained using the latency scans and the tracking data for GEM1 comes from the higher noise to which it was subject. \\
 
       \begin{figure}[t!]
         \centering
@@ -509,7 +509,18 @@
         \label{fig:II-3-data-eff-rate}
       \end{figure}
 
-      Similarly to the results shown in the previous section, the deviation between the efficiency obtained using the latency scans and the tracking data for GEM1 comes from the higher noise to which it is subject. These results support the fact that the DAQ system can sustain rates up to several tens of kilohertz. When going from 20 kHz to 120 kHz, a drop in efficiency of 1\% is observed for GEM0 and of roughly 2\% for GEM1. In CMS, the trigger rate will be of 100 kHz for the LHC Phase I, value at which the efficiency is above 96\% for GEM0. It is important to emphasize that these results show the performance of the whole system: the efficiency of the detector and the performance of the DAQ system. Furthermore, the measurements of the efficiency against the threshold show that when lowering the working threshold of the VFAT2s to 15 instead of 25, the efficiency increases by 1\% to 2\%.
+      A small decrease in efficiency of 1\% for GEM0 and of roughly 2\% for GEM1 from the initial value of 97\% is observed When increasing the trigger rate from 20 kHz to 120 kHz. This is due to the charge-up effect that occurs inside the detector \cite{Alfonsi20126}. The electrons and ions created during the avalanche process inside the GEM foils can be absorbed by the Kapton insulator and in turn modify the transparency of the GEM foils. The transparency is defined as the ratio of primary electrons that initiate an avalanche and thus contribute to the formation of the signal, and the total number of primary electrons. Figure \ref{fig:II-3-charge-up} illustrates the drift path (without diffusion) of electrons (orange) starting 90 $\mu$m above the GEM, in an electrostatic configuration (green) without charges on the Kapton surface on the left and with charges on the Kapton surface on the right. As can be seen in the right plot, a significant number of electrons are captured by the coper layer on top of the Kapton when the latter has accumulated charge, thus reducing the transparancy of the foil. This in turn lowers the amplitude of the signal formed on the readout strips \cite{1748-0221-7-01-C01005} and increases the probability that the signal is bellow threshold, meaning the hit is not recorded by the VFAT2. When the counting rate in the chamber is small, the accumulated charge can dissipate, effectively eliminating this effect. \\
+
+      \begin{figure}[t!]
+        \centering
+        \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/chargeup-0.png}
+        \includegraphics[width=0.49\textwidth]{img/II-3-test-beam/chargeup-1.png}
+        \caption{Drift path (without diffusion) of electrons (orange) starting 90 $\mu$m above the GEM, in an electrostatic configuration (green) without charges on the Kapton surface on the left and with charges on the Kapton surface on the right \cite{Alfonsi20126}.}
+        \label{fig:II-3-charge-up}
+      \end{figure}
+
+
+      To corroborate the statement that the loss in efficiency originates from the detector and not the DAQ system, the latter has been tested against trigger rates of 200 kHz, the maximum rate supported by the VFAT2s. By providing a know number of triggers to the system and counting the number of data packets read out, it was shown that no data losses occur in the readout chain. These results support the claim that the GEM chamber and DAQ system can sustain trigger rate of CMS, which is of 100 kHz for the LHC Phase I, while keeping an efficiency above 96\%. Finally, it is important to emphasize that the measurements of the efficiency against the threshold show that when lowering the working threshold of the VFAT2s to 15 instead of 25, the efficiency increases by 1\% to 2\%. This means a final efficiency above 97\% could be achieve.
 
     \subsection{Cluster Multiplicity and Size}
 
