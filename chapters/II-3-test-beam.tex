@@ -269,7 +269,7 @@
 
     The first version of the control and monitoring application that communicated with the system was based on a series of Python scripts running PyChips, a Python implementation of IPBus provided with the GLIB source code. Each script was developed to run a specific task and needed to be run over and over again. This was feasible for the first test beam during which only the system was tested for small amounts of time, but not for the second one that was meant to collect data. Therefore, a web application was developed based on NodeJS \cite{NODEJS} as server technology, SocketIO \cite{SOCKETIO} for the client/server exchange, AngularJS \cite{ANGULARJS} as front-end framework, and Bootstrap \cite{BOOTSTRAP} as design framework. The architecture of the application is depicted in Figure \ref{fig:II-3-app-layout} which shows how the various technologies interact.
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=\textwidth]{img/II-3-test-beam/app-layout.png}
       \caption{Functional diagram of the architecture of the application used to control and monitor the GEM detectors.}
@@ -350,7 +350,7 @@
 
       \begin{figure}[t!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-tk.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-dqm.png}
         \caption{Screenshot of the page of the web application used to do online data quality monitoring.}
         \label{fig:II-3-app-tk}
       \end{figure}
