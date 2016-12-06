@@ -89,7 +89,7 @@
         \label{fig:II-4-trim}
       \end{figure}
 
-      To align the channels, the average value of turn-on for both minimal and maximal value configuration is taken and set to be the aim of the equalization routine. For each channel, the script then sets its individual register value to the mean value and performs an s-curve scan. According to the turn-on value, the register is incremented or decremented and the procedure is repeated until the channel is aligned. The results of the alignment are shown in Figure \ref{fig:II-4-trimed} which plots the s-curve scan for each channel with the aligned values for the register on the left and the dispersion of the turn-on value for the non-aligned and aligned configurations. \\
+      To align the channels, the average value of turn-on for both the minimal and maximal value of the channel registers is taken and set to be the aim of the equalization routine. For each channel, the script then sets its individual register value to the mean value and performs an s-curve scan. According to the turn-on value, the register is incremented or decremented and the procedure is repeated until the channel is aligned. The results of the alignment are shown in Figure \ref{fig:II-4-trimed} which plots the s-curve scan for each channel with the aligned values for the register on the left and the dispersion of the turn-on value for the non-aligned and aligned configurations. \\
 
       \begin{figure}[t!]
         \centering
@@ -99,7 +99,7 @@
         \label{fig:II-4-trimed}
       \end{figure}
 
-      At the end of the script, the channels of the VFAT2 have all been tested against noise issues and have been adjusted so that they all display the same response to calibration pulses. The dispersion of the channels around the central value is improved from an initial value of 1.22 to a final value of 0.19 after alignment, corresponding to 0.10 fC and 0.02 fC respectively. This is the first time the full range of possibilities offered by the VFAT2 is used in a DAQ system and demonstrates that these features are within working specification.
+      At the end of the script, the channels of the VFAT2 have all been tested against noise issues and have been adjusted so that they all display the same response to calibration pulses. The dispersion of the channels around the central value, defined as the RMS of the distribution, is improved from an initial value of 1.22 to a final value of 0.19 after alignment, corresponding to 0.10 fC and 0.02 fC respectively. This is the first time the full range of possibilities offered by the VFAT2 is used in a DAQ system and demonstrates that these features are within working specification.
 
     \section{Noise Measurement}
 
