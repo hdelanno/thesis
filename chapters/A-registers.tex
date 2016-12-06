@@ -1,0 +1,27 @@
+\chapter{OptoHybrid Registers}
+\label{chap:A-registers}
+
+  \section{VFAT2 I2C}
+
+    This module handles I2C transactions with a single VFAT2 hybrid.
+
+    \begin{tabularx}{\textwidth}{L{0.5}L{1.5}}
+      Addressing & 0x4000XXYY \\
+      & 0b 0100 0000 0000 0000 000X XXXX YYYY YYYYY
+    \end{tabularx}
+
+    \begin{tabularx}{\textwidth}{L{0.5}L{0.5}L{2}}
+      \textbf{Y Register} & \textbf{Mode} & \textbf{Functon} \\ \hline
+      0 - 150 & Read / write & Read or write the register on VFAT2 X (5 bit chip identifier)
+    \end{tabularx}
+
+    The response is formatted as follows
+    \begin{enumerate}
+      \item MSBits are constant 0s
+      \item 1 next bit is set when an error occurred
+      \item 1 next bit is set when the transaction is valid
+      \item 1 next bit is the read/not write bit of the transaction
+      \item 8 next bits hold the id of the addressed VFAT2
+      \item 8 next bits hold the id of the addressed register
+      \item 8 LSBits hold the response from the VFAT2
+    \end{enumerate}
