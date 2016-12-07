@@ -132,7 +132,7 @@
         \label{fig:II-2-ctp7}
       \end{figure}
 
-      The function of the CTP7 is triple: handle slow control requests for the subsystems, interpret TTC signals, and readout the trigger and tracking data from the OptoHybrids. The CTP7 is the interface between the control and monitoring software and the detector electronics. It uses the fabric A lines of the MCH1 to connect to a Gigabit Ethernet network and handle TCP/IP requests. It interprets the requests and forwards them to the appropriate subsystem: either itself or over the optical link to the OptoHybrids and VFAT3s. The CTP7 also receives the TTC commands on the fabric B from MCH2 and must forward them to the subsystems along with the LHC clock received on the CLK1 line. Finally, when the VFAT3s or the OptoHybrids push data upwards to the CTP7, the latter must format the data before sending it on the backplane to a dedicated DAQ AMC.
+      The function of the CTP7 is triple: handle slow control requests for the subsystems, interpret TTC signals, and readout the trigger and tracking data from the OptoHybrids. The CTP7 is the interface between the control and monitoring software and the detector electronics. It uses the fabric A lines of the MCH1 to connect to a Gigabit Ethernet network and handle TCP requests. It interprets the requests and forwards them to the appropriate subsystem: either itself or over the optical link to the OptoHybrids and VFAT3s. The CTP7 also receives the TTC commands on the fabric B from MCH2 and must forward them to the subsystems along with the LHC clock received on the CLK1 line. Finally, when the VFAT3s or the OptoHybrids push data upwards to the CTP7, the latter must format the data before sending it on the backplane to a dedicated DAQ AMC.
 
     \subsection{The AMC13}
 
@@ -145,12 +145,12 @@
         \label{fig:II-2-amc13}
       \end{figure}
 
-      The Virtex-6 FPGA of the AMC13 is connected to the central DAQ of CMS (see Section \ref{sec:I-3-daq}) through the two SFP+ optical links running at 6 Gbps which implement the S-Link Express protocol defined by CMS. An additional SFP+ can be used as a spare if the bandwidth is required. Next to the data, the AMC13 also send TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate in order for the system to be able to cope.
+      The Virtex-6 FPGA of the AMC13 is connected to FEROLs of the central DAQ of CMS (see Section \ref{sec:I-3-daq}) through the two SFP+ optical links running at 6 Gbps which implement the S-Link Express protocol defined by CMS. An additional SFP+ can be used as a spare if the bandwidth is required. Next to the data, the AMC13 also receives the TTC signals from TCDS and sends TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate in order for the system to be able to cope.
 
     \subsection{The IPBus Protocol}
     \label{sec:II-2-ipbus}
 
-      To communicate between the control and monitoring applications, and the subsystems, a new protocol called IPBus has been developed for the CMS subdetectors. It uses the Internet Protocol (IP) and can be sent over User Data Protocol (UDP) or Transmission Control Protocol (TCP). IPBus transactions are simple read/write operations using a A32/D32 implementation (Address of 32 bits, Data of 32 bits). A sequence of transactions is called a packet which starts with a packet header of 32 bits which format is shown in Figure \ref{fig:II-2-ipbus}. \\
+      To communicate between the control and monitoring applications, and the subsystems, a new protocol called IPBus has been developed for the CMS subdetectors. It uses the Internet Protocol (IP) and can be sent over User Data Protocol (UDP) or TCP. IPBus transactions are simple read/write operations using a A32/D32 implementation (Address of 32 bits, Data of 32 bits). A sequence of transactions is called a packet which starts with a packet header of 32 bits which format is shown in Figure \ref{fig:II-2-ipbus}. \\
 
       A transaction is always performed in two stages: a request from the applications is sent to which the system provides a response. The header of the request specifies the request type and request size. Additional 32 bits words are added in function of the type of operation to perform. For a read operation, the base address of the read must be specified. The response will contain N 32 bits words corresponding to the data at the base address and the incremental N addresses where N is the size of the request defined in the header. For a write operation, the request will contain the base address followed by N 32 bits words that should be written at the base address and the N following addresses where N is the size of the request defined in the header. The response will be a single header containing a status code. Variation of the read/write operations exist such as the FIFO-read and FIFO-write, which repetitively read and write words at or to the same address. \\
 
@@ -263,7 +263,7 @@
 
     \subsection{The OptoHybrid v2b}
 
-      The second iteration on the OptoHybridv2 has a U shape to accommodate the constraints of the detector geometry, cooling system, and front-panel as shown in Figure \ref{fig:II-2-ohv2b}. It is equipped with four optical links using the SFP cages and the VTRx and VTTx modules. Three of the links are controlled by the FPGA itself while the last one is connected to a GBT chipset in turn controlled by the FPGA. 
+      The second iteration on the OptoHybridv2 has a U shape to accommodate the constraints of the detector geometry, cooling system, and front-panel as shown in Figure \ref{fig:II-2-ohv2b}. It is equipped with four optical links using the SFP cages and the VTRx and VTTx modules. Three of the links are controlled by the FPGA itself while the last one is connected to a GBT chipset in turn controlled by the FPGA.
 
       \begin{figure}[t!]
         \centering
