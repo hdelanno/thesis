@@ -288,7 +288,7 @@
 
       The control over the GLIB, OptoHybrids, and VFAT2s is done through four pages. The home page of the application, which is shown in Figure \ref{fig:II-3-app-home}, provides an overview of the status of each system. The left panel displays the firmware version of the GLIB and OptoHybrid and the occupancy of the GLIB readout buffers; the middle panel gives the status of the various modules of the OptoHybrid and its temperature; finally, the right panel lists the VFAT2s that are turned on in green, turned off in red, and missing in gray and the rate of data they transmit. By clicking on any of the elements, the user is redirected to the corresponding system control page. \\
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-home.png}
         \caption{Screenshots of the home page of the web application used to control and monitor the components of the DAQ system.}
@@ -307,6 +307,7 @@
         \caption{Screenshots of the page used to control and monitor the OptoHybrid.}
         \label{fig:II-3-app-oh}
       \end{figure}
+
       \begin{figure}[p!]
         \centering
         \includegraphics[width=\textwidth]{img/II-3-test-beam/app-adc.png}
@@ -322,33 +323,24 @@
 
       Finally, the control page of the VFAT2s, shown in Figure \ref{fig:II-3-app-vfat2}, gives access to the most significant registers of the front-end chips. It provides a summary of the on/off/absent status of each VFAT2 on the GEB and, by clicking on an individual slot, the value of each register as shown in the panel on the right. Default settings for the registers are saved in memory and compared to the current values, raising warnings when they differ and allowing the user to correct them. The user can also control all the VFAT2s at once by applying the default settings or turning them on or off at the same time.
 
-      \subsection{Calibrating the VFAT2s}
-
-      \begin{figure}[b!]
-        \centering
-        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-scan.png}
-        \caption{Screenshot of the page of the web application used to perform calibration scans of the VFAT2s.}
-        \label{fig:II-3-app-calibration}
-      \end{figure}
+    \subsection{Calibrating the VFAT2s}
 
       The calibration of the VFAT2s is done through a dedicated page which regroups the various operations that can be performed on the chip. Figure \ref{fig:II-3-app-calibration} is a screenshot of the application running a threshold scan on one of the VFAT2s. The left panel allows the user to select all the required parameters such as the type of scan, the range of the scan, the number of events per point, etc. Once the parameters are entered, the user starts the scan and waits for it to finish in firmware. When done, a graph displays the results in the right panel. The user can then dynamically change VFAT2 settings by clicking on a point of the graph to, for example, select the most appropriate threshold or latency value. Furthermore, the user can save the data points to disk for offline analysis.
 
     \subsection{Fast and Slow Control of the VFAT2s}
 
-      The fast control or T1 generator is controlled by a dedicated page, displayed on the top of Figure \ref{fig:II-3-app-control}, which allows to select the type of commands to generate, the pattern to send, and the delay between two pulses. The slow control of the VFAT2s handled by the I2C modules and the extended I2C controller is managed by another page shown on the bottom. The slow control commands can either target a single VFAT2 as shown in the left panel or an entire set of chips as can be seen in the right panel. In case of a single command, the response is shown inline. For multiple operations, a table of results is shown indicating the value and the corresponding VFAT2. To help the user, the accessible registers are named rather than listed using their address.
+      The fast control or T1 generator is controlled by a dedicated page, displayed on the left of Figure \ref{fig:II-3-app-control}, which allows to select the type of commands to generate, the pattern to send, and the delay between two pulses. The slow control of the VFAT2s handled by the I2C modules and the extended I2C controller is managed by another page shown on the right. The slow control commands can either target a single VFAT2 as shown in the left panel or an entire set of chips as can be seen in the right panel. In case of a single command, the response is shown inline. For multiple operations, a table of results is shown indicating the value and the corresponding VFAT2. To help the user, the accessible registers are named rather than listed using their address.
 
       \begin{figure}[p!]
         \centering
-        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-t1.png}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-scan.png}
+        \caption{Screenshot of the page of the web application used to perform calibration scans of the VFAT2s.}
+        \label{fig:II-3-app-calibration}
         \vspace{1cm}
-        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-i2c.png}
-        \caption{Screenshots of the pages of the web application used to send fast commands (top) and slow control (bottom) requests to the VFAT2s.}
+        \includegraphics[width=\textwidth]{img/II-3-test-beam/app-t1.png}
+        \caption{Screenshots of the pages of the web application used to send fast commands (left) and slow control (right) requests to the VFAT2s.}
         \label{fig:II-3-app-control}
       \end{figure}
-
-    \subsection{Data Quality Monitoring}
-
-      DQM is used online to check the consistency of the recorded data. This is the last component of the application shown in Figure \ref{fig:II-3-app-tk}. This page monitors the status of the readout buffers of the GLIB and allows the user to acquire data. Once acquisition has started, plots begin to fill with the various parameters extracted from the VFAT2 data format. The user can visualize the number of data packets, BC, EC, flags, and chip ID distribution, the occupancy of the channels, etc, effectively monitoring the validity of the data and if required change the parameters of the run. Although this application has the ability to readout data and store it to disk, this feature was not used to this intend during the test beam. A program developed by the software development team of the GEM collaboration was used to acquire raw data from the GLIB and store it on disk in text files for later analysis.
 
       \begin{figure}[p!]
         \centering
@@ -361,9 +353,13 @@
         \label{fig:II-3-app-rates}
       \end{figure}
 
+    \subsection{Data Quality Monitoring}
+
+      DQM is used online to check the consistency of the recorded data. This is the last component of the application shown in Figure \ref{fig:II-3-app-tk}. This page monitors the status of the readout buffers of the GLIB and allows the user to acquire data. Once acquisition has started, plots begin to fill with the various parameters extracted from the VFAT2 data format. The user can visualize the number of data packets, BC, EC, flags, and chip ID distribution, the occupancy of the channels, etc, effectively monitoring the validity of the data and if required change the parameters of the run. Although this application has the ability to readout data and store it to disk, this feature was not used to this intend during the test beam. A program developed by the software development team of the GEM collaboration was used to acquire raw data from the GLIB and store it on disk in text files for later analysis.
+
     \subsection{Hit Rate Monitoring}
 
-      Next to DQM functionnalities, the firmware also monitors the hit rate in the trigger and in tracking data forwarded by the VFAT2s. Figure \ref{fig:II-3-app-rates} is a screenshot of the page of the web application used to monitor the rates. For every connected VFAT2, the application logs the rate of hits in the trigger and tracking data, and the rate of tracking data packets that are received with a valid and corrupted CRC. 
+      Next to DQM functionnalities, the firmware also monitors the hit rate in the trigger and in tracking data forwarded by the VFAT2s. Figure \ref{fig:II-3-app-rates} is a screenshot of the page of the web application used to monitor the rates. For every connected VFAT2, the application logs the rate of hits in the trigger and tracking data, and the rate of tracking data packets that are received with a valid and corrupted CRC.
 
   \section{The Test Beam Setup}
 
@@ -538,7 +534,7 @@
 
     \subsection{Cluster Multiplicity and Size}
 
-      Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of channels per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectively plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. \\
+      Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of channels per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectively plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. The points and error bars respectively correspond to the mean and RMS of the distributions. \\
 
       \begin{figure}[b!]
         \centering
@@ -630,6 +626,6 @@
 
     The flexible firmware architecture we developed for the OptoHybrid, which provides the user with numerous monitoring and control options, ran for the duration of the test beam and carried out all required tasks: handle the slow control with the VFAT2s, read out tracking data, and monitor the system. The wishbone-like communication protocol implemented in the FPGA allows future developments to be easily integrated and modules to communicate with one another. The firmware of the GLIB and the communication through the optical links have ran smoothly showing no errors on the transmitted data. The readout rate was high enough to prevent the buffer from overflowing and the data taking has shown to be well integrated with the software. The latter, namely a web application that we designed, has been used extensively and is still in use for gain and uniformity studies at CERN. It has proven to be a complete solution to control and monitor the DAQ system allowing users to run all the necessary scans. \\
 
-    Finally, we have analyzed the data recorded during the test beam. Threshold scans have shown an elevated noise level around 4\%, which has since then been understood and solved, forcing us to work at higher threshold values and thus reducing the efficiency by 1\%-2\% to 97\%. Nonetheless, using the latency scans and the tracking data, we performed various studies of the noise and efficiency levels against high-voltage, threshold, and trigger rates. An efficiency of 97\% has been obtained when running at nominal values, and trigger rate capability has been tested up until 120 kHz with a resulting efficiency of 96\%. Studies on the cluster size have yielded an average of 1.42 $\pm$ 0.5 for muons and 1.62 $\pm$ 0.6 for pions. These results are in excellent agreement with measurements performed during two test beams campaigns. \\
+    Finally, we have analyzed the data recorded during the test beam. Threshold scans have shown an elevated noise level around 4\%, which has since then been understood and solved, forcing us to work at higher threshold values and thus reducing the efficiency by 1\%-2\% to 97\%. Nonetheless, using the latency scans and the tracking data, we performed various studies of the noise and efficiency levels against high-voltage, threshold, and trigger rates. An efficiency of 97\% has been obtained when running at nominal values, and trigger rate capability has been tested up until 120 kHz with a resulting efficiency of 96\%. This trigger rate translates to a hit rate of 40 kHz cm$^{-2}$, 10 times higher than the rate expected in CMS. Studies on the cluster size have yielded an average of 1.42 $\pm$ 0.5 for muons and 1.62 $\pm$ 0.6 for pions. These results are in excellent agreement with measurements performed during two test beams campaigns. \\
 
     From the analysis we have performed and the results obtained for the efficiency of the system, we conclude that the GEM detectors equipped with the DAQ system we have designed meet the requirements of the project regarding the efficiency and the rate capability of the chambers.
