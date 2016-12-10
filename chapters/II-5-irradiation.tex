@@ -269,7 +269,7 @@
 
       As can be observed, the failure rate increases with the particle flux due to the accumulation of errors in the design. The characteristic time needed to correct an error in the configuration memory is of a few milliseconds which at high fluxes is longer than the time between two SEUs. If two SEUs affect the same area of the logic, the triplication method will fail. At fluxes of 5 $ \times $ 10$^7$ cm$^{-2}$ s$^{-1}$, the SEU rate is so high that the triplication method cannot recover data at all. However, by extrapolating the data points, it can be seen that this technique will prove efficient and mitigate the SEUs at fluxes below 10$^5$ cm$^{-2}$ s$^{-1}$.
 
-    \subsection{Impact on the Triple-GEM Upgrade Project}
+    \subsection{Impact on the GE1/1 Upgrade Project}
 
       From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed by the OptoHybrid in GE1/1 during run time in CMS. The dominant background in CMS is composed of photons and neutrons. Figure \ref{fig:II-5-neutrons} shows the particle fluxes for the GE1/1 station as a function of the pseudorapidity for the LHC Phase II on the left, and the energy spectrum of the background particles in GE1/1 on the right. \\
 
@@ -305,6 +305,12 @@
       The presented results are upper limits on the cross section of SEUs for an FPGA which resources are fully used. The firmware of the OptoHybrid v2 used for the DAQ system of the slice test occupies 36\% of the CLBs and 3\% of the BRAMs. This means that the cross section of SEUs that will effectively impact the functioning of the design will be reduced by a factor of 3 for the CLBs and 33 for the BRAMs. \\
 
       Although the total number of SEUs that will affect the logic per day during the slice test (LHC Phase I) will be on the order of 13, some modules are critical and need to be triplicated in order to mitigate errors. These modules are the tracking data readout and the trigger data formatting, as well as some registers which control the system. The remaining of the system is used for slow control operations and can be affected by SEUs without having an impact on the data taking and thus compromise the run. The system can afford to wait a few milliseconds for SEM to correct the errors and normal operations to resume.
+
+    \subsection{Impact on the GE2/1 and ME0 Upgrade Projects}
+
+      The electronics that will be used for GE2/1 will be based on the one developed for GE1/1 due to the similarities between both detector designs. The latter differ only in size and segmentation and thus is number of VFAT3s required to be read out by the electronics. As GE2/1 will be placed in an environment less challenging than the GE1/1 in terms of particle rates, the values obtained for the former can be used as upper limits for later. The same electronics will thus be able to withstand the SEU rate by using triplication and the SEM core as described above. \\
+
+      ME0 on the other hand will be subject to a background rate of up to 1 MHz cm$^{-2}$, exceeding the limits of what the triplication module can handle in a Xilinx Virtex-6 FPGA. Therefore, new solutions have to be investigated to cope with the radiation and ensure the electronics is radiation tolerant. Possible solutions include flash-based FPGAs which offer lower SEU cross section due to the persistant nature of their configuration memory, or antifuse FPGAs which are immune to SEUs but are non-reconfigurable. Future R\&D is required to tackle this complex challenge and find the most suitable solution. 
 
   \section{Conclusion}
 
