@@ -95,18 +95,32 @@
 
   \section{SEU Mitigation Techniques}
 
-    To correct SEUs taking place in the configuration memory, the latter has to be read out by the FPGA itself. This is possible through the Soft Error Mitigation (SEM) core, a component placed inside the device which allows the firmware to analyze the data in memory and, using a two bit complement, perform a FEC on the bits. Although very effective to correct errors on the fly, this technique is time consuming due to the large amount of data to readout and can take up to several milliseconds to identify and repair an error. Furthermore, the FEC will fail to recover the data in case two bits are flipped within the same word, raising a flag that tells the system a hard reset is needed. While the error remains uncorrected, the components of the FPGA configured through the corrupted bits will encounter errors. \\
+    A multitude of mitigation or best pratice techniques are used when designing radiation tolerant firmware. Depending on the requirements of the project and the available resources, a combination of one or more of these can be used to correct errors in the various componenets of the FPGA.
 
-    A common technique used to mitigate errors in CLBs and DSPs is to triplicate the logic and couple its outputs to a majority voter. This allows to correct the data while SEM solves the corrupted bits in the configuration memory. First, the sequential logic is triplicated, meaning the inputs are sent to three identical modules which output is returned synchronously. The latter are then forwarded to a majority voter which performs a bit-by-bit vote and returns the most probable response. This technique can recover data if only one of the modules is affected by an SEU. In case two modules are corrupted and flip the same bit, data will be corrupted as well. Additionally, a flag can be raised by the majority voter if all three inputs are not identical, meaning an error occurred. A logic diagram of a triplicated module is shown in Figure \ref{fig:II-5-tmr}. Next to the simple triplication method exposed here-above and represented in black, a more complex triplication can be set in place and is represented in gray. In addition to the triplication of the modules holding the logic, the voter is also triplicated along with its outputs. In that scheme, the three outputs are passed to the next module on three different inputs. This allows to mitigate errors occurring in the voter itself. \\
+    \subsection{Configuration Memory Scrubbing}
 
-    \begin{figure}[t!]
-      \centering
-      \includegraphics[width=0.7\textwidth]{img/II-5-irradiation/tmr}
-      \caption{Logic diagram of a triplicated module coupled to a single voter (black) or to three distinct voters (gray).}
-      \label{fig:II-5-tmr}
-    \end{figure}
+      To eliminate errors occurring in the configuration memory of the FPGA, the latter can implement a scrubbing mechanism. To this end, the FPGA needs to access its own configuration memory during run time. This is possible through the Soft Error Mitigation (SEM) core, a component which allows the firmware to analyze the data in memory and, using a two bit complement, perform a FEC on the bits. SEM uses two hard components that are embedded in the silicon of the FPGA: the Internal Configuration Access Port (ICAP) which allows the FPGA to read out its configuration memory, and the Error Checking & Correction Frame (ECC_FRAME) which performs the FEC on the data. By handling the data transfer between these two components, SEM is able to detect and correct errors. Although very effective to correct errors on the fly, this technique is time consuming due to the large amount of data to readout and can take up to several milliseconds to identify and repair an error. Furthermore, the FEC will fail to recover the data in case two bits are flipped within the same word, raising a flag that tells the system a hard reset is needed. While the error remains uncorrected, the components of the FPGA configured through the corrupted bits will encounter errors.
 
-    Finally, SEUs occurring in BRAMs can be corrected using a two complements FEC which can recover single bit errors and detect double bit errors. This option is available on some BRAM components in the FPGA.
+    \subsection{Logic Triplication}
+
+      A common technique used to mitigate errors in CLBs and DSPs is to triplicate the logic and couple its outputs to a majority voter. This allows to correct the data while SEM solves the corrupted bits in the configuration memory. First, the sequential logic is triplicated, meaning the inputs are sent to three identical modules which output is returned synchronously. The latter are then forwarded to a majority voter which performs a bit-by-bit vote and returns the most probable response. This technique can recover data if only one of the modules is affected by an SEU. In case two modules are corrupted and flip the same bit, data will be corrupted as well. Additionally, a flag can be raised by the majority voter if all three inputs are not identical, meaning an error occurred. A logic diagram of a triplicated module is shown in Figure \ref{fig:II-5-tmr}. Next to the simple triplication method exposed here-above and represented in black, a more complex triplication can be set in place and is represented in gray. In addition to the triplication of the modules holding the logic, the voter is also triplicated along with its outputs. In that scheme, the three outputs are passed to the next module on three different inputs. This allows to mitigate errors occurring in the voter itself.
+
+      \begin{figure}[t!]
+        \centering
+        \includegraphics[width=0.7\textwidth]{img/II-5-irradiation/tmr}
+        \caption{Logic diagram of a triplicated module coupled to a single voter (black) or to three distinct voters (gray).}
+        \label{fig:II-5-tmr}
+      \end{figure}
+
+    \subsection{Forward Error Correction}
+
+      SEUs occurring in BRAMs can be corrected using a two complements FEC which can recover single bit errors and detect double bit errors. This option is available on given BRAM components in the FPGA and is transparent to the user. The data returned by the BRAMs is corrected on the fly and a flag is raised if an error is detected.
+
+    \subsection{One-Hot Finite State Machines}
+
+      A common structure in firmware design is the Finite State Machine (FSM) which is used to describe the process flow of a system through a well-defined number of state in which it can be. Each state defines the status of the output signals of the system and the transition between states follows a pre-defined flow. FSMs allow for a clear and well-structured operation of the system. \\
+
+      The defining element of an FSM is the state it is in. Once implemented in an FPGA, the latter is encoded on a vector of bits which informs the logic of the actions to take. The default way to encode states is to assign them with sequential integer values and then encode the latter in binary (000, 001, 010, 011, 100, etc). This limits the number of bits on which the state is coded but makes the FSM vulnerable to SEUs by allowing transitions between states upon bit flips (001 could become 011). To avoid unwanted transitions between states, it is possible to encode the state of the FSM using the one-hot encoding. If the FSM has $n$ states, a vector of $n$ bits will be created. At any given time, only one of these bits will be set to a logic "1" in order to represent the state of the FSM. If an SEU affects the FSM, it will be detected through an invalid state. The register holding the state of the FSM can be further triplicated in order to increase redudancy and allow the FSM to recover.
 
   \section{Firmware Design for the Irradiated FPGA}
 
@@ -310,7 +324,7 @@
 
       The electronics that will be used for GE2/1 will be based on the one developed for GE1/1 due to the similarities between both detector designs. The latter differ only in size and segmentation and thus is number of VFAT3s required to be read out by the electronics. As GE2/1 will be placed in an environment less challenging than the GE1/1 in terms of particle rates, the values obtained for the former can be used as upper limits for later. The same electronics will thus be able to withstand the SEU rate by using triplication and the SEM core as described above. \\
 
-      ME0 on the other hand will be subject to a background rate of up to 1 MHz cm$^{-2}$, exceeding the limits of what the triplication module can handle in a Xilinx Virtex-6 FPGA. Therefore, new solutions have to be investigated to cope with the radiation and ensure the electronics is radiation tolerant. Possible solutions include flash-based FPGAs which offer lower SEU cross section due to the persistant nature of their configuration memory, or antifuse FPGAs which are immune to SEUs but are non-reconfigurable. Future R\&D is required to tackle this complex challenge and find the most suitable solution. 
+      ME0 on the other hand will be subject to a background rate of up to 1 MHz cm$^{-2}$, exceeding the limits of what the triplication module can handle in a Xilinx Virtex-6 FPGA. Therefore, new solutions have to be investigated to cope with the radiation and ensure the electronics is radiation tolerant. Possible solutions include flash-based FPGAs which offer lower SEU cross section due to the persistant nature of their configuration memory, or antifuse FPGAs which are immune to SEUs but are non-reconfigurable. Future R\&D is required to tackle this complex challenge and find the most suitable solution.
 
   \section{Conclusion}
 
