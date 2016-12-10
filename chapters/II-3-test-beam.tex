@@ -108,7 +108,7 @@
 
       To prevent positions either not equipped with VFAT2 Hybrids or that are noisy from generating fake data, a 24-bit-long register allows the masking of individual positions to ignore any packets it generates. Next to this, each decoding module is equipped with two counters respectively counting the number of valid and invalid packets.
 
-    \subsection{Controlling and Monitoring the Systems}
+    \subsection{Control and Monitoring}
 
       The OptoHybrid is used to control itself through wishbone and the VFAT2s through I2C \cite{i2c}. The slow control of the OptoHybrid mainly consists in selecting TTC command sources, setting the trigger throttling, reading out counters, etc. These operations are performed to control the data flow and the functioning of the DAQ system itself. Commands sent to the VFAT2s on the other hand have direct impact on the physics of the data taking through the bias of the analog front-end readout. \\
 

@@ -39,7 +39,7 @@
 
       \paragraph{The fast control} defines all the time sensitive commands that the VFAT3 receives. These are the Event Counter 0 (EC0), Bunch Counter 0 (BC0), Calibration Pulse (CalPulse), Resynchronisation (Resync), and L1A. The EC0 and BC0 commands respectively reset the EC and BC; the CalPulse is used to send a calibration pulse on given strips in order to calibrate the analog front-end; the ReSync command resets the internal pointers; and the L1A informs the VFAT3 that an event needs to be transferred to the DAQ.
 
-    \subsection{The GEM Electronic Board}
+    \subsection{The GEM Electronic Board (GEB)}
 
       The limited space in which the GEM detectors will be installed constrains the design of the system by making it impossible to run flat cables for the 24 VFAT3s. Therefore, the GEB, a Printed Circuit Board (PCB) of the same dimension as the GEM detector, was designed to route the signals of the front-end chips to the OptoHybrid located on the large side of the detector, furthest away from the beam pipe. A picture of a prototype of the GEB is shown on the right in Figure \ref{fig:II-2-geb}. The functions of the GEBs are to host the VFAT3 ASICs connected to the 24 sectors of the GEM readout board, route their signals to the OptoHybrid, distribute power to the chips, and provide electric shielding to the detector. The GEB is divided into three columns of eight VFAT3s, further divided into two sectors each, as represented in the left picture in Figure \ref{fig:II-2-geb}. The clock, slow control, and fast control are common for each column. \\
 
@@ -134,7 +134,7 @@
 
       The function of the CTP7 is triple: handle slow control requests for the subsystems, interpret TTC signals, and readout the trigger and tracking data from the OptoHybrids. The CTP7 is the interface between the control and monitoring software and the detector electronics. It uses the fabric A lines of the MCH1 to connect to a Gigabit Ethernet network and handle TCP requests. It interprets the requests and forwards them to the appropriate subsystem: either itself or over the optical link to the OptoHybrids and VFAT3s. The CTP7 also receives the TTC commands on the fabric B from MCH2 and must forward them to the subsystems along with the LHC clock received on the CLK1 line. Finally, when the VFAT3s or the OptoHybrids push data upwards to the CTP7, the latter must format the data before sending it on the backplane to a dedicated DAQ AMC.
 
-    \subsection{The AMC13}
+    \subsection{The AMC13 Advanced Mezzanine Card}
 
       The module which delivers the TTC signals and the LHC clock to the CTP7s and retrieves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 in the microTCA crate. Its functional diagram is shown in Figure \ref{fig:II-2-amc13}. It is equipped with two FPGAs: a powerful Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwarded on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA, which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retrieve tracking and trigger data over the fabric A ports running at 5 Gbps. For development purposes, the AMC13 integrates internal TTC commands and LHC clock generators. \\
 
@@ -250,7 +250,7 @@
         \label{fig:II-2-ohv2a}
       \end{figure}
 
-  \section{The GE1/1 Data Acquisition System for the Slice Test}
+  \section{The GE1/1 Data Acquisition System for the CMS Slice Test}
 
     The last prototype of the architecture, before developments for the final system start, is the DAQ system for the slice test, to be installed in January 2017. The architecture of the system is depicted in Figure \ref{fig:II-2-gem-system-v2b}. Although this small scale test will be performed using the VFAT2 ASIC as the VFAT3 is still in development, other components are more similar to the final version. The GBT chipset, for which production has started, is used. Readout is performed using the CTP7 and AMC13 connected to the central DAQ of CMS.
 

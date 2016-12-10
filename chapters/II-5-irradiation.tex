@@ -9,7 +9,7 @@
 
     To optimize the occupancy of the resources of the FPGA and develop code that uses the full potential of the device, a deep comprehension of the intrinsic architecture of the chip is required. Although families of FPGAs differ in size and complexity, their building blocks remain the same and are described hereafter.
 
-    \subsection{Configurable Logic Blocks}
+    \subsection{Configurable Logic Blocks (CLB)}
 
       Configurable Logic Blocks (CLBs) \cite{VIRTEX-CLB} are the building blocks of the FPGA used to implement sequential and combinatorial logic. They are composed of two important objects: Look-Up Tables (LUTs) and registers. LUTs are components which outputs are a function of the inputs as defined in a programmable table. They implement a truth table for every possible combination of the inputs which defines the value of the outputs. The response of a LUT to a change in the inputs is almost instantaneous. LUTs in the Xilinx Virtex-6 FPGAs can either implement functions with six inputs and a single output or functions with five inputs and two outputs. The outputs of the LUTs can, if so required by the design, be connected to registers which sample the signals at the rising edge of a given clock. Registers are used for their sample-and-hold functionality which makes designs synchronous to clocks. With these two components, CLBs can implement complex functions and describe intricate systems. \\
 
@@ -22,7 +22,7 @@
 
       Each CLB is composed of two slices each made of four LUTs and eight registers which layout is shown in Figure \ref{fig:II-5-clb}. Each LUT is connected to an input bus of six signals (A, B, C, and D input buses) and to an unbuffered output bus of a single bit (O6 to A, B, C, and D). Four additional signals enter the slice (AX, BX, CX, and DX) and are connected to multiplexers (red) which allow to buffer either the former or the second output of the LUTs (O5). The output of the same buffer is then connected to a second multiplexer (orange) which allows to select either the former or an unbuffered output of the LUTs (AMUX, BMUX, CMUX, and DMUX). Finally, a third multiplexer (green) connects a range of signals to the registers on the right which are then connected to four outputs (AQ, BQ, CQ, and DQ). Three additional multiplexers (blue) offer the possibility to mix the signals from the four LUTs to generate a wider range of logical operations. The flexibility offered by this architecture is what enables FPGAs to implement complex designs. The Xilinx Virtex-6 FPGA used in the OptoHybrid v2a (XC6VLX130T) holds 10 000 CLBs with a total of 80 000 LUTs and 160 000 registers.
 
-    \subsection{Digital Signal Processing}
+    \subsection{Digital Signal Processing (DSP)}
 
       Digital Signal Processing units (DSPs) \cite{VIRTEX-DSP} are modules which perform mathematical operations using dedicated hardware elements. They are used to quickly solve problems without relying on CLBs which can consume large amount of resources to perform an equivalent task. Figure \ref{fig:II-5-dsp} shows a diagram of the DSP48E1 slices present in the Xilinx Virtex-6 family. They include a 30-bits adder, a 25-bits by 18-bits multiplier, and a programmable module which can implement either a substraction, an addition, or a logic operation. Using the various multiplexers and configuration bits, the user can define the data paths that are followed and thus create DSP modules which meet the requirements of the design.
 
@@ -33,7 +33,7 @@
         \label{fig:II-5-dsp}
       \end{figure}
 
-    \subsection{The switching matrix}
+    \subsection{The Switching Matrix}
 
       The inputs and outputs of the slices of the CLBs as well as of the other components of the FPGA are interconnected through the switching matrix. It is a vast network of wires and switches which are used to route signals between elements. The open or closed state of each switch is programmable and defines the routes signals follow inside the logic. Figure \ref{fig:II-5-switch} shows an element of the matrix connected to two slices (blue) along with the signals that are routed in the network (cyan). Complex designs can span a large area of the FPGA due to the high usage of logic and thus be difficult to place and route by the compiler. A technique called floorplanning is used to reduce compilation time and improve the design by constraining parts of the code to given areas in the FPGA. This reduces propagation delays and logic usage which in turn yield a more efficient design.
 
@@ -44,11 +44,11 @@
         \label{fig:II-5-switch}
       \end{figure}
 
-    \subsection{Block RAM}
+    \subsection{Block RAM (BRAM)}
 
       Besides programmable logic, the FPGA also includes dedicated storage elements. Block RAMs (BRAMs) \cite{VIRTEX-RAM} can store up to 36 kb of data which can be configured in different ways: 32K x 1 bit, 16K x 2 bits, etc. They can also be used as First In First Out (FIFO) modules which are similar to data queues.
 
-    \subsection{The configuration memory}
+    \subsection{The Configuration Memory}
 
       The configuration memory holds the configuration of the entire FPGA and defines its behavior. It sets the truth table of the LUTs, parametrizes the DSP, creates the connection between elements, etc. It is what implements the design in the FPGA. In most FPGAs, the configuration memory is volatile and will lose its content upon power down or reset. To reload it, the FPGA tries to read it out of an attached memory device or remains in a blank or corrupted state if it fails to do so.
 
@@ -79,15 +79,15 @@
 
       Over time, charge builds up in the oxide region of the transistors and screens or enhances the electric field of the gate. This results in a shift of the voltage threshold of the transistor. Additionally, this also affects the mobility of the charge carriers in the region of the transistor where the conductive channel forms between the two doped regions. This can lead to current leakage and an increase in the voltage shift.
 
-    \subsection{Single Event Transients}
+    \subsection{Single Event Transients (SET)}
 
       When a current spike occurs in a transistor due to the passage of a particle, it can be propagated inside the combinatorial logic of the device. These events are called Single Event Transients (SETs). They typically have a fast rising time on the order of 100 ps, and last for less than 1 ns. When coupled to sequential logic, such signals can easily be recovered from if their duration is small in comparison to the frequency of the clock used to run the circuit. Unless the error is produced exactly at the sampling time of the registers and thus sampled, it is not stored and thus mitigated. These errors are critical in purely combinatorial logic but can be easily mitigated in sequential logic. They will not be further discusses in the below sections.
 
-    \subsection{Single Event Upsets}
+    \subsection{Single Event Upsets (SEU)}
 
       If the transistor affected by the passage of a particle is located within a memory cell, the event is called a Single Event Upset (SEU). These events can trigger a change of state of the cell and result in a bit flip. Memory cells are composed of a group of transistors running in a stable state. They will retain their value until a change occurs or power is shut down. When an SEU occurs, the current spike causes the memory cell to react and place itself in another stable state, effectively operating a bit flip.
 
-    \subsection{Total Ionizing Dose}
+    \subsection{Total Ionizing Dose (TID)}
 
       With time, the amount of charge accumulated by the transistors increases and greatly reduces the efficiency of the device. The threshold voltage of the transistors is shifted such that they do not fulfill their function anymore and their behavior becomes unpredictable. This leads to a breakdown of the logic gates and thus the higher level functions they are part of. Sectors of the FPGA or the device itself might become unusable. These effects might dissipate over time if the device is removed from the irradiated area.
 
@@ -230,7 +230,7 @@
 
       From these results, no trend indicating an increase of the interaction cross section with the TID has been observed. This means that the FPGA remains operational at radiation doses that exceed those expected at CMS. Similar conclusions have been made from previous irradiation tests \cite{Bylsma2013242} were the TID reached 30 krad.
 
-    \subsection{Comparison of the Two Boards}
+    \subsection{Evolution of the SEU Cross Section with the In-Beam Position}
 
       A comparison between the two boards was operated regarding the evolution of the interaction cross section with the energy. A different behavior is expected from the two FPGAs as the first one shields the second one at low energies. As particles pass through the former, they lose energy and might reach the threshold at which no SEU is produced in the latter. Figure \ref{fig:II-5-data-seu-comp} displays the interaction cross section of particles as a function of the energy of the beam and the position of the FPGA for the configuration memory resulting in recoverable (green and red) and critical (blue and purple) errors on the left, and with the BRAMs resulting in recoverable (blue and green) and critical (orange and red) errors on the right. \\
 
