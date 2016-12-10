@@ -58,7 +58,7 @@
 
     \subsection{Energy Losses in Matter}
 
-      Radiation affects the functioning of FPGAs through its interactions with the silicon substrate that composes the chip. These interactions take the form of direct or indirect ionization depending on the nature of the incident particle. Charged particles will directly ionize the medium through their Coulomb interactions with the electrons, causing them to escape with a fraction of the energy of the particle. Neutral hadrons on the other hand interact through indirect ionization which results from the scatterings with the medium which transfer energy to the electrons and nuclei. Both processes result in a trail of ions and electrons in the path of the incident particle. \\
+      Radiation affects the functioning of FPGAs through its interactions with the silicon substrate that composes the chip. These interactions take the form of direct or indirect ionization depending on the nature of the incident particle. Charged particles will directly ionize the medium through their Coulomb interactions with the electrons, causing them to escape with a fraction of the energy of the particle. Neutral hadrons on the other hand interact through indirect ionization which results from the scatterings with the medium which transfer energy to the electrons and nuclei. Both processes result in a trail of ions and electrons in the path of the incident particle, which in the context of silicon devices are called holes and electrons. \\
 
       These energy losses are stochastic by nature and thus described by probability distributions around a mean value. They further depend upon the energy of the incident particle as different physical processes will have different behaviors for their cross sections. However, a value called the Linear Energy Transfer (LET) is used and defined as the amount of energy lost by a particle per unit of distance in the direct vicinity of the track
       \begin{equation}
@@ -68,7 +68,7 @@
 
     \subsection{Effects of Radiation on Transistors}
 
-      The ions and electrons created along the track of the particle will either recombine if they are located in the bulk of the substrate, or drift towards the doped regions of the transistor if located near the p-n junction, as depicted in Figure \ref{fig:II-5-transistor}. The latter gives rise to the creation of an ion and electron current in the transistor and a resulting current spike at the gates of the component. This can propagate in the circuit and affect its status. \\
+      The holes and electrons created along the track of the particle will either recombine if they are located in the bulk of the substrate, or drift towards the doped regions of the transistor if located near the p-n junction, as depicted in Figure \ref{fig:II-5-transistor}. The latter gives rise to the creation of a hole and electron current in the transistor and a resulting current spike at the gates of the component. This can propagate in the circuit and affect its status. \\
 
       \begin{figure}[b!]
         \centering
@@ -77,7 +77,9 @@
         \label{fig:II-5-transistor}
       \end{figure}
 
-      Over time, charge builds up in the oxide region of the transistors and screens or enhances the electric field of the gate. This results in a shift of the voltage threshold of the transistor. Additionally, this also affects the mobility of the charge carriers in the region of the transistor where the conductive channel forms between the two doped regions. This can lead to current leakage and an increase in the voltage shift.
+      Not all holes and electrons are collected by the gates and over time charge builds up in the oxide region of the transistors and screens or enhances the electric field of the gate. This results in a shift of the voltage threshold of the transistor. Additionally, this also affects the mobility of the charge carriers in the region of the transistor where the conductive channel forms between the two doped regions. This can lead to current leakage and an increase in the voltage shift. \\
+
+      Additionnaly, the crystal lattice of the transistor can be disrupted by incomming particles through their interaction with atoms of silicon. These defects in the lattice will modify the conduction bands of the silicon and thus modify the conductive properties of the medium. New conduction bands can be created at lower energy levels which can, for example, be reached by thermal electrons. These effects will result in an increase of the leakage current or a decrease of the current gain.
 
     \subsection{Single Event Transients (SET)}
 
@@ -89,7 +91,7 @@
 
     \subsection{Total Ionizing Dose (TID)}
 
-      With time, the amount of charge accumulated by the transistors increases and greatly reduces the efficiency of the device. The threshold voltage of the transistors is shifted such that they do not fulfill their function anymore and their behavior becomes unpredictable. This leads to a breakdown of the logic gates and thus the higher level functions they are part of. Sectors of the FPGA or the device itself might become unusable. These effects might dissipate over time if the device is removed from the irradiated area.
+      With time, the accumulation of charge by the transistor and the defects in the crystal lattice of the silicon will reduces the efficiency of the device. The threshold voltage of the transistors is shifted such that they no longer fulfill their function and their behavior becomes unpredictable. This leads to a breakdown of the logic gates and thus the higher level functions they are part of. Sectors of the FPGA or the device itself might become unusable. These effects might dissipate over time if the device is removed from the irradiated area.
 
   \section{SEU Mitigation Techniques}
 
