@@ -34,14 +34,15 @@
 
     Using these results, a common effort from the GEM and CSC collaborations ensued to integrate the GEM measurements in the CSC trigger system to provide an additional layer of information. By the means of simulations, it has been shown that the efficiency of the combined system increases, thus yielding a lower rate of fake triggers. These results are shown in Figure \ref{fig:II-1-trigger}. In the left plot, which shows the efficiency as a function of the pseudorapidity of the particles, it can be seen that the efficiency of the GEM and CSC combined trigger (blue) is superior to the CSC only results (red), recovering the losses occurring at higher luminosity. In the right plot which shows the trigger rate as a function of the cut applied on the transverse momentum of the particle, it is depicted how the trigger rate of the combined system (blue) diminishes by one order of magnitude compared to the current system (red). For a given trigger rate, a smaller muon p$_T$ threshold can be applied due to the lower rate of misreconstructed particles, which improves the performance of the detectors. \\
 
+
+    Preserving a low p$_T$ threshold is essential for physics analysis to yield a reliable reconstruction efficiency for soft muons, that is muons with low momentum. These particles are important for a wide range of processes from beyond the Standard Model searches to measurements in the Higgs sector. Simulation studies have shown that in the case of $ H \rightarrow \tau^+ \tau^- $ where one $ \tau $ decays into a muon and the other hadronically, a decrease of 5 GeV in the p$_T$ threshold results in an increase of 35\% in the acceptance of the channel. In addition, the impact is not limited to the single muon trigger but affects all other triggers involving muons analysis, for example, $\mu+jet$ or $e/\gamma+\mu$ signals. \\
+
     \begin{figure}[t!]
       \centering
-      \includegraphics[width=\textwidth]{img/II-1-gem/gem-csc-efficiency.pdf}
+      \includegraphics[width=0.9\textwidth]{img/II-1-gem/gem-csc-efficiency.pdf}
       \caption{Left: reconstruction efficiency of the integrated GEM-CSC trigger as a function of the simulated muon |$\eta$|, compared to the same for the Phase-I CSC-only algorithm. Right: level 1 muon trigger rates before and after the GE1/1 upgrade at a luminosity of 2 $\times$ 10$^{34}$ cm$^{-2}$ s$^{-1}$. MS1/1 denotes the first endcap muon station level 1 trigger in both cases, i.e. with CSC-only or with the combination CSC and GEM trigger information \cite{Colaleo:2021453}.}
       \label{fig:II-1-trigger}
     \end{figure}
-
-    Preserving a low p$_T$ threshold is essential for physics analysis to yield a reliable reconstruction efficiency for soft muons, that is muons with low momentum. These particles are important for a wide range of processes from beyond the Standard Model searches to measurements in the Higgs sector. Simulation studies have shown that in the case of $ H \rightarrow \tau^+ \tau^- $ where one $ \tau $ decays into a muon and the other hadronically, a decrease of 5 GeV in the p$_T$ threshold results in an increase of 35\% in the acceptance of the channel. In addition, the impact is not limited to the single muon trigger but affects all other triggers involving muons analysis, for example, $\mu+jet$ or $e/\gamma+\mu$ signals. \\
 
     To further improve the trigger efficiency of CMS, it is planned to integrate a new track trigger, a trigger system for the tracker, which would benefit from the high resolution of the silicon subdetector. Foreseen to be installed during LS3, the system yields excellent results in the identification, reconstruction, and triggering of muons. However, due to the high occupancy of hits and the limited amount of computational time allocated to the trigger, given approximations must be done, degrading the results for certain physics channels. One of the assumptions made by the algorithms is that every particle originates from the interaction point. This has a significant impact on new physics processes involving hidden sectors of low interacting particles such as the decay of a Higgs into two neutralinos $ n_1 $, which in turn create a dark photon $ \gamma_d $
     \begin{equation}
@@ -62,9 +63,9 @@
 
     The diagram on the right in Figure \ref{fig:II-1-holes} represents the electric field lines that appear when a high voltage difference is applied between the two layers of copper, typically on the order of 300 V, resulting in field densities inside the holes reaching approximately 80 kV cm$^{-1}$. The structure of the electric field is used to amplify the signal of particles passing through the detector. Electrons resulting from the ionization of the gas by charged particles are directed towards the holes of the foil. When reaching high kinetic energy inside the holes, they themselves ionize the medium, producing secondary avalanches of electrons. Each hole acts as a proportional counter with gains up to 800 at voltages between 500 and 550 V.  \\
 
-    \begin{figure}[h!]
+    \begin{figure}[b!]
       \centering
-      \includegraphics[width=\textwidth]{img/II-1-gem/holes.pdf}
+      \includegraphics[width=0.95\textwidth]{img/II-1-gem/holes.pdf}
       \caption{Left: scanning electron microscope picture of a GEM foil. Right: schematic view of the electric field lines (white), electron flow (blue), and ion flow (purple) through a bi-conical GEM hole \cite{Colaleo:2021453}.}
       \label{fig:II-1-holes}
     \end{figure}
@@ -73,7 +74,7 @@
 
     \begin{figure}[t!]
       \centering
-      \includegraphics[width=0.7\textwidth]{img/II-1-gem/triple-gem-foils.pdf}
+      \includegraphics[width=0.5\textwidth]{img/II-1-gem/triple-gem-foils.pdf}
       \caption{Principle of operation of a generic triple-GEM chamber and definition of drift, transfer, and signal induction gap regions within the detector \cite{Colaleo:2021453}.}
       \label{fig:II-1-triple}
     \end{figure}
@@ -82,21 +83,21 @@
 
     The GE1/1 chambers are arranged in pairs to form superchambers, each covering 10$^o$ in $ \phi $ for a total of 72 chambers per endcap. Figure \ref{fig:II-1-superchamber} displays the geometry of the superchambers. Due to mechanical constraints, the trapezoidal chambers are declined in two versions: a short one and a long one. The short chambers cover 1.61 < |$\eta$| < 2.18 and have a large base of 445 mm, a small base of 220 mm, and a height of 990 mm. The long chambers cover 1.55 < |$\eta$| < 2.18 and have a large base of 510 mm, a small base of 279 mm, and a height of 1283 mm. \\
 
-    \begin{figure}[b!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=0.7\textwidth]{img/II-1-gem/superchamber.pdf}
       \caption{A pair of GEM chambers form a superchamber \cite{Colaleo:2021453}.}
       \label{fig:II-1-superchamber}
     \end{figure}
 
-    The structure of a single chamber is shown in Figure \ref{fig:II-1-exploded} which provides an exploded view of the detector. The drift cathode is placed on the bottom of the detector on which a frame is attached. The three GEM foils are stretched out using screws embedded in the frame along with the seals making the chamber air tight. The anode strips are engraved on the readout board that closes the active region of the detector. One chamber is divided into three $ \phi $ sectors and eight $ \eta $ sectors with 128 strips running radially in each. This results in a mean coverage per strip of 450 $\mu$rad and a pitch varying from approximately 500 $\mu$m to 1.3 mm. To each group of 128-strips a front-end electronics chip called the VFAT3 is attached. This chip digitizes the signals from the strips returning a single hit/not-hit bit. The VFAT3s are all connected to the GEM electronics board which acts as router to forward the data towards the OptoHybrid, a concentrator board located on the large side of the GEM which is the interface to the off-detector electronics. The VFAT3s and the OptoHybrid are cooled down using cooling pipes attached on the top of the boards. Finally, a protective cover closes and protects the detector. When two chambers are assembled, a patch panel is added in order to facilitate the insertion and removal of the low and high voltage cables, the water for the cooling, the gas, and the optical fibers connected to the DAQ system. Note that a single source of high voltage is needed to power a chamber thanks to the use of a ceramic voltage divider which spreads the voltage over the various layers. \\
-
-    \begin{figure}[t!]
+    \begin{figure}[b!]
       \centering
       \includegraphics[width=\textwidth]{img/II-1-gem/gem-exploded.pdf}
       \caption{Exploded view of the mechanical design of a Triple-GEM chamber \cite{Colaleo:2021453}.}
       \label{fig:II-1-exploded}
     \end{figure}
+
+    The structure of a single chamber is shown in Figure \ref{fig:II-1-exploded} which provides an exploded view of the detector. The drift cathode is placed on the bottom of the detector on which a frame is attached. The three GEM foils are stretched out using screws embedded in the frame along with the seals making the chamber air tight. The anode strips are engraved on the readout board that closes the active region of the detector. One chamber is divided into three $ \phi $ sectors and eight $ \eta $ sectors with 128 strips running radially in each. This results in a mean coverage per strip of 450 $\mu$rad and a pitch varying from approximately 500 $\mu$m to 1.3 mm. To each group of 128-strips a front-end electronics chip called the VFAT3 is attached. This chip digitizes the signals from the strips returning a single hit/not-hit bit. The VFAT3s are all connected to the GEM electronics board which acts as router to forward the data towards the OptoHybrid, a concentrator board located on the large side of the GEM which is the interface to the off-detector electronics. The VFAT3s and the OptoHybrid are cooled down using cooling pipes attached on the top of the boards. Finally, a protective cover closes and protects the detector. When two chambers are assembled, a patch panel is added in order to facilitate the insertion and removal of the low and high voltage cables, the water for the cooling, the gas, and the optical fibers connected to the DAQ system. Note that a single source of high voltage is needed to power a chamber thanks to the use of a ceramic voltage divider which spreads the voltage over the various layers. \\
 
     Once assembled, 36 superchambers will be installed in each endcap of CMS as displayed in Figure \ref{fig:II-1-wheel} showing the first station of the endcap of CMS. The full ring will be placed in the so-called nose of the endcap, between the HCAL and the ME1/1 CSC stations.
 
@@ -125,8 +126,8 @@
       \item Maximum geometric acceptance within the given CMS envelope;
       \item Rate capability of 10 kHz cm$^{-2}$ or better to cope with the HL-LHC hit rate;
       \item Single-chamber efficiency of 97\% or better for detecting minimum ionizing particles resulting in 99.9\% efficiency for a superchamber when signals are combined with a logical OR;
-      \item Angular resolution of 300 $\mu$rad or better on $ \phi_{GE1/1} $ to discriminate high-p$_T$ from low-p$_T$ muons when combining the measurements with ME1/1;
       \item Timing resolution of 10 ns or better for a single chamber, improving when combining the superchamber measurements, to allow matching with the CSC hits;
+      \item Angular resolution of 300 $\mu$rad or better on $ \phi_{GE1/1} $ to discriminate high-p$_T$ from low-p$_T$ muons when combining the measurements with ME1/1;
       \item Gain uniformity of 15\% or better across a chamber and between chambers to ensure that no geometrical or trigger biases are present. \\
     \end{itemize}
 
@@ -134,23 +135,27 @@
 
       Rate capability has been measured by monitoring the gain of a chamber when subject to a 22 keV Ag X-ray source and a high-intensity 8 keV Cu source. Figure \ref{fig:II-1-rate-mes} depicts the effective gas gain as a function of the rate of incident particles in a GE1/1-IV detector irradiated with a 22 keV X-ray source. With Ar/CO$_2$/CF$_4$, gain uniformity is maintained up to 100 MHz cm$^{-2}$. This confirms that the GE1/1 chambers are able to sustain rates up to 10 000 times higher than what they will experience in the 1.6 < |$\eta$| < 2.2 region of CMS. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
-        \includegraphics[width=0.9\textwidth]{img/II-1-gem/rate.png}
+        \includegraphics[width=0.7\textwidth]{img/II-1-gem/rate.png}
         \caption{Effective gas gain as a function of the rate of incident particles in a GE1/1-IV detector irradiated with a 22 keV X-ray source \cite{Colaleo:2021453}.}
         \label{fig:II-1-rate-mes}
       \end{figure}
 
     \subsection{Detection Efficiency}
 
-      The detection efficiency is measured using a multi-layer tracking system placed in front of the detector in a beam of particles. Tracks are reconstructed in the former and extrapolated to the latter to match with reconstructed hits. When using the analog readout electronics, an offline cut is applied on the charge of the strips to cancel noise. In the digital readout system, an online threshold is applied. Figure \ref{fig:II-1-efficiency-hv} plots the evolution of the efficiency as a function of the high voltage applied to the drift electrode for a GE1/1-III chamber operated with Ar/CO$_2$ at 70\% and 30\% respectively and for different offline cuts on the collected charge. Both results indicate an efficiency plateau at 97\%. \\
+      The detection efficiency is measured using a multi-layer tracking system placed in front of the detector in a beam of particles. Tracks are reconstructed in the former and extrapolated to the latter to match with reconstructed hits. When using the analog readout electronics, an offline cut is applied on the charge of the strips to cancel noise. In the digital readout system, an online threshold is applied. The image on the left in Figure \ref{fig:II-1-efficiency-hv} plots the evolution of the efficiency as a function of the high voltage applied to the drift electrode for a GE1/1-III chamber operated with Ar/CO$_2$ at 70\% and 30\% respectively and for different offline cuts on the collected charge. Both results indicate an efficiency plateau at 97\%. \\
 
       \begin{figure}[t!]
         \centering
-        \includegraphics[width=0.85\textwidth]{img/II-1-gem/efficiency.png}
-        \caption{Evolution of the efficiency as a function of the high voltage applied to the drift electrode for a GE1/1-III chamber operated with Ar/CO$_2$ at 70\% and 30\% respectively and for different offline cuts on the collected charge \cite{Colaleo:2021453}.}
+        \includegraphics[width=\textwidth]{img/II-1-gem/efficiency.png}
+        \caption{Left: evolution of the efficiency as a function of the high voltage applied to the drift electrode for a GE1/1-III chamber operated with Ar/CO$_2$ at 70\% and 30\% respectively and for different offline cuts on the collected charge \cite{Colaleo:2021453}. Right: time resolution of a small Triple-GEM detector as a function of the electric field in the drift gap \cite{Thierry:2065693}.}
         \label{fig:II-1-efficiency-hv}
       \end{figure}
+
+    \subsection{Time Resolution}
+
+      The timing measurements are done by fitting the spread of the distribution plotting the time difference between a trigger coming from scintillators and the detection of the particle by the GEM detector. The plot on the right in Figure \ref{fig:II-1-time-res} shows the time resolution of a small Triple-GEM detector as a function of the electric field in the drift gap. Time resolution studies have been performed using Ar/CO$_2$/CF$_4$ as well as Ar/CO$_2$ gas mixtures. At the highest voltages, the former yields a resolution of 4 ns due to the fast electron transport speed in CF$_4$ while the latter provides 8 ns \cite{Thierry:2065693}.
 
     \subsection{Spatial Resolution}
 
@@ -158,24 +163,13 @@
       \begin{equation}
         \frac{\text{angular strip pitch}}{\sqrt{12}} = \frac{455\  \mu\text{rad}}{\sqrt{12}} = 131\ \mu\text{rad} .
       \end{equation}
-      Similar results were obtained using analog readout systems. \\
-
-    \subsection{Time Resolution}
-
-      The timing measurements are done by fitting the spread of the distribution plotting the time difference between a trigger coming from scintillators and the detection of the particle by the GEM detector. Figure \ref{fig:II-1-time-res} shows the time resolution of a small Triple-GEM detector as a function of the electric field in the drift gap. Time resolution studies have been performed using Ar/CO$_2$/CF$_4$ as well as Ar/CO$_2$ gas mixtures. At the highest voltages, the former yields a resolution of 4 ns due to the fast electron transport speed in CF$_4$ while the latter provides 8 ns \cite{Thierry:2065693}. \\
-
-      \begin{figure}[t!]
-        \centering
-        \includegraphics[width=0.8\textwidth]{img/II-1-gem/time-resolution.png}
-        \caption{Time resolution of a small Triple-GEM detector as a function of the electric field in the drift gap \cite{Thierry:2065693}.}
-        \label{fig:II-1-time-res}
-      \end{figure}
+      Similar results were obtained using analog readout systems.
 
     \subsection{Response Uniformity}
 
       The response uniformity of the GEMs is measured for each detector as part of the quality control process. An X-ray generator is used to scan the entire chamber and the peak amplitude of the pulse charge distribution is taken as measurement of the uniformity. Figure \ref{fig:II-1-uniformity} represents the distribution of the pulse charge measured over different strips on the left, and the evolution of the mean of the distribution of the pulse charge over multiple strips on the right. These tests show that the uniformity of the detector does not vary more than 15\%.
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.9\textwidth]{img/II-1-gem/uniformity.png}
         \caption{Left: distribution of the pulse charge measured over different strips. Right: evolution of the mean of the distribution of the pulse charge over multiple strips \cite{Colaleo:2021453}.}

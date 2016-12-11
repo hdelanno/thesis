@@ -88,12 +88,12 @@
         \label{fig:II-2-gbt-asic}
       \end{figure}
 
-      To convert the GBTX signals into optical communication, the Versatile Link project provides two laser diode modules: a transceiver module called VTRx and a dual transmitter module called VTTx. The modules have been designed to withstand high magnetic field and radiation doses as encountered in the LHC experiments. The maximum bit rate is of 4.8 Gbps with a bit error rate inferior to 10$^{-12}$. Figure \ref{fig:II-2-versatile} shows a picture of the VTTx (top) and VTRx (bottom) optical transceivers of the Versatile Link project.
+      To convert the GBTX signals into optical communication, the Versatile Link project provides two laser diode modules: a transceiver module called VTRx and a dual transmitter module called VTTx. The modules have been designed to withstand high magnetic field and radiation doses as encountered in the LHC experiments. The maximum bit rate is of 4.8 Gbps with a bit error rate inferior to 10$^{-12}$. Figure \ref{fig:II-2-versatile} shows a picture of the VTTx (left) and VTRx (right) optical transceivers of the Versatile Link project.
 
       \begin{figure}[b!]
         \centering
-        \includegraphics[width=0.8\textwidth]{img/II-2-daq/versatile.jpg}
-        \caption{Picture of the VTTx (top) and VTRx (bottom) optical transceivers of the Versatile Link project.}
+        \includegraphics[width=\textwidth]{img/II-2-daq/versatile.jpg}
+        \caption{Picture of the VTTx (left) and VTRx (right) optical transceivers of the Versatile Link project.}
         \label{fig:II-2-versatile}
       \end{figure}
 
@@ -123,27 +123,28 @@
     \subsection{The CTP7 Advanced Mezzanine Card}
     \label{sec:II-2-ctp7}
 
-      The AMC board used as back-end electronics is the CTP7 \cite{CTP7} developed by the University of Wisconsin and shown in Figure \ref{fig:II-2-ctp7}. It is equipped with a large Virtex-7 FPGA (XC7VX690T) providing extensive computational power along with a Zynq FPGA (XC7Z045) able to run a Linux operating system for monitoring. The optical interface with the on-detector electronics is done through 36 transmitters and 48 receivers. Using one CTP7, six superchambers can be readout thus requiring a total of six CTP7s per endcap for the GE1/1 project. \\
-
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/ctp7.png}
         \caption{Photograph of the CTP7 AMC developed by the University of Wisconsin used as back-end electronics \cite{CTP7}.}
         \label{fig:II-2-ctp7}
       \end{figure}
 
+      The AMC board used as back-end electronics is the CTP7 \cite{CTP7} developed by the University of Wisconsin and shown in Figure \ref{fig:II-2-ctp7}. It is equipped with a large Virtex-7 FPGA (XC7VX690T) providing extensive computational power along with a Zynq FPGA (XC7Z045) able to run a Linux operating system for monitoring. The optical interface with the on-detector electronics is done through 36 transmitters and 48 receivers. Using one CTP7, six superchambers can be readout thus requiring a total of six CTP7s per endcap for the GE1/1 project. \\
+
+
       The function of the CTP7 is triple: handle slow control requests for the subsystems, interpret TTC signals, and readout the trigger and tracking data from the OptoHybrids. The CTP7 is the interface between the control and monitoring software and the detector electronics. It uses the fabric A lines of the MCH1 to connect to a Gigabit Ethernet network and handle TCP requests. It interprets the requests and forwards them to the appropriate subsystem: either itself or over the optical link to the OptoHybrids and VFAT3s. The CTP7 also receives the TTC commands on the fabric B from MCH2 and must forward them to the subsystems along with the LHC clock received on the CLK1 line. Finally, when the VFAT3s or the OptoHybrids push data upwards to the CTP7, the latter must format the data before sending it on the backplane to a dedicated DAQ AMC.
 
     \subsection{The AMC13 Advanced Mezzanine Card}
 
-      The module which delivers the TTC signals and the LHC clock to the CTP7s and retrieves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 in the microTCA crate. Its functional diagram is shown in Figure \ref{fig:II-2-amc13}. It is equipped with two FPGAs: a powerful Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwarded on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA, which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retrieve tracking and trigger data over the fabric A ports running at 5 Gbps. For development purposes, the AMC13 integrates internal TTC commands and LHC clock generators. \\
-
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.9\textwidth]{img/II-2-daq/amc13.png}
         \caption{Functional diagram of the AMC13 highlighting the external connections to the TTC system, backplane, and MCH of the microTCA crate \cite{AMC13}.}
         \label{fig:II-2-amc13}
       \end{figure}
+
+      The module which delivers the TTC signals and the LHC clock to the CTP7s and retrieves the trigger and tracking data from the backplane is the AMC13 \cite{AMC13}. It is a board specifically designed for CMS which replaces the MCH2 in the microTCA crate. Its functional diagram is shown in Figure \ref{fig:II-2-amc13}. It is equipped with two FPGAs: a powerful Virtex-6 for data handling, and a smaller Spartan-6 for control and monitoring. The TTC signal is received through an optical link from which the LHC clock is extracted along with the TTC commands. The clock is forwarded on the CLK1 line and the TTC commands are passed to the Spartan-6 FPGA, which formats them on the fabric B lines at 80 MB/s. Being in the MCH2 slot, the AMC13 has direct access to all AMCs, which it uses to retrieve tracking and trigger data over the fabric A ports running at 5 Gbps. For development purposes, the AMC13 integrates internal TTC commands and LHC clock generators. \\
 
       The Virtex-6 FPGA of the AMC13 is connected to FEROLs of the central DAQ of CMS (see Section \ref{sec:I-3-daq}) through the two SFP+ optical links running at 6 Gbps which implement the S-Link Express protocol defined by CMS. An additional SFP+ can be used as a spare if the bandwidth is required. Next to the data, the AMC13 also receives the TTC signals from TCDS and sends TTS signals to the TCDS system to inform it about the status of the readout. The TTS codes can be: hardware failure, imminent overflow, sync lost, busy, ready, or error. Using these, the TCDS system can regulate the L1A rate in order for the system to be able to cope.
 
@@ -167,7 +168,7 @@
 
     Due to the ongoing developments on the VFAT3 ASIC and the GBT chipset, and to test the feasibility of the manufacturing of the GEB, a first prototype of the GE1/1 DAQ system was developed in 2014 with slightly different components. The differences with the final system are shown in Figure \ref{fig:II-2-gem-system-v1} where elements in red are not yet implemented and those in blue are prototypes or variations of the final electronics. The system was composed of 6 VFAT2 front-end chips, predecessor of the VFAT3, a first prototype of the GEB with only 6 out of the 24 positions active, and a first version of the OptoHybrid optically connected to the GLIB AMC serving as readout board. The usability of the system was tested during a test beam campaign in 2014-2015 which acted as proof of concept for the DAQ system architecture.
 
-    \begin{figure}[h!]
+    \begin{figure}[t!]
       \centering
       \includegraphics[width=0.9\textwidth]{img/II-2-daq/gem-system-v1.pdf}
       \caption{Architecture of the first prototype of the GE1/1 DAQ system with the VFAT2 ASIC, first version of the GEB, first version of the OptoHybrid, and GLIB AMC.}
@@ -176,18 +177,18 @@
 
     \subsection{The VFAT2 ASIC}
 
-      Similarly to the VFAT3 ASIC, of which the architecture has been presented above, the VFAT2 is a binary front-end chip used to digitize signals generated by gaseous detectors. A schematic representation of the chip is depicted in Figure \ref{fig:II-2-vfat2}. The 128 analog signals are preamplified, shaped, and discriminated against a settable threshold in the analog front-end which is asynchronous from the LHC clock. Synchronicity is achieved through monostables connected to each channel which allow to generate a binary pulse each time the threshold is reached in a given BX. Moreover, the duration of the output signal of the monostable can be stretched to cover multiple clock cycles. This function is used in the tracking data stored in the SRAM1 as well as the eight trigger bits, called SBits, formatted by the Trigger unit. Upon reception of a L1A, data is transferred from the SRAM1 to the SRAM2 and serially transmitted over the DataOut and DataValid lines. The DataOut line caries the 192 bits that form an event while the DataValid line signals the validity of the data by going to a logic '1' during transmission. The four fast commands (L1A, Resync, CalPulse, and BC0), called the T1 in the VFAT2 context, are received over a single differential pair and are encoded on three bits, meaning that no two consecutive L1As can be received within three BXs. Finally, the configuration of the ASIC is done using the Inter-Integrated Circuit (I2C) protocol. \\
-
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/vfat2.png}
         \caption{Schematic diagram of the VFAT2 showing the analog front-end on the left and the digital control and readout system on the right \cite{Aspell:1069906}.}
         \label{fig:II-2-vfat2}
       \end{figure}
 
+      Similarly to the VFAT3 ASIC, of which the architecture has been presented above, the VFAT2 is a binary front-end chip used to digitize signals generated by gaseous detectors. A schematic representation of the chip is depicted in Figure \ref{fig:II-2-vfat2}. The 128 analog signals are preamplified, shaped, and discriminated against a settable threshold in the analog front-end which is asynchronous from the LHC clock. Synchronicity is achieved through monostables connected to each channel which allow to generate a binary pulse each time the threshold is reached in a given BX. Moreover, the duration of the output signal of the monostable can be stretched to cover multiple clock cycles. This function is used in the tracking data stored in the SRAM1 as well as the eight trigger bits, called SBits, formatted by the Trigger unit. Upon reception of a L1A, data is transferred from the SRAM1 to the SRAM2 and serially transmitted over the DataOut and DataValid lines. The DataOut line caries the 192 bits that form an event while the DataValid line signals the validity of the data by going to a logic '1' during transmission. The four fast commands (L1A, Resync, CalPulse, and BC0), called the T1 in the VFAT2 context, are received over a single differential pair and are encoded on three bits, meaning that no two consecutive L1As can be received within three BXs. Finally, the configuration of the ASIC is done using the Inter-Integrated Circuit (I2C) protocol. \\
+
       The main differences between VFAT2 and VFAT3 are the communication protocols and the reduced bandwidth allocated to trigger data over the fixed latency path. While VFAT3 can be directly connected to the GBT chipset, the VFAT2 has to be controlled and readout by the FPGA located on the OptoHybrid. Furthermore, VFAT3 has a trigger granularity of 64 bits per BX while VFAT2 is limited to 8 bits per BX. Although the configuration of the bits can be chosen through programmable registers, it is common to divide the 128 strips in 8 groups of 16 neighboring strips and transmit one bit for each group. \\
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.75\textwidth]{img/II-2-daq/vfat2-hybrid.jpg}
         \caption{Photograph of the VFAT2 Hybrids on which the VFAT2 ASICs are mounted to be interfaced with the GEB.}
@@ -215,7 +216,7 @@
 
       Designed by CERN, the Gigabit Link Interface Board (GLIB) \cite{Vichoudis:1359270} has been developed as an evaluation platform for the GBT FPGA project (see Section \ref{sec:II-2-gbt}). As shown in Figure \ref{fig:II-2-glib}, it is a general purpose microTCA AMC equipped with a Xilinx Virtex-6 FPGA, four SFP optical cages, and two extension headers that can accommodate custom electronics. The GLIB can be used within the microTCA crate in so called crate mode, or as standalone board in bench-top mode. To this end, it is equipped with an Ethernet connector to replace the fabric A line coming from the MCHs while still providing access using IPBus. \\
 
-      \begin{figure}[h!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.8\textwidth]{img/II-2-daq/glib.jpg}
         \caption{Picture of the GLIB AMC equipped with a Xilinx Virtex-6 FPGA, four SFP optical cages, and two extension headers that can accommodate custom electronics and are used as back-end electronics \cite{Vichoudis:1359270}.}
@@ -241,14 +242,14 @@
 
     \subsection{The OptoHybrid v2a}
 
-      The second version of the OptoHybrid is still a prototyping board which offers various configuration schemes to select the best operating mode. Represented in Figure \ref{fig:II-2-ohv2a}, the OptoHybridv2a uses a Xilinx Virtex-6 FPGA similar to the GLIB. It can either use 12 SFP optical cages or a QSFP+ transceiver which offers four optical connections in a single module. The LHC clock can be recovered by the Texas Instrument CDCE62005, a programmable clock generator, or by the radiation hard QPLL module developed by CERN specifically for this purpose.
-
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.7\textwidth]{img/II-2-daq/oh-v2a.jpg}
         \caption{Photograph of the OptoHybrid V2a equipped with a Xilinx Virtex-6 FPGA that concentrates the data from the 24 VFAT2 Hybrids and transmits it to the off-detector electronics.}
         \label{fig:II-2-ohv2a}
       \end{figure}
+
+      The second version of the OptoHybrid is still a prototyping board which offers various configuration schemes to select the best operating mode. Represented in Figure \ref{fig:II-2-ohv2a}, the OptoHybridv2a uses a Xilinx Virtex-6 FPGA similar to the GLIB. It can either use 12 SFP optical cages or a QSFP+ transceiver which offers four optical connections in a single module. The LHC clock can be recovered by the Texas Instrument CDCE62005, a programmable clock generator, or by the radiation hard QPLL module developed by CERN specifically for this purpose.
 
   \section{The GE1/1 Data Acquisition System for the CMS Slice Test}
 

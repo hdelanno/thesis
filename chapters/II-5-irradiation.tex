@@ -105,7 +105,7 @@
 
       A common technique used to mitigate errors in CLBs and DSPs is to triplicate the logic and couple its outputs to a majority voter. This allows to correct the data while SEM solves the corrupted bits in the configuration memory. First, the sequential logic is triplicated, meaning the inputs are sent to three identical modules which output is returned synchronously. The latter are then forwarded to a majority voter which performs a bit-by-bit vote and returns the most probable response. This technique can recover data if only one of the modules is affected by an SEU. In case two modules are corrupted and flip the same bit, data will be corrupted as well. Additionally, a flag can be raised by the majority voter if all three inputs are not identical, meaning an error occurred. A logic diagram of a triplicated module is shown in Figure \ref{fig:II-5-tmr}. Next to the simple triplication method exposed here-above and represented in black, a more complex triplication can be set in place and is represented in gray. In addition to the triplication of the modules holding the logic, the voter is also triplicated along with its outputs. In that scheme, the three outputs are passed to the next module on three different inputs. This allows to mitigate errors occurring in the voter itself.
 
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.7\textwidth]{img/II-5-irradiation/tmr}
         \caption{Logic diagram of a triplicated module coupled to a single voter (black) or to three distinct voters (gray).}
@@ -283,11 +283,15 @@
 
       As can be observed, the failure rate increases with the particle flux due to the accumulation of errors in the design. The characteristic time needed to correct an error in the configuration memory is of a few milliseconds which at high fluxes is longer than the time between two SEUs. If two SEUs affect the same area of the logic, the triplication method will fail. At fluxes of 5 $ \times $ 10$^7$ cm$^{-2}$ s$^{-1}$, the SEU rate is so high that the triplication method cannot recover data at all. However, by extrapolating the data points, it can be seen that this technique will prove efficient and mitigate the SEUs at fluxes below 10$^5$ cm$^{-2}$ s$^{-1}$.
 
+  \section{Consequences for the GEM Upgrade Project}
+
+    From the numbers obtained during the irradiation tests, it is possible to estimate the rate of SEUs that will be observed by the OptoHybrid in GE1/1 during run time in CMS. The latter will then define the requirements of the firmware in terms of implementation of mitigation techniques. The impact on the other GEM upgrade projects, namely GE2/1 and ME0, can also be estimated and guide the decision that will be made regarding the design of their electronics.
+
     \subsection{Impact on the GE1/1 Upgrade Project}
 
-      From the numbers obtained during the irradiation tests, it is possible to estimate the number of SEUs that will be observed by the OptoHybrid in GE1/1 during run time in CMS. The dominant background in CMS is composed of photons and neutrons. Figure \ref{fig:II-5-neutrons} shows the particle fluxes for the GE1/1 station as a function of the pseudorapidity for the LHC Phase II on the left, and the energy spectrum of the background particles in GE1/1 on the right. \\
+      The dominant background in CMS is composed of photons and neutrons. Figure \ref{fig:II-5-neutrons} shows the particle fluxes for the GE1/1 station as a function of the pseudorapidity for the LHC Phase II on the left, and the energy spectrum of the background particles in GE1/1 on the right. \\
 
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=\textwidth]{img/II-5-irradiation/fluka.png}
         \caption{Left: particle fluxes for the GE1/1 station as a function of the pseudorapidity for the LHC Phase II \cite{Zenoni:2065693}.Right: energy spectrum of the background particles in GE1/1 \cite{Zenoni:2065693}.}
@@ -298,7 +302,7 @@
 
        The 20 kHz cm$^{-2}$ flux is thus reduced as the contribution from the particles below 20 MeV is ignored as it has been shown that they do not interact with the FPGA. Therefore, in order to set an upper limit on the number of SEUs, the interaction cross section is integrated with the flux between 20 MeV and 1 GeV. The cross section for particles with energy higher than 62 MeV is linearly extrapolated from the results shown in Figure \ref{fig:II-5-data-seu-energy}. Table \ref{tab:II-5-seu-rate} lists the types of SEUs encountered along with their respective interaction cross section and the resulting rate of errors in CMS per FPGA for the LHC Phase I ($ \mathcal{L} $ = 2 $\times$ 10$^{34}$ cm$^{-2}$ s$^{-1}$) and LHC Phase II ($ \mathcal{L} $ = 5 $ \times $ 10$^{34}$ cm$^{-2}$ s$^{-1}$) conditions. The LHC Phase II conditions correspond to a fluxes 2.5 times higher than for LHC Phase I. \\
 
-      \begin{table}[h!]
+      \begin{table}[t!]
         \begin{tabularx}{\textwidth}{L{1.1}C{1}C{0.95}C{0.95}}
           \textbf{Event type} & \textbf{cross section} & \textbf{SEUs per day \newline LHC Phase I} & \textbf{SEUs per day \newline LHC Phase II} \\ \hline
           SEM - recoverable & 3.08 $ \times $ 10$^{-7}$ cm$^2$ &  13.3  & 33.2  \\
