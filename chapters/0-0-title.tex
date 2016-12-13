@@ -12,17 +12,29 @@
 
 \begin{titlepage}
   \AddToShipoutPictureBG*{
-    \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{img/0-0-title/cover.png}}}
+    % \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{img/0-0-title/cover.png}}}
+    \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{img/0-0-title/logo.jpg}}}
   }
+  \tgherosfont
+	\centering
 
-	\flushright
-	\hfill
+  \vspace*{\fill}
+	{ \large \thesisSubject } \\[5mm]
+	{ \LARGE \color{ctcolortitle} \textbf{\thesisTitle} \\[10mm] }
+	{ \Large \thesisName } \\
 	\vfill
-	{ \LARGE \par }
-	\rule[5pt]{\textwidth}{.4pt} \par
-	{ \Large }
-	\vfill
-	\textit{\large }
+  % Supervisor
+	\begin{minipage}[t]{.27\textwidth}
+		\raggedleft
+		\textit{Supervisor}
+	\end{minipage}
+	\hspace*{15pt}
+	\begin{minipage}[t]{.65\textwidth}
+		\Large \thesisFirstSupervisor
+	\end{minipage} \\[30mm]
+
+	\thesisDate \\
+
 \end{titlepage}
 
 
@@ -116,16 +128,3 @@
 	\thesisUniversityPostalCode\ - \thesisUniversityCity
 }
 \clearpage
-
-% ------------------------------------  -->
-\hfill
-\vfill
-\begin{flushright}
-	\small
-  % \textit{``Why do you look so sad?''}\\[3mm]
-  % \textit{``Because you speak to me in\\ words and I look at you with\\ feelings''}\\[5mm]
-  % --- Leo Tolstoy
-  % \textit{``And those who were seen dancing were thought to be insane\\ by those who could not hear the music.''}\\[5mm]
-  % --- Friedrich Nietzsche
-\end{flushright}
-\vfill
