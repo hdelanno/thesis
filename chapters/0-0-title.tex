@@ -1,18 +1,5 @@
-% % ------------------------------------  --> cover title page
-% \begin{titlepage}
-% 	\flushright
-% 	\hfill
-% 	\vfill
-% 	{ \LARGE \thesisTitle \par }
-% 	\rule[5pt]{\textwidth}{.4pt} \par
-% 	{ \Large \thesisName }
-% 	\vfill
-% 	\textit{\large \thesisDate}
-% \end{titlepage}
-
 \begin{titlepage}
   \AddToShipoutPictureBG*{
-    % \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{img/0-0-title/cover.png}}}
     \AtPageUpperLeft{\raisebox{-\height}{\includegraphics[width=\paperwidth]{img/0-0-title/logo.jpg}}}
   }
   \tgherosfont
@@ -128,3 +115,13 @@
 	\thesisUniversityPostalCode\ - \thesisUniversityCity
 }
 \clearpage
+
+% ------------------------------------  --> lower title back for single page layout
+% ------------------------------------  -->
+\hfill
+\vfill
+\begin{flushright}
+	\small
+  \textit{``A vous'''}\\[3mm]
+\end{flushright}
+\vfill
