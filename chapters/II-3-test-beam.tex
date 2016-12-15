@@ -319,7 +319,7 @@
         \label{fig:II-3-app-vfat2}
       \end{figure}
 
-      The OptoHybrid page, shown in Figure \ref{fig:II-3-app-oh}, provides more information and control options to the user. The top-left part of the page is used to modify system register controlling the trigger source, clock source, trigger information sent over the debugging header, etc. This is where the user can change the type of ongoing run by going from a data taking run using external triggers to a calibration run using internally generated triggers. The panel directly on the right provides status information on the various clocking resources in the FPGA. By default, the OptoHybrid uses the on-board oscillator to power the system and the optical links. As communication is established with the GLIB, the GTXs provide the recovered clock from the link which is the system clock. When the latter is stable, the OptoHybrid can decide to switch from its on-board clock to the system clock in order to be synchronous with the whole DAQ system. This operation can be prohibited, forced, or allowed by the user, which can also chose to use an external clock provided through the debugging header. These clocking options are useful for the test beam setup where the clock can be provided externally to synchronize with other electronics equipment. Finally, the bottom part of the page display counter values for the wishbone request, fast commands, link errors, etc. Note that when a discrepancy is observed between two correlated counters, a warning flag is raised as can be seen in the bottom-left of the picture. Additionnaly, Figure \ref{fig:II-3-app-adc} is a screenshots of the page used to monitor the temperature and voltages of the OptoHybrid. It plots the evolution of these parameters over time. \\
+      The OptoHybrid page, shown in Figure \ref{fig:II-3-app-oh}, provides more information and control options to the user. The top-left part of the page is used to modify system register controlling the trigger source, clock source, trigger information sent over the debugging header, etc. This is where the user can change the type of ongoing run by going from a data taking run using external triggers to a calibration run using internally generated triggers. The panel directly on the right provides status information on the various clocking resources in the FPGA. By default, the OptoHybrid uses the on-board oscillator to power the system and the optical links. As communication is established with the GLIB, the GTXs provide the recovered clock from the link which is the system clock. When the latter is stable, the OptoHybrid can decide to switch from its on-board clock to the system clock in order to be synchronous with the whole DAQ system. This operation can be prohibited, forced, or allowed by the user, which can also chose to use an external clock provided through the debugging header. These clocking options are useful for the test beam setup where the clock can be provided externally to synchronize with other electronics equipment. Finally, the bottom part of the page display counter values for the wishbone request, fast commands, link errors, etc. Note that when a discrepancy is observed between two correlated counters, a warning flag is raised. Additionally, the interface allows the user to monitor the evolution of the temperature and voltages of the OptoHybrid. Figure \ref{fig:II-3-app-adc} is a screenshots of the page which enables this feature. \\
 
       Finally, the control page of the VFAT2s, shown in Figure \ref{fig:II-3-app-vfat2}, gives access to the most significant registers of the front-end chips. It provides a summary of the on/off/absent status of each VFAT2 on the GEB and, by clicking on an individual slot, the value of each register as shown in the panel on the right. Default settings for the registers are saved in memory and compared to the current values, raising warnings when they differ and allowing the user to correct them. The user can also control all the VFAT2s at once by applying the default settings or turning them on or off at the same time.
 
@@ -359,13 +359,13 @@
 
     \subsection{Hit Rate Monitoring}
 
-      Next to DQM functionnalities, the firmware also monitors the hit rate in the trigger and in tracking data forwarded by the VFAT2s. Figure \ref{fig:II-3-app-rates} is a screenshot of the page of the web application used to monitor the rates. For every connected VFAT2, the application logs the rate of hits in the trigger and tracking data, and the rate of tracking data packets that are received with a valid and corrupted CRC.
+      Next to DQM functionalities, the firmware also monitors the hit rate in the trigger and in tracking data forwarded by the VFAT2s. Figure \ref{fig:II-3-app-rates} is a screenshot of the page of the web application used to monitor these rates. For every connected VFAT2, the application logs the rate of hits in the trigger and tracking data, and the rate of tracking data packets that are received with a valid and corrupted CRC.
 
   \section{The Test Beam Setup}
 
     The test beam campaigns took place at CERN in the North Area of Prevessin, one of the secondary sites. The beam provided to the experiments originates from the SPS proton bunches which are extracted from the accelerator at 400 GeV and interact with a 30-cm-thick Beryllium target to produce the secondary beams mainly composed of electrons and hadrons (protons, pions, and kaons). A selection on the type of particles and their momentum is performed using so-called wobbling magnets that bend the beams and redirect them to the experimental setups. In the transfer tunnels, collimators can be adjusted to increase or reduce the flux of particles and an optional secondary target can be placed in the beam path to create a tertiary beam. Figure \ref{fig:II-3-sps} shows the monitoring page of the SPS indicating the presence of spills of particles in yellow. Spills last between 4.8 s and 9.6 s and repeat every 14 s to 48 s depending on the SPS operation. \\
 
-    \begin{figure}[t!]
+    \begin{figure}[b!]
       \centering
       \includegraphics[width=0.8\textwidth]{img/II-3-test-beam/sps.png}
       \caption{Monitoring page of the SPS indicating the presence of spills of particles (yellow).}
@@ -385,29 +385,28 @@
         \label{fig:II-3-test-geb}
       \end{figure}
 
+            \begin{table}[b!]
+              { \footnotesize
+              \begin{tabularx}{\textwidth}{|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|}
+                \hline \textbf{Current ($\mu$A)} & \textbf{Divider (V)} & \textbf{Drift plane (V)} & \textbf{GEM1 top (V)} & \textbf{GEM1 bottom (V)} & \textbf{GEM2 top (V)} & \textbf{GEM2 bottom (V)} & \textbf{GEM3 top (V)} & \textbf{GEM3 bottom (V)} \\ \hline
+                700 & 3921 & 3290 & 2503 & 2107 & 1801 & 1416 & 805 & 437 \\
+                710 & 3977 & 3337 & 2538 & 2137 & 1827 & 1437 & 816 & 443 \\
+                720 & 4033 & 3384 & 2574 & 2167 & 1853 & 1457 & 828 & 450 \\
+                730 & 4089 & 3431 & 2610 & 2198 & 1879 & 1477 & 839 & 456 \\
+                740 & 4145 & 3478 & 2646 & 2228 & 1904 & 1497 & 851 & 462 \\
+                750 & 4201 & 3525 & 2682 & 2258 & 1930 & 1518 & 862 & 468  \\
+                760 & 4257 & 3572 & 2717 & 2288 & 1956 & 1538 & 874 & 475 \\
+                770 & 4313 & 3619 & 2753 & 2318 & 1981 & 1558 & 885 & 481 \\
+                780 & 4369 & 3666 & 2789 & 2348 & 2007 & 1578 & 897 & 487 \\
+                790 & 4425 & 3713 & 2825 & 2378 & 2033 & 1598 & 908 & 493 \\
+                800 & 4481 & 3760 & 2860 & 2408 & 2059 & 1619 & 820 & 500 \\
+                810 & 4537 & 3807 & 2896 & 2438 & 2084 & 1639 & 931 & 506 \\ \hline
+              \end{tabularx}
+              }
+              \caption{Values of the voltages applied to the detectors according to the current flowing through the high voltage resistive divider.}
+              \label{tab:II-3-test-hv}
+            \end{table}
       The GEM detectors were connected to a gas system providing a mixture of Ar/CO$_2$/CF$_4$ at 45\%, 15\%, and 40\% respectively. The high-voltage was delivered through a ceramic high-voltage divider for one chamber and by separate channels connected directly to the GEM foils and planes for the other. The high-voltage applied is expressed in terms of current flowing through the divider which, by summing up the individual resistors that it is made of, yields a value in Volts. Table \ref{tab:II-3-test-hv} enumerates the different values of the voltages according to the current flowing through the divider. The difference between the divider and drift plane values is due to an input filter placed before the latter which smooths out fluctuations in the voltage. The low voltages for the OptoHybrids (1.8 V and 4 V) and for the GEBs (2.5 V) were delivered by two power boards mounted on top of the detector stand, along with the necessary tools to reprogram the FPGA in case of failure and the debugging headers. \\
-
-      \begin{table}[h!]
-        { \footnotesize
-        \begin{tabularx}{\textwidth}{|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|C{1}|}
-          \hline \textbf{Current ($\mu$A)} & \textbf{Divider (V)} & \textbf{Drift plane (V)} & \textbf{GEM1 top (V)} & \textbf{GEM1 bottom (V)} & \textbf{GEM2 top (V)} & \textbf{GEM2 bottom (V)} & \textbf{GEM3 top (V)} & \textbf{GEM3 bottom (V)} \\ \hline
-          700 & 3921 & 3290 & 2503 & 2107 & 1801 & 1416 & 805 & 437 \\
-          710 & 3977 & 3337 & 2538 & 2137 & 1827 & 1437 & 816 & 443 \\
-          720 & 4033 & 3384 & 2574 & 2167 & 1853 & 1457 & 828 & 450 \\
-          730 & 4089 & 3431 & 2610 & 2198 & 1879 & 1477 & 839 & 456 \\
-          740 & 4145 & 3478 & 2646 & 2228 & 1904 & 1497 & 851 & 462 \\
-          750 & 4201 & 3525 & 2682 & 2258 & 1930 & 1518 & 862 & 468  \\
-          760 & 4257 & 3572 & 2717 & 2288 & 1956 & 1538 & 874 & 475 \\
-          770 & 4313 & 3619 & 2753 & 2318 & 1981 & 1558 & 885 & 481 \\
-          780 & 4369 & 3666 & 2789 & 2348 & 2007 & 1578 & 897 & 487 \\
-          790 & 4425 & 3713 & 2825 & 2378 & 2033 & 1598 & 908 & 493 \\
-          800 & 4481 & 3760 & 2860 & 2408 & 2059 & 1619 & 820 & 500 \\
-          810 & 4537 & 3807 & 2896 & 2438 & 2084 & 1639 & 931 & 506 \\ \hline
-        \end{tabularx}
-        }
-        \caption{Values of the voltages applied to the detectors according to the current flowing through the high voltage resistive divider.}
-        \label{tab:II-3-test-hv}
-      \end{table}
 
       The high voltage applied on the drift plane can be converted to an effective gas gain for the Triple-GEM detector. Figure \ref{fig:II-3-gain} shows the measured gas gains as a function of the current through the high voltage divider for the different generations of GEM detectors and for Ar/CO$_2$ 70:30 and Ar/CO$_2$/CF$_4$ 45:15:40.
 
@@ -439,7 +438,7 @@
 
       The first parameter to study is the noise on the VFAT2s induced by the system and by the effect of the channels. To this end, threshold scans have been produced using the web application. These scans are ran when the beam is not present. They use the trigger bits of the VFAT2s which do not need a L1A source to be produced. These are clocked at 40 MHz and for each threshold value the ratio of events containing hits against the total amount of collected events is defined to be the noise. Figure \ref{fig:II-3-data-threshold} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units, the decimal value written in the eight bits register afterwards converted to a voltage level, for GEM0 on the left and GEM1 on the right. Although the noise level quickly diminishes, it never reaches the expected value of 0 even at very high threshold. Typically, previous test beams have shown that a value of 15 eliminates the noise. Furthermore, it can be seen that noise level is slightly higher in GEM1, which reaches 20\% at a threshold value of 10 against 15\% for GEM0. From the threshold scans, it was decided to run both chambers at a VFAT2 threshold level of 25 for data taking runs. This value is considered to be the default threshold except if otherwise specified. \\
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM1-crop}
@@ -447,9 +446,7 @@
         \label{fig:II-3-data-threshold}
       \end{figure}
 
-      After the end of the test beam, the noise issue has been investigated thoroughly and two sources have been isolated: the I2C clock used for the slow communication and the LEMO cables used for the trigger input. In the version of the firmware used during the test beam, the I2C clock ran continuously which induced noise on the trigger bits of the VFAT2s at a frequency of 100 kHz, the same as the clock itself. This problem has been solved by activating the I2C clock solely when a slow control operation takes place, limiting the number of corrupted trigger bits. The second issue originated from current loops formed between the low power cables of the OptoHybrids and the LEMO cable connecting the system to the NIM crate. The ground of the latter was connected to the OptoHybrid ground through the shielding of the LEMO cables. Once the two ground systems were isolated, noise level comparable to previous observations were obtained. Figure \ref{fig:II-3-noise-comp} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units with results obtained during the test beam on the left and with the improved noise cancelation on the right. The reduction in noise in turn allowed to function at a lower threshold and thus increase the efficiency of the detector, reaching the required 98\% mark. \\
-
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cThresholdScan_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cThreshold_SBitsTK-crop}
@@ -457,13 +454,15 @@
         \label{fig:II-3-noise-comp}
       \end{figure}
 
+      After the end of the test beam, the noise issue has been investigated thoroughly and two sources have been isolated: the I2C clock used for the slow communication and the LEMO cables used for the trigger input. In the version of the firmware used during the test beam, the I2C clock ran continuously which induced noise on the trigger bits of the VFAT2s at a frequency of 100 kHz, the same as the clock itself. This problem has been solved by activating the I2C clock solely when a slow control operation takes place, limiting the number of corrupted trigger bits. The second issue originated from current loops formed between the low power cables of the OptoHybrids and the LEMO cable connecting the system to the NIM crate. The ground of the latter was connected to the OptoHybrid ground through the shielding of the LEMO cables. Once the two ground systems were isolated, noise level comparable to previous observations were obtained. Figure \ref{fig:II-3-noise-comp} plots the noise level as a function of the VFAT2 threshold in terms of VFAT2 units with results obtained during the test beam on the left and with the improved noise cancelation on the right. The reduction in noise in turn allowed to function at a lower threshold and thus increase the efficiency of the detector, reaching the required 98\% mark. \\
+
       It was also observed that GEM1 experienced a leakage current through the GEM foils of about 10 $\mu$A. This had as consequence to reduce the voltage on the GEM foils and thus decrease the gain and efficiency of the detector. The detector also suffered from water condensation inside the gas pipes which caused some problems during the first days of run. These issues can explain the difference in noise observed between the two chambers.
 
     \subsection{VFAT2 Latency Scans}
 
       Once the threshold on the VFAT2s has been set and the beam turned on, a latency scan must be done in order to capture the events corresponding to the triggers coming from the scintillators. Again, the web application is used to run the scan on the VFAT2s. Similarly to the threshold scan, the latency scan counts the ratio of events with a hit against the total number of events. However, it uses the tracking data provided by the VFAT2s and not the trigger bits. Figure \ref{fig:II-3-data-latency} plots the ratio of hit events as a function of the VFAT2 latency in terms of BXs for a monostable pulse length of four clock cycles for GEM0 on the left and GEM1 on the right with muons. When the latency is too low or too high, the VFAT2 misses the hit and a baseline value of 0.05 is observed corresponding to noise. Once the latency enters the correct window, it rises to a value close to 0.98. These plots illustrate the usefulness of the settable monostable pulse length. Indeed, the two points at approximately 0.5 and 0.6 indicate that hits are falling in two adjacent latency values, each collecting one half of the events. This is due to the asynchronous trigger coming from the PMs. In case of a non-adjustable setting, the maximum efficiency of the system would be reduced by half. From these results, a VFAT2 latency value of 11 has been used for data taking runs. This value is considered to be the default latency except if otherwise specified. \\
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cLatency_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cLatency_GEM1-crop}
@@ -477,7 +476,7 @@
 
       Using the latency scan to compute noise and efficiency values, the evolution of these parameters has been studied according to the high-voltage applied on the detector. Figure \ref{fig:II-3-data-eff-hv} plots the measured noise (green), measured efficiency (blue), and computed efficiency (orange) as a function of the high-voltage expressed in microamperes for GEM0 on the left and GEM1 on the right with muons. Both results show an increase in efficiency with the high-voltage, reaching the start of a plateau around 97\%. This is caused by the higher gain at which the GEM foils start to operate which in turn amplifies the signals and allows it to be detected by the VFAT2 ASIC. It can be noted that a shift exists between the results for GEM0 and GEM1. Values for the latter are shifted to the left by approximately 10 $\mu$A. While GEM0 reaches a plateau at 800 $\mu$A, GEM1 requires 810 $\mu$A to reach an efficiency around 97\%. This is due to the leakage current observed during installation which decreases the voltage applied to the GEM foils and in turn performance. It can also be noted that the noise is constant with the high-voltage and remains at 4\%. From this, it was decided to operate both chambers at 800 $\mu$A as sparks were sometimes observed at 810 $\mu$A. This value is considered to be the default high-voltage except if otherwise specified. \\
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_HV_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_HV_GEM1-crop}
@@ -511,7 +510,7 @@
 
       Similarly to the measurements and computations made for the previous study, the effect of trigger rate on the efficiency was measured. Focus is given on the latter as the noise levels are not influenced by the increase in rate and remain at 4\%. Figure \ref{fig:II-3-data-eff-rate} plots the measured efficiency (blue), computed efficiency (orange), and tracking data based efficiency (purple) as a function of the trigger rates for GEM0 on the left and GEM1 on the right with pions. The trigger rate was adjusted using collimaters placed in front of the beam setup. As noted in the results shown in the previous section, the deviation between the efficiency obtained using the latency scans and the tracking data for GEM1 comes from the higher noise to which it was subject. \\
 
-      \begin{figure}[t!]
+      \begin{figure}[b!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cEfficiency_Rate_GEM1-crop}
@@ -529,14 +528,13 @@
         \label{fig:II-3-charge-up}
       \end{figure}
 
-
       To corroborate the statement that the loss in efficiency originates from the detector and not the DAQ system, the latter has been tested against trigger rates of 200 kHz, the maximum rate supported by the VFAT2s. By providing a know number of triggers to the system and counting the number of data packets read out, it was shown that no data losses occur in the readout chain. These results support the claim that the GEM chamber and DAQ system can sustain trigger rate of CMS, which is of 100 kHz for the LHC Phase I, while keeping an efficiency above 96\%. Finally, it is important to emphasize that the measurements of the efficiency against the threshold show that when lowering the working threshold of the VFAT2s to 15 instead of 25, the efficiency increases by 1\% to 2\%. This means a final efficiency above 97\% could be achieve.
 
     \subsection{Cluster Multiplicity and Size}
 
       Two studies that can be performed offline using the recorded data are the evolution of the cluster multiplicity, the number of clusters, and the cluster size, the number of channels per cluster, with the VFAT2 threshold. Figures \ref{fig:II-3-data-clu-mult} and \ref{fig:II-3-data-clu-size} respectively plot the cluster multiplicity and cluster size for muons (green) and pions (blue) as a function of the VFAT2 threshold in terms of VFAT2 units for GEM0 on the left and GEM1 on the right. The points and error bars respectively correspond to the mean and RMS of the distributions. \\
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterMultiplicity_Threshold_GEM1-crop}
@@ -548,7 +546,7 @@
 
       The impact of the efficiency according to the threshold is however not directly visible when considering the cluster size. It is clear that the cluster size decreases as the threshold increases, meaning that less and less channels are being fired. At low threshold, clusters contain roughly 1.5 channels and an average of 1.6 clusters are present per event. When increasing the threshold, the average number of channels fired decreases slightly which does not immediately affect the cluster multiplicity: clusters are reduced in size but not in numbers. The counting of cluster is not directly affected by the cluster size when the latter is greater than one. This means that two clusters of size two are equivalent to two clusters of size one. Even if by increasing the threshold, some channels are being deactivated, other channels in the cluster might still remain active thus leaving the cluster statistic unchanged. \\
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cClusterSize_Threshold_GEM1-crop}
@@ -564,7 +562,7 @@
 
       Finally, to illustrate the structure of the beam, one can create a beam profile obtained by superimposing the collected data and counting the number of hits for each channels. Figure \ref{fig:II-3-data-beam-profile} plots the beam profile for muons (green) and pions (blue) for GEM0 on the left and GEM1 on the right. The pion beam is well defined and centered on the VFAT2 as it is guided and collimated by the magnets of the transfer tunnels from the SPS to the experimental area. The muon beam on the other side displays a large spread due to the decay process of the pions and the collimators installed to stop them. The sharp cut-off on the left side of the profile is due to the geometrical acceptance of the PM placed in the back of the detector. These plots show that the chips do not have any dead channels.
 
-      \begin{figure}[b!]
+      \begin{figure}[t!]
         \centering
         \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM0-crop}
         \includegraphics[width=0.49\textwidth]{img/plots/cBeamProfile_GEM1-crop}
